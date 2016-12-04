@@ -20,6 +20,8 @@
 
 2016-11-28 First Laravel code commit to github 
 
+2016-12-04 Follow the [tutorial](https://github.com/johnlui/Learn-Laravel-5/issues) and build a example project.
+
 ##Goal
 
 ###Part one: Submit class assignment
