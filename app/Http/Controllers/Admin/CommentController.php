@@ -22,7 +22,7 @@ class CommentController extends Controller
 
     public function edit($id)
     {
-        return view('admin/comment/edit')->withComment(Comment::find($id));
+        return view('admin/comment/edit')->withComment(Comment::with('hasOneWork')->find($id));
     }
 
     public function update(Request $request, $id)
