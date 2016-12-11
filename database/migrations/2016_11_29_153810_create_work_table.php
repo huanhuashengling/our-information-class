@@ -30,6 +30,6 @@ class CreateWorkTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('works');
     }
 }

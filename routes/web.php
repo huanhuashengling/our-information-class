@@ -18,7 +18,9 @@
 // Auth::routes();
 Route::auth();
 Route::get('/', 'HomeController@index');
+Route::get('/home', 'HomeController@index');
 
+Route::get('/logout', function (){ Auth::logout(); return redirect('/'); });
 Route::get('work/{id}', 'WorkController@show');
 
 Route::post('comment', 'CommentController@store');

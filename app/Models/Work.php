@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -8,6 +8,6 @@ class Work extends Model
 {
     public function hasManyComments()
     {
-        return $this->hasMany('App\Comment', 'work_id', 'id');
+        return $this->hasMany('App\Models\Comment', 'work_id', 'id');
     }
 }

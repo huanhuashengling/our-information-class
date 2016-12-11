@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +10,6 @@ class Comment extends Model
 
     public function hasOneWork()
     {
-        return $this->hasOne('App\Work', 'id', 'work_id');
+        return $this->hasOne('App\Models\Work', 'id', 'work_id');
     }
 }

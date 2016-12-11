@@ -14,7 +14,7 @@ class WorkSeeder extends Seeder
         DB::table('works')->delete();
 
         for ($i=0; $i < 10; $i++) {
-            \App\Work::create([
+            \App\Models\Work::create([
                 'title'   => 'Title '.$i,
                 'body'    => 'Body '.$i,
                 'user_id' => 1,
