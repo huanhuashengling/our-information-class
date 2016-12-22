@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">编辑 <a href="{{ url('/work/'.$comment->work_id) }}">{{ $comment->hasOneWork->title }}</a> 评论</div>
+                <div class="panel-heading">编辑 <a href="{{ url('/post/'.$comment->post_id) }}">{{ $comment->hasOneWork->title }}</a> 评论</div>
                 <div class="panel-body">
 
                     @if (count($errors) > 0)

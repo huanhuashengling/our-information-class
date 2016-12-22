@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">编辑一篇文章</div>
+                <div class="panel-heading">新增一篇文章</div>
                 <div class="panel-body">
 
                     @if (count($errors) > 0)
@@ -15,14 +15,13 @@
                         </div>
                     @endif
 
-                    <form action="{{ url('admin/work/'.$work->id) }}" method="POST">
-                        {{ method_field('PATCH') }}
+                    <form action="{{ url('admin/post') }}" method="POST">
                         {!! csrf_field() !!}
-                        <input type="text" name="title" class="form-control" required="required" value="{{ $work->title }}" placeholder="请输入标题">
+                        <input type="text" name="title" class="form-control" required="required" placeholder="请输入标题">
                         <br>
-                        <textarea name="body" rows="10" class="form-control" required="required" placeholder="请输入内容">{{ $work->body }}</textarea>
+                        <textarea name="body" rows="10" class="form-control" required="required" placeholder="请输入内容"></textarea>
                         <br>
-                        <button class="btn btn-lg btn-info">编辑文章</button>
+                        <button class="btn btn-lg btn-info">新增文章</button>
                     </form>
 
                 </div>

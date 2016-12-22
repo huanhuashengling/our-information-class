@@ -21,13 +21,13 @@ Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 
 Route::get('/logout', function (){ Auth::logout(); return redirect('/'); });
-Route::get('work/{id}', 'WorkController@show');
+Route::get('post/{id}', 'PostController@show');
 
 Route::post('comment', 'CommentController@store');
 
 Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin'], function() {
     Route::get('/', 'HomeController@index');
-    Route::resource('work', 'WorkController');
+    Route::resource('post', 'PostController');
     Route::resource('comment', 'CommentController');
 });
 

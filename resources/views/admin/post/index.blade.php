@@ -13,20 +13,20 @@
                         </div>
                     @endif
 
-                    <a href="{{ url('admin/work/create') }}" class="btn btn-lg btn-primary">新增</a>
+                    <a href="{{ url('admin/post/create') }}" class="btn btn-lg btn-primary">新增</a>
 
-                    @foreach ($works as $work)
+                    @foreach ($posts as $post)
                         <hr>
-                        <div class="work">
-                            <h4>{{ $work->title }}</h4>
+                        <div class="post">
+                            <h4>{{ $post->title }}</h4>
                             <div class="content">
                                 <p>
-                                    {{ $work->body }}
+                                    {{ $post->body }}
                                 </p>
                             </div>
                         </div>
-                        <a href="{{ url('admin/work/'.$work->id.'/edit') }}" class="btn btn-success">编辑</a>
-                        <form action="{{ url('admin/work/'.$work->id) }}" method="POST" style="display: inline;">
+                        <a href="{{ url('admin/post/'.$post->id.'/edit') }}" class="btn btn-success">编辑</a>
+                        <form action="{{ url('admin/post/'.$post->id) }}" method="POST" style="display: inline;">
                             {{ method_field('DELETE') }}
                             {{ csrf_field() }}
                             <button type="submit" class="btn btn-danger">删除</button>

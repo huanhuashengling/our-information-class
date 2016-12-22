@@ -18,14 +18,14 @@
             <a href="/"><< 返回首页</a>
         </h4>
 
-        <h1 style="text-align: center; margin-top: 50px;">{{ $work->title }}</h1>
+        <h1 style="text-align: center; margin-top: 50px;">{{ $post->title }}</h1>
         <hr>
         <div id="date" style="text-align: right;">
-            {{ $work->updated_at }}
+            {{ $post->updated_at }}
         </div>
         <div id="content" style="margin: 20px;">
             <p>
-                {{ $work->body }}
+                {{ $post->body }}
             </p>
         </div>
 
@@ -41,7 +41,7 @@
             <div id="new">
                 <form action="{{ url('comment') }}" method="POST">
                     {!! csrf_field() !!}
-                    <input type="hidden" name="work_id" value="{{ $work->id }}">
+                    <input type="hidden" name="post_id" value="{{ $post->id }}">
                     <div class="form-group">
                         <label>Nickname</label>
                         <input type="text" name="nickname" class="form-control" style="width: 300px;" required="required">
@@ -71,7 +71,7 @@
             </script>
 
             <div class="conmments" style="margin-top: 100px;">
-                @foreach ($work->hasManyComments as $comment)
+                @foreach ($post->hasManyComments as $comment)
 
                     <div class="one" style="border-top: solid 20px #efefef; padding: 5px 20px;">
                         <div class="nickname" data="{{ $comment->nickname }}">

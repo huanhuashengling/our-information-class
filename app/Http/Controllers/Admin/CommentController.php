@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Models\Comment;
-use App\Models\Work;
+use App\Models\Post;
 
 class CommentController extends Controller
 {
@@ -14,7 +14,7 @@ class CommentController extends Controller
     {
         $comments = Comment::all();
         foreach ($comments as $key => $comment) {
-            $work = Work::find($comment->work_id);
+            $work = Post::find($comment->work_id);
             $comment->work_title = $work->title;
         }
         return view('admin/comment/index')->withComments($comments);
@@ -22,7 +22,7 @@ class CommentController extends Controller
 
     public function edit($id)
     {
-        return view('admin/comment/edit')->withComment(Comment::with('hasOneWork')->find($id));
+        return view('admin/comment/edit')->withComment(Comment::with('hasOnePost')->find($id));
     }
 
     public function update(Request $request, $id)

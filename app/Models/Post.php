@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Work extends Model
+class Post extends Model
 {
     public function hasManyComments()
     {
-        return $this->hasMany('App\Models\Comment', 'work_id', 'id');
+        return $this->hasMany('App\Models\Comment', 'post_id', 'id');
     }
 }

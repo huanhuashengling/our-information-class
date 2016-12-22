@@ -9,7 +9,7 @@
 
                 <div class="panel-body">
 
-                    <a href="{{ url('admin/work') }}" class="btn btn-lg btn-success col-xs-12">管理文章</a>
+                    <a href="{{ url('admin/post') }}" class="btn btn-lg btn-success col-xs-12">管理文章</a>
 
                 </div>
                 <div class="panel-body">
