@@ -10,6 +10,6 @@ class PostController extends Controller
 {
     public function show($id)
     {
-        return view('post/show')->withPost(PostController::with('hasManyComments')->find($id));
+        return view('post/show')->withPost(Post::with('hasManyComments')->find($id));
     }
 }

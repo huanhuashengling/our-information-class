@@ -23,6 +23,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home')->withPosts(\App\Models\Post::all());
+        return view('welcome')->withPosts(\App\Models\Post::all());
     }
 }
