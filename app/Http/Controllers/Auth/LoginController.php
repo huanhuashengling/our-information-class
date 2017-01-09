@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
+use App\Models\Role;
+
 class LoginController extends Controller
 {
     /*
@@ -25,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin';
+    // protected $redirectTo = '/teacher';
 
     /**
      * Create a new controller instance.
@@ -45,5 +47,26 @@ class LoginController extends Controller
     public function username()
     {
         return 'username';
+    }
+
+    /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     *
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        //TODO: more clever way to redirect?
+        $role = Role::find($user->role_id);
+        if('teach' == $role->slug) {
+            return redirect()->intended('teacher');
+        } elseif ('admin' == $role->slug) {
+            return redirect()->intended('admin');
+        } elseif ('stude' == $role->slug) {
+            return redirect()->intended('student');
+        }
     }
 }

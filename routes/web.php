@@ -17,6 +17,10 @@
 
 // Auth::routes();
 Route::auth();
+
+// Route::group(['prefix'=>'{guard}'],function(){ Route::auth();});
+
+
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 
@@ -31,6 +35,11 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin
     Route::resource('comment', 'CommentController');
 });
 
+Route::group(['middleware' => 'auth', 'namespace' => 'Teacher', 'prefix' => 'teacher'], function() {
+    Route::get('/', 'HomeController@index');
+    Route::resource('class', 'SchoolClassController');
+    Route::resource('lesson', 'LessonController');
+});
 // Route::get('/{locale}', function ($locale) {
 //     App::setLocale($locale);
 //     return view('welcome');
