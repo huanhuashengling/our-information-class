@@ -39,8 +39,10 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Teacher', 'prefix' => 'tea
     Route::get('/', 'HomeController@index');
     Route::resource('class', 'SchoolClassController');
     Route::resource('lesson', 'LessonController');
+
+    Route::post('articles', 'LessonLogController@store');
+    // Route::post('articles', 'LessonLogController@store');
+
+    Route::get('takeclass', 'HomeController@takeClass');
 });
-// Route::get('/{locale}', function ($locale) {
-//     App::setLocale($locale);
-//     return view('welcome');
-// });
+

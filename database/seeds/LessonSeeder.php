@@ -15,10 +15,11 @@ class LessonSeeder extends Seeder
 
         for ($i=0; $i < 10; $i++) {
             \App\Models\Lesson::create([
+                'id' => $i+1,
                 'title'   => 'Title '.$i,
                 'subtitle'   => 'Subtitle '.$i,
                 'post_file_format'    => 'jpg',
-                'creator_id' => 1,
+                'user_id' => 2,
             ]);
         }
     }

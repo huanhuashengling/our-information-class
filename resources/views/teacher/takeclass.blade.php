@@ -15,6 +15,10 @@
         @endif
         <div class="col-md-10 col-md-offset-1">
             {!! Form::open(['url'=>'teacher/articles']) !!}
+
+                @foreach ($students as $student)
+                    <button class='btn btn-primary'>{{ $student['username'] }}</button>
+                @endforeach
                 <div class="form-group">
                     {!! Form::label('schoolClasses','选择班级:') !!}
                     {!! Form::select('school_class_id', $schoolClasses, null, ['class'=>'form-control']) !!}

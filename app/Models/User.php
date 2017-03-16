@@ -32,4 +32,9 @@ class User extends Authenticatable
     public function role(){
         return $this->belongTo('Role');
     }
+
+    public function student()
+    {
+        return $this->hasOne('App\Models\Student');
+    }
 }

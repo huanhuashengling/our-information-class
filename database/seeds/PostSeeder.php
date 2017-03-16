@@ -17,7 +17,7 @@ class PostSeeder extends Seeder
             \App\Models\Post::create([
                 'title'   => 'Title '.$i,
                 'body'    => 'Body '.$i,
-                'user_id' => 1,
+                'user_id' => 3,
             ]);
         }
     }
