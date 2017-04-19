@@ -17,18 +17,11 @@
             {!! Form::open(['url'=>'teacher/articles']) !!}
 
                 @foreach ($students as $student)
-                    <button class='btn btn-primary'>{{ $student['username'] }}</button>
+                    <div class="col-md-3 col-sm-4 col-xs-6"><table class="table table-bordered"><tr><td>{{ $student['username'] }}</td><td>{{ $student['username'] }}</td></tr><tr><td colspan="2"><img src="/images/emptyStar_2x.png"></td></tr><tr><td><span class="glyphicon glyphicon-comment" aria-hidden="true"></span></td><td> 23 <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td></tr></table></div>
+                    <!-- <button class='btn btn-primary'>{{ $student['username'] }}</button> -->
                 @endforeach
-                <div class="form-group">
-                    {!! Form::label('schoolClasses','选择班级:') !!}
-                    {!! Form::select('school_class_id', $schoolClasses, null, ['class'=>'form-control']) !!}
-                </div>
-                <div class="form-group">
-                    {!! Form::label('lessons','选择课程:') !!}
-                    {!! Form::select('lesson_id', $lessons, null, ['class'=>'form-control']) !!}
-                </div>
-                <div class="form-group">
-                    {!! Form::submit('开始上课',['class'=>'btn btn-primary form-control']) !!}
+                <div class="form-group col-md-2 col-md-offset-10">
+                    {!! Form::submit('结束上课',['class'=>'btn btn-primary form-control']) !!}
                 </div> 
                 {!! Form::close()!!}
             </div>
