@@ -22,21 +22,21 @@ class HomeController extends Controller
 
     public function takeClass()
     {
-        // dd("takeClass");die();
         $userId = \Auth::user()->id;
         $lessonLog = LessonLog::where(['user_id' => $userId, 'status' => 'start'])->first();
-        // dd($lessonLog['school_class_id']);die();
+        // dd($lessonLog);die();
 
-        // $students = Student::where('school_class_id', $lessonLog['school_class_id'])->get();
+        $lesson = Lesson::where(['id' => $lessonLog['lesson_id']])->first();
+        $schoolClass = SchoolClass::where(['id' => $lessonLog['school_class_id']])->first();
+        // dd($schoolClass);die();
+
         $students = Student::leftJoin('lesson_logs', function($join) {
             $join->on('students.school_class_id', '=', 'lesson_logs.school_class_id');
         })->leftJoin('users', function($join) {
             $join->on('students.user_id', '=', 'users.id');
         })->where("lesson_logs.status", "start")->get();
-        // var_dump($students[0]);die();
+        // dd($students[0]);die();
 
-        $schoolClasses = [];
-        $lessons = [];
-        return view('teacher/takeclass', compact('schoolClasses', 'lessons', 'students'));
+        return view('teacher/takeclass', compact('schoolClass', 'lesson', 'students', 'lessonLog'));
     }
 }

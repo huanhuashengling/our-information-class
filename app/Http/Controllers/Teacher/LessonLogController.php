@@ -31,4 +31,19 @@ class LessonLogController extends Controller
             return redirect()->back()->withInput()->withErrors('保存失败！');
         }
     }
+
+    public function update(Request $request)
+    {
+        $lessonLogId = $request->get('lessonLogId');
+        $action = $request->get('action');
+        if ("close-lesson-log" == $action) {
+            $lessonLog = LessonLog::where(['id' => $lessonLogId])->first();
+            $lessonLog->status = 'close';
+        }
+        if ($lessonLog->update()) {
+            return "true";
+        } else {
+            return "false";
+        }
+    }
 }
