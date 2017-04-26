@@ -23,7 +23,7 @@ class LessonLogController extends Controller
         $lessonLog->user_id = \Auth::user()->id;
         $lessonLog->school_class_id = $request->get('school_class_id');
         $lessonLog->lesson_id = $request->get('lesson_id');
-        $lessonLog->status = 'start';
+        $lessonLog->status = 'open';
         // dd($lessonLog);die();
         if ($lessonLog->save()) {
             return redirect('teacher/takeclass');
