@@ -20,9 +20,9 @@ class LessonLogController extends Controller
         // }
         // $user = \Auth::user();
         // dd($user->id);die();
-        $lessonLog->user_id = \Auth::user()->id;
-        $lessonLog->school_class_id = $request->get('school_class_id');
-        $lessonLog->lesson_id = $request->get('lesson_id');
+        $lessonLog->teachers_users_id = \Auth::user()->id;
+        $lessonLog->school_classes_id = $request->get('school_classes_id');
+        $lessonLog->lessons_id = $request->get('lessons_id');
         $lessonLog->status = 'open';
         // dd($lessonLog);die();
         if ($lessonLog->save()) {

@@ -16,18 +16,18 @@ class CreateLessonLogsTable extends Migration
         Schema::create('lesson_logs', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->integer('school_class_id')->unsigned();
+            $table->integer('users_id')->unsigned();
+            $table->integer('school_classes_id')->unsigned();
             $table->integer('lesson_id')->unsigned();
             $table->string('status');
             $table->timestamps();
 
-            $table->foreign('user_id')
-                  ->references('user_id')
+            $table->foreign('users_id')
+                  ->references('users_id')
                   ->on('teachers')
                   ->onDelete('cascade');
 
-            $table->foreign('school_class_id')
+            $table->foreign('school_classes_id')
                   ->references('id')
                   ->on('school_classes')
                   ->onDelete('cascade');

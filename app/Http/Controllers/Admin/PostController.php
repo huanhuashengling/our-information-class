@@ -29,7 +29,7 @@ class PostController extends Controller
         $post = new Post;
         $post->title = $request->get('title');
         $post->body = $request->get('body');
-        $post->user_id = $request->user()->id;
+        $post->users_id = $request->user()->id;
 
         if ($post->save()) {
             return redirect('admin/post');

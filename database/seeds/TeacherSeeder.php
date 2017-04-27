@@ -14,7 +14,7 @@ class TeacherSeeder extends Seeder
         DB::table('teachers')->delete();
 
         DB::table('teachers')->insert([
-            ['user_id' => 2, 'school_id' => 1],
+            ['users_id' => 2, 'schools_id' => 1],
         ]);
     }
 }

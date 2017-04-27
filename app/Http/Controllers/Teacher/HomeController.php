@@ -17,7 +17,7 @@ class HomeController extends Controller
     public function index()
     {
         $userId = \Auth::user()->id;
-        $lessonLog = LessonLog::where(['user_id' => $userId, 'status' => 'open'])->first();
+        $lessonLog = LessonLog::where(['teachers_users_id' => $userId, 'status' => 'open'])->first();
         if ($lessonLog) {
             //If the teacher has one lesson log, only need redirect to route takeclass and load view
             return redirect('teacher/takeclass');
@@ -33,17 +33,17 @@ class HomeController extends Controller
     public function takeClass()
     {
         $userId = \Auth::user()->id;
-        $lessonLog = LessonLog::where(['user_id' => $userId, 'status' => 'open'])->first();
+        $lessonLog = LessonLog::where(['teachers_users_id' => $userId, 'status' => 'open'])->first();
         // dd($lessonLog);die();
 
-        $lesson = Lesson::where(['id' => $lessonLog['lesson_id']])->first();
-        $schoolClass = SchoolClass::where(['id' => $lessonLog['school_class_id']])->first();
+        $lesson = Lesson::where(['id' => $lessonLog['lessons_id']])->first();
+        $schoolClass = SchoolClass::where(['id' => $lessonLog['school_classes_id']])->first();
         // dd($schoolClass);die();
 
         $students = Student::leftJoin('lesson_logs', function($join) {
-            $join->on('students.school_class_id', '=', 'lesson_logs.school_class_id');
+            $join->on('students.school_classes_id', '=', 'lesson_logs.school_classes_id');
         })->leftJoin('users', function($join) {
-            $join->on('students.user_id', '=', 'users.id');
+            $join->on('students.users_id', '=', 'users.id');
         })->where("lesson_logs.status", "open")->get();
         // dd($students[0]);die();
 

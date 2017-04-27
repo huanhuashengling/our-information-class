@@ -24,8 +24,8 @@ class LessonLogRequest extends FormRequest
     public function rules()
     {
         return [
-            'school_class_id' => 'required',
-            'lesson_id' => 'required',
+            'school_classes_id' => 'required',
+            'lessons_id' => 'required',
         ];
     }
 }

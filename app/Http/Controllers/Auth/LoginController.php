@@ -62,7 +62,7 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         //TODO: more clever way to redirect?
-        $role = Role::find($user->role_id);
+        $role = Role::find($user->roles_id);
         if('teach' == $role->slug) {
             return redirect()->intended('teacher');
         } elseif ('admin' == $role->slug) {

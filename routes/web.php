@@ -46,3 +46,8 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Teacher', 'prefix' => 'tea
     Route::get('takeclass', 'HomeController@takeClass');
 });
 
+
+Route::group(['middleware' => 'auth', 'namespace' => 'Student', 'prefix' => 'student'], function() {
+    Route::get('/', 'HomeController@index');
+    Route::post('upload', 'HomeController@upload');
+});

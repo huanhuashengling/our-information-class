@@ -17,11 +17,11 @@
             {!! Form::open(['url'=>'teacher/articles']) !!}
                 <div class="form-group">
                     {!! Form::label('schoolClasses','选择班级:') !!}
-                    {!! Form::select('school_class_id', $schoolClasses, null, ['class'=>'form-control']) !!}
+                    {!! Form::select('school_classes_id', $schoolClasses, null, ['class'=>'form-control']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('lessons','选择课程:') !!}
-                    {!! Form::select('lesson_id', $lessons, null, ['class'=>'form-control']) !!}
+                    {!! Form::select('lessons_id', $lessons, null, ['class'=>'form-control']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::submit('开始上课',['class'=>'btn btn-primary form-control']) !!}

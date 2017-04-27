@@ -19,7 +19,7 @@ class LessonSeeder extends Seeder
                 'title'   => 'Title '.$i,
                 'subtitle'   => 'Subtitle '.$i,
                 'post_file_format'    => 'jpg',
-                'user_id' => 2,
+                'teachers_users_id' => 2,
             ]);
         }
     }

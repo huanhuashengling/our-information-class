@@ -15,9 +15,12 @@ class PostSeeder extends Seeder
 
         for ($i=0; $i < 10; $i++) {
             \App\Models\Post::create([
-                'title'   => 'Title '.$i,
-                'body'    => 'Body '.$i,
-                'user_id' => 3,
+                'id' => $i,
+                'students_users_id'   => 4,
+                'lesson_logs_id'    => 1,
+                'file_path' => "uploads",
+                'post_code' => "123435",
+                'content' => "asasasasas",
             ]);
         }
     }

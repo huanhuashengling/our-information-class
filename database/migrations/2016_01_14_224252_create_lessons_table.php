@@ -19,11 +19,11 @@ class CreateLessonsTable extends Migration
             $table->string('title');
             $table->string('subtitle');
             $table->string('post_file_format');
-            $table->integer('user_id')->unsigned();
+            $table->integer('users_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('user_id')
-                  ->references('user_id')
+            $table->foreign('users_id')
+                  ->references('users_id')
                   ->on('teachers')
                   ->onDelete('cascade');
         });

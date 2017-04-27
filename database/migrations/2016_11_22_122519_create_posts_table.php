@@ -18,11 +18,11 @@ class CreatePostsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->text('body')->nullable();
-            $table->integer('user_id')->unsigned();
+            $table->integer('users_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('user_id')
-                  ->references('user_id')
+            $table->foreign('users_id')
+                  ->references('users_id')
                   ->on('students')
                   ->onDelete('cascade');
         });

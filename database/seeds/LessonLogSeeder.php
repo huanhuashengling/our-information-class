@@ -14,7 +14,7 @@ class LessonLogSeeder extends Seeder
         DB::table('lesson_logs')->delete();
 
         DB::table('lesson_logs')->insert([
-            ['user_id' => 2, 'school_class_id' => 9, 'lesson_id' => 1, 'status' => 'close'],
+            ['id' => 1, 'teachers_users_id' => 2, 'school_classes_id' => 9, 'lessons_id' => 1, 'status' => 'close'],
         ]);
     }
 }
