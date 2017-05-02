@@ -9,6 +9,7 @@ use App\Models\Student;
 use App\Models\SchoolClass;
 use App\Models\Lesson;
 use App\Models\LessonLog;
+use App\Models\Post;
 
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
@@ -29,10 +30,10 @@ class HomeController extends Controller
             $schoolClass = SchoolClass::where(['id' => $lessonLog['school_classes_id']])->first();
         }
         // dd($lessonLog);die();
-        return view('student/home', compact('schoolClass', 'lesson'));
+        return view('student/home', compact('schoolClass', 'lesson', 'lessonLog'));
     }
 
-    public function upload()
+    public function upload(Request $request)
     {
       // getting all of the post data
       $file = array('image' => Input::file('image'));
@@ -48,15 +49,32 @@ class HomeController extends Controller
         if (Input::file('image')->isValid()) {
           $destinationPath = 'uploads'; // upload path
           $extension = Input::file('image')->getClientOriginalExtension(); // getting image extension
-          $fileName = rand(11111,99999).'.'.$extension; // renameing image
+          $postCode = rand(11111,99999);
+          $fileName = $postCode . '.' . $extension; // renameing image
           Input::file('image')->move($destinationPath, $fileName); // uploading file to given path
+          
+          //create a post record
+          $post = new Post();
+          $post->students_users_id = \Auth::user()->id;
+          $post->lesson_logs_id = $request->get('lesson_logs_id');
+          $post->file_path = "/" .$destinationPath . "/" . $fileName;
+          $post->post_code = $postCode;
+          $post->content = "";
+          // dd($post);die();
+          if ($post->save()) {
+            Session::flash('success', '作业提交成功'); 
+            return Redirect::to('student');
+          } else {
+            Session::flash('error', '作业提交失败'); 
+          }
+
           // sending back with message
-          Session::flash('success', '作业提交成功'); 
-          return Redirect::to('student');
+          // Session::flash('success', '作业提交成功'); 
+          // return Redirect::to('student');
         }
         else {
           // sending back with error message.
-          Session::flash('error', 'uploaded file is not valid');
+          Session::flash('error', '上传文件不符合要求');
           return Redirect::to('student');
         }
       }

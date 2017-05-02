@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- <iframe src="http://docs.google.com/gview?url=/users/ywj/downloads/two.ppt&embedded=true" style="width:550px; height:450px;" frameborder="0"></iframe> -->
-<div class="container">
+<div class="container bs-example">
     <h3>班级： {{ $schoolClass['title'] }}</h3>
     <h3>课题： {{ $lesson['title'] }}</h3><h3>副标题： {{ $lesson['subtitle'] }}</h3>
     <input type="hidden" id="lesson-log-id" value="{{ $lessonLog['id'] }}">
@@ -21,7 +21,13 @@
                     <div class="col-md-3 col-sm-4 col-xs-6">
                         <table class="table table-bordered">
                             <tr><td>{{ $student['username'] }}</td><td>{{ $student['username'] }}</td></tr>
-                            <tr><td colspan="2"><img src="/images/emptyStar_2x.png"></td></tr>
+                            <tr><td colspan="2">
+                            @if (isset($postData[$student['users_id']]))
+                                <img src="{{$postData[$student['users_id']]['file_path']}}" height="200" width="200">
+                            @else
+                                <img src="/images/have_no_upload.png" height="200" width="200">
+                            @endif
+                            </td></tr>
                             <tr><td><span class="glyphicon glyphicon-comment" aria-hidden="true"></span></td><td> 23 <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td></tr>
                         </table>
                     </div>

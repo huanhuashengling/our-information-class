@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Student;
 use App\Models\SchoolClass;
 use App\Models\Lesson;
+use App\Models\Post;
 use App\Models\LessonLog;
 
 
@@ -19,6 +20,7 @@ class HomeController extends Controller
         $userId = \Auth::user()->id;
         $lessonLog = LessonLog::where(['teachers_users_id' => $userId, 'status' => 'open'])->first();
         if ($lessonLog) {
+            // dd($lessonLog);die();
             //If the teacher has one lesson log, only need redirect to route takeclass and load view
             return redirect('teacher/takeclass');
         }
@@ -44,9 +46,15 @@ class HomeController extends Controller
             $join->on('students.school_classes_id', '=', 'lesson_logs.school_classes_id');
         })->leftJoin('users', function($join) {
             $join->on('students.users_id', '=', 'users.id');
-        })->where("lesson_logs.status", "open")->get();
-        // dd($students[0]);die();
+        })->where(["lesson_logs.id" => $lessonLog['id']])->get();
+        $postData = [];
+        foreach ($students as $key => $student) {
+            // echo($student['users_id']);
+            $post = Post::where(['students_users_id' => $student['users_id'], 'lesson_logs_id' => $lessonLog['id']])->first();
+            $postData[$student['users_id']] = $post;
+        }
+        // dd($postData);die();
 
-        return view('teacher/takeclass', compact('schoolClass', 'lesson', 'students', 'lessonLog'));
+       return view('teacher/takeclass', compact('schoolClass', 'lesson', 'students', 'lessonLog', 'postData'));
     }
 }

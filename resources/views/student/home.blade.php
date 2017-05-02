@@ -27,6 +27,7 @@
                 <div class="secure"><h2>作业提交</h2></div>
                 <!-- ['url'=>'teacher/articles'] -->
                 {!! Form::open(array('url'=>'student/upload','method'=>'POST', 'files'=>true)) !!}
+                <input type="hidden" name="lesson_logs_id" value="{{$lessonLog['id']}}">
                  <div class="control-group">
                   <div class="controls">
                   {!! Form::file('image') !!}
