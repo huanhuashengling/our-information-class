@@ -11,6 +11,7 @@ use App\Models\Lesson;
 use App\Models\Post;
 use App\Models\LessonLog;
 
+use App\Libaries\pinyinfirstchar;
 
 
 class HomeController extends Controller
@@ -54,7 +55,7 @@ class HomeController extends Controller
             $postData[$student['users_id']] = $post;
         }
         // dd($postData);die();
-
-       return view('teacher/takeclass', compact('schoolClass', 'lesson', 'students', 'lessonLog', 'postData'));
+        $py = new pinyinfirstchar();
+        return view('teacher/takeclass', compact('schoolClass', 'lesson', 'students', 'lessonLog', 'postData', 'py'));
     }
 }

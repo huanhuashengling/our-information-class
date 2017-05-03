@@ -13,10 +13,9 @@ class PostSeeder extends Seeder
     {
         DB::table('posts')->delete();
 
-        for ($i=0; $i < 10; $i++) {
+        for ($i=1; $i <= 5; $i++) {
             \App\Models\Post::create([
-                'id' => $i,
-                'students_users_id'   => 4,
+                'students_users_id'   => $i + 3,
                 'lesson_logs_id'    => 1,
                 'file_path' => "uploads",
                 'post_code' => "123435",

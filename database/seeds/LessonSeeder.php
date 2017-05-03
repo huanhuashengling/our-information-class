@@ -13,14 +13,12 @@ class LessonSeeder extends Seeder
     {
         DB::table('lessons')->delete();
 
-        for ($i=0; $i < 10; $i++) {
-            \App\Models\Lesson::create([
-                'id' => $i+1,
-                'title'   => 'Title '.$i,
-                'subtitle'   => 'Subtitle '.$i,
-                'post_file_format'    => 'jpg',
-                'teachers_users_id' => 2,
-            ]);
-        }
+        DB::table('lessons')->insert([
+
+            ['id' => 1, 'teachers_users_id' => 2, 'title' => '画图工具', 'subtitle' => '曲线画鱼', 'post_file_format' => 'jpg'],
+            ['id' => 2, 'teachers_users_id' => 2, 'title' => '幻灯片', 'subtitle' => '自旋图形绘制笑脸', 'post_file_format' => 'jpg'],
+            ['id' => 3, 'teachers_users_id' => 2, 'title' => 'Flash', 'subtitle' => 'flash补间动画', 'post_file_format' => 'jpg']
+
+        ]);
     }
 }
