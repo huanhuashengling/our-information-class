@@ -20,4 +20,12 @@ $(document).ready(function() {
             }
         });
     });
+
+    $('.btn-success').on('click', function (e) {
+        // alert(e.target.value);
+        var postsId = (e.target.value).split(',')[0]; 
+        var filePath = (e.target.value).split(',')[1]; 
+        $('#post-show').attr("src", filePath);
+        $('#myModal').modal();
+    });
 });
