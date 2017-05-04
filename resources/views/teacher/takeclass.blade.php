@@ -25,58 +25,30 @@
                 <div class="col-md-1 col-sm-2 col-xs-6">{!! Form::button('姓名排序',['class'=>'btn btn-info', 'id' => 'close-lesson-log']) !!}</div>
                 <!-- <div class="col-md-1 col-sm-2 col-xs-6">{!! Form::button('点赞排序',['class'=>'btn btn-info', 'id' => 'close-lesson-log']) !!}</div> -->
                 <div class="col-md-1 col-sm-2 col-xs-6">{!! Form::button('结束上课',['class'=>'btn btn-danger', 'id' => 'close-lesson-log']) !!}</div>
+                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
             </div>
         </div>
         <div class="panel-body">
 
             <ul class="nav nav-tabs">
-                <li class='active'><a href="#identifier" data-toggle="tab">全部</a></li>
-                <li><a href="#identifier" data-toggle="tab">已交作业</a></li>
-                <li><a href="#identifier" data-toggle="tab">未交作业</a></li>
+                <li class='active'><a href="#show-all" data-toggle="tab">全部</a></li>
+                <li><a href="#show-posted" data-toggle="tab">已交作业</a></li>
+                <li><a href="#show-no-posted" data-toggle="tab">未交作业</a></li>
                 <!-- <li><a href="#identifier" data-toggle="tab">已评作业</a></li> -->
             </ul>
             <!-----start tab content-->
             <div class="tab-content">
                 <!-----start tab-->
-                <div class="tab-pane fade in active">
-                        @foreach ($students as $student)
-                            <div class="col-md-2 col-sm-3 col-xs-4">
-                                <table class="table table-bordered">
-                                    <tr><td><b>{{ $py->getFirstchar($student['username']) }}</b></td><td colspan="3">{{ $student['username'] }}</td></tr>
-                                    <tr><td colspan="4">
-                                    @if (isset($postData[$student['users_id']]))
-                                        <button class='btn btn-success form-control' value="{{ $postData[$student['users_id']]['id'] }},{{ $postData[$student['users_id']]['file_path'] }}">已提交</button>
-                                    @else
-                                        <button class='btn btn-default form-control disabled'>未提交</button>
-                                    @endif
-                                    </td></tr>
-                                    <tr>
-                                    <td><span class="glyphicon glyphicon-comment" aria-hidden="true"></span></td>
-                                    <td  colspan="2"> 23 <span class="glyphicon glyphicon-heart" aria-hidden="true"></span></td>
-                                    <td>优秀</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        @endforeach
+                <div class="tab-pane fade in active" id='show-all'>
+                    @include('teacher.partials.studentlist', array('students' => $students, 'postData' => $postData, 'showLimit' => "all"))
                 </div>
                 <!--end tab-->
                 <!-----start tab-->
-                <div class="tab-pane fade">
-                        @foreach ($students as $student)
-                            <div class="col-md-2 col-sm-3 col-xs-4">
-                                <table class="table table-bordered">
-                                    <tr><td>{{ $student['username'] }}</td><td>{{ $student['username'] }}</td></tr>
-                                    <tr><td colspan="2">
-                                    @if (isset($postData[$student['users_id']]))
-                                        <button class='btn btn-success form-control'>未提交</button>
-                                    @else
-                                        <button class='btn btn-default form-control disabled'>提交</button>
-                                    @endif
-                                    </td></tr>
-                                    <tr><td><span class="glyphicon glyphicon-comment" aria-hidden="true"></span></td><td> 23 <span class="glyphicon glyphicon-heart" aria-hidden="true"></span></td></tr>
-                                </table>
-                            </div>
-                        @endforeach
+                <div class="tab-pane fade" id="show-posted">
+                    @include('teacher.partials.studentlist', array('students' => $students, 'postData' => $postData, 'showLimit' => "posted"))
+                </div>
+                <div class="tab-pane fade" id="show-no-posted">
+                    @include('teacher.partials.studentlist', array('students' => $students, 'postData' => $postData, 'showLimit' => "noPosted"))
                 </div>
                 <!--end tab-->
             </div>
@@ -105,7 +77,6 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></button>
         <button type="button" class="btn btn-primary">优秀</button>
         <button type="button" class="btn btn-primary">合格</button>
         <button type="button" class="btn btn-primary">不合格</button>
