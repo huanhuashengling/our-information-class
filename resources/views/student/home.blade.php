@@ -2,7 +2,6 @@
 
 @section('content')
 
-<?php //echo is_null($lessonLog);die(); ?>
 <div class="container">
   @if (is_null($lessonLog))
     <div class="jumbotron">
@@ -26,22 +25,19 @@
         </div>
         <div class="panel-footer">
         <h4>上传作业</h4>
-        <input id="input-zh" type="file">
-        <!-- <div class="secure"><h4>作业提交</h4></div>
-          {!! Form::open(array('url'=>'student/upload','method'=>'POST', 'files'=>true)) !!}
-          <input type="hidden" name="lesson_logs_id" value="{{$lessonLog['id']}}">
-           <div class="control-group">
-            <div class="controls">
-            {!! Form::file('image') !!}
-            <p class="errors">{!!$errors->first('image')!!}</p>
+        @if(Session::has('success'))
+          <div class="alert-box success">
+            <h2>{!! Session::get('success') !!}</h2>
+          </div>
+        @endif
+        {!! Form::open(array('url'=>'student/upload','method'=>'POST', 'files'=>true)) !!}
+        <input type="hidden" name="lesson_logs_id" value="{{$lessonLog['id']}}">
+        {!! Form::file('image', ['id' => 'input-zh']) !!}
+        <p class="errors">{!!$errors->first('image')!!}</p>
               @if(Session::has('error'))
               <p class="errors">{!! Session::get('error') !!}</p>
               @endif
-              </div>
-          </div>
-          <div id="success"> </div>
-          {!! Form::submit('点击上传', array('class'=>'btn btn-primary send-btn')) !!}
-          {!! Form::close() !!} -->
+        {!! Form::close() !!}
         </div>
       </div>
     </div>

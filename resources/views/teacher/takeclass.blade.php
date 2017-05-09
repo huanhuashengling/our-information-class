@@ -89,16 +89,17 @@
         <button type="button" class="btn btn-primary">合格</button>
         <button type="button" class="btn btn-primary">不合格</button>
 
-      </div>
-
-      <hr>
-        <h4>填写评价内容</h4>
-        {!! Form::open(array('url'=>'student/upload','method'=>'POST', 'files'=>true)) !!}
-            <textarea class="form-control" rows='3'></textarea>
-          {!! Form::submit('提交评价', array('class'=>'btn btn-primary send-btn')) !!}
-          {!! Form::close() !!}
+        <hr>
+        <div class="">
+            <h4>填写评价内容</h4>
+            {!! Form::open(array('url'=>'student/upload','method'=>'POST', 'files'=>true)) !!}
+                <textarea class="form-control" rows='3'></textarea>
+            {!! Form::submit('提交评价', array('class'=>'btn btn-primary send-btn')) !!}
+            {!! Form::close() !!}
+        </div>
     </div>
   </div>
+</div>
 </div>
 
 @endsection
