@@ -15,9 +15,9 @@
         <div class="panel-heading" role="tab" id="headingOne">
           <h4 class="panel-title">
             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              本堂课内容：{{ $lesson['title'] }}<small>({{ $lesson['subtitle'] }})</small></h4>
+              本堂课内容：{{ $lesson['title'] }}<small>({{ $lesson['subtitle'] }})</small>
             </a>
-          </h4>
+          </h4>(已上交)
         </div>
         <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
           <div class="panel-body">
@@ -25,7 +25,8 @@
           </div>
         </div>
         <div class="panel-footer">
-        <input id="input-id" type="file" class="file">
+        <h4>上传作业</h4>
+        <input id="input-zh" type="file">
         <!-- <div class="secure"><h4>作业提交</h4></div>
           {!! Form::open(array('url'=>'student/upload','method'=>'POST', 'files'=>true)) !!}
           <input type="hidden" name="lesson_logs_id" value="{{$lessonLog['id']}}">
@@ -47,13 +48,3 @@
   @endif
 </div>
 @endsection
-
-<script type="text/javascript">
-  $(document).ready(function() {
-    $("#input-id").fileinput({language: "zh"});
-  });
-</script>
-
-
-
- 
