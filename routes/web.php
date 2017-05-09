@@ -40,7 +40,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Teacher', 'prefix' => 'tea
     Route::resource('class', 'SchoolClassController');
     Route::resource('lesson', 'LessonController');
 
-    Route::post('articles', 'LessonLogController@store');
+    Route::post('createLessonLog', 'LessonLogController@store');
     Route::post('updateLessonLog', 'LessonLogController@update');
 
     Route::get('takeclass', 'HomeController@takeClass');

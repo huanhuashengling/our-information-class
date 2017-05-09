@@ -42,7 +42,7 @@
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/student') }}">
                     {{ trans("layouts.project_name") }}
                 </a>
             </div>
@@ -50,8 +50,7 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/student') }}">{{ trans("layouts.home") }}</a></li>
-                    <li><a href="{{ url('/student') }}">信息课堂</a></li>
+                    <li><a href="{{ url('/student') }}">我的小组</a></li>
                     <li><a href="{{ url('/student') }}">已交作业</a></li>
                     <li><a href="{{ url('/student') }}">同学作业</a></li>
                 </ul>

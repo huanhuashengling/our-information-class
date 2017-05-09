@@ -28,8 +28,8 @@ class HomeController extends Controller
 
 
         $schoolClasses = SchoolClass::where('grade_num', '>', 2)->pluck('title', 'id');
-        $lessons = Lesson::pluck('title', 'id');
-
+        $lessons = Lesson::get();
+// dd($lessons);die();
         return view('teacher/home', compact('schoolClasses', 'lessons'));
     }
 

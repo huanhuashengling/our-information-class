@@ -10,6 +10,7 @@
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+
     <link href="/css/jquery-ui.css" rel="stylesheet">
     <script src="/js/jquery-2.2.0.min.js"></script>
     
@@ -22,8 +23,8 @@
     <script src="/js/locales/zh.js"></script>
     <script src="/js/teacher/take-class.js"></script>
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" /> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script> -->
 
     
 </head>
@@ -41,7 +42,7 @@
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/teacher/takeclass') }}">
                     {{ trans("layouts.project_name") }}
                 </a>
             </div>
@@ -49,8 +50,7 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/teacher') }}">{{ trans("layouts.home") }}</a></li>
-                    <li><a href="{{ url('/teacher/takeclass') }}">信息课堂</a></li>
+                    <li><a href="{{ url('/teacher') }}">选课上课</a></li>
                     <li><a href="{{ url('/teacher/lesson') }}">课程列表</a></li>
                     <li><a href="{{ url('/teacher/lesson') }}">课程管理</a></li>
                 </ul>

@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-<!--<input type="hidden" id="lesson-log-id" value="{{ $lessonLog['id'] }}">
+<!--
     <div class="row">
         @if (count($errors) > 0)
             <div class="alert alert-danger">
@@ -15,48 +15,56 @@
             </div>
         @endif
     </div>-->
-    <!-----start panel-->
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <div class="row">
-                <div class="col-md-1 col-sm-4"><h4>{{ $schoolClass['title'] }}班</h4></div>
-                <div class="col-md-3 col-sm-4"><h4><small>(5738号)</small>{{ $lesson['title'] }}<small>({{ $lesson['subtitle'] }})</small></h4></div>
-                
-                <div class="col-md-1 col-sm-2 col-xs-6">{!! Form::button('姓名排序',['class'=>'btn btn-info', 'id' => 'close-lesson-log']) !!}</div>
-                <!-- <div class="col-md-1 col-sm-2 col-xs-6">{!! Form::button('点赞排序',['class'=>'btn btn-info', 'id' => 'close-lesson-log']) !!}</div> -->
-                <div class="col-md-1 col-sm-2 col-xs-6">{!! Form::button('结束上课',['class'=>'btn btn-danger', 'id' => 'close-lesson-log']) !!}</div>
-                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-            </div>
+    @if (is_null($lessonLog))
+        <div class="jumbotron">
+            <h1>哦, 您还未选班选课!</h1>
+            <p>请点击<a href="/teacher">选课上课</a>链接开始你的新课课，你也可以去管理自己的<a href="/teacher/lesson">课程列表</a>。</p>
         </div>
-        <div class="panel-body">
+    @else
+        <input type="hidden" id="lesson-log-id" value="{{ $lessonLog['id'] }}">
+        <!-----start panel-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-1 col-sm-4"><h4>{{ $schoolClass['title'] }}班</h4></div>
+                    <div class="col-md-3 col-sm-4"><h4><small>(5738号)</small>{{ $lesson['title'] }}<small>({{ $lesson['subtitle'] }})</small></h4></div>
+                    
+                    <div class="col-md-1 col-sm-2 col-xs-6">{!! Form::button('姓名排序',['class'=>'btn btn-info', 'id' => 'sort-by-name']) !!}</div>
+                    <!-- <div class="col-md-1 col-sm-2 col-xs-6">{!! Form::button('点赞排序',['class'=>'btn btn-info', 'id' => 'close-lesson-log']) !!}</div> -->
+                    <div class="col-md-1 col-sm-2 col-xs-6">{!! Form::button('结束上课',['class'=>'btn btn-danger', 'id' => 'close-lesson-log']) !!}</div>
+                    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                </div>
+            </div>
+            <div class="panel-body">
 
-            <ul class="nav nav-tabs">
-                <li class='active'><a href="#show-all" data-toggle="tab">全部</a></li>
-                <li><a href="#show-posted" data-toggle="tab">已交作业</a></li>
-                <li><a href="#show-no-posted" data-toggle="tab">未交作业</a></li>
-                <!-- <li><a href="#identifier" data-toggle="tab">已评作业</a></li> -->
-            </ul>
-            <!-----start tab content-->
-            <div class="tab-content">
-                <!-----start tab-->
-                <div class="tab-pane fade in active" id='show-all'>
-                    @include('teacher.partials.studentlist', array('students' => $students, 'postData' => $postData, 'showLimit' => "all"))
+                <ul class="nav nav-tabs">
+                    <li class='active'><a href="#show-all" data-toggle="tab">全部</a></li>
+                    <li><a href="#show-posted" data-toggle="tab">已交作业</a></li>
+                    <li><a href="#show-no-posted" data-toggle="tab">未交作业</a></li>
+                    <!-- <li><a href="#identifier" data-toggle="tab">已评作业</a></li> -->
+                </ul>
+                <!-----start tab content-->
+                <div class="tab-content">
+                    <!-----start tab-->
+                    <div class="tab-pane fade in active" id='show-all'>
+                        @include('teacher.partials.studentlist', array('students' => $students, 'postData' => $postData, 'showLimit' => "all"))
+                    </div>
+                    <!--end tab-->
+                    <!-----start tab-->
+                    <div class="tab-pane fade" id="show-posted">
+                        @include('teacher.partials.studentlist', array('students' => $students, 'postData' => $postData, 'showLimit' => "posted"))
+                    </div>
+                    <div class="tab-pane fade" id="show-no-posted">
+                        @include('teacher.partials.studentlist', array('students' => $students, 'postData' => $postData, 'showLimit' => "noPosted"))
+                    </div>
+                    <!--end tab-->
                 </div>
-                <!--end tab-->
-                <!-----start tab-->
-                <div class="tab-pane fade" id="show-posted">
-                    @include('teacher.partials.studentlist', array('students' => $students, 'postData' => $postData, 'showLimit' => "posted"))
-                </div>
-                <div class="tab-pane fade" id="show-no-posted">
-                    @include('teacher.partials.studentlist', array('students' => $students, 'postData' => $postData, 'showLimit' => "noPosted"))
-                </div>
-                <!--end tab-->
+                <!--end tab content-->
             </div>
-            <!--end tab content-->
+            <!--end panel body-->
         </div>
-        <!--end panel body-->
-    </div>
-    <!-----end panel-->
+        <!-----end panel-->
+    @endif
 </div>
 
 <!-- Modal -->

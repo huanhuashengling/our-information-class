@@ -24,6 +24,8 @@ class HomeController extends Controller
         $student = Student::where(['users_id' => $userId])->first();
         $lessonLog = LessonLog::where(['school_classes_id' => $student['school_classes_id'], 'status' => 'open'])->first();
 
+        $lesson = "";
+        $schoolClass = "";
         if ($lessonLog) {
             $lesson = Lesson::where(['id' => $lessonLog['lessons_id']])->first();
             $schoolClass = SchoolClass::where(['id' => $lessonLog['school_classes_id']])->first();
