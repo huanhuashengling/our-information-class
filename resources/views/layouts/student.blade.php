@@ -52,19 +52,21 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/student') }}">我的小组</a></li>
-                    <li><a href="{{ url('/student') }}">已交作业</a></li>
+                    <li><a href="{{ url('/student/posts') }}">已交作业</a></li>
                     <li><a href="{{ url('/student') }}">同学作业</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
+                <li><a href="">100赞 ＋ 20优 ＋ 5评 ＝ 200分 ＝ 5级</a></li>
+                <li><a href=""> </a></li>
                     <!-- Authentication Links -->
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">{{ trans("layouts.login") }}</a></li>
                         <!-- <li><a href="{{ url('/register') }}">{{ trans("layouts.register") }}</a></li> -->
                     @else
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">你好， 
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Welcome,
                                 {{ Auth::user()->username }} <span class="caret"></span>
                             </a>
 
