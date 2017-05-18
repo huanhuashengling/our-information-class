@@ -25,25 +25,28 @@ Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 
 Route::get('/logout', function (){ Auth::logout(); return redirect('/'); });
-Route::get('post/{id}', 'PostController@show');
-
-Route::post('comment', 'CommentController@store');
 
 Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin'], function() {
     Route::get('/', 'HomeController@index');
-    Route::resource('post', 'PostController');
-    Route::resource('comment', 'CommentController');
 });
 
 Route::group(['middleware' => 'auth', 'namespace' => 'Teacher', 'prefix' => 'teacher'], function() {
     Route::get('/', 'HomeController@index');
     Route::resource('class', 'SchoolClassController');
     Route::resource('lesson', 'LessonController');
+    Route::resource('createComment', 'CommentController@store');
+    Route::resource('updateComment', 'CommentController@update');
+    Route::resource('getCommentByPostsId', 'CommentController@getByPostsId');
+
+    Route::resource('updateRate', 'HomeController@updateRate');
+    Route::resource('getPostRate', 'HomeController@getPostRate');
+
 
     Route::post('createLessonLog', 'LessonLogController@store');
     Route::post('updateLessonLog', 'LessonLogController@update');
 
     Route::get('takeclass', 'HomeController@takeClass');
+
 });
 
 

@@ -26,13 +26,13 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="row">
-                    <div class="col-md-1 col-sm-4"><h4>{{ $schoolClass['title'] }}班</h4></div>
+                    <div class="col-md-2 col-sm-4"><h4>{{ $schoolClass['title'] }}班</h4></div>
                     <div class="col-md-3 col-sm-4"><h4><small>(5738号)</small>{{ $lesson['title'] }}<small>({{ $lesson['subtitle'] }})</small></h4></div>
                     
-                    <div class="col-md-1 col-sm-2 col-xs-6">{!! Form::button('姓名排序',['class'=>'btn btn-info', 'id' => 'sort-by-name']) !!}</div>
+                    <div class="col-md-2 col-sm-2 col-xs-6">{!! Form::button('姓名排序',['class'=>'btn btn-info', 'id' => 'sort-by-name']) !!}</div>
                     <!-- <div class="col-md-1 col-sm-2 col-xs-6">{!! Form::button('点赞排序',['class'=>'btn btn-info', 'id' => 'close-lesson-log']) !!}</div> -->
-                    <div class="col-md-1 col-sm-2 col-xs-6">{!! Form::button('结束上课',['class'=>'btn btn-danger', 'id' => 'close-lesson-log']) !!}</div>
-                    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                    <div class="col-md-2 col-sm-2 col-xs-6">{!! Form::button('结束上课',['class'=>'btn btn-danger', 'id' => 'close-lesson-log']) !!}</div>
+                    <a href="/teacher/takeclass" class="btn btn-warning">刷新作业</a>
                 </div>
             </div>
             <div class="panel-body">
@@ -69,6 +69,8 @@
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<input type="hidden" id="posts-id" value="">
+
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -84,18 +86,19 @@
         <!-- </iframe> -->
       </div>
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">优秀</button>
-        <button type="button" class="btn btn-primary">合格</button>
-        <button type="button" class="btn btn-primary">不合格</button>
+    <div class="modal-footer">
+        <div class="btn-group" name="rate-btn-group" data-toggle="buttons">
+            <label class='btn btn-primary rate-btn' id="outstanding-rate" value="outstanding"><input type='radio'>优秀</label>
+            <label class='btn btn-primary rate-btn' id="good-rate" value="good"><input type='radio'>合格</label>
+            <label class='btn btn-primary rate-btn' id="lower-rate" value="lower"><input type='radio'>不合格</label>
+        </div>
 
         <hr>
         <div class="">
             <h4>填写评价内容</h4>
-            {!! Form::open(array('url'=>'student/upload','method'=>'POST', 'files'=>true)) !!}
-                <textarea class="form-control" rows='3'></textarea>
-            {!! Form::submit('提交评价', array('class'=>'btn btn-primary send-btn')) !!}
-            {!! Form::close() !!}
+            <textarea class="form-control" rows='3' id="post-comment" value=''></textarea>
+            <button type="button" class="btn btn-primary" id="add-post-comment-btn">提交评价</button>
+            <button type="button" class="btn btn-primary" id="edit-post-comment-btn">编辑评价</button>
         </div>
     </div>
   </div>
