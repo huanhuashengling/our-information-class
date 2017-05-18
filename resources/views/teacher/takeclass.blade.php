@@ -89,8 +89,8 @@
     <div class="modal-footer">
         <div class="btn-group" name="rate-btn-group" data-toggle="buttons">
             <label class='btn btn-primary rate-btn' id="outstanding-rate" value="outstanding"><input type='radio'>优秀</label>
-            <label class='btn btn-primary rate-btn' id="good-rate" value="good"><input type='radio'>合格</label>
-            <label class='btn btn-primary rate-btn' id="lower-rate" value="lower"><input type='radio'>不合格</label>
+            <label class='btn btn-primary rate-btn' id="good-rate" value="good"><input type='radio'>良好</label>
+            <label class='btn btn-primary rate-btn' id="lower-rate" value="lower"><input type='radio'>合格</label>
         </div>
 
         <hr>
