@@ -39,8 +39,6 @@
             @if ("true" == $hasComment)
                 <button class="btn btn-danger btn-xs">123 赞</button>
             @endif
-            
-                
             </td>
             </tr>
         </table>

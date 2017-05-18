@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Student;
 use App\Models\Post;
+use App\Models\Comment;
+use App\Models\PostRate;
 use App\Models\Lesson;
 use App\Models\LessonLog;
 
@@ -18,13 +20,23 @@ class PostController extends Controller
         $student = Student::where(['users_id' => $userId])->first();
         $lessonLogs = LessonLog::where(['school_classes_id' => $student['school_classes_id']])->get();
 
-        $posts = [];
+        $postData = [];
         foreach ($lessonLogs as $key => $lessonLog) {
             $lesson = Lesson::where(['id' => $lessonLog['lessons_id']])->first();
             $post = Post::where(['lesson_logs_id' => $lessonLog['id'], "students_users_id" => $userId])->first();
-            $posts[] = ["lesson" => $lesson, 'post' => $post];
+
+            $rate = "";
+            $hasComment = "";
+            if (isset($post)) {
+                $postRate = PostRate::where(['posts_id' => $post['id']])->first();
+                $rate = isset($postRate)?$postRate['rate']:"";
+                $comment = Comment::where(['posts_id' => $post['id']])->first();
+                $hasComment = isset($comment)?"true":"false";
+            }
+
+            $postData[] = ["lesson" => $lesson, 'post' => $post, 'rate' => $rate, 'hasComment' => $hasComment];
         }
 
-        return view('student/posts', compact('posts'));
+        return view('student/posts', compact('postData'));
     }
 }
