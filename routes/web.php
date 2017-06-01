@@ -41,11 +41,13 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Teacher', 'prefix' => 'tea
     Route::resource('updateRate', 'HomeController@updateRate');
     Route::resource('getPostRate', 'HomeController@getPostRate');
 
-
+    Route::get('lessonLog', 'LessonLogController@listLessonLog');
     Route::post('createLessonLog', 'LessonLogController@store');
     Route::post('updateLessonLog', 'LessonLogController@update');
 
     Route::get('takeclass', 'HomeController@takeClass');
+
+    Route::get('getLessonPostPerSchoolClass', 'HomeController@getLessonPostPerSchoolClass');
 
 });
 

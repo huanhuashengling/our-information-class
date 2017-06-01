@@ -13,12 +13,53 @@ class PostSeeder extends Seeder
     {
         DB::table('posts')->delete();
 
-        for ($i=1; $i <= 5; $i++) {
+        for ($i=1; $i <= 7; $i++) {
             \App\Models\Post::create([
+                'id' => $i + 1,
                 'students_users_id'   => $i + 3,
                 'lesson_logs_id'    => 1,
-                'file_path' => "uploads",
-                'post_code' => "123435",
+                'file_path' => "/uploads/12647.png",
+                'post_code' => "12647",
+                'content' => "asasasasas",
+            ]);
+        }
+
+        for ($i=1; $i <= 8; $i++) {
+            \App\Models\Post::create([
+                'students_users_id'   => $i + 3,
+                'lesson_logs_id'    => 2,
+                'file_path' => "/uploads/12647.png",
+                'post_code' => "12647",
+                'content' => "asasasasas",
+            ]);
+        }
+
+        for ($i=1; $i <= 9; $i++) {
+            \App\Models\Post::create([
+                'students_users_id'   => $i + 3,
+                'lesson_logs_id'    => 3,
+                'file_path' => "/uploads/12647.png",
+                'post_code' => "12647",
+                'content' => "asasasasas",
+            ]);
+        }
+
+        for ($i=1; $i <= 9; $i++) {
+            \App\Models\Post::create([
+                'students_users_id'   => $i + 3,
+                'lesson_logs_id'    => 4,
+                'file_path' => "/uploads/12647.png",
+                'post_code' => "12647",
+                'content' => "asasasasas",
+            ]);
+        }
+
+        for ($i=1; $i <= 9; $i++) {
+            \App\Models\Post::create([
+                'students_users_id'   => $i + 3,
+                'lesson_logs_id'    => 5,
+                'file_path' => "/uploads/12647.png",
+                'post_code' => "12647",
                 'content' => "asasasasas",
             ]);
         }

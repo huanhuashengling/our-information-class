@@ -22,6 +22,7 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/locales/zh.js"></script>
     <script src="/js/teacher/take-class.js"></script>
+    <script src="/js/teacher/lesson-history.js"></script>
 
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" /> -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script> -->
@@ -51,8 +52,8 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/teacher') }}">选课上课</a></li>
-                    <li><a href="{{ url('/teacher/lesson') }}">课程列表</a></li>
                     <li><a href="{{ url('/teacher/lesson') }}">课程管理</a></li>
+                    <li><a href="{{ url('/teacher/lessonLog') }}">上课纪录</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->

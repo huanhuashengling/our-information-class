@@ -106,4 +106,34 @@ class HomeController extends Controller
             return "false";
         }
     }
+
+    public function getLessonPostPerSchoolClass(Request $request)
+    {
+        $users_id = \Auth::user()->id;
+        $lessons_id = $request->get('lessons_id');
+        $lessonLogs = LessonLog::leftJoin('school_classes', function($join) {
+            $join->on('school_classes.id', '=', 'lesson_logs.school_classes_id');
+        })->where(['lessons_id' => $lessons_id, 'teachers_users_id' => $users_id])->orderBy('school_classes.id', 'asc')->selectRaw("lesson_logs.id as lesson_logs_id, school_classes.title as school_class_title")->get();
+
+        return $this->lessonHistoryHtmlCreate($lessonLogs);
+        // $post = Post::where(['students_users_id' => $student['users_id'], 'lesson_logs_id' => $lessonLog['id']])->first();
+        //有哪些班，第一个班的详细数据
+    }
+
+    public function lessonHistoryHtmlCreate($lessonLogs)
+    {
+
+        $returnHtml = "<ul class='nav nav-tabs'>";
+            foreach ($lessonLogs as $key => $lessonLog) {
+                $returnHtml .= "<li><a href='#show-class" . $lessonLog["lesson_logs_id"] . "' data-toggle='tab'>" . $lessonLog["school_class_title"] . "</a></li>";
+            }
+        $returnHtml .= "</ul>";
+        $returnHtml .= "<div class='tab-content'>";
+            foreach ($lessonLogs as $key => $lessonLog) {
+
+                $returnHtml .= "<div class='tab-pane fade' id='show-class" . $lessonLog["lesson_logs_id"] . "'>" . $lessonLog["school_class_title"] . "</div>";
+            }
+        $returnHtml .= "</div>";
+        return $returnHtml;
+    }
 }
