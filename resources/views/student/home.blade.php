@@ -6,7 +6,7 @@
   @if (is_null($lessonLog))
     <div class="jumbotron">
       <h1>别着急，还未开始上课!</h1>
-      <p>你可以耐心等待或者尝试<a href="/student">刷新</a>一下页面，你也可以去看看自己<a href="/student">以前交的作业</a>。</p>
+      <p>你可以耐心等待或者尝试<a href="/student">刷新</a>一下页面，你也可以去看看自己<a href="/student/posts">以前交的作业</a>。</p>
     </div>
   @else
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
