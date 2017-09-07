@@ -12,9 +12,10 @@
 
                         <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
                             <label for="username" class="col-md-4 control-label">Username</label>
+                            <!-- alue="{{ old('username') }}" -->
 
                             <div class="col-md-6">
-                                <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required autofocus>
+                                <input id="username" type="text" class="form-control" name="username" value="admin" required autofocus>
 
                                 @if ($errors->has('username'))
                                     <span class="help-block">
@@ -28,7 +29,7 @@
                             <label for="password" class="col-md-4 control-label">Password</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
+                                <input id="password" type="password" class="form-control" name="password" value="123456" required>
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">

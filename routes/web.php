@@ -28,6 +28,8 @@ Route::get('/logout', function (){ Auth::logout(); return redirect('/'); });
 
 Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin'], function() {
     Route::get('/', 'HomeController@index');
+    Route::get('students', 'HomeController@studentsAccountManagement');
+    Route::post('importStudents', 'HomeController@importStudents');
 });
 
 Route::group(['middleware' => 'auth', 'namespace' => 'Teacher', 'prefix' => 'teacher'], function() {

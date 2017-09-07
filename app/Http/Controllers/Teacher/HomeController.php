@@ -12,6 +12,7 @@ use App\Models\Post;
 use App\Models\PostRate;
 use App\Models\Comment;
 use App\Models\LessonLog;
+use Illuminate\Support\Facades\View;
 
 use App\Libaries\pinyinfirstchar;
 
@@ -115,23 +116,53 @@ class HomeController extends Controller
             $join->on('school_classes.id', '=', 'lesson_logs.school_classes_id');
         })->where(['lessons_id' => $lessons_id, 'teachers_users_id' => $users_id])->orderBy('school_classes.id', 'asc')->selectRaw("lesson_logs.id as lesson_logs_id, school_classes.title as school_class_title")->get();
 
-        return $this->lessonHistoryHtmlCreate($lessonLogs);
+        $newLessonLogs = [];
+        $students = [];
+        foreach ($lessonLogs as $key => $lessonLog) {
+            $students = Student::leftJoin('lesson_logs', function($join) {
+                $join->on('students.school_classes_id', '=', 'lesson_logs.school_classes_id');
+            })->leftJoin('users', function($join) {
+                $join->on('students.users_id', '=', 'users.id');
+            })->where(["lesson_logs.id" => $lessonLog['lesson_logs_id']])->get();
+// echo count($students) . "   ----   ";
+            $postData = [];
+            foreach ($students as $key => $student) {
+                // echo($student['users_id']);
+                $post = Post::where(['students_users_id' => $student['users_id'], 'lesson_logs_id' => $lessonLog['lesson_logs_id']])->first();
+                $postRate = PostRate::where(['posts_id' => $post['id']])->first();
+                $rate = isset($postRate)?$postRate['rate']:"";
+                $comment = Comment::where(['posts_id' => $post['id']])->first();
+                $hasComment = isset($comment)?"true":"false";
+
+                $postData[$student['users_id']] = ['post' => $post, 'rate' => $rate, 'hasComment' => $hasComment];
+            }
+            $newLessonLogs[] = ['students' => $students, 'postData' => $postData, 'school_class_title' => $lessonLog['school_class_title'], 'lesson_logs_id' => $lessonLog['lesson_logs_id']];
+
+        }
+// dd($newLessonLogs);die();
+        return $this->lessonHistoryHtmlCreate($newLessonLogs);
         // $post = Post::where(['students_users_id' => $student['users_id'], 'lesson_logs_id' => $lessonLog['id']])->first();
         //有哪些班，第一个班的详细数据
     }
 
     public function lessonHistoryHtmlCreate($lessonLogs)
     {
-
+        $py = new pinyinfirstchar();
         $returnHtml = "<ul class='nav nav-tabs'>";
             foreach ($lessonLogs as $key => $lessonLog) {
+// dd($lessonLog);
+
                 $returnHtml .= "<li><a href='#show-class" . $lessonLog["lesson_logs_id"] . "' data-toggle='tab'>" . $lessonLog["school_class_title"] . "</a></li>";
             }
         $returnHtml .= "</ul>";
         $returnHtml .= "<div class='tab-content'>";
             foreach ($lessonLogs as $key => $lessonLog) {
-
-                $returnHtml .= "<div class='tab-pane fade' id='show-class" . $lessonLog["lesson_logs_id"] . "'>" . $lessonLog["school_class_title"] . "</div>";
+                $students = $lessonLog['students'];
+                $postData = $lessonLog['postData'];
+                $showLimit = "all";
+                $active = (0 == $key)?"in active":"";
+                $html = View::make('teacher.partials.studentlist', compact('students', 'postData', 'showLimit', 'py'))->render();
+                $returnHtml .= "<div class='tab-pane fade " . $active . "' id='show-class" . $lessonLog["lesson_logs_id"] . "'>" . $html . "</div>";
             }
         $returnHtml .= "</div>";
         return $returnHtml;
