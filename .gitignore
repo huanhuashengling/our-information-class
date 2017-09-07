@@ -9,7 +9,7 @@ Homestead.yaml
 bootstrap/cache/
 .env.*.php
 .env.php
-
+.png
 # Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
 .rocketeer/
 
