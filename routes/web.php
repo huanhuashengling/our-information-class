@@ -30,6 +30,8 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin
     Route::get('/', 'HomeController@index');
     Route::get('students', 'HomeController@studentsAccountManagement');
     Route::post('importStudents', 'HomeController@importStudents');
+    Route::get('getStudentsData', 'HomeController@getStudentsData');
+
 });
 
 Route::group(['middleware' => 'auth', 'namespace' => 'Teacher', 'prefix' => 'teacher'], function() {

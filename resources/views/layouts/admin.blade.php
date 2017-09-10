@@ -10,6 +10,7 @@
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="/css/bootstrap-table.css" media="all" rel="stylesheet" type="text/css" />
 
     <link href="/css/jquery-ui.css" rel="stylesheet">
     <script src="/js/jquery-2.2.0.min.js"></script>
@@ -18,6 +19,7 @@
     <script src="/js/plugins/sortable.min.js" type="text/javascript"></script>
     <script src="/js/plugins/purify.min.js" type="text/javascript"></script>
     <script src="/js/fileinput.min.js"></script>
+    <script src="/js/bootstrap-table.js"></script>
 
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/locales/zh.js"></script>

@@ -11,6 +11,7 @@ use Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -21,8 +22,16 @@ class HomeController extends Controller
 
     public function studentsAccountManagement()
     {
-        $schoolClasses = SchoolClass::where('grade_num', '>', 2)->pluck('title', 'id');
-        return view('admin/studentsAccountManagement', compact('schoolClasses'));
+        $schoolClassesData = SchoolClass::select('school_classes.title', DB::raw('count(students.users_id) as count'))
+                              ->leftJoin('students', function($join) {
+                                  $join->on('students.school_classes_id', '=', 'school_classes.id');
+                              })
+                              ->where('school_classes.grade_num', '>', 2)
+                              ->groupBy('school_classes.title')
+                              ->get();
+                              // dd($schoolClassesData);
+                              // die();
+        return view('admin/studentsAccountManagement', compact('schoolClassesData'));
     }
 
     public function importStudents(Request $request)
@@ -42,30 +51,25 @@ class HomeController extends Controller
                 }
             }
         }
-
-      //   $file = $request->file('xls');
-   
-      // //Display File Name
-      // echo 'File Name: '.$file->getClientOriginalName();
-      // echo '<br>';
-   
-      // //Display File Extension
-      // echo 'File Extension: '.$file->getClientOriginalExtension();
-      // echo '<br>';
-   
-      // //Display File Real Path
-      // echo 'File Real Path: '.$file->getRealPath();
-      // echo '<br>';
-   
-      // //Display File Size
-      // echo 'File Size: '.$file->getSize();
-      // echo '<br>';
-   
-      // //Display File Mime Type
-      // echo 'File Mime Type: '.$file->getMimeType();
     }
 
-    function createStudentAccount($data) {
+    public function getStudentsData(Request $request) {
+        $schoolClass = SchoolClass::where(['title' => $request->get('school_classes_title')])->first();
+        if (isset($schoolClass)) {
+            $students = Student::leftJoin('users', function($join){
+              $join->on('students.users_id', '=', 'users.id');
+            })
+            ->leftJoin('school_classes', function($join){
+              $join->on('school_classes.id', '=', 'students.school_classes_id');
+            })
+            ->where(['school_classes_id' => $schoolClass->id])->get();
+            return json_encode($students);
+        } else {
+            return "false";
+        }
+    }
+
+    public function createStudentAccount($data) {
         $user = User::create([
             'username' => $data['username'],
             'email' => $data['email'],
