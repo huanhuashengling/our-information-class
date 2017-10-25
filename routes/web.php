@@ -26,6 +26,9 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/logout', function (){ Auth::logout(); return redirect('/'); });
 
+Route::get('reset', 'UserController@getReset');
+Route::post('reset', 'UserController@postReset');
+
 Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin'], function() {
     Route::get('/', 'HomeController@index');
     Route::get('students', 'HomeController@studentsAccountManagement');
