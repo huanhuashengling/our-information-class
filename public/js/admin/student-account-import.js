@@ -1,4 +1,9 @@
 $(document).ready(function() {
+	$.ajaxSetup({
+	  headers: {
+	    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	  }
+	});
     $("#import-student-account").fileinput({
 		showPreview: false,
 		language: "zh", 
@@ -18,6 +23,7 @@ $(document).ready(function() {
 	        pageList: [10, 25, 50], 
 	        pageSize: 10,
 	        pageNumber: 1,
+	        toolbar:"#toolbar",
         	queryParams: function(params) {
         		var temp = { 
 			        school_classes_title : schoolClassName
@@ -41,15 +47,15 @@ $(document).ready(function() {
 	});
 });
 
-function resetCol(value, row, index) {
+function genderCol(value, row, index) {
     return [
-        '<a class="btn btn-info btn-sm" data-unique-id="', row.id, '">重置</a>'
+        '<span>'+(("0" == value)?"女":"男")+'</span>'
     ].join('');
 }
 
-function postsCol(value, row, index) {
+function resetCol(value, row, index) {
     return [
-        '<a class="btn btn-info btn-sm" data-unique-id="', row.id, '">查看</a>'
+        '<a class="btn btn-info btn-sm reset" data-unique-id="', row.users_id, '">重置</a>'
     ].join('');
 }
 
@@ -59,4 +65,21 @@ function actionCol(value, row, index) {
         ' <a class="btn btn-danger btn-sm">编辑</a> ',
         ' <a class="btn btn-danger btn-sm">删除</a>'
     ].join('');
+}
+
+window.resetActionEvents = {
+	'click .reset': function(e, value, row, index) {
+     	$.ajax({
+            type: "POST",
+            url: '/admin/resetStudentPassword',
+            data: {users_id: row.users_id},
+            success: function( data ) {
+            	if("true" == data) {
+            		alert("重置密码成功，已修改为默认密码123456！")
+            	} else if ("false" == data) {
+            		alert("重置密码失败，没有找到该用户！")
+            	}
+            }
+        });
+    },
 }

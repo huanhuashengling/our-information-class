@@ -47,7 +47,7 @@
               <th data-field="username">
                   姓名
               </th>
-              <th data-field="gender">
+              <th data-field="gender" data-formatter="genderCol">
                   性别
               </th>
               <th data-field="score">
@@ -56,10 +56,7 @@
               <th data-field="level">
                   等级
               </th>
-              <th data-field="users_id" data-formatter="postsCol">
-                  历史作品
-              </th>
-              <th data-field="users_id" data-formatter="resetCol" data-events="actionEvents">
+              <th data-field="users_id" data-formatter="resetCol" data-events="resetActionEvents">
                   重置密码
               </th>
               <th data-field="users_id" data-formatter="actionCol" data-events="actionEvents">

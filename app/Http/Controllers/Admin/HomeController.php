@@ -69,6 +69,18 @@ class HomeController extends Controller
         }
     }
 
+    public function resetStudentPassword(Request $request) {
+        $users_id = $request->get('users_id');
+        $student = User::find($users_id);
+        if ($student) {
+            $student->password = bcrypt("123456");
+            $student->save();
+            return "true";
+        } else {
+            return "false";
+        }
+    }
+
     public function createStudentAccount($data) {
         $user = User::create([
             'username' => $data['username'],

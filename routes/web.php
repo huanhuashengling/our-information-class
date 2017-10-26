@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin
     Route::get('students', 'HomeController@studentsAccountManagement');
     Route::post('importStudents', 'HomeController@importStudents');
     Route::get('getStudentsData', 'HomeController@getStudentsData');
+    Route::post('resetStudentPassword', 'HomeController@resetStudentPassword');
 
 });
 
