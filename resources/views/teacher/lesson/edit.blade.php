@@ -1,6 +1,7 @@
 @extends('layouts.teacher')
 
 @section('content')
+@include('editor::head')
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -21,6 +22,11 @@
                         课程标题： <input type="text" name="title" class="form-control" required="required" value="{{ $lesson->title }}" placeholder="请输入标题">
                         <br>
                         副标题：<input name="subtitle" rows="10" class="form-control" required="required" placeholder="请输入副标题" value="{{ $lesson->subtitle }}"</input>
+                        <br>
+                        <p>编写课堂帮助文档</p>
+                        <div class="editor"> 
+                            {!! Form::textarea('content', $lesson->help_md_doc, ['class' => 'form-control','id'=>'myEditor']) !!}
+                        </div>
                         <br>
                         <button class="btn btn-lg btn-info">编辑</button>
                     </form>

@@ -20,7 +20,7 @@
         </div>
         <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
           <div class="panel-body">
-              <?php include("uploads/bridge.html"); ?>
+              {!! $lesson['help_md_doc'] !!}
           </div>
         </div>
         <div class="panel-footer">

@@ -1,6 +1,8 @@
+
 @extends('layouts.teacher')
 
 @section('content')
+@include('editor::head')
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -19,7 +21,12 @@
                         {!! csrf_field() !!}
                         <input type="text" name="title" class="form-control" required="required" placeholder="请输入标题">
                         <br>
-                        <input name="subtitle" class="form-control" required="required" placeholder="请输入副标题" />
+                        <input type="text" name="subtitle" class="form-control" required="required" placeholder="请输入副标题" />
+                        <br>
+                        <p>编写课堂帮助文档</p>
+                        <div class="editor"> 
+                            {!! Form::textarea('content', '', ['class' => 'form-control','id'=>'myEditor']) !!}
+                        </div>
                         <br>
                         <button class="btn btn-lg btn-info">添加</button>
                     </form>

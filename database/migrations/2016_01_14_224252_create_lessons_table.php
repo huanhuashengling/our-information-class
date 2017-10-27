@@ -18,7 +18,8 @@ class CreateLessonsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('subtitle');
-            $table->string('post_file_format');
+            $table->string('help_md_doc');
+            $table->string('allow_post_file_types');
             $table->integer('users_id')->unsigned();
             $table->timestamps();
 

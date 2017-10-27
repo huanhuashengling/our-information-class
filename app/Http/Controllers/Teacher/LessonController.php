@@ -29,6 +29,7 @@ class LessonController extends Controller
         $lesson = new Lesson;
         $lesson->title = $request->get('title');
         $lesson->subtitle = $request->get('subtitle');
+        $lesson->help_md_doc = $request->get('content');
         $lesson->teachers_users_id = \Auth::user()->id;
 
         if ($lesson->save()) {
@@ -52,6 +53,7 @@ class LessonController extends Controller
         $lesson = Lesson::find($id);
         $lesson->title = $request->get('title');
         $lesson->subtitle = $request->get('subtitle');
+        $lesson->help_md_doc = $request->get('content');
 
         if ($lesson->save()) {
             return redirect('teacher/lesson');

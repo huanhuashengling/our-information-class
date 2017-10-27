@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 
+use EndaEditor;
 
 class HomeController extends Controller
 {
@@ -29,6 +30,7 @@ class HomeController extends Controller
         $schoolClass = "";
         if ($lessonLog) {
             $lesson = Lesson::where(['id' => $lessonLog['lessons_id']])->first();
+            $lesson->help_md_doc = EndaEditor::MarkDecode($lesson->help_md_doc);
             $schoolClass = SchoolClass::where(['id' => $lessonLog['school_classes_id']])->first();
         }
         // dd($lessonLog);die();
