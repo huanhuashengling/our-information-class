@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Lesson;
 
+use EndaEditor;
+
 class LessonController extends Controller
 {
     public function index()
@@ -66,5 +68,22 @@ class LessonController extends Controller
     {
         Lesson::find($id)->delete();
         return redirect()->back()->withInput()->withErrors('删除成功！');
+    }
+
+    public function uploadMDImage()
+    {
+        $data = EndaEditor::uploadImgFile('uploads/md');
+
+        return json_encode($data);
+    }
+
+    public function ajaxSearchTopics()
+    {
+        $lessons = Lesson::all();
+        $helpMDDoc = [];
+        foreach ($lessons as $key => $lesson) {
+            $helpMDDoc[$lesson->subtitle] = $lesson->help_md_doc;
+        }
+        return $helpMDDoc;
     }
 }

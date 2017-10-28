@@ -42,6 +42,9 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Teacher', 'prefix' => 'tea
     Route::get('/', 'HomeController@index');
     Route::resource('class', 'SchoolClassController');
     Route::resource('lesson', 'LessonController');
+    Route::post('uploadMDImage', 'LessonController@uploadMDImage');
+    Route::get('ajaxSearchTopics', 'LessonController@ajaxSearchTopics');
+
     Route::resource('createComment', 'CommentController@store');
     Route::resource('updateComment', 'CommentController@update');
     Route::resource('getCommentByPostsId', 'CommentController@getByPostsId');
