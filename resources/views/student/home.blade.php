@@ -9,14 +9,20 @@
       <p>你可以耐心等待或者尝试<a href="/student">刷新</a>一下页面，你也可以去看看自己<a href="/student/posts">以前交的作业</a>。</p>
     </div>
   @else
+    @php
+      if ($post) {
+        echo "<textarea id='posted-path' hidden >" . $post["file_path"] . "</textarea>";
+      }
+    @endphp
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
       <div class="panel panel-info">
         <div class="panel-heading" role="tab" id="headingOne">
-          <h4 class="panel-title">
+          <h4 class="panel-title" value="">
             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
               本堂课内容：{{ $lesson['title'] }}<small>({{ $lesson['subtitle'] }})</small>
             </a>
-          </h4>(已上交)
+          </h4>
+          
         </div>
         <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
           <div class="panel-body">

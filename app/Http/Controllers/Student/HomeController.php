@@ -28,13 +28,22 @@ class HomeController extends Controller
 
         $lesson = "";
         $schoolClass = "";
+        $post = "";
         if ($lessonLog) {
             $lesson = Lesson::where(['id' => $lessonLog['lessons_id']])->first();
             $lesson->help_md_doc = EndaEditor::MarkDecode($lesson->help_md_doc);
             $schoolClass = SchoolClass::where(['id' => $lessonLog['school_classes_id']])->first();
+
+            $post = Post::where(['lesson_logs_id' => $lessonLog['id'], "students_users_id" => $userId])->orderBy('id', 'desc')->first();
+
+            // $img_dir = dirname(__FILE__) . $post->file_path;
+            $img_dir =  public_path() . $post->file_path;;
+            $img_base64 = $this->imgToBase64($img_dir);
+            $post->file_path = $img_base64;
+
         }
         // dd($lessonLog);die();
-        return view('student/home', compact('schoolClass', 'lesson', 'lessonLog'));
+        return view('student/home', compact('schoolClass', 'lesson', 'lessonLog', 'post'));
     }
 
     public function upload(Request $request)
@@ -83,4 +92,34 @@ class HomeController extends Controller
         }
       }
     }
+
+  public function imgToBase64($img_file) {
+     $img_base64 = '';
+     if (file_exists($img_file)) {
+         $app_img_file = $img_file; // 图片路径
+         $img_info = getimagesize($app_img_file); // 取得图片的大小，类型等
+ 
+         //echo '<pre>' . print_r($img_info, true) . '</pre><br>';
+         $fp = fopen($app_img_file, "r"); // 图片是否可读权限
+ 
+         if ($fp) {
+             $filesize = filesize($app_img_file);
+             $content = fread($fp, $filesize);
+             $file_content = chunk_split(base64_encode($content)); // base64编码
+             switch ($img_info[2]) {           //判读图片类型
+                 case 1: $img_type = "gif";
+                     break;
+                 case 2: $img_type = "jpg";
+                     break;
+                 case 3: $img_type = "png";
+                     break;
+             }
+ 
+             $img_base64 = 'data:image/' . $img_type . ';base64,' . $file_content;//合成图片的base64编码
+ 
+         }
+         fclose($fp);
+     }
+     return $img_base64; //返回图片的base64
+ }
 }

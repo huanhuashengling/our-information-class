@@ -52,9 +52,9 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/student') }}">我的小组</a></li>
-                    <li><a href="{{ url('/student/posts') }}">已交作业</a></li>
-                    <li><a href="{{ url('/student') }}">同学作业</a></li>
+                    <!--<li><a href="{{ url('/student') }}">我的小组</a></li>-->
+                    <li><a href="{{ url('/student/posts') }}">作业记录</a></li>
+                    <!--<li><a href="{{ url('/student') }}">同学作业</a></li>-->
                 </ul>
 
                 <!-- Right Side Of Navbar -->

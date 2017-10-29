@@ -12,6 +12,8 @@ use App\Models\PostRate;
 use App\Models\Lesson;
 use App\Models\LessonLog;
 
+use EndaEditor;
+
 class PostController extends Controller
 {
     public function index()
@@ -23,7 +25,8 @@ class PostController extends Controller
         $postData = [];
         foreach ($lessonLogs as $key => $lessonLog) {
             $lesson = Lesson::where(['id' => $lessonLog['lessons_id']])->first();
-            $post = Post::where(['lesson_logs_id' => $lessonLog['id'], "students_users_id" => $userId])->first();
+            $lesson->help_md_doc = EndaEditor::MarkDecode($lesson->help_md_doc);
+            $post = Post::where(['lesson_logs_id' => $lessonLog['id'], "students_users_id" => $userId])->orderBy('id', 'desc')->first();
 
             $rate = "";
             $hasComment = "";
