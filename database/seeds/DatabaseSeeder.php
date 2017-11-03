@@ -13,19 +13,16 @@ class DatabaseSeeder extends Seeder
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-        $this->call(FileTypeSeeder::class);
-        $this->call(SchoolSeeder::class);
-        $this->call(SchoolClassSeeder::class);
-        $this->call(RoleSeeder::class);
-        $this->call(UserSeeder::class);
-        $this->call(TeacherSeeder::class);
-        $this->call(StudentSeeder::class);
-        $this->call(LessonSeeder::class);
-        $this->call(LessonLogSeeder::class);
-        $this->call(PostSeeder::class);
-        $this->call(GroupRoleTypeSeeder::class);
-        $this->call(GroupRoleSeeder::class);
-        $this->call(GroupSeeder::class);
+        $this->call(AdminsTableSeeder::class);
+        $this->call(GroupsTableSeeder::class);
+        $this->call(SchoolsTableSeeder::class);
+        $this->call(TeachersTableSeeder::class);
+        $this->call(StudentsTableSeeder::class);
+        $this->call(SclassesTableSeeder::class);
+        $this->call(LessonsTableSeeder::class);
+        $this->call(LessonLogsTableSeeder::class);
+        $this->call(PostsTableSeeder::class);
+        $this->call(CommentsTableSeeder::class);
         
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }

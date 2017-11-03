@@ -16,8 +16,8 @@
   <div class="panel-heading">管理学生账户</div>
   <div class="panel-body">
 
-  @foreach ($schoolClassesData as $schoolClass)
-      <button class="btn btn-info school-class-btn" value="{{ $schoolClass['title'] }}">{{ $schoolClass['title'] }} <span class="badge">{{ $schoolClass['count'] }}</span></button>
+  @foreach ($sclassesData as $sclass)
+      <button class="btn btn-info school-class-btn" value="{{ $sclass['title'] }}">{{ $sclass['title'] }} <span class="badge">{{ $sclass['count'] }}</span></button>
   @endforeach
 
   </div>

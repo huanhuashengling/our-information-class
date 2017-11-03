@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Models\Student;
-use App\Models\SchoolClass;
+use App\Models\Teacher;
+use App\Models\Sclass;
 use Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
@@ -22,16 +22,16 @@ class HomeController extends Controller
 
     public function studentsAccountManagement()
     {
-        $schoolClassesData = SchoolClass::select('school_classes.title', DB::raw('count(students.users_id) as count'))
+        $sclassesData = Sclass::select('sclasses.class_title', DB::raw('count(students.id) as count'))
                               ->leftJoin('students', function($join) {
-                                  $join->on('students.school_classes_id', '=', 'school_classes.id');
+                                  $join->on('students.sclasses_id', '=', 'sclasses.id');
                               })
-                              ->where('school_classes.grade_num', '>', 2)
-                              ->groupBy('school_classes.title')
+                              ->where('sclasses.enter_school_year', '>', 2015)
+                              ->groupBy('sclasses.class_title')
                               ->get();
-                              // dd($schoolClassesData);
+                              // dd($sclassesData);
                               // die();
-        return view('admin/studentsAccountManagement', compact('schoolClassesData'));
+        return view('admin/studentsAccountManagement', compact('sclassesData'));
     }
 
     public function importStudents(Request $request)
@@ -54,15 +54,12 @@ class HomeController extends Controller
     }
 
     public function getStudentsData(Request $request) {
-        $schoolClass = SchoolClass::where(['title' => $request->get('school_classes_title')])->first();
-        if (isset($schoolClass)) {
-            $students = Student::leftJoin('users', function($join){
-              $join->on('students.users_id', '=', 'users.id');
+        $sclass = Sclass::where(['title' => $request->get('class_title')])->first();
+        if (isset($sclass)) {
+            $students = Student::leftJoin('sclasses', function($join){
+              $join->on('sclasses.id', '=', 'students.sclasses_id');
             })
-            ->leftJoin('school_classes', function($join){
-              $join->on('school_classes.id', '=', 'students.school_classes_id');
-            })
-            ->where(['school_classes_id' => $schoolClass->id])->get();
+            ->where(['sclasses_id' => $sclass->id])->get();
             return json_encode($students);
         } else {
             return "false";
@@ -70,8 +67,7 @@ class HomeController extends Controller
     }
 
     public function resetStudentPassword(Request $request) {
-        $users_id = $request->get('users_id');
-        $student = User::find($users_id);
+        $student = Student::find($request->get('id'));
         if ($student) {
             $student->password = bcrypt("123456");
             $student->save();
@@ -82,17 +78,16 @@ class HomeController extends Controller
     }
 
     public function createStudentAccount($data) {
-        $user = User::create([
+        $student = Student::create([
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'roles_id' => $data['roles_id'],
         ]);
-        if ($user) {
+        if ($student) {
             $student = Student::create([
-                'users_id' => $user->id,
+                'is' => $student->id,
                 'gender' => $data['gender'],
-                'school_classes_id' => $data['school_classes_id'],
+                'sclasses_id' => $data['sclasses_id'],
                 'level' => $data['level'],
                 'score' => $data['score'],
             ]);

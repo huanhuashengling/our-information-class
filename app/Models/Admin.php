@@ -6,20 +6,28 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-
 use Illuminate\Database\Eloquent\Model;
 
-class Teacher extends Model implements AuthenticatableContract, CanResetPasswordContract
+class Admin extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
     use Authenticatable, CanResetPassword;
 
-    protected $table = 'teachers';  
-
+    protected $table = 'admins';  
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
-        'username', 'email', 'password', 'schools_id'
+        'username', 'password'
     ];
 
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
     protected $hidden = [
-        'remember_token',
+        'password', 'remember_token',
     ];
 }

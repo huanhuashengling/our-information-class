@@ -1,14 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
-
-use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Auth;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-
-use App\Models\Role;
+use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
@@ -26,11 +22,12 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Where to redirect users after login.
+     * Where to redirect users after login / registration.
      *
      * @var string
      */
-    protected $redirectTo = '/teacher';
+    protected $redirectTo = '/admin/dash';
+    protected $username;
 
     /**
      * Create a new controller instance.
@@ -39,10 +36,11 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'logout']);
+        $this->middleware('guest:admin', ['except' => 'logout']);
+        $this->username = config('admin.global.username');
     }
 
-    /**
+        /**
      * Get the login username to be used by the controller.
      *
      * @return string
@@ -53,15 +51,23 @@ class LoginController extends Controller
     }
 
     /**
-     * The user has been authenticated.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $user
-     *
-     * @return mixed
+     * 重写登录视图页面
+     * @author 晚黎
+     * @date   2016-09-05T23:06:16+0800
+     * @return [type]                   [description]
      */
-    protected function authenticated(Request $request, $user)
+    public function showLoginForm()
     {
-        //TODO: more clever way to redirect?
+        return view('admin.login.index');
+    }
+    /**
+     * 自定义认证驱动
+     * @author 晚黎
+     * @date   2016-09-05T23:53:07+0800
+     * @return [type]                   [description]
+     */
+    protected function guard()
+    {
+        return auth()->guard('admin');
     }
 }

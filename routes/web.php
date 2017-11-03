@@ -30,11 +30,10 @@ Route::get('reset', 'UserController@getReset');
 Route::post('reset', 'UserController@postReset');
 
 Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin'], function() {
-    Route::get('/', 'HomeController@index');
-    Route::get('students', 'HomeController@studentsAccountManagement');
-    Route::post('importStudents', 'HomeController@importStudents');
-    Route::get('getStudentsData', 'HomeController@getStudentsData');
-    Route::post('resetStudentPassword', 'HomeController@resetStudentPassword');
+    // Route::get('students', 'HomeController@studentsAccountManagement');
+    // Route::post('importStudents', 'HomeController@importStudents');
+    // Route::get('getStudentsData', 'HomeController@getStudentsData');
+    // Route::post('resetStudentPassword', 'HomeController@resetStudentPassword');
 
 });
 
@@ -67,4 +66,20 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Student', 'prefix' => 'stu
     Route::get('/', 'HomeController@index');
     Route::post('upload', 'HomeController@upload');
     Route::get('posts', 'PostController@index');
+});
+
+
+Route::group(['prefix' => 'admin','namespace' => 'Admin'],function ($router)
+{
+    $router->get('login', 'LoginController@showLoginForm')->name('admin.login');
+    $router->post('login', 'LoginController@login');
+    $router->post('logout', 'LoginController@logout');
+
+    $router->get('home', 'HomeController@index');
+
+    $router->get('students', 'HomeController@studentsAccountManagement');
+
+    $router->post('importStudents', 'HomeController@importStudents');
+    $router->get('getStudentsData', 'HomeController@getStudentsData');
+    $router->post('resetStudentPassword', 'HomeController@resetStudentPassword');
 });

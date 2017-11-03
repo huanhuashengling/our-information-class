@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class TeacherSeeder extends Seeder
+class TeachersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,8 +13,8 @@ class TeacherSeeder extends Seeder
     {
         DB::table('teachers')->delete();
 
-        DB::table('teachers')->insert([
-            ['users_id' => 2, 'schools_id' => 1],
-        ]);
+        factory('App\Models\Teacher', 2)->create([
+            'password' => bcrypt('123456')
+            ]);
     }
 }
