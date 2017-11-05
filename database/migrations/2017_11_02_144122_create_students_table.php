@@ -30,7 +30,7 @@ class CreateStudentsTable extends Migration
             $table->string('level', 45)->nullable();
             $table->string('score', 45)->nullable();
             $table->string('password');
-            $table->string('remember_token', 45)->nullable();
+            $table->string('remember_token');
             $table->integer('groups_id')->unsigned()->nullable();
             $table->integer('sclasses_id')->unsigned();
 

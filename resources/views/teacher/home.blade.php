@@ -20,8 +20,8 @@
                     <div class="col-md-12">
                         {!! Form::open(['url'=>'teacher/createLessonLog']) !!}
                             <div class="form-group">
-                                {!! Form::label('schoolClasses','选择班级:') !!}
-                                {!! Form::select('school_classes_id', $schoolClasses, null, ['class'=>'form-control']) !!}
+                                {!! Form::label('sclasses','选择班级:') !!}
+                                {!! Form::select('sclasses_id', $classData, null, ['class'=>'form-control']) !!}
                             </div>
                             <div class="form-group">
                                 {!! Form::label('lessons','选择课程:') !!}

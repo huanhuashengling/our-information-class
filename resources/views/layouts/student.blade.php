@@ -62,19 +62,19 @@
                 <li><a href="">100赞 ＋ 20优 ＋ 5评 ＝ 200分 ＝ 5级</a></li>
                 <li><a href=""> </a></li>
                     <!-- Authentication Links -->
-                    @if (Auth::guest())
+                    @if (Auth::guard("student")->guest())
                         <li><a href="{{ url('/login') }}">{{ trans("layouts.login") }}</a></li>
                         <!-- <li><a href="{{ url('/register') }}">{{ trans("layouts.register") }}</a></li> -->
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Welcome,
-                                {{ Auth::user()->username }} <span class="caret"></span>
+                                {{ Auth::guard("student")->user()->username }} <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>修改个人信息</a></li>
                                 <li><a href="{{ url('/reset') }}"><i class="fa fa-btn fa-sign-out"></i>修改密码</a></li>
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>{{ trans("layouts.logout") }}</a></li>
+                                <li><a href="{{ url('/student/logout') }}"><i class="fa fa-btn fa-sign-out"></i>{{ trans("layouts.logout") }}</a></li>
                             </ul>
                         </li>
                     @endif

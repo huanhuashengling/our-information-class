@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use Redirect;
 class LoginController extends Controller
 {
     /*
@@ -26,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin/dash';
+    protected $redirectTo = '/admin/';
     protected $username;
 
     /**
@@ -59,6 +59,14 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         return view('admin.login.index');
+    }
+
+    public function logout()
+    {
+        if(auth()->guard('admin')->user()){
+            auth()->guard('admin')->logout();
+        }
+        return Redirect::to('admin/login');
     }
     /**
      * 自定义认证驱动

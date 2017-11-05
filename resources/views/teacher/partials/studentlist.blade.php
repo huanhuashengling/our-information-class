@@ -1,8 +1,8 @@
 @foreach ($students as $student)
     @php
-        $studentPostData = $postData[$student['users_id']]['post'];
-        $rate = $postData[$student['users_id']]['rate'];
-        $hasComment = $postData[$student['users_id']]['hasComment'];
+        $studentPostData = $postData[$student['id']]['post'];
+        $rate = $postData[$student['id']]['rate'];
+        $hasComment = $postData[$student['id']]['hasComment'];
     @endphp
 
     @if ("posted" == $showLimit && !isset($studentPostData))

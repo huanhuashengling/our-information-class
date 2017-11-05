@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Teacher;
+namespace App\Http\Controllers\Student;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Auth;
 use Redirect;
+
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
@@ -27,7 +29,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/teacher/home';
+    protected $redirectTo = '/student/';
     protected $username;
 
     /**
@@ -37,8 +39,8 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:teacher', ['except' => 'logout']);
-        $this->username = config('teacher.global.username');
+        $this->middleware('guest:student', ['except' => 'logout']);
+        $this->username = config('student.global.username');
     }
 
         /**
@@ -59,15 +61,15 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('teacher.login.index');
+        return view('student.login.index');
     }
 
     public function logout()
     {
-        if(auth()->guard('teacher')->user()){
-            auth()->guard('teacher')->logout();
+        if(auth()->guard('student')->user()){
+            auth()->guard('student')->logout();
         }
-        return Redirect::to('teacher/login');
+        return Redirect::to('student/login');
     }
     /**
      * 自定义认证驱动
@@ -77,6 +79,6 @@ class LoginController extends Controller
      */
     protected function guard()
     {
-        return auth()->guard('teacher');
+        return auth()->guard('student');
     }
 }

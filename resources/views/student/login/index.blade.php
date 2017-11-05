@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('admin.login') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('student.login') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
@@ -15,7 +15,7 @@
                             <!-- alue="{{ old('username') }}" -->
 
                             <div class="col-md-6">
-                                <input id="username" type="text" class="form-control" name="username" value="Miss Verlie Ward" required autofocus>
+                                <input id="username" type="text" class="form-control" name="username" value="Katelynn Grady" required autofocus>
 
                                 @if ($errors->has('username'))
                                     <span class="help-block">

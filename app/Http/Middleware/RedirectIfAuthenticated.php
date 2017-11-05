@@ -20,13 +20,13 @@ class RedirectIfAuthenticated
         if (Auth::guard($guard)->check()) {
             switch ($guard) {
                 case 'admin':
-                    $url = 'admin/home';
+                    $url = 'admin/';
                     break;
                 case 'teacher':
-                    $url = 'teacher/home';
+                    $url = 'teacher/';
                     break;
                 default:
-                    $url = 'student/home';
+                    $url = 'student/';
                     break;
             }
             // dd($guard);

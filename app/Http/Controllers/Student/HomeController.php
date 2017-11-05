@@ -22,19 +22,19 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $userId = \Auth::user()->id;
-        $student = Student::where(['users_id' => $userId])->first();
-        $lessonLog = LessonLog::where(['school_classes_id' => $student['school_classes_id'], 'status' => 'open'])->first();
+        $id = auth()->guard("student")->id();
+        $student = Student::find($id);
+        $lessonLog = LessonLog::where(['sclasses_id' => $student['sclasses_id'], 'status' => 'open'])->first();
 
         $lesson = "";
-        $schoolClass = "";
+        $sclass = "";
         $post = "";
         if ($lessonLog) {
             $lesson = Lesson::where(['id' => $lessonLog['lessons_id']])->first();
             $lesson->help_md_doc = EndaEditor::MarkDecode($lesson->help_md_doc);
-            $schoolClass = SchoolClass::where(['id' => $lessonLog['school_classes_id']])->first();
+            $sclass = SchoolClass::where(['id' => $lessonLog['sclasses_id']])->first();
 
-            $post = Post::where(['lesson_logs_id' => $lessonLog['id'], "students_users_id" => $userId])->orderBy('id', 'desc')->first();
+            $post = Post::where(['lesson_logs_id' => $lessonLog['id'], "students_id" => $id])->orderBy('id', 'desc')->first();
 
             // $img_dir = dirname(__FILE__) . $post->file_path;
             $img_dir =  public_path() . $post->file_path;;
@@ -43,7 +43,7 @@ class HomeController extends Controller
 
         }
         // dd($lessonLog);die();
-        return view('student/home', compact('schoolClass', 'lesson', 'lessonLog', 'post'));
+        return view('student/home', compact('sclass', 'lesson', 'lessonLog', 'post'));
     }
 
     public function upload(Request $request)

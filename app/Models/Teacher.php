@@ -20,6 +20,6 @@ class Teacher extends Model implements AuthenticatableContract, CanResetPassword
     ];
 
     protected $hidden = [
-        'remember_token',
+        'password','remember_token',
     ];
 }

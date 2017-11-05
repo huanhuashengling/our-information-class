@@ -26,7 +26,7 @@ class CreateAdminsTable extends Migration
             $table->increments('id');
             $table->string('username', 45);
             $table->string('password');
-            $table->string('remember_token', 45)->nullable();
+            $table->string('remember_token')->nullable();
             $table->nullableTimestamps();
         });
     }

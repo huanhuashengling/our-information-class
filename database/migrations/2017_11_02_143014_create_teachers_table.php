@@ -27,7 +27,7 @@ class CreateTeachersTable extends Migration
             $table->string('username', 45);
             $table->string('email', 45)->nullable();
             $table->string('password');
-            $table->string('remember_token', 45)->nullable();
+            $table->string('remember_token');
             $table->integer('schools_id')->unsigned();
 
             // $table->index(["schools_id"], 'fk_teachers_schools2_idx');
