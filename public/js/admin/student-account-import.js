@@ -10,10 +10,10 @@ $(document).ready(function() {
 		allowedFileExtensions: ["xls", "xlsx", "csv"],
 	});
 
-	$(".school-class-btn").click(function(e) {
+	$(".sclass-btn").click(function(e) {
 		$('#student-list').bootstrapTable('destroy');
 		// console.log($(this).val());
-		var schoolClassName = $(this).val();
+		var sclassesId = $(this).val();
 
 		$('#student-list').bootstrapTable({
 	        method: 'get', 
@@ -26,7 +26,7 @@ $(document).ready(function() {
 	        toolbar:"#toolbar",
         	queryParams: function(params) {
         		var temp = { 
-			        school_classes_title : schoolClassName
+			        sclasses_id : sclassesId
 			    };
 			    return temp;
         	},
@@ -50,6 +50,12 @@ $(document).ready(function() {
 function genderCol(value, row, index) {
     return [
         '<span>'+(("0" == value)?"女":"男")+'</span>'
+    ].join('');
+}
+
+function classTitleCol(value, row, index) {
+    return [
+        "<span>" + row["enter_school_year"] + "级" + row["class_title"] + '班</span>'
     ].join('');
 }
 

@@ -22,15 +22,18 @@ class HomeController extends Controller
 
     public function studentsAccountManagement()
     {
-        $sclassesData = Sclass::select('sclasses.class_title', DB::raw('count(students.id) as count'))
+        $sclassesData = Sclass::select('sclasses.class_title', 'sclasses.enter_school_year', 'sclasses.id', DB::raw('count(students.id) as count'))
                               ->leftJoin('students', function($join) {
                                   $join->on('students.sclasses_id', '=', 'sclasses.id');
                               })
-                              ->where('sclasses.enter_school_year', '>', 2015)
-                              ->groupBy('sclasses.class_title')
+                              ->where('sclasses.enter_school_year', '<', 2016)
+                              ->groupBy('sclasses.class_title', 'sclasses.enter_school_year', 'sclasses.id')
                               ->get();
-                              // dd($sclassesData);
-                              // die();
+        foreach ($sclassesData as $key => $item) {
+            $sclassesData[$key]["title"] = $item['enter_school_year'] . "级" . $item["class_title"] . "班";
+        }
+        // dd($sclassesData);
+
         return view('admin/studentsAccountManagement', compact('sclassesData'));
     }
 
@@ -54,7 +57,7 @@ class HomeController extends Controller
     }
 
     public function getStudentsData(Request $request) {
-        $sclass = Sclass::where(['title' => $request->get('class_title')])->first();
+        $sclass = Sclass::find($request->get('sclasses_id'));
         if (isset($sclass)) {
             $students = Student::leftJoin('sclasses', function($join){
               $join->on('sclasses.id', '=', 'students.sclasses_id');

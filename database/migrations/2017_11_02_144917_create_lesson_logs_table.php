@@ -36,26 +36,20 @@ class CreateLessonLogsTable extends Migration
 
             $table->index(["sclasses_id"], 'fk_lesson_logs_sclasses1_idx');
             $table->nullableTimestamps();
-        });
 
-        Schema::table($this->set_schema_table, function($table) {
-           $table->foreign('lessons_id', 'fk_lesson_logs_lessons1_idx')
+            $table->foreign('lessons_id', 'fk_lesson_logs_lessons1_idx')
                 ->references('id')
                 ->on('lessons')
                 ->onDelete('no action')
                 ->onUpdate('no action');
-        });
 
-        Schema::table($this->set_schema_table, function($table) {
-           $table->foreign('teachers_id', 'fk_lesson_logs_teachers1_idx')
+            $table->foreign('teachers_id', 'fk_lesson_logs_teachers1_idx')
                 ->references('id')
                 ->on('teachers')
                 ->onDelete('no action')
                 ->onUpdate('no action');
-        });
 
-        Schema::table($this->set_schema_table, function($table) {
-           $table->foreign('sclasses_id', 'fk_lesson_logs_sclasses1_idx')
+            $table->foreign('sclasses_id', 'fk_lesson_logs_sclasses1_idx')
                 ->references('id')
                 ->on('sclasses')
                 ->onDelete('no action')

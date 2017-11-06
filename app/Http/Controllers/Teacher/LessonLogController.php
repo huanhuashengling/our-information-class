@@ -20,8 +20,8 @@ class LessonLogController extends Controller
         // }
         // $user = \Auth::user();
         // dd(\Auth::user());die();
-        $lessonLog->teachers_users_id = \Auth::user()->id;
-        $lessonLog->school_classes_id = $request->get('school_classes_id');
+        $lessonLog->teachers_id = \Auth::guard("teacher")->id();
+        $lessonLog->sclasses_id = $request->get('sclasses_id');
         $lessonLog->lessons_id = $request->get('lessons_id');
         $lessonLog->status = 'open';
         // dd($lessonLog);die();
@@ -49,11 +49,11 @@ class LessonLogController extends Controller
 
     public function listLessonLog()
     {
-        $teachers_users_id = \Auth::user()->id;
-        // $lessonLogData = LessonLog::where(['teachers_users_id' => $teachers_users_id])->get();
+        $teachers_id = \Auth::guard("teacher")->id();
+        // $lessonLogData = LessonLog::where(['teachers_id' => $teachers_id])->get();
         $lessonLogs = LessonLog::leftJoin('lessons', function($join) {
             $join->on('lessons.id', '=', 'lesson_logs.lessons_id');
-        })->selectRaw('lesson_logs.lessons_id as lessons_id, lessons.title, lessons.subtitle')->where(["lesson_logs.teachers_users_id" => $teachers_users_id])->groupBy('lessons_id')->get();
+        })->selectRaw('lesson_logs.lessons_id as lessons_id, lessons.title, lessons.subtitle')->where(["lesson_logs.teachers_id" => $teachers_id])->groupBy('lessons_id')->get();
         // dd($lessonLogs);die();
         // $lessons = [];
         // foreach ($lessonLogs as $key => $lessonLog) {

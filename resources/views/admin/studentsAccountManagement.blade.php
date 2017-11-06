@@ -17,7 +17,7 @@
   <div class="panel-body">
 
   @foreach ($sclassesData as $sclass)
-      <button class="btn btn-info school-class-btn" value="{{ $sclass['title'] }}">{{ $sclass['title'] }} <span class="badge">{{ $sclass['count'] }}</span></button>
+      <button class="btn btn-info sclass-btn" value="{{ $sclass['id'] }}">{{ $sclass['title'] }} <span class="badge">{{ $sclass['count'] }}</span></button>
   @endforeach
 
   </div>
@@ -40,8 +40,8 @@
               </th>
               <th data-field="">
                   序号
-              </th>
-              <th data-field="title">
+              </th> 
+              <th data-field="class_title" data-formatter="classTitleCol">
                   班级
               </th>
               <th data-field="username">

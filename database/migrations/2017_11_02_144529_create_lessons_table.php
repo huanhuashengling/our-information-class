@@ -34,10 +34,8 @@ class CreateLessonsTable extends Migration
 
             $table->index(["teachers_id"], 'fk_lessons_teachers1_idx');
             $table->nullableTimestamps();
-        });
 
-        Schema::table($this->set_schema_table, function($table) {
-           $table->foreign('teachers_id', 'fk_lessons_teachers1_idx')
+            $table->foreign('teachers_id', 'fk_lessons_teachers1_idx')
                 ->references('id')
                 ->on('teachers')
                 ->onDelete('no action')

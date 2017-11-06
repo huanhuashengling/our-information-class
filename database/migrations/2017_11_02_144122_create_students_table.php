@@ -38,18 +38,14 @@ class CreateStudentsTable extends Migration
 
             $table->index(["groups_id"], 'fk_students_groups1_idx');
             $table->nullableTimestamps();
-        });
 
-        Schema::table($this->set_schema_table, function($table) {
-           $table->foreign('groups_id', 'fk_students_groups1_idx')
+            $table->foreign('groups_id', 'fk_students_groups1_idx')
                 ->references('id')
                 ->on('groups')
                 ->onDelete('no action')
                 ->onUpdate('no action');
-        });
 
-        Schema::table($this->set_schema_table, function($table) {
-           $table->foreign('sclasses_id', 'fk_students_sclasses1_idx')
+            $table->foreign('sclasses_id', 'fk_students_sclasses1_idx')
                 ->references('id')
                 ->on('sclasses')
                 ->onDelete('no action')

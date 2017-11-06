@@ -99,6 +99,10 @@ Route::group(['middleware' => 'auth.teacher', 'prefix' => 'teacher','namespace' 
 {
     $router->get('home', 'HomeController@index');
     $router->get('takeclass', 'HomeController@takeclass');
+    $router->get('lesson', 'LessonController@index');
+    $router->get('lessonLog', 'LessonLogController@listLessonLog');
+    $router->get('getLessonPostPerSclass', 'HomeController@getLessonPostPerSclass');
+
 });
 
 Route::group(['prefix' => 'student','namespace' => 'Student'],function ($router)

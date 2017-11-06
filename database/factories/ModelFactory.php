@@ -59,6 +59,8 @@ $factory->define(App\Models\School::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Models\Sclass::class, function (Faker\Generator $faker) {
     static $class_num;
+    // $enter_school_year = $faker->unique()->numberBetween(2012, 2015);
+    
     return [
         'schools_id' => 1,
         'enter_school_year' => $faker->unique()->numberBetween(2012, 2015),

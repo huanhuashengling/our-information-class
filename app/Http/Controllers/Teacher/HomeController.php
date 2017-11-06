@@ -118,33 +118,32 @@ class HomeController extends Controller
 
     public function getLessonPostPerSclass(Request $request)
     {
-        $id = \Auth::user()->id;
+        $id = \Auth::guard("teacher")->id();
         $lessons_id = $request->get('lessons_id');
         $lessonLogs = LessonLog::leftJoin('sclasses', function($join) {
             $join->on('sclasses.id', '=', 'lesson_logs.sclasses_id');
-        })->where(['lessons_id' => $lessons_id, 'teachers_id' => $id])->orderBy('sclasses.id', 'asc')->selectRaw("lesson_logs.id as lesson_logs_id, sclasses.title as school_class_title")->get();
+        })->where(['lessons_id' => $lessons_id, 'teachers_id' => $id])->orderBy('sclasses.id', 'asc')->selectRaw("lesson_logs.id as lesson_logs_id, sclasses.class_title as class_title")->get();
 
         $newLessonLogs = [];
         $students = [];
         foreach ($lessonLogs as $key => $lessonLog) {
             $students = Student::leftJoin('lesson_logs', function($join) {
                 $join->on('students.sclasses_id', '=', 'lesson_logs.sclasses_id');
-            })->leftJoin('users', function($join) {
-                $join->on('students.id', '=', 'users.id');
             })->where(["lesson_logs.id" => $lessonLog['lesson_logs_id']])->get();
-// echo count($students) . "   ----   ";
+// dd(count($students));
             $postData = [];
             foreach ($students as $key => $student) {
                 // echo($student['id']);
                 $post = Post::where(['students_id' => $student['id'], 'lesson_logs_id' => $lessonLog['lesson_logs_id']])->first();
-                $postRate = PostRate::where(['posts_id' => $post['id']])->first();
-                $rate = isset($postRate)?$postRate['rate']:"";
+                // $postRate = PostRate::where(['posts_id' => $post['id']])->first();
+                // $rate = isset($postRate)?$postRate['rate']:"";
+                $rate = "";
                 $comment = Comment::where(['posts_id' => $post['id']])->first();
                 $hasComment = isset($comment)?"true":"false";
 
                 $postData[$student['id']] = ['post' => $post, 'rate' => $rate, 'hasComment' => $hasComment];
             }
-            $newLessonLogs[] = ['students' => $students, 'postData' => $postData, 'school_class_title' => $lessonLog['school_class_title'], 'lesson_logs_id' => $lessonLog['lesson_logs_id']];
+            $newLessonLogs[] = ['students' => $students, 'postData' => $postData, 'class_title' => $lessonLog['class_title'], 'lesson_logs_id' => $lessonLog['lesson_logs_id']];
 
         }
 // dd($newLessonLogs);die();
@@ -160,7 +159,7 @@ class HomeController extends Controller
             foreach ($lessonLogs as $key => $lessonLog) {
 // dd($lessonLog);
 
-                $returnHtml .= "<li><a href='#show-class" . $lessonLog["lesson_logs_id"] . "' data-toggle='tab'>" . $lessonLog["school_class_title"] . "</a></li>";
+                $returnHtml .= "<li><a href='#show-class" . $lessonLog["lesson_logs_id"] . "' data-toggle='tab'>" . $lessonLog["class_title"] . "</a></li>";
             }
         $returnHtml .= "</ul>";
         $returnHtml .= "<div class='tab-content'>";

@@ -10,7 +10,7 @@ $(document).ready(function() {
             var lessonsId = $(this).attr("value");
 	        $.ajax({
 	            type: "GET",
-	            url: '/teacher/getLessonPostPerSchoolClass',
+	            url: '/teacher/getLessonPostPerSclass',
 	            data: {lessons_id: lessonsId},
 	            success: function( data ) {
 	            	// console.log(data);

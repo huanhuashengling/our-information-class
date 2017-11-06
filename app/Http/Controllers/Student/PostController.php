@@ -18,15 +18,15 @@ class PostController extends Controller
 {
     public function index()
     {
-        $userId = \Auth::user()->id;
-        $student = Student::where(['users_id' => $userId])->first();
-        $lessonLogs = LessonLog::where(['school_classes_id' => $student['school_classes_id']])->get();
+        $id = \Auth::guard("student")->id();
+        $student = Student::find($id);
+        $lessonLogs = LessonLog::where(['sclasses_id' => $student['sclasses_id']])->get();
 
         $postData = [];
         foreach ($lessonLogs as $key => $lessonLog) {
             $lesson = Lesson::where(['id' => $lessonLog['lessons_id']])->first();
             $lesson->help_md_doc = EndaEditor::MarkDecode($lesson->help_md_doc);
-            $post = Post::where(['lesson_logs_id' => $lessonLog['id'], "students_users_id" => $userId])->orderBy('id', 'desc')->first();
+            $post = Post::where(['lesson_logs_id' => $lessonLog['id'], "students_users_id" => $id])->orderBy('id', 'desc')->first();
 
             $rate = "";
             $hasComment = "";

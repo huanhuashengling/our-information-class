@@ -30,17 +30,15 @@ class CreateTeachersTable extends Migration
             $table->string('remember_token');
             $table->integer('schools_id')->unsigned();
 
-            // $table->index(["schools_id"], 'fk_teachers_schools2_idx');
+            $table->index(["schools_id"], 'fk_teachers_schools2_idx');
             $table->nullableTimestamps();
-        });
 
-        Schema::table($this->set_schema_table, function($table) {
-           $table->foreign('schools_id', 'fk_teachers_schools2_idx')
+            $table->foreign('schools_id', 'fk_teachers_schools2_idx')
                 ->references('id')
                 ->on('schools')
                 ->onDelete('no action')
                 ->onUpdate('no action');
-       });
+        });
     }
 
     /**
