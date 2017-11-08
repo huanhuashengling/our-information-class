@@ -13,7 +13,8 @@ use App\Models\PostRate;
 use App\Models\Comment;
 use App\Models\LessonLog;
 use Illuminate\Support\Facades\View;
-
+use Illuminate\Support\Facades\Validator;
+use \Auth;
 use App\Libaries\pinyinfirstchar;
 
 
@@ -173,5 +174,40 @@ class HomeController extends Controller
             }
         $returnHtml .= "</div>";
         return $returnHtml;
+    }
+
+    public function getReset()
+    {
+        return view('teacher.login.reset');
+    }
+
+    public function postReset(Request $request)
+    {
+        $oldpassword = $request->input('oldpassword');
+        $password = $request->input('password');
+        $data = $request->all();
+        $rules = [
+            'oldpassword'=>'required|between:6,20',
+            'password'=>'required|between:6,20|confirmed',
+        ];
+        $messages = [
+            'required' => '密码不能为空',
+            'between' => '密码必须是6~20位之间',
+            'confirmed' => '新密码和确认密码不匹配'
+        ];
+        $validator = Validator::make($data, $rules, $messages);
+        $user = Auth::guard('teacher')->user();
+        $validator->after(function($validator) use ($oldpassword, $user) {
+            if (!\Hash::check($oldpassword, $user->password)) {
+                $validator->errors()->add('oldpassword', '原密码错误');
+            }
+        });
+        if ($validator->fails()) {
+            return back()->withErrors($validator);  //返回一次性错误
+        }
+        $user->password = bcrypt($password);
+        $user->save();
+        Auth::guard('teacher')->logout();
+        return redirect('/teacher/login');
     }
 }

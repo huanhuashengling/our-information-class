@@ -12,8 +12,10 @@ class AdminAuthMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next,$guard = null)
+    public function handle($request, Closure $next, $guard = null, $route = null)
     {
+
+        // dd($route . " --  ". $guard);
         // dd(Auth::guard("teacher")->guest());
         if (Auth::guard("admin")->guest()) {
             // if ($request->ajax() || $request->wantsJson()) {

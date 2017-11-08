@@ -17,22 +17,11 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
+        // dd($guard);
         if (Auth::guard($guard)->check()) {
-            switch ($guard) {
-                case 'admin':
-                    $url = 'admin/';
-                    break;
-                case 'teacher':
-                    $url = 'teacher/';
-                    break;
-                default:
-                    $url = 'student/';
-                    break;
-            }
-            // dd($guard);
             // 根据不同 guard 跳转到不同的页面
             // $url = $guard ? 'admin/dash':'/home';
-            return redirect($url);
+            return redirect($guard);
         }
 
         return $next($request);
