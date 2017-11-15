@@ -28,7 +28,7 @@ class CreateLessonsTable extends Migration
             $table->string('title', 45);
             $table->string('subtitle', 45)->nullable();
             $table->string('allow_post_file_types', 45)->nullable();
-            $table->string('help_md_doc', 45)->nullable();
+            $table->text('help_md_doc')->nullable();
             $table->string('description')->nullable();
             $table->integer('teachers_id')->unsigned();
 

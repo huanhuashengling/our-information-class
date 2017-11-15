@@ -9,11 +9,6 @@
       <p>你可以耐心等待或者尝试<a href="/student">刷新</a>一下页面，你也可以去看看自己<a href="/student/posts">以前交的作业</a>。</p>
     </div>
   @else
-    @php
-      if ($post) {
-        echo "<textarea id='posted-path' hidden >" . $post["file_path"] . "</textarea>";
-      }
-    @endphp
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
       <div class="panel panel-info">
         <div class="panel-heading" role="tab" id="headingOne">
@@ -37,12 +32,8 @@
           </div>
         @endif
         {!! Form::open(array('url'=>'student/upload','method'=>'POST', 'files'=>true)) !!}
-        <input type="hidden" name="lesson_logs_id" value="{{$lessonLog['id']}}">
-        {!! Form::file('image', ['id' => 'input-zh']) !!}
-        <p class="errors">{!!$errors->first('image')!!}</p>
-              @if(Session::has('error'))
-              <p class="errors">{!! Session::get('error') !!}</p>
-              @endif
+          <input type="hidden" name="lesson_logs_id" value="{{$lessonLog['id']}}">
+          {!! Form::file('source', ['id' => 'input-zh']) !!}
         {!! Form::close() !!}
         </div>
       </div>

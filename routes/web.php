@@ -103,8 +103,8 @@ Route::group(['middleware' => 'auth.teacher', 'prefix' => 'teacher','namespace' 
 {
     $router->get('home', 'HomeController@index');
     $router->get('takeclass', 'HomeController@takeclass');
-    $router->get('lesson', 'LessonController@index');
-    $router->get('lessonLog', 'LessonLogController@listLessonLog');
+    $router->resource('lesson', 'LessonController');
+    $router->resource('lessonLog', 'LessonLogController@listLessonLog');
     $router->get('getLessonPostPerSclass', 'HomeController@getLessonPostPerSclass');
 
     $router->get('reset', 'HomeController@getReset');
@@ -123,7 +123,7 @@ Route::group(['middleware' => 'auth.student', 'prefix' => 'student','namespace' 
 {
     $router->get('/', 'HomeController@index');
     $router->get('/posts', 'PostController@index');
-
+    $router->post('upload', 'HomeController@upload');
 
     $router->get('reset', 'HomeController@getReset');
     $router->post('reset', 'HomeController@postReset');
