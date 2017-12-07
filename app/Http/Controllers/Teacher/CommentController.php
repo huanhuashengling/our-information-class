@@ -18,6 +18,7 @@ class CommentController extends Controller
     public function getByPostsId(Request $request)
     {
         $comment = Comment::where(['posts_id' => $request->get('posts_id')])->first();
+
         if (isset($comment)) {
             return json_encode($comment);
         } else {
@@ -33,7 +34,7 @@ class CommentController extends Controller
         ]);
 
         $comment = new Comment;
-        $comment->users_id = \Auth::user()->id;
+        $comment->teachers_id = \Auth::guard('teacher')->id();
         $comment->posts_id = $request->get('posts_id');
         $comment->content = $request->get('content');;
 
@@ -52,7 +53,7 @@ class CommentController extends Controller
         ]);
 
         $comment = Comment::find($request->get('comments_id'));
-        $comment->users_id = \Auth::user()->id;
+        $comment->teachers_id = \Auth::guard('teacher')->id();
         $comment->posts_id = $request->get('posts_id');
         $comment->content = $request->get('content');
 

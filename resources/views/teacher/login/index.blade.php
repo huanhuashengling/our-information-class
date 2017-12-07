@@ -15,7 +15,7 @@
                             <!-- alue="{{ old('username') }}" -->
 
                             <div class="col-md-6">
-                                <input id="username" type="text" class="form-control" name="username" value="Flossie Leannon" required autofocus>
+                                <input id="username" type="text" class="form-control" name="username" value="Dexter Reinger" required autofocus>
 
                                 @if ($errors->has('username'))
                                     <span class="help-block">
