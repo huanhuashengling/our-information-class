@@ -23,26 +23,39 @@ $(document).ready(function() {
 
     $('.btn-success').on('click', function (e) {
         var postsId = (e.target.value).split(',')[0]; 
-        var filePath = (e.target.value).split(',')[1]; 
-
+// alert(postsId);
         e.preventDefault();
         $.ajax({
-            type: "GET",
+            type: "POST",
             url: '/teacher/getPostRate',
-            data: {posts_id : postsId},
+            data: {posts_id: postsId},
             success: function( data ) {
                 if ("false" == data) {
+
                 } else {
-                    console.log(data);
                     $('#'+data+'-rate').addClass("active");
                 }
             }
         });
 
         $.ajax({
-            type: "GET",
+            type: "POST",
+            url: '/teacher/getPost',
+            data: {posts_id: postsId},
+            success: function( data ) {
+                console.log(data);
+                if ("false" == data) {
+
+                } else {
+                    $('#post-show').attr("src", data);
+                }
+            }
+        });
+
+        $.ajax({
+            type: "POST",
             url: '/teacher/getCommentByPostsId',
-            data: {posts_id : postsId},
+            data: {posts_id: postsId},
             success: function( data ) {
                 if ("false" == data) {
                     $("#edit-post-comment-btn").addClass("hidden");
@@ -58,7 +71,7 @@ $(document).ready(function() {
         });
 
         $('#posts-id').val(postsId);
-        $('#post-show').attr("src", filePath);
+        // $('#post-show').attr("src", filePath);
         $('#myModal').modal();
     });
 
@@ -72,7 +85,7 @@ $(document).ready(function() {
             success: function( data ) {
                 // alert(data);
                 if ("true" == data) {
-                    window.location.href = "/teacher/";
+                    window.location.href = "/teacher/takeclass";
                 } else {
                     alert('评价失败!');
                 }

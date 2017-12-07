@@ -28,7 +28,7 @@ class UserController extends Controller
             'confirmed' => '新密码和确认密码不匹配'
         ];
         $validator = Validator::make($data, $rules, $messages);
-        $user = Auth::user();
+        $user = Auth::guard()->user();
         $validator->after(function($validator) use ($oldpassword, $user) {
             if (!\Hash::check($oldpassword, $user->password)) {
                 $validator->errors()->add('oldpassword', '原密码错误');

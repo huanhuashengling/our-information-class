@@ -4,16 +4,19 @@ namespace App\Http\Controllers\Teacher;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use Redirect;
 use App\Models\Student;
-use App\Models\SchoolClass;
+use App\Models\Sclass;
 use App\Models\Lesson;
 use App\Models\Post;
 use App\Models\PostRate;
 use App\Models\Comment;
 use App\Models\LessonLog;
 use Illuminate\Support\Facades\View;
-
+use Illuminate\Support\Facades\Validator;
+use \Auth;
+use \DB;
+use \Storage;
 use App\Libaries\pinyinfirstchar;
 
 
@@ -21,8 +24,11 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $userId = \Auth::user()->id;
-        $lessonLog = LessonLog::where(['teachers_users_id' => $userId, 'status' => 'open'])->first();
+        // dd(auth()->guard('teacher')->user());
+
+        $userId = auth()->guard('teacher')->id();
+        // dd($userId);
+        $lessonLog = LessonLog::where(['teachers_id' => $userId, 'status' => 'open'])->first();
         if ($lessonLog) {
             // dd($lessonLog);die();
             //If the teacher has one lesson log, only need redirect to route takeclass and load view
@@ -30,37 +36,45 @@ class HomeController extends Controller
         }
 
 
-        $schoolClasses = SchoolClass::where('grade_num', '>', 2)->pluck('title', 'id');
+        $sclasses = Sclass::get();
+        $classData = [];
+        foreach ($sclasses as $key => $sclass) {
+            $dateDiff = date_diff($sclass['enter_school_year']."0801", date('y', time()).date('m',time())."01");
+            dd($dateDiff);
+            $classData[$sclass['id']] = (2017-$sclass['enter_school_year']) ."级". $sclass['class_title'] . "班";
+        }
         $lessons = Lesson::get();
-// dd($lessons);die();
-        return view('teacher/home', compact('schoolClasses', 'lessons'));
+// dd($classData);
+        return view('teacher/home', compact('classData', 'lessons'));
     }
 
     public function takeClass()
     {
-        $userId = \Auth::user()->id;
-        $lessonLog = LessonLog::where(['teachers_users_id' => $userId, 'status' => 'open'])->first();
+        $userId = auth()->guard('teacher')->id();
+        $lessonLog = LessonLog::where(['teachers_id' => $userId, 'status' => 'open'])->first();
         // dd($lessonLog);die();
 
         $lesson = Lesson::where(['id' => $lessonLog['lessons_id']])->first();
-        $schoolClass = SchoolClass::where(['id' => $lessonLog['school_classes_id']])->first();
+        $schoolClass = Sclass::where(['id' => $lessonLog['sclasses_id']])->first();
         // dd($schoolClass);die();
-
-        $students = Student::leftJoin('lesson_logs', function($join) {
-            $join->on('students.school_classes_id', '=', 'lesson_logs.school_classes_id');
-        })->leftJoin('users', function($join) {
-            $join->on('students.users_id', '=', 'users.id');
-        })->where(["lesson_logs.id" => $lessonLog['id']])->get();
+        $students = DB::table('students')->select('students.id as students_id', 'lesson_logs.id as lesson_logs_id', 'students.*', 'lesson_logs.*')->leftJoin('lesson_logs', 'students.sclasses_id', '=', 'lesson_logs.sclasses_id')->where(["lesson_logs.id" => $lessonLog['id']])->get();
+        // dd($students);
+        // $students = Student::->select('name', 'email as user_email')
+        //     ->leftJoin('lesson_logs', function($join) {
+        //     $join->on('students.sclasses_id', '=', 'lesson_logs.sclasses_id');
+        // })->where(["lesson_logs.id" => $lessonLog['id']])->get();
         $postData = [];
         foreach ($students as $key => $student) {
-            // echo($student['users_id']);
-            $post = Post::where(['students_users_id' => $student['users_id'], 'lesson_logs_id' => $lessonLog['id']])->first();
+            // var_dump($student->students_id);
+            $post = Post::where(['students_id' => $student->students_id, 'lesson_logs_id' => $lessonLog['id']])->orderBy('id', 'desc')->first();
+            // dd($post);
             $postRate = PostRate::where(['posts_id' => $post['id']])->first();
             $rate = isset($postRate)?$postRate['rate']:"";
+            // $rate = "";
             $comment = Comment::where(['posts_id' => $post['id']])->first();
             $hasComment = isset($comment)?"true":"false";
 
-            $postData[$student['users_id']] = ['post' => $post, 'rate' => $rate, 'hasComment' => $hasComment];
+            $postData[$student->students_id] = ['post' => $post, 'rate' => $rate, 'hasComment' => $hasComment];
         }
         // dd($postData);die();
         $py = new pinyinfirstchar();
@@ -74,10 +88,10 @@ class HomeController extends Controller
             'rate' => 'required',
         ]);
 
-        $users_id = \Auth::user()->id;
+        $id = Auth::guard('teacher')->id();
         $posts_id = $request->get('posts_id');
         $rate = $request->get('rate');
-        $postRate = PostRate::where(['teachers_users_id' => $users_id, "posts_id" => $posts_id])->first();
+        $postRate = PostRate::where(['teachers_id' => $id, "posts_id" => $posts_id])->first();
         if (isset($postRate)) {
             $postRate->rate = $rate;
             if ($postRate->update()) {
@@ -87,7 +101,7 @@ class HomeController extends Controller
             }
         } else {
             $postRate = new PostRate();
-            $postRate->teachers_users_id = $users_id;
+            $postRate->teachers_id = $id;
             $postRate->posts_id = $posts_id;
             $postRate->rate = $rate;
             if ($postRate->save()) {
@@ -100,7 +114,8 @@ class HomeController extends Controller
 
     public function getPostRate(Request $request)
     {
-        $postRate = PostRate::where(['posts_id' => $request->get('posts_id')])->first();
+        $postRate = PostRate::where(['posts_id' => $request->input('posts_id')])->first();
+
         if (isset($postRate)) {
             return $postRate['rate'];
         } else {
@@ -108,40 +123,53 @@ class HomeController extends Controller
         }
     }
 
-    public function getLessonPostPerSchoolClass(Request $request)
+    public function getPost(Request $request)
     {
-        $users_id = \Auth::user()->id;
+        $post = Post::where(['id' => $request->input('posts_id')])->orderBy('id', 'desc')->first();
+
+        if (isset($post)) {
+            // $file = Storage::disk('uploads')->get($post->file_path)->getPath();
+                // $post->file_path = env('APP_URL')."/posts/".$post->file_path;
+        
+            return env('APP_URL')."/posts/".$post->file_path;
+        } else {
+            return "false";
+        }
+    }
+
+    public function getLessonPostPerSclass(Request $request)
+    {
+        $id = \Auth::guard("teacher")->id();
         $lessons_id = $request->get('lessons_id');
-        $lessonLogs = LessonLog::leftJoin('school_classes', function($join) {
-            $join->on('school_classes.id', '=', 'lesson_logs.school_classes_id');
-        })->where(['lessons_id' => $lessons_id, 'teachers_users_id' => $users_id])->orderBy('school_classes.id', 'asc')->selectRaw("lesson_logs.id as lesson_logs_id, school_classes.title as school_class_title")->get();
+        $lessonLogs = LessonLog::leftJoin('sclasses', function($join) {
+            $join->on('sclasses.id', '=', 'lesson_logs.sclasses_id');
+        })->where(['lessons_id' => $lessons_id, 'teachers_id' => $id])->orderBy('sclasses.id', 'asc')->selectRaw("lesson_logs.id as lesson_logs_id, sclasses.class_title as class_title")->get();
 
         $newLessonLogs = [];
         $students = [];
         foreach ($lessonLogs as $key => $lessonLog) {
             $students = Student::leftJoin('lesson_logs', function($join) {
-                $join->on('students.school_classes_id', '=', 'lesson_logs.school_classes_id');
-            })->leftJoin('users', function($join) {
-                $join->on('students.users_id', '=', 'users.id');
+                $join->on('students.sclasses_id', '=', 'lesson_logs.sclasses_id');
             })->where(["lesson_logs.id" => $lessonLog['lesson_logs_id']])->get();
-// echo count($students) . "   ----   ";
+// dd(count($students));
             $postData = [];
             foreach ($students as $key => $student) {
-                // echo($student['users_id']);
-                $post = Post::where(['students_users_id' => $student['users_id'], 'lesson_logs_id' => $lessonLog['lesson_logs_id']])->first();
-                $postRate = PostRate::where(['posts_id' => $post['id']])->first();
-                $rate = isset($postRate)?$postRate['rate']:"";
+                // echo($student['id']);
+                $post = Post::where(['students_id' => $student['id'], 'lesson_logs_id' => $lessonLog['lesson_logs_id']])->first();
+                // $postRate = PostRate::where(['posts_id' => $post['id']])->first();
+                // $rate = isset($postRate)?$postRate['rate']:"";
+                $rate = "";
                 $comment = Comment::where(['posts_id' => $post['id']])->first();
                 $hasComment = isset($comment)?"true":"false";
 
-                $postData[$student['users_id']] = ['post' => $post, 'rate' => $rate, 'hasComment' => $hasComment];
+                $postData[$student['id']] = ['post' => $post, 'rate' => $rate, 'hasComment' => $hasComment];
             }
-            $newLessonLogs[] = ['students' => $students, 'postData' => $postData, 'school_class_title' => $lessonLog['school_class_title'], 'lesson_logs_id' => $lessonLog['lesson_logs_id']];
+            $newLessonLogs[] = ['students' => $students, 'postData' => $postData, 'class_title' => $lessonLog['class_title'], 'lesson_logs_id' => $lessonLog['lesson_logs_id']];
 
         }
 // dd($newLessonLogs);die();
         return $this->lessonHistoryHtmlCreate($newLessonLogs);
-        // $post = Post::where(['students_users_id' => $student['users_id'], 'lesson_logs_id' => $lessonLog['id']])->first();
+        // $post = Post::where(['students_id' => $student['id'], 'lesson_logs_id' => $lessonLog['id']])->first();
         //有哪些班，第一个班的详细数据
     }
 
@@ -152,7 +180,7 @@ class HomeController extends Controller
             foreach ($lessonLogs as $key => $lessonLog) {
 // dd($lessonLog);
 
-                $returnHtml .= "<li><a href='#show-class" . $lessonLog["lesson_logs_id"] . "' data-toggle='tab'>" . $lessonLog["school_class_title"] . "</a></li>";
+                $returnHtml .= "<li><a href='#show-class" . $lessonLog["lesson_logs_id"] . "' data-toggle='tab'>" . $lessonLog["class_title"] . "</a></li>";
             }
         $returnHtml .= "</ul>";
         $returnHtml .= "<div class='tab-content'>";
@@ -166,5 +194,40 @@ class HomeController extends Controller
             }
         $returnHtml .= "</div>";
         return $returnHtml;
+    }
+
+    public function getReset()
+    {
+        return view('teacher.login.reset');
+    }
+
+    public function postReset(Request $request)
+    {
+        $oldpassword = $request->input('oldpassword');
+        $password = $request->input('password');
+        $data = $request->all();
+        $rules = [
+            'oldpassword'=>'required|between:6,20',
+            'password'=>'required|between:6,20|confirmed',
+        ];
+        $messages = [
+            'required' => '密码不能为空',
+            'between' => '密码必须是6~20位之间',
+            'confirmed' => '新密码和确认密码不匹配'
+        ];
+        $validator = Validator::make($data, $rules, $messages);
+        $user = Auth::guard('teacher')->user();
+        $validator->after(function($validator) use ($oldpassword, $user) {
+            if (!\Hash::check($oldpassword, $user->password)) {
+                $validator->errors()->add('oldpassword', '原密码错误');
+            }
+        });
+        if ($validator->fails()) {
+            return back()->withErrors($validator);  //返回一次性错误
+        }
+        $user->password = bcrypt($password);
+        $user->save();
+        Auth::guard('teacher')->logout();
+        return redirect('/teacher/login');
     }
 }

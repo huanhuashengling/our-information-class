@@ -4,14 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Models\Student;
-use App\Models\SchoolClass;
+use App\Models\Teacher;
+use App\Models\Sclass;
 use Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
+use \Auth;
 
 class HomeController extends Controller
 {
@@ -22,16 +23,19 @@ class HomeController extends Controller
 
     public function studentsAccountManagement()
     {
-        $schoolClassesData = SchoolClass::select('school_classes.title', DB::raw('count(students.users_id) as count'))
+        $sclassesData = Sclass::select('sclasses.class_title', 'sclasses.enter_school_year', 'sclasses.id', DB::raw('count(students.id) as count'))
                               ->leftJoin('students', function($join) {
-                                  $join->on('students.school_classes_id', '=', 'school_classes.id');
+                                  $join->on('students.sclasses_id', '=', 'sclasses.id');
                               })
-                              ->where('school_classes.grade_num', '>', 2)
-                              ->groupBy('school_classes.title')
+                              ->where('sclasses.enter_school_year', '<', 2016)
+                              ->groupBy('sclasses.class_title', 'sclasses.enter_school_year', 'sclasses.id')
                               ->get();
-                              // dd($schoolClassesData);
-                              // die();
-        return view('admin/studentsAccountManagement', compact('schoolClassesData'));
+        foreach ($sclassesData as $key => $item) {
+            $sclassesData[$key]["title"] = $item['enter_school_year'] . "级" . $item["class_title"] . "班";
+        }
+        // dd($sclassesData);
+
+        return view('admin/studentsAccountManagement', compact('sclassesData'));
     }
 
     public function importStudents(Request $request)
@@ -54,15 +58,12 @@ class HomeController extends Controller
     }
 
     public function getStudentsData(Request $request) {
-        $schoolClass = SchoolClass::where(['title' => $request->get('school_classes_title')])->first();
-        if (isset($schoolClass)) {
-            $students = Student::leftJoin('users', function($join){
-              $join->on('students.users_id', '=', 'users.id');
+        $sclass = Sclass::find($request->get('sclasses_id'));
+        if (isset($sclass)) {
+            $students = Student::leftJoin('sclasses', function($join){
+              $join->on('sclasses.id', '=', 'students.sclasses_id');
             })
-            ->leftJoin('school_classes', function($join){
-              $join->on('school_classes.id', '=', 'students.school_classes_id');
-            })
-            ->where(['school_classes_id' => $schoolClass->id])->get();
+            ->where(['sclasses_id' => $sclass->id])->get();
             return json_encode($students);
         } else {
             return "false";
@@ -70,8 +71,7 @@ class HomeController extends Controller
     }
 
     public function resetStudentPassword(Request $request) {
-        $users_id = $request->get('users_id');
-        $student = User::find($users_id);
+        $student = Student::find($request->get('id'));
         if ($student) {
             $student->password = bcrypt("123456");
             $student->save();
@@ -82,20 +82,54 @@ class HomeController extends Controller
     }
 
     public function createStudentAccount($data) {
-        $user = User::create([
+        $student = Student::create([
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'roles_id' => $data['roles_id'],
         ]);
-        if ($user) {
+        if ($student) {
             $student = Student::create([
-                'users_id' => $user->id,
+                'is' => $student->id,
                 'gender' => $data['gender'],
-                'school_classes_id' => $data['school_classes_id'],
+                'sclasses_id' => $data['sclasses_id'],
                 'level' => $data['level'],
                 'score' => $data['score'],
             ]);
         }
+    }
+
+    public function getReset()
+    {
+        return view('admin.login.reset');
+    }
+
+    public function postReset(Request $request)
+    {
+        $oldpassword = $request->input('oldpassword');
+        $password = $request->input('password');
+        $data = $request->all();
+        $rules = [
+            'oldpassword'=>'required|between:6,20',
+            'password'=>'required|between:6,20|confirmed',
+        ];
+        $messages = [
+            'required' => '密码不能为空',
+            'between' => '密码必须是6~20位之间',
+            'confirmed' => '新密码和确认密码不匹配'
+        ];
+        $validator = Validator::make($data, $rules, $messages);
+        $user = Auth::guard("admin")->user();
+        $validator->after(function($validator) use ($oldpassword, $user) {
+            if (!\Hash::check($oldpassword, $user->password)) {
+                $validator->errors()->add('oldpassword', '原密码错误');
+            }
+        });
+        if ($validator->fails()) {
+            return back()->withErrors($validator);  //返回一次性错误
+        }
+        $user->password = bcrypt($password);
+        $user->save();
+        Auth::guard("admin")->logout();  //更改完这次密码后，退出这个用户
+        return redirect('/admin/login');
     }
 }

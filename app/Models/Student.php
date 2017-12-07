@@ -3,13 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class Student extends Model
+class Student extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
-    protected $fillable = ['users_id', 'gender', 'school_classes_id', 'level', 'score'];
+    use Authenticatable, CanResetPassword;
+    
+    protected $fillable = [
+        'username', 'email', 'gender', 'sclasses_id', 'level', 'score', 'password', 'groups_id'
+        ];
 
-    public function user()
-    {
-        return $this->belongsTo('App\Models\User');
-    }
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 }

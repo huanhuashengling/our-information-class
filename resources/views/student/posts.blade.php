@@ -41,7 +41,8 @@
                 <div class="panel-body">
                     <div class="col-md-12">
                     @if (isset($item['post']))
-                        <img src="" id="post-show-{{$item['post']['id']}}" width="800px" height="600px">
+                        <!-- <img src="" id="post-show-{{$item['post']['id']}}" width="800px" height="600px"> -->
+                        <a href="" id="post-show-{{$item['post']['id']}}">下载文件</a>
                         <hr>
                         <div class="form-group">
                             <h4><label id="rate-label-{{$item['post']['id']}}"></label></h4>
@@ -61,12 +62,9 @@
                           </div>
                         @endif
                         {!! Form::open(array('url'=>'student/upload','method'=>'POST', 'files'=>true)) !!}
-                        <!--$lessonLog['id']<input type="hidden" name="lesson_logs_id" value="{{}}">-->
-                        {!! Form::file('image', ['class' => 'input-zh']) !!}
-                        <p class="errors">{!!$errors->first('image')!!}</p>
-                              @if(Session::has('error'))
-                              <p class="errors">{!! Session::get('error') !!}</p>
-                              @endif
+                            <input type="hidden" name="lesson_logs_id" value="{{$item['lessonLog']['id']}}">
+                            {!! Form::file('source', ['class' => 'input-zh']) !!}
+                            <p class="errors">{!!$errors->first('image')!!}</p>
                         {!! Form::close() !!}
                     @endif
                     </div>
