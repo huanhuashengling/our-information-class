@@ -51,7 +51,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://our_information_class:8001'),
+    'url' => env('APP_URL', 'http://www.oic.com:8001'),
 
     /*
     |--------------------------------------------------------------------------

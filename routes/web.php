@@ -35,6 +35,7 @@
     // Route::get('getStudentsData', 'HomeController@getStudentsData');
     // Route::post('resetStudentPassword', 'HomeController@resetStudentPassword');
 
+
 // });
 
 // Route::group(['middleware' => 'auth', 'namespace' => 'Teacher', 'prefix' => 'teacher'], function() {
@@ -92,6 +93,7 @@ Route::group(['middleware' => 'auth.admin:admin, admin/login', 'prefix' => 'admi
     $router->post('reset', 'HomeController@postReset');
 });
 
+
 Route::group(['prefix' => 'teacher','namespace' => 'Teacher'],function ($router)
 {
     $router->get('login', 'LoginController@showLoginForm')->name('teacher.login');
@@ -107,6 +109,16 @@ Route::group(['middleware' => 'auth.teacher', 'prefix' => 'teacher','namespace' 
     $router->resource('lessonLog', 'LessonLogController@listLessonLog');
     $router->get('getLessonPostPerSclass', 'HomeController@getLessonPostPerSclass');
 
+    Route::post('uploadMDImage', 'LessonController@uploadMDImage');
+    Route::get('ajaxSearchTopics', 'LessonController@ajaxSearchTopics');
+    Route::resource('createComment', 'CommentController@store');
+    Route::resource('updateComment', 'CommentController@update');
+    Route::post('getCommentByPostsId', 'CommentController@getByPostsId');
+    Route::post('getPost', 'HomeController@getPost');
+
+    Route::resource('updateRate', 'HomeController@updateRate');
+    Route::post('getPostRate', 'HomeController@getPostRate');
+
     $router->get('reset', 'HomeController@getReset');
     $router->post('reset', 'HomeController@postReset');
 
@@ -119,11 +131,13 @@ Route::group(['prefix' => 'student','namespace' => 'Student'],function ($router)
     $router->get('logout', 'LoginController@logout');
 });
 
+
 Route::group(['middleware' => 'auth.student', 'prefix' => 'student','namespace' => 'Student'],function ($router)
 {
     $router->get('/', 'HomeController@index');
     $router->get('/posts', 'PostController@index');
     $router->post('upload', 'HomeController@upload');
+    $router->post('getentry', 'HomeController@get');
 
     $router->get('reset', 'HomeController@getReset');
     $router->post('reset', 'HomeController@postReset');

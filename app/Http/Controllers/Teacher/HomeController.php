@@ -15,6 +15,8 @@ use App\Models\LessonLog;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Validator;
 use \Auth;
+use \DB;
+use \Storage;
 use App\Libaries\pinyinfirstchar;
 
 
@@ -56,20 +58,24 @@ class HomeController extends Controller
         $schoolClass = Sclass::where(['id' => $lessonLog['sclasses_id']])->first();
         // dd($schoolClass);die();
 
-        $students = Student::leftJoin('lesson_logs', function($join) {
-            $join->on('students.sclasses_id', '=', 'lesson_logs.sclasses_id');
-        })->where(["lesson_logs.id" => $lessonLog['id']])->get();
+        $students = DB::table('students')->select('students.id as students_id', 'lesson_logs.id as lesson_logs_id', 'students.*', 'lesson_logs.*')->leftJoin('lesson_logs', 'students.sclasses_id', '=', 'lesson_logs.sclasses_id')->where(["lesson_logs.id" => $lessonLog['id']])->get();
+        // dd($students);
+        // $students = Student::->select('name', 'email as user_email')
+        //     ->leftJoin('lesson_logs', function($join) {
+        //     $join->on('students.sclasses_id', '=', 'lesson_logs.sclasses_id');
+        // })->where(["lesson_logs.id" => $lessonLog['id']])->get();
         $postData = [];
         foreach ($students as $key => $student) {
-            // echo($student['id']);
-            $post = Post::where(['students_id' => $student['id'], 'lesson_logs_id' => $lessonLog['id']])->first();
-            // $postRate = PostRate::where(['posts_id' => $post['id']])->first();
-            // $rate = isset($postRate)?$postRate['rate']:"";
-            $rate = "";
+            // var_dump($student->students_id);
+            $post = Post::where(['students_id' => $student->students_id, 'lesson_logs_id' => $lessonLog['id']])->orderBy('id', 'desc')->first();
+            // dd($post);
+            $postRate = PostRate::where(['posts_id' => $post['id']])->first();
+            $rate = isset($postRate)?$postRate['rate']:"";
+            // $rate = "";
             $comment = Comment::where(['posts_id' => $post['id']])->first();
             $hasComment = isset($comment)?"true":"false";
 
-            $postData[$student['id']] = ['post' => $post, 'rate' => $rate, 'hasComment' => $hasComment];
+            $postData[$student->students_id] = ['post' => $post, 'rate' => $rate, 'hasComment' => $hasComment];
         }
         // dd($postData);die();
         $py = new pinyinfirstchar();
@@ -83,7 +89,7 @@ class HomeController extends Controller
             'rate' => 'required',
         ]);
 
-        $id = \Auth::user()->id;
+        $id = Auth::guard('teacher')->id();
         $posts_id = $request->get('posts_id');
         $rate = $request->get('rate');
         $postRate = PostRate::where(['teachers_id' => $id, "posts_id" => $posts_id])->first();
@@ -109,9 +115,24 @@ class HomeController extends Controller
 
     public function getPostRate(Request $request)
     {
-        $postRate = PostRate::where(['posts_id' => $request->get('posts_id')])->first();
+        $postRate = PostRate::where(['posts_id' => $request->input('posts_id')])->first();
+
         if (isset($postRate)) {
             return $postRate['rate'];
+        } else {
+            return "false";
+        }
+    }
+
+    public function getPost(Request $request)
+    {
+        $post = Post::where(['id' => $request->input('posts_id')])->orderBy('id', 'desc')->first();
+
+        if (isset($post)) {
+            // $file = Storage::disk('uploads')->get($post->file_path)->getPath();
+                // $post->file_path = env('APP_URL')."/posts/".$post->file_path;
+        
+            return env('APP_URL')."/posts/".$post->file_path;
         } else {
             return "false";
         }

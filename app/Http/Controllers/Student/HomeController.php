@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Student;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 
 use App\Models\Student;
@@ -35,13 +36,19 @@ class HomeController extends Controller
             $lesson->help_md_doc = EndaEditor::MarkDecode($lesson->help_md_doc);
             $sclass = Sclass::where(['id' => $lessonLog['sclasses_id']])->first();
 
+
             $post = Post::where(['lesson_logs_id' => $lessonLog['id'], "students_id" => $id])->orderBy('id', 'desc')->first();
             if ($post) {
+              // $post->file_path = $this->get($post->file_path);
+              // echo env('APP_URL');
+              // echo env('APP_URL')."/posts/".$post->file_path;
               // dd($post->file_path);
-              // $exists = Storage::disk('uploads')->exists($post->file_path);
-              // dd($exists);
+              // $file_path = Storage::url($post->file_path);
+              $post->file_path = env('APP_URL')."/posts/".$post->file_path;
 
-              $file_path = Storage::disk('uploads')->url($post->file_path);
+              // $exists = Storage::disk('posts')->exists($post->file_path);
+              // dd($file_path);
+
               // dd($file_path);
               // route('getpostimg', $post->file_path)
               // $img_dir = storage_path(). $post->file_path;
@@ -49,7 +56,6 @@ class HomeController extends Controller
               // $img_dir =  public_path() . $post->file_path;
               // $img_base64 = $this->imgToBase64($file_path);
               // $post->file_path = $img_base64;
-              $post->file_path = $file_path;
             }
         }
         // dd($post);
@@ -74,7 +80,7 @@ class HomeController extends Controller
         $uniqid = uniqid();
         $filename = date('Ymd') . '-' . $uniqid . '.' . $ext;
 
-        $bool = Storage::disk('uploads')->put($filename, file_get_contents($realPath)); 
+        $bool = Storage::disk('posts')->put($filename, file_get_contents($realPath)); 
         
         $post = new Post();
 

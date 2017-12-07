@@ -1,8 +1,8 @@
 @foreach ($students as $student)
     @php
-        $studentPostData = $postData[$student['id']]['post'];
-        $rate = $postData[$student['id']]['rate'];
-        $hasComment = $postData[$student['id']]['hasComment'];
+        $studentPostData = $postData[$student->students_id]['post'];
+        $rate = $postData[$student->students_id]['rate'];
+        $hasComment = $postData[$student->students_id]['hasComment'];
     @endphp
 
     @if ("posted" == $showLimit && !isset($studentPostData))
@@ -14,10 +14,10 @@
     @endif
     <div class="col-md-2 col-sm-3 col-xs-4">
         <table class="table table-bordered">
-            <tr><td>{{ $py->getFirstchar($student['username']) }} {{ $student['username'] }}</td></tr>
+            <tr><td>{{ $py->getFirstchar($student->username) }} {{ $student->username }}</td></tr>
             <tr><td>
             @if (isset($studentPostData))
-                <button class='btn btn-success form-control' value="{{ $studentPostData['id'] }},{{ $studentPostData['file_path'] }}">已提交</button>
+                <button class='btn btn-success form-control' value="{{ $studentPostData['id'] }}">已提交</button>
             @else
                 <button class='btn btn-default form-control disabled'>未提交</button>
             @endif

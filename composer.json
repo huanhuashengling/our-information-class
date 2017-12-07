@@ -9,7 +9,8 @@
         "laravel/framework": "5.3.*",
         "laravelcollective/html": "^5.3",
         "maatwebsite/excel": "~2.1.0",
-        "yuanchao/laravel-5-markdown-editor": "dev-master"
+        "yuanchao/laravel-5-markdown-editor": "dev-master",
+        "phpoffice/phpword": "v0.13.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
