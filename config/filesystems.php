@@ -60,11 +60,6 @@ return [
             // 'url' => 'posts/' . 
             'visibility' => 'public',
         ],
-        
-        'uploads' => [
-            'driver' => 'local',
-            'root' => storage_path('app/uploads'),
-        ],
 
         's3' => [
             'driver' => 's3',

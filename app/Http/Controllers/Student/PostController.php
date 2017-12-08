@@ -26,8 +26,8 @@ class PostController extends Controller
         foreach ($lessonLogs as $key => $lessonLog) {
             $lesson = Lesson::where(['id' => $lessonLog['lessons_id']])->first();
             $lesson->help_md_doc = EndaEditor::MarkDecode($lesson->help_md_doc);
-            $post = Post::where(['lesson_logs_id' => $lessonLog['id'], "students_users_id" => $id])->orderBy('id', 'desc')->first();
-
+            $post = Post::where(['lesson_logs_id' => $lessonLog['id'], "students_id" => $id])->orderBy('id', 'desc')->first();
+            // $post->file_path = env('APP_URL')."/posts/".$post->file_path;
             $rate = "";
             $hasComment = "";
             if (isset($post)) {

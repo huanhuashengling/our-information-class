@@ -9,7 +9,11 @@ $(document).ready(function() {
             e.preventDefault();
             var lessonsId = $(this).attr("value");
 	        $.ajax({
+<<<<<<< HEAD
 	            type: "GET",
+=======
+	            type: "POST",
+>>>>>>> 20171104_MultiAuth
 	            url: '/teacher/getLessonPostPerSclass',
 	            data: {lessons_id: lessonsId},
 	            success: function( data ) {

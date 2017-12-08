@@ -11,6 +11,8 @@ use App\Models\Sclass;
 use App\Models\Lesson;
 use App\Models\LessonLog;
 use App\Models\Post;
+use App\Models\PostRate;
+use App\Models\Comment;
 
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
@@ -36,7 +38,6 @@ class HomeController extends Controller
             $lesson->help_md_doc = EndaEditor::MarkDecode($lesson->help_md_doc);
             $sclass = Sclass::where(['id' => $lessonLog['sclasses_id']])->first();
 
-
             $post = Post::where(['lesson_logs_id' => $lessonLog['id'], "students_id" => $id])->orderBy('id', 'desc')->first();
             if ($post) {
               // $post->file_path = $this->get($post->file_path);
@@ -49,6 +50,7 @@ class HomeController extends Controller
               // $exists = Storage::disk('posts')->exists($post->file_path);
               // dd($file_path);
 
+              // $file_path = Storage::disk('posts')->url($post->file_path);
               // dd($file_path);
               // route('getpostimg', $post->file_path)
               // $img_dir = storage_path(). $post->file_path;
@@ -56,6 +58,7 @@ class HomeController extends Controller
               // $img_dir =  public_path() . $post->file_path;
               // $img_base64 = $this->imgToBase64($file_path);
               // $post->file_path = $img_base64;
+              // $post->file_path = $file_path;
             }
         }
         // dd($post);
@@ -100,14 +103,6 @@ class HomeController extends Controller
         }
       }
     }
-public function get($filename){
-  
-    $post = Post::where('file_path', '=', $filename)->firstOrFail();
-    $file = Storage::disk('uploads')->get($post->file_path);
- 
-    return (new Response($file, 200))
-              ->header('Content-type: image/jpg');
-  }
 
   public function imgToBase64($img_file) {
      $img_base64 = '';
@@ -173,5 +168,27 @@ public function get($filename){
         $user->save();
         Auth::guard("student")->logout();  //更改完这次密码后，退出这个用户
         return redirect('/student/login');
+    }
+
+    public function getCommentByPostsId(Request $request)
+    {
+        $comment = Comment::where(['posts_id' => $request->get('posts_id')])->first();
+
+        if (isset($comment)) {
+            return json_encode($comment);
+        } else {
+            return "false";
+        }
+    }
+
+    public function getPostRate(Request $request)
+    {
+        $postRate = PostRate::where(['posts_id' => $request->input('posts_id')])->first();
+
+        if (isset($postRate)) {
+            return $postRate['rate'];
+        } else {
+            return "false";
+        }
     }
 }

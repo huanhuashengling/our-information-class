@@ -28,7 +28,7 @@
                             {!! Form::textarea('content', $lesson->help_md_doc, ['class' => 'form-control','id'=>'myEditor']) !!}
                         </div>
                         <br>
-                        <button class="btn btn-lg btn-info">编辑</button>
+                        <button class="btn btn-lg btn-info">保存</button>
                     </form>
 
                 </div>
