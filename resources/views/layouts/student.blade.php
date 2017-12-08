@@ -59,7 +59,6 @@
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
-                <li><a href="">100赞 ＋ 20优 ＋ 5评 ＝ 200分 ＝ 5级</a></li>
                 <li><a href=""> </a></li>
                     <!-- Authentication Links -->
                     @if (Auth::guard("student")->guest())
@@ -72,7 +71,7 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>修改个人信息</a></li>
+                                <li><a href="{{ url('/student/reset') }}"><i class="fa fa-btn fa-sign-out"></i>修改个人信息</a></li>
                                 <li><a href="{{ url('/student/reset') }}"><i class="fa fa-btn fa-sign-out"></i>修改密码</a></li>
                                 <li><a href="{{ url('/student/logout') }}"><i class="fa fa-btn fa-sign-out"></i>{{ trans("layouts.logout") }}</a></li>
                             </ul>

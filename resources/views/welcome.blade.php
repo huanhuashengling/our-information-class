@@ -8,7 +8,7 @@
         <title>{{ trans('site.title') }}</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        <!-- <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css"> -->
 
         <!-- Styles -->
         <style>
@@ -66,26 +66,15 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @if (Auth::check())
-                        <a href="{{ url('/home') }}">首页</a>
-                    @else
-                        <a href="{{ url('/login') }}">登录</a>
-                        <!-- <a href="{{ url('/register') }}">Register</a> -->
-                    @endif
-                </div>
-            @endif
-
             <div class="content">
                 <div class="title m-b-md">
-                    作品展示区
+                    我们的信息课
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">最受欢迎作品</a>
-                    <a href="https://laracasts.com">老师点评作品</a>
-                    <a href="https://laravel-news.com">最受欢迎益智游戏</a>
+                    <a href="/teacher/login">教师登陆</a>
+                    <a href="/student/login">学生登陆</a>
+                    <a href="/admin/login">管理员登陆</a>
                 </div>
             </div>
         </div>

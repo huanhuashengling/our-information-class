@@ -13,7 +13,7 @@ $(document).ready(function() {
             success: function( data ) {
             	// alert(data);
                 if ("true" == data) {
-                	window.location.href = "/teacher/home";
+                	window.location.href = "/teacher";
                 } else {
                 	alert('关闭失败!');
                 }

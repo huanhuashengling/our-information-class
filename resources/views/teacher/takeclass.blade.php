@@ -27,7 +27,7 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-md-2 col-sm-4"><h4>{{ $sclass['enter_school_year'] }}级{{ $sclass['class_title'] }}班</h4></div>
-                    <div class="col-md-3 col-sm-4"><h4><small>(5738号)</small>{{ $lesson['title'] }}<small>({{ $lesson['subtitle'] }})</small></h4></div>
+                    <div class="col-md-3 col-sm-4"><h4><small></small>{{ $lesson['title'] }}<small>({{ $lesson['subtitle'] }})</small></h4></div>
                     
                     <div class="col-md-2 col-sm-2 col-xs-6">{!! Form::button('姓名排序',['class'=>'btn btn-info', 'id' => 'sort-by-name']) !!}</div>
                     <!-- <div class="col-md-1 col-sm-2 col-xs-6">{!! Form::button('点赞排序',['class'=>'btn btn-info', 'id' => 'close-lesson-log']) !!}</div> -->

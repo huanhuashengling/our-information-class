@@ -49,7 +49,10 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    修改
+                                    确认修改
+                                </button>
+                                <button type="button" class="btn btn-danger">
+                                    取消修改
                                 </button>
                             </div>
                         </div>

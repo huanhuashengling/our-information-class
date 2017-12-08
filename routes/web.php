@@ -11,9 +11,9 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 // Auth::routes();
 // Route::auth();
@@ -101,7 +101,7 @@ Route::group(['prefix' => 'teacher','namespace' => 'Teacher'],function ($router)
 
 Route::group(['middleware' => 'auth.teacher', 'prefix' => 'teacher','namespace' => 'Teacher'],function ($router)
 {
-    $router->get('home', 'HomeController@index');
+    $router->get('/', 'HomeController@index');
     $router->get('takeclass', 'HomeController@takeclass');
     $router->resource('lesson', 'LessonController');
     $router->resource('lessonLog', 'LessonLogController@listLessonLog');
@@ -109,6 +109,8 @@ Route::group(['middleware' => 'auth.teacher', 'prefix' => 'teacher','namespace' 
 
     Route::post('uploadMDImage', 'LessonController@uploadMDImage');
     Route::get('ajaxSearchTopics', 'LessonController@ajaxSearchTopics');
+    Route::get('lessonLog', 'LessonLogController@listLessonLog');
+    Route::post('createLessonLog', 'LessonLogController@store');
     Route::post('updateLessonLog', 'LessonLogController@update');
     
     Route::resource('createComment', 'CommentController@store');
