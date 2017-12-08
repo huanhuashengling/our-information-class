@@ -35,6 +35,38 @@
     // Route::get('getStudentsData', 'HomeController@getStudentsData');
     // Route::post('resetStudentPassword', 'HomeController@resetStudentPassword');
 
+
+// });
+
+// Route::group(['middleware' => 'auth', 'namespace' => 'Teacher', 'prefix' => 'teacher'], function() {
+//     Route::get('/', 'HomeController@index');
+//     Route::resource('class', 'SchoolClassController');
+//     Route::resource('lesson', 'LessonController');
+//     Route::post('uploadMDImage', 'LessonController@uploadMDImage');
+//     Route::get('ajaxSearchTopics', 'LessonController@ajaxSearchTopics');
+
+//     Route::resource('createComment', 'CommentController@store');
+//     Route::resource('updateComment', 'CommentController@update');
+//     Route::resource('getCommentByPostsId', 'CommentController@getByPostsId');
+
+//     Route::resource('updateRate', 'HomeController@updateRate');
+//     Route::resource('getPostRate', 'HomeController@getPostRate');
+
+//     Route::get('lessonLog', 'LessonLogController@listLessonLog');
+//     Route::post('createLessonLog', 'LessonLogController@store');
+//     Route::post('updateLessonLog', 'LessonLogController@update');
+
+//     Route::get('takeclass', 'HomeController@takeClass');
+
+//     Route::get('getLessonPostPerSchoolClass', 'HomeController@getLessonPostPerSchoolClass');
+
+// });
+
+
+// Route::group(['middleware' => 'auth', 'namespace' => 'Student', 'prefix' => 'student'], function() {
+//     Route::get('/', 'HomeController@index');
+//     Route::post('upload', 'HomeController@upload');
+//     Route::get('posts', 'PostController@index');
 // });
 
 // Route::group(['middleware' => 'auth', 'namespace' => 'Teacher', 'prefix' => 'teacher'], function() {
@@ -84,7 +116,7 @@ Route::group(['middleware' => 'auth.admin:admin, admin/login', 'prefix' => 'admi
     $router->get('students', 'HomeController@studentsAccountManagement');
 
     $router->post('importStudents', 'HomeController@importStudents');
-    $router->get('getStudentsData', 'HomeController@getStudentsData');
+    $router->post('getStudentsData', 'HomeController@getStudentsData');
     $router->post('resetStudentPassword', 'HomeController@resetStudentPassword');
 
 
@@ -105,10 +137,13 @@ Route::group(['middleware' => 'auth.teacher', 'prefix' => 'teacher','namespace' 
     $router->get('takeclass', 'HomeController@takeclass');
     $router->resource('lesson', 'LessonController');
     $router->resource('lessonLog', 'LessonLogController@listLessonLog');
-    $router->get('getLessonPostPerSclass', 'HomeController@getLessonPostPerSclass');
+
+    $router->post('getLessonPostPerSclass', 'HomeController@getLessonPostPerSclass');
 
     Route::post('uploadMDImage', 'LessonController@uploadMDImage');
     Route::get('ajaxSearchTopics', 'LessonController@ajaxSearchTopics');
+    Route::post('updateLessonLog', 'LessonLogController@update');
+    
     Route::resource('createComment', 'CommentController@store');
     Route::resource('updateComment', 'CommentController@update');
     Route::post('getCommentByPostsId', 'CommentController@getByPostsId');
@@ -119,8 +154,8 @@ Route::group(['middleware' => 'auth.teacher', 'prefix' => 'teacher','namespace' 
 
     $router->get('reset', 'HomeController@getReset');
     $router->post('reset', 'HomeController@postReset');
+}
 
-});
 
 Route::group(['prefix' => 'student','namespace' => 'Student'],function ($router)
 {
@@ -135,6 +170,8 @@ Route::group(['middleware' => 'auth.student', 'prefix' => 'student','namespace' 
     $router->get('/posts', 'PostController@index');
     $router->post('upload', 'HomeController@upload');
     $router->post('getentry', 'HomeController@get');
+    $router->post('getCommentByPostsId', 'HomeController@getCommentByPostsId');
+    $router->post('getPostRate', 'HomeController@getPostRate');
 
     $router->get('reset', 'HomeController@getReset');
     $router->post('reset', 'HomeController@postReset');

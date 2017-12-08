@@ -13,7 +13,7 @@ $(document).ready(function() {
                 e.preventDefault();
                 $.ajax({
                     type: "POST",
-                    url: '/teacher/getPostRate',
+                    url: '/student/getPostRate',
                     data: {posts_id : postsId},
                     success: function( data ) {
                         // console.log(data);
@@ -31,7 +31,7 @@ $(document).ready(function() {
 
                 $.ajax({
                     type: "POST",
-                    url: '/teacher/getCommentByPostsId',
+                    url: '/student/getCommentByPostsId',
                     data: {posts_id : postsId},
                     success: function( data ) {
                         console.log(data);
@@ -44,8 +44,9 @@ $(document).ready(function() {
                 });
 
                 $('#posts-id').val(postsId);
-                // $('#post-show-'+postsId).attr("src", filePath);
-                $('#post-show-'+postsId).attr("href", filePath);
+                $('#post-show-'+postsId).attr("src", filePath);
+                $('#post-download-'+postsId).attr("href", filePath);
+                // $('#post-show-'+postsId).attr("href", filePath);
                 //$('#myModal').modal();
             }
             
