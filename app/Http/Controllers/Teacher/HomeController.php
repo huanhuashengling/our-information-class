@@ -39,8 +39,8 @@ class HomeController extends Controller
         $sclasses = Sclass::get();
         $classData = [];
         foreach ($sclasses as $key => $sclass) {
-            $dateDiff = date_diff($sclass['enter_school_year']."0801", date('y', time()).date('m',time())."01");
-            dd($dateDiff);
+            // $dateDiff = date_diff($sclass['enter_school_year']."0801", date('y', time()).date('m',time())."01");
+            // dd($dateDiff);
             $classData[$sclass['id']] = (2017-$sclass['enter_school_year']) ."级". $sclass['class_title'] . "班";
         }
         $lessons = Lesson::get();
@@ -55,15 +55,9 @@ class HomeController extends Controller
         // dd($lessonLog);die();
 
         $lesson = Lesson::where(['id' => $lessonLog['lessons_id']])->first();
-<<<<<<< HEAD
-        $schoolClass = Sclass::where(['id' => $lessonLog['sclasses_id']])->first();
-        // dd($schoolClass);die();
-
-=======
 
         $sclass = Sclass::where(['id' => $lessonLog['sclasses_id']])->first();
         // dd($sclass);die();
->>>>>>> develop
         $students = DB::table('students')->select('students.id as students_id', 'lesson_logs.id as lesson_logs_id', 'students.*', 'lesson_logs.*')->leftJoin('lesson_logs', 'students.sclasses_id', '=', 'lesson_logs.sclasses_id')->where(["lesson_logs.id" => $lessonLog['id']])->get();
         // dd($students);
         // $students = Student::->select('name', 'email as user_email')
