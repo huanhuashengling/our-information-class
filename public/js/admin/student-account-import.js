@@ -16,7 +16,7 @@ $(document).ready(function() {
 		var sclassesId = $(this).val();
 
 		$('#student-list').bootstrapTable({
-	        method: 'get', 
+	        method: 'post', 
 	        search: "true",
 	        url: "/admin/getStudentsData",
 	        pagination:"true",

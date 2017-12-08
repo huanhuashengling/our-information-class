@@ -11,6 +11,8 @@ use App\Models\Sclass;
 use App\Models\Lesson;
 use App\Models\LessonLog;
 use App\Models\Post;
+use App\Models\PostRate;
+use App\Models\Comment;
 
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
@@ -166,5 +168,27 @@ class HomeController extends Controller
         $user->save();
         Auth::guard("student")->logout();  //更改完这次密码后，退出这个用户
         return redirect('/student/login');
+    }
+
+    public function getCommentByPostsId(Request $request)
+    {
+        $comment = Comment::where(['posts_id' => $request->get('posts_id')])->first();
+
+        if (isset($comment)) {
+            return json_encode($comment);
+        } else {
+            return "false";
+        }
+    }
+
+    public function getPostRate(Request $request)
+    {
+        $postRate = PostRate::where(['posts_id' => $request->input('posts_id')])->first();
+
+        if (isset($postRate)) {
+            return $postRate['rate'];
+        } else {
+            return "false";
+        }
     }
 }

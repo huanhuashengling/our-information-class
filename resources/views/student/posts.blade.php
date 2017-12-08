@@ -41,8 +41,9 @@
                 <div class="panel-body">
                     <div class="col-md-12">
                     @if (isset($item['post']))
-                        <!-- <img src="" id="post-show-{{$item['post']['id']}}" width="800px" height="600px"> -->
-                        <a href="" id="post-show-{{$item['post']['id']}}">下载文件</a>
+                        <img src="" id="post-show-{{$item['post']['id']}}" width="800px" height="600px">
+                        <!-- <embed src="" width="1024" height="768" id="post-show-{{$item['post']['id']}}" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html"> -->
+                        <a href="" id="post-download-{{$item['post']['id']}}">鼠标右键点击下载保存文件</a>
                         <hr>
                         <div class="form-group">
                             <h4><label id="rate-label-{{$item['post']['id']}}"></label></h4>

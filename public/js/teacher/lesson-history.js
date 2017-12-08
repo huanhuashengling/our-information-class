@@ -9,7 +9,7 @@ $(document).ready(function() {
             e.preventDefault();
             var lessonsId = $(this).attr("value");
 	        $.ajax({
-	            type: "GET",
+	            type: "POST",
 	            url: '/teacher/getLessonPostPerSclass',
 	            data: {lessons_id: lessonsId},
 	            success: function( data ) {

@@ -59,6 +59,7 @@ class HomeController extends Controller
 
     public function getStudentsData(Request $request) {
         $sclass = Sclass::find($request->get('sclasses_id'));
+
         if (isset($sclass)) {
             $students = Student::leftJoin('sclasses', function($join){
               $join->on('sclasses.id', '=', 'students.sclasses_id');
