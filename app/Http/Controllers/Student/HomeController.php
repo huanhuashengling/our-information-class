@@ -40,25 +40,8 @@ class HomeController extends Controller
 
             $post = Post::where(['lesson_logs_id' => $lessonLog['id'], "students_id" => $id])->orderBy('id', 'desc')->first();
             if ($post) {
-              // $post->file_path = $this->get($post->file_path);
-              // echo env('APP_URL');
-              // echo env('APP_URL')."/posts/".$post->file_path;
-              // dd($post->file_path);
-              // $file_path = Storage::url($post->file_path);
-              $post->file_path = env('APP_URL')."/posts/".$post->file_path;
-
-              // $exists = Storage::disk('posts')->exists($post->file_path);
-              // dd($file_path);
-
-              // $file_path = Storage::disk('posts')->url($post->file_path);
-              // dd($file_path);
-              // route('getpostimg', $post->file_path)
-              // $img_dir = storage_path(). $post->file_path;
-              // dd($img_dir);
-              // $img_dir =  public_path() . $post->file_path;
-              // $img_base64 = $this->imgToBase64($file_path);
-              // $post->file_path = $img_base64;
-              // $post->file_path = $file_path;
+              // echo env('APP_URL')."/posts/".$post->storage_name;
+              $post->storage_name = env('APP_URL')."/posts/".$post->storage_name;
             }
         }
         // dd($post);
@@ -77,6 +60,7 @@ class HomeController extends Controller
         $ext = $file->getClientOriginalExtension();
         // MimeType
         $type = $file->getClientMimeType();
+        // dd($originalName);
         // 临时绝对路径
         $realPath = $file->getRealPath();
 
@@ -89,7 +73,10 @@ class HomeController extends Controller
 
         $post->students_id = Auth::guard("student")->id();
         $post->lesson_logs_id = $request->get('lesson_logs_id');
-        $post->file_path = $filename;
+        $post->storage_name = $filename;
+        $post->original_name = $originalName;
+        $post->file_ext = $ext;
+        $post->mime_type = $type;
         $post->post_code = $uniqid;
         $post->content = "";
         // dd($post);die();

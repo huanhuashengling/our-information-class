@@ -24,9 +24,9 @@ class CreatePostRatesTable extends Migration
         Schema::create($this->set_schema_table, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer('posts_id');
+            $table->integer('posts_id')->unsigned();
             $table->string('rate', 45)->nullable();
-            $table->integer('teachers_id');
+            $table->integer('teachers_id')->unsigned();
 
             $table->index(["teachers_id"], 'fk_post_rates_teachers1_idx');
 

@@ -31,7 +31,7 @@
         <div class="col-md-12">
             <div class="panel panel-{{$hasPostStr}}">
                 <div class="panel-heading" role="tab" id="heading{{$key}}">
-                  <h4 class="panel-title" value="{{ $item['post']['id'] }},{{ $item['post']['file_path'] }}">
+                  <h4 class="panel-title" value="{{ $item['post']['id'] }},{{ $item['post']['storage_name'] }}">
                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$key}}" aria-expanded="true" aria-controls="collapse{{$key}}">
                         #{{ $key }} 课题： {{ $item['lesson']['title'] }} <small>{{ $item['lesson']['subtitle'] }} </small>  <label class="text-right">{{$rateStr}} {{$hasComment}}</label>
                     </a>
@@ -41,7 +41,7 @@
                 <div class="panel-body">
                     <div class="col-md-12">
                     @if (isset($item['post']))
-                        <img src="" id="post-show-{{$item['post']['id']}}" width="800px" height="600px">
+                        <img src="" id="post-show-{{$item['post']['id']}}" class="img-responsive">
                         <!-- <embed src="" width="1024" height="768" id="post-show-{{$item['post']['id']}}" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html"> -->
                         <a href="" id="post-download-{{$item['post']['id']}}">鼠标右键点击下载保存文件</a>
                         <hr>

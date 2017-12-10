@@ -9,7 +9,9 @@
       <p>你可以耐心等待或者尝试<a href="/student">刷新</a>一下页面，你也可以去看看自己<a href="/student/posts">以前交的作业</a>。</p>
     </div>
   @else
-  <input id="posted-path" value="{{ $post->file_path }}" hidden />
+    @if ($post)
+      <input id="posted-path" value="{{ $post->storage_name }}" hidden />
+    @endif
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
       <div class="panel panel-info">
         <div class="panel-heading" role="tab" id="headingOne">

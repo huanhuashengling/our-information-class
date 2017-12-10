@@ -45,7 +45,7 @@
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/admin') }}">
+                <a class="navbar-brand" href="{{ url('/') }}">
                     {{ trans("layouts.project_name") }}
                 </a>
             </div>

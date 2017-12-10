@@ -44,7 +44,7 @@
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/student') }}">
+                <a class="navbar-brand" href="{{ url('/') }}">
                     {{ trans("layouts.project_name") }}
                 </a>
             </div>
@@ -53,6 +53,7 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <!--<li><a href="{{ url('/student') }}">我的小组</a></li>-->
+                    <li><a href="{{ url('/student') }}">信息课</a></li>
                     <li><a href="{{ url('/student/posts') }}">作业记录</a></li>
                     <!--<li><a href="{{ url('/student') }}">同学作业</a></li>-->
                 </ul>
@@ -66,7 +67,7 @@
                         <!-- <li><a href="{{ url('/register') }}">{{ trans("layouts.register") }}</a></li> -->
                     @else
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Welcome,
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hello,
                                 {{ Auth::guard("student")->user()->username }} <span class="caret"></span>
                             </a>
 

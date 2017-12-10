@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     protected $fillable = [
-        'students_id', 'lesson_logs_id', 'file_path', 'post_code', 'content'
+        'students_id', 'lesson_logs_id', 'storage_name', 'original_name', 'file_ext', 'mime_type', 'post_code', 'content'
     ];
 
     public function hasManyComments()

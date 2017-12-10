@@ -11,6 +11,8 @@ class SclassesTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('schools')->delete();
+        
         factory('App\Models\Sclass', 3)->create([
             'class_num' => 3
             ]);

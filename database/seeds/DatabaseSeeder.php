@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(LessonLogsTableSeeder::class);
         $this->call(PostsTableSeeder::class);
         $this->call(CommentsTableSeeder::class);
+        $this->call(MarksTableSeeder::class);
         
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }

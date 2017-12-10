@@ -41,7 +41,7 @@ class HomeController extends Controller
         foreach ($sclasses as $key => $sclass) {
             // $dateDiff = date_diff($sclass['enter_school_year']."0801", date('y', time()).date('m',time())."01");
             // dd($dateDiff);
-            $classData[$sclass['id']] = (2017-$sclass['enter_school_year']) . $sclass['class_title'] . "班";
+            $classData[$sclass['id']] = $sclass['enter_school_year'] . "级" . $sclass['class_title'] . "班";
         }
         $lessons = Lesson::get();
 // dd($classData);
@@ -129,10 +129,10 @@ class HomeController extends Controller
         $post = Post::where(['id' => $request->input('posts_id')])->orderBy('id', 'desc')->first();
 
         if (isset($post)) {
-            // $file = Storage::disk('uploads')->get($post->file_path)->getPath();
-                // $post->file_path = env('APP_URL')."/posts/".$post->file_path;
+            // $file = Storage::disk('uploads')->get($post->storage_name)->getPath();
+                // $post->storage_name = env('APP_URL')."/posts/".$post->storage_name;
         
-            return env('APP_URL')."/posts/".$post->file_path;
+            return env('APP_URL')."/posts/".$post->storage_name;
         } else {
             return "false";
         }
