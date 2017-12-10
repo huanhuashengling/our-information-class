@@ -43,7 +43,7 @@
                     @if (isset($item['post']))
                         <img src="" id="post-show-{{$item['post']['id']}}" class="img-responsive">
                         <!-- <embed src="" width="1024" height="768" id="post-show-{{$item['post']['id']}}" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html"> -->
-                        <a href="" id="post-download-{{$item['post']['id']}}">鼠标右键点击下载保存文件</a>
+                        <a href="" id="post-download-{{$item['post']['id']}}">右键点击下载</a>
                         <hr>
                         <div class="form-group">
                             <h4><label id="rate-label-{{$item['post']['id']}}"></label></h4>

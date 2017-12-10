@@ -12,6 +12,7 @@ use App\Models\Post;
 use App\Models\PostRate;
 use App\Models\Comment;
 use App\Models\LessonLog;
+use App\Models\Mark;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Validator;
 use \Auth;
@@ -74,8 +75,10 @@ class HomeController extends Controller
             // $rate = "";
             $comment = Comment::where(['posts_id' => $post['id']])->first();
             $hasComment = isset($comment)?"true":"false";
+            
+            $marksNum = Mark::where(['posts_id' => $post['id']])->count();
 
-            $postData[$student->students_id] = ['post' => $post, 'rate' => $rate, 'hasComment' => $hasComment];
+            $postData[$student->students_id] = ['post' => $post, 'rate' => $rate, 'hasComment' => $hasComment, 'marksNum' => $marksNum];
         }
         // dd($postData);die();
         $py = new pinyinfirstchar();
@@ -161,7 +164,9 @@ class HomeController extends Controller
                 $rate = "";
                 $comment = Comment::where(['posts_id' => $post['id']])->first();
                 $hasComment = isset($comment)?"true":"false";
-                $postData[$student->students_id] = ['post' => $post, 'rate' => $rate, 'hasComment' => $hasComment];
+                $marksNum = Mark::where(['posts_id' => $post['id']])->count();
+
+                $postData[$student->students_id] = ['post' => $post, 'rate' => $rate, 'hasComment' => $hasComment, 'marksNum' => $marksNum];
             }
             $newLessonLogs[] = ['students' => $students, 'postData' => $postData, 'class_title' => $lessonLog['class_title'], 'enter_school_year' => $lessonLog['enter_school_year'], 'lesson_logs_id' => $lessonLog['lesson_logs_id']];
         }

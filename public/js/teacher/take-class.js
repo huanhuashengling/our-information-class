@@ -22,6 +22,12 @@ $(document).ready(function() {
     });
 
     $('.btn-success').on('click', function (e) {
+        if ($(".rate-btn").hasClass('active')) {
+          setTimeout(function() {
+            $(".rate-btn").removeClass('active').find('input').prop('checked', false);
+          }.bind(this), 10);
+        }
+        $('#post-comment').val("");
         var postsId = (e.target.value).split(',')[0]; 
 // alert(postsId);
         e.preventDefault();
@@ -43,11 +49,13 @@ $(document).ready(function() {
             url: '/teacher/getPost',
             data: {posts_id: postsId},
             success: function( data ) {
-                console.log(data);
+                // console.log(data);
                 if ("false" == data) {
 
                 } else {
                     $('#post-show').attr("src", data);
+                    $('#post-download-link').attr("href", data);
+
                 }
             }
         });

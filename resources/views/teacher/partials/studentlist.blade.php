@@ -3,6 +3,7 @@
         $studentPostData = $postData[$student->students_id]['post'];
         $rate = $postData[$student->students_id]['rate'];
         $hasComment = $postData[$student->students_id]['hasComment'];
+        $marksNum = $postData[$student->students_id]['marksNum'];
     @endphp
 
     @if ("posted" == $showLimit && !isset($studentPostData))
@@ -25,19 +26,18 @@
             <tr>
             <td>
             @if ("outstanding" == $rate)
-                <button class="btn btn-primary btn-xs">优秀</button>
+                <button class="btn btn-danger btn-xs">优秀</button>
             @elseif ("good" == $rate)
-                <button class="btn btn-primary btn-xs">良好</button>
+                <button class="btn btn-warning btn-xs">良好</button>
             @elseif ("lower" == $rate)
-                <button class="btn btn-primary btn-xs">合格</button>
+                <button class="btn btn-success btn-xs">合格</button>
             @endif
             
             @if ("true" == $hasComment)
                 <button class="btn btn-info btn-xs">已评</button>
             @endif
-
-            @if ("true" == $hasComment)
-                <button class="btn btn-danger btn-xs">123 赞</button>
+            @if (isset($studentPostData))
+                <button class="btn btn-danger btn-xs">{{$marksNum}}赞</button>
             @endif
             </td>
             </tr>

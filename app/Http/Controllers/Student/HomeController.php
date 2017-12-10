@@ -58,6 +58,7 @@ class HomeController extends Controller
         $originalName = $file->getClientOriginalName();
         // 扩展名
         $ext = $file->getClientOriginalExtension();
+        // $originalName = str_replace($originalName, ".".$ext);
         // MimeType
         $type = $file->getClientMimeType();
         // dd($originalName);
@@ -65,7 +66,7 @@ class HomeController extends Controller
         $realPath = $file->getRealPath();
 
         $uniqid = uniqid();
-        $filename = date('Ymd') . '-' . $uniqid . '.' . $ext;
+        $filename = $originalName . '-' . $uniqid . '.' . $ext;
 
         $bool = Storage::disk('posts')->put($filename, file_get_contents($realPath)); 
         
