@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: 2017-12-07 08:19:11
+-- Generation Time: 2017-12-11 01:30:52
 -- 服务器版本： 5.7.11
 -- PHP Version: 5.4.35
 
@@ -40,9 +40,9 @@ CREATE TABLE IF NOT EXISTS `admins` (
 --
 
 INSERT INTO `admins` (`id`, `username`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Denis Friesen', '$2y$10$Wkr3900B82KuEJNIOECb7.qC5Mngi.EFN1vFUyd6M6ggjnmFOD.7y', 'DG2L0zvDUUEVqvSHz1upY671dBPCCqsMZiSWRRe6Nxb71p8AmYkhAHoh3Pat', '2017-11-09 06:26:18', '2017-12-05 21:31:17'),
-(2, 'Isom Bahringer', '$2y$10$Wkr3900B82KuEJNIOECb7.qC5Mngi.EFN1vFUyd6M6ggjnmFOD.7y', '4FUfKbSOJ7', '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(3, 'Lucienne Hagenes', '$2y$10$Wkr3900B82KuEJNIOECb7.qC5Mngi.EFN1vFUyd6M6ggjnmFOD.7y', 'Gt6cvBBX3j', '2017-11-09 06:26:18', '2017-11-09 06:26:18');
+(1, 'Garland Jaskolski', '$2y$10$Rgp3q9WmbTL2yLAjELkLNOBRjFV5lxYJsktZKONcJ46gAofhHGEza', 'YapnGV1Nm4', '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(2, 'Raul Wilderman I', '$2y$10$Rgp3q9WmbTL2yLAjELkLNOBRjFV5lxYJsktZKONcJ46gAofhHGEza', 'mlRQk0wlnY', '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(3, 'Lorenzo Flatley', '$2y$10$Rgp3q9WmbTL2yLAjELkLNOBRjFV5lxYJsktZKONcJ46gAofhHGEza', 'YOBewxNyBx', '2017-12-10 06:34:21', '2017-12-10 06:34:21');
 
 -- --------------------------------------------------------
 
@@ -57,15 +57,14 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `teachers_id` int(10) unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- 转存表中的数据 `comments`
 --
 
 INSERT INTO `comments` (`id`, `posts_id`, `content`, `teachers_id`, `created_at`, `updated_at`) VALUES
-(1, 44, 'asasas', 2, '2017-11-19 06:14:27', '2017-11-19 06:14:27'),
-(2, 48, '填写评价内容', 2, '2017-12-06 06:12:16', '2017-12-06 06:12:16');
+(1, 2, '作业做得不错，继续加油！！', 1, '2017-12-10 07:01:55', '2017-12-10 07:01:55');
 
 -- --------------------------------------------------------
 
@@ -117,8 +116,8 @@ INSERT INTO `lessons` (`id`, `lesson_code`, `title`, `subtitle`, `allow_post_fil
 (1, NULL, '画图工具', '曲线画鱼', 'jpg', '##我是帮助文档##', NULL, 2, NULL, NULL),
 (2, NULL, '幻灯片', '自旋图形绘制笑脸', 'jpg', '##我是帮助文档##', NULL, 2, NULL, NULL),
 (3, NULL, 'Flash', 'flash补间动画', 'jpg', '##我是帮助文档##', NULL, 2, NULL, NULL),
-(4, NULL, 'PowerPoint', '自定义动画', 'jpg', '##我是帮助文档##\r\n###请提交一份你的画图作品\r\n---\r\n请根据一下步骤完成你的作业任务：\r\n1. 到往上搜索一份ppt模板\r\n2. 修改封面为自己的名字\r\n3. 自己定义标题，以及插入一张背景图片\r\n![\\Screen Shot 2015-03-28 at 11.08.04 AM.png][0.01162620310759177]\r\n\r\n\r\n  [0.01162620310759177]: http://www.oic.com:8001/uploads/md/befa042c72086ac8a438f5bc7f9b5446.png', NULL, 2, NULL, '2017-12-06 06:36:00'),
-(5, NULL, '电子表格', '纪录生活中的电器', 'jpg', '##记录生活中的电器##\r\n\r\n1. 打开电子表格\r\n2. 列出生活中的几样电器\r\n3. 将它们的特征写下来\r\n\r\n\r\n---\r\n\r\n![\\茶油1.jpg][0.49547782869081836]\r\n\r\n> 电视机\r\n> 冰箱\r\n\r\n![\\Screen Shot 2015-03-28 at 11.08.04 AM.png][0.011323653581183812]\r\n\r\n  [0.011323653581183812]: http://www.oic.com:8001/uploads/md/80795fda9adcd82b3611ab672b8e1991.png\r\n\r\n  [0.49547782869081836]: http://www.oic.com:8001/uploads/md/fdeb38adf77f1999d3b1a3b2a77b7948.jpg', NULL, 2, NULL, '2017-12-05 21:34:56');
+(4, NULL, 'PowerPoint', '自定义动画', 'jpg', '##我是帮助文档##', NULL, 2, NULL, NULL),
+(5, NULL, '电子表格', '纪录生活中的电器', 'jpg', '##我是帮助文档##', NULL, 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -135,18 +134,28 @@ CREATE TABLE IF NOT EXISTS `lesson_logs` (
   `sclasses_id` int(10) unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- 转存表中的数据 `lesson_logs`
 --
 
 INSERT INTO `lesson_logs` (`id`, `lessons_id`, `status`, `ended_at`, `teachers_id`, `sclasses_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 'close', NULL, 2, 1, NULL, NULL),
-(2, 2, 'close', NULL, 2, 1, NULL, NULL),
-(3, 3, 'close', NULL, 2, 1, NULL, NULL),
-(4, 4, 'close', NULL, 2, 1, NULL, NULL),
-(5, 5, 'open', NULL, 2, 1, NULL, NULL);
+(1, 1, 'close', NULL, 1, 1, '2017-12-10 06:47:38', '2017-12-10 07:50:01');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `marks`
+--
+
+CREATE TABLE IF NOT EXISTS `marks` (
+  `id` int(10) unsigned NOT NULL,
+  `posts_id` int(10) unsigned NOT NULL,
+  `students_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -158,23 +167,25 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `id` int(10) unsigned NOT NULL,
   `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=131 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=195 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- 转存表中的数据 `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(121, '2017_11_01_133856_create_admins_table', 1),
-(122, '2017_11_02_142635_create_schools_table', 1),
-(123, '2017_11_02_142666_create_sclasses_table', 1),
-(124, '2017_11_02_143014_create_teachers_table', 1),
-(125, '2017_11_02_143253_create_groups_table', 1),
-(126, '2017_11_02_144122_create_students_table', 1),
-(127, '2017_11_02_144529_create_lessons_table', 1),
-(128, '2017_11_02_144917_create_lesson_logs_table', 1),
-(129, '2017_11_02_150204_create_posts_table', 1),
-(130, '2017_11_02_150644_create_comments_table', 1);
+(183, '2017_11_01_133856_create_admins_table', 1),
+(184, '2017_11_02_142635_create_schools_table', 1),
+(185, '2017_11_02_142666_create_sclasses_table', 1),
+(186, '2017_11_02_143014_create_teachers_table', 1),
+(187, '2017_11_02_143253_create_groups_table', 1),
+(188, '2017_11_02_144122_create_students_table', 1),
+(189, '2017_11_02_144529_create_lessons_table', 1),
+(190, '2017_11_02_144917_create_lesson_logs_table', 1),
+(191, '2017_11_02_150204_create_posts_table', 1),
+(192, '2017_11_02_150644_create_comments_table', 1),
+(193, '2017_11_19_094501_create_post_rates_table', 1),
+(194, '2017_12_10_134254_create_marks_table', 1);
 
 -- --------------------------------------------------------
 
@@ -185,68 +196,25 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 CREATE TABLE IF NOT EXISTS `posts` (
   `id` int(10) unsigned NOT NULL,
   `lesson_logs_id` int(10) unsigned NOT NULL,
-  `file_path` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `students_id` int(10) unsigned NOT NULL,
+  `storage_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `original_name` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mime_type` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `file_ext` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `post_code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `content` text COLLATE utf8_unicode_ci,
-  `students_id` int(10) unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- 转存表中的数据 `posts`
 --
 
-INSERT INTO `posts` (`id`, `lesson_logs_id`, `file_path`, `post_code`, `content`, `students_id`, `created_at`, `updated_at`) VALUES
-(2, 1, '/uploads/12647.png', '12647', 'asasasasas', 4, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(3, 1, '/uploads/12647.png', '12647', 'asasasasas', 5, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(4, 1, '/uploads/12647.png', '12647', 'asasasasas', 6, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(5, 1, '/uploads/12647.png', '12647', 'asasasasas', 7, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(6, 1, '/uploads/12647.png', '12647', 'asasasasas', 8, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(7, 1, '/uploads/12647.png', '12647', 'asasasasas', 9, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(8, 1, '/uploads/12647.png', '12647', 'asasasasas', 10, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(9, 2, '/uploads/12647.png', '12647', 'asasasasas', 4, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(10, 2, '/uploads/12647.png', '12647', 'asasasasas', 5, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(11, 2, '/uploads/12647.png', '12647', 'asasasasas', 6, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(12, 2, '/uploads/12647.png', '12647', 'asasasasas', 7, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(13, 2, '/uploads/12647.png', '12647', 'asasasasas', 8, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(14, 2, '/uploads/12647.png', '12647', 'asasasasas', 9, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(15, 2, '/uploads/12647.png', '12647', 'asasasasas', 10, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(16, 2, '/uploads/12647.png', '12647', 'asasasasas', 11, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(17, 3, '/uploads/12647.png', '12647', 'asasasasas', 4, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(18, 3, '/uploads/12647.png', '12647', 'asasasasas', 5, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(19, 3, '/uploads/12647.png', '12647', 'asasasasas', 6, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(20, 3, '/uploads/12647.png', '12647', 'asasasasas', 7, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(21, 3, '/uploads/12647.png', '12647', 'asasasasas', 8, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(22, 3, '/uploads/12647.png', '12647', 'asasasasas', 9, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(23, 3, '/uploads/12647.png', '12647', 'asasasasas', 10, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(24, 3, '/uploads/12647.png', '12647', 'asasasasas', 11, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(25, 3, '/uploads/12647.png', '12647', 'asasasasas', 12, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(26, 4, '/uploads/12647.png', '12647', 'asasasasas', 4, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(27, 4, '/uploads/12647.png', '12647', 'asasasasas', 5, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(28, 4, '/uploads/12647.png', '12647', 'asasasasas', 6, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(29, 4, '/uploads/12647.png', '12647', 'asasasasas', 7, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(30, 4, '/uploads/12647.png', '12647', 'asasasasas', 8, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(31, 4, '/uploads/12647.png', '12647', 'asasasasas', 9, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(32, 4, '/uploads/12647.png', '12647', 'asasasasas', 10, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(33, 4, '/uploads/12647.png', '12647', 'asasasasas', 11, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(34, 4, '/uploads/12647.png', '12647', 'asasasasas', 12, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(35, 5, '/uploads/12647.png', '12647', 'asasasasas', 4, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(36, 5, '/uploads/12647.png', '12647', 'asasasasas', 5, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(37, 5, '/uploads/12647.png', '12647', 'asasasasas', 6, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(38, 5, '/uploads/12647.png', '12647', 'asasasasas', 7, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(39, 5, '/uploads/12647.png', '12647', 'asasasasas', 8, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(40, 5, '/uploads/12647.png', '12647', 'asasasasas', 9, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(41, 5, '/uploads/12647.png', '12647', 'asasasasas', 10, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(42, 5, '/uploads/12647.png', '12647', 'asasasasas', 11, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(43, 5, '/uploads/12647.png', '12647', 'asasasasas', 12, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(44, 5, '20171113052503--5a092cafb5689.png', '5a092cafb5689', '', 1, '2017-11-12 21:25:03', '2017-11-12 21:25:03'),
-(45, 5, '20171113053053--5a092e0d0b106.png', '5a092e0d0b106', '', 1, '2017-11-12 21:30:53', '2017-11-12 21:30:53'),
-(46, 5, '20171113-5a0983914c04a.png', '5a0983914c04a', '', 1, '2017-11-13 03:35:45', '2017-11-13 03:35:45'),
-(47, 5, '20171113-5a09a62979046.png', '5a09a62979046', '', 1, '2017-11-13 06:03:21', '2017-11-13 06:03:21'),
-(48, 5, '20171119-5a121379c470f.png', '5a121379c470f', '', 1, '2017-11-19 15:27:53', '2017-11-19 15:27:53'),
-(49, 4, '20171206-5a280450b5c64.png', '5a280450b5c64', '', 1, '2017-12-06 06:53:04', '2017-12-06 06:53:04'),
-(50, 3, '20171206-5a2804db3d517.pdf', '5a2804db3d517', '', 1, '2017-12-06 06:55:23', '2017-12-06 06:55:23');
+INSERT INTO `posts` (`id`, `lesson_logs_id`, `students_id`, `storage_name`, `original_name`, `mime_type`, `file_ext`, `post_code`, `content`, `created_at`, `updated_at`) VALUES
+(1, 1, 3, '20171210-5a2d499d135b7.png', 'Screen Shot 2015-03-31 at 8.51.28 PM.png', 'image/png', 'png', '5a2d499d135b7', '', '2017-12-10 06:50:05', '2017-12-10 06:50:05'),
+(2, 1, 4, 'Screen Shot 2015-03-31 at 8.54.02 PM.png-5a2d4a8ba8101.png', 'Screen Shot 2015-03-31 at 8.54.02 PM.png', 'image/png', 'png', '5a2d4a8ba8101', '', '2017-12-10 06:54:03', '2017-12-10 06:54:03'),
+(3, 1, 5, '尤文杰个人简历.xls-5a2d4bc13dbdf.xls', '尤文杰个人简历.xls', 'application/vnd.ms-excel', 'xls', '5a2d4bc13dbdf', '', '2017-12-10 06:59:13', '2017-12-10 06:59:13');
 
 -- --------------------------------------------------------
 
@@ -256,21 +224,19 @@ INSERT INTO `posts` (`id`, `lesson_logs_id`, `file_path`, `post_code`, `content`
 
 CREATE TABLE IF NOT EXISTS `post_rates` (
   `id` int(10) unsigned NOT NULL,
-  `posts_id` int(11) NOT NULL,
+  `posts_id` int(10) unsigned NOT NULL,
   `rate` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `teachers_id` int(11) NOT NULL,
+  `teachers_id` int(10) unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- 转存表中的数据 `post_rates`
 --
 
 INSERT INTO `post_rates` (`id`, `posts_id`, `rate`, `teachers_id`, `created_at`, `updated_at`) VALUES
-(1, 36, 'good', 2, '2017-11-19 02:59:37', '2017-11-19 03:01:07'),
-(2, 44, 'lower', 2, '2017-11-19 03:46:48', '2017-11-19 06:10:11'),
-(3, 48, 'good', 2, '2017-12-06 06:12:06', '2017-12-06 06:12:06');
+(1, 2, 'outstanding', 1, '2017-12-10 07:01:38', '2017-12-10 07:01:38');
 
 -- --------------------------------------------------------
 
@@ -286,13 +252,6 @@ CREATE TABLE IF NOT EXISTS `schools` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- 转存表中的数据 `schools`
---
-
-INSERT INTO `schools` (`id`, `title`, `district`, `description`, `created_at`, `updated_at`) VALUES
-(1, '燕山小学', '芙蓉区', '城区学校', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -315,9 +274,9 @@ CREATE TABLE IF NOT EXISTS `sclasses` (
 --
 
 INSERT INTO `sclasses` (`id`, `schools_id`, `enter_school_year`, `class_title`, `class_num`, `created_at`, `updated_at`) VALUES
-(1, 1, 2013, '丙', 3, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(2, 1, 2012, '丙', 3, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(3, 1, 2014, '丙', 3, '2017-11-09 06:26:18', '2017-11-09 06:26:18');
+(1, 1, 2013, '丙', 3, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(2, 1, 2014, '丙', 3, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(3, 1, 2012, '丙', 3, '2017-12-10 06:34:21', '2017-12-10 06:34:21');
 
 -- --------------------------------------------------------
 
@@ -345,66 +304,66 @@ CREATE TABLE IF NOT EXISTS `students` (
 --
 
 INSERT INTO `students` (`id`, `username`, `email`, `gender`, `level`, `score`, `password`, `remember_token`, `groups_id`, `sclasses_id`, `created_at`, `updated_at`) VALUES
-(1, 'Dr. Brielle Purdy', 'pfeffer.mckenna@king.org', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'crvzHRJ98j3o4P2VbWbWOcEZl24cPVTlMneTmHOYLcKDWCV42xZe5MGbINZD', 1, 1, '2017-11-09 06:26:18', '2017-12-06 06:26:30'),
-(2, 'Isac Schuster', 'jamey.powlowski@baumbach.com', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'QsTBjQ4RQq', 1, 3, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(3, 'Salvador Raynor Sr.', 'nhayes@hotmail.com', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', '9xY9d0mnZ8', 1, 1, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(4, 'Ms. Angelica Jones II', 'ejerde@gmail.com', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', '3XmOS8Kq6Z', 1, 3, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(5, 'Raymundo Cummerata', 'bashirian.gisselle@marquardt.net', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'BLTD0KaCjr', 1, 2, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(6, 'Marcella Ankunding III', 'pmurphy@yahoo.com', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'LO5LusL4nt', 1, 2, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(7, 'Alford Hudson IV', 'presley.beatty@hotmail.com', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'NrwjTj9aBy', 1, 3, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(8, 'Golda Kautzer', 'will.charlene@yahoo.com', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'M4JID375Fg', 2, 2, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(9, 'Alfredo Rutherford', 'yfunk@hotmail.com', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'eZw5BzGCHd', 2, 2, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(10, 'Mrs. Ottilie Lang', 'kemmer.teresa@koch.com', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'L2XljnnIna', 2, 3, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(11, 'Stanton Yost', 'savanna12@ziemann.biz', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'SGhRq71BZx', 2, 3, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(12, 'Dejah Runolfsson', 'cristopher85@cole.info', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', '9H0BaSGmZW', 1, 3, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(13, 'Colten Dooley', 'alayna25@gmail.com', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', '6nYkJ0S6oH', 1, 3, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(14, 'Mona Dare', 'frankie97@mraz.org', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'i21G9kYa7t', 1, 1, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(15, 'Ofelia Marvin', 'maryse.von@hotmail.com', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'vyj7ZHPkHp', 2, 3, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(16, 'Ericka Kautzer', 'krystal22@yahoo.com', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'pHzZ8a9jtr', 1, 3, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(17, 'Hope Bahringer', 'aufderhar.gerda@gmail.com', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', '0s1VvE9JSf', 1, 3, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(18, 'Dr. Margarett Durgan Sr.', 'efren35@gmail.com', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', '6ls8aLVNrK', 1, 3, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(19, 'Mr. Jacques Hermann', 'thaddeus.lakin@hyatt.com', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'FX3MPRXiGg', 2, 3, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(20, 'Melany Stanton IV', 'zboncak.stewart@yahoo.com', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'CGtTwmBqBd', 2, 3, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(21, 'Prof. Kenton Gusikowski', 'hturcotte@keeling.com', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', '2RTcAqZmYG', 1, 2, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(22, 'Norris Donnelly', 'merlin.wehner@kub.com', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'U8jX3sj3QI', 1, 1, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(23, 'Cristina McGlynn', 'estrella.altenwerth@dickinson.com', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'xDGPndyaPF', 2, 3, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(24, 'Lonie Walker', 'bayer.angelica@hotmail.com', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'UIWDeZP5CY', 1, 2, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(25, 'Raymundo Farrell', 'zsauer@yahoo.com', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'n8SE2awCxc', 1, 2, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(26, 'Angie Botsford', 'cletus95@gmail.com', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'I3MLNANt85', 2, 1, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(27, 'Turner Kozey', 'wabshire@ferry.info', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'HlzHTCC1m8', 2, 3, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(28, 'Dr. Hipolito Effertz', 'justina.reichel@yahoo.com', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', '0IWBwbxKg3', 1, 2, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(29, 'Elva Langworth', 'dino.brekke@fay.biz', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'e6IqQ3Ay83', 1, 2, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(30, 'Flavie Fahey DDS', 'reynold.lueilwitz@yahoo.com', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'ci12uyaq4r', 1, 3, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(31, 'Joanne Hyatt V', 'maude00@gmail.com', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', '0QqtL8wA3v', 2, 2, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(32, 'Dejon Stokes', 'keebler.kristoffer@yahoo.com', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'I9wfxhRSPD', 2, 2, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(33, 'Mr. Garth Ullrich', 'yherzog@mclaughlin.com', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'lWYKmycZdG', 1, 2, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(34, 'Rico Sipes', 'sydnie.powlowski@gmail.com', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'dP2rAX69Ll', 1, 1, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(35, 'Serenity Gutkowski', 'lubowitz.bridie@schoen.com', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'ZIW2hvzQ6j', 1, 3, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(36, 'Dorothea Frami', 'reynold.jerde@yahoo.com', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'rpmBAxj0kI', 1, 1, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(37, 'Dr. Wilfredo Ullrich V', 'wwillms@gmail.com', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'IbSIr5S7r2', 2, 1, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(38, 'Travon Kirlin', 'schmitt.bert@tromp.org', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'moO9KFQp3l', 1, 3, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(39, 'Dr. Willa Wiegand V', 'wanda20@weimann.net', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'lkmCwbpkiC', 1, 1, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(40, 'Alysa Thiel', 'stephania.lockman@swift.info', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'bneM2JJea6', 1, 2, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(41, 'Hudson Abbott', 'tbraun@volkman.biz', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'mrfY8lJmhR', 2, 3, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(42, 'Melyna Zulauf', 'victor.nikolaus@miller.biz', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', '0Yz28mLXQz', 2, 3, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(43, 'Cleora Howe', 'shemar57@heathcote.com', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'VXvpfW7ytb', 1, 1, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(44, 'Gregoria Parisian', 'murray.wilmer@hotmail.com', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'cjUsPEmYo7', 2, 1, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(45, 'Tyra Ferry', 'ywill@yahoo.com', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'zF4kq1N8Oj', 1, 2, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(46, 'Solon Daugherty', 'coby.effertz@mayert.biz', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', '3ItCY1GHe2', 2, 2, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(47, 'Monserrate Willms II', 'considine.sydni@gmail.com', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', '9pq0SpckoR', 2, 2, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(48, 'Lamar Nikolaus', 'lora.keeling@farrell.com', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'c6FFgJ3syF', 1, 2, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(49, 'Ashtyn Stoltenberg', 'pvonrueden@yahoo.com', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'Y9eKt1iQRR', 2, 2, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(50, 'Lucio Armstrong', 'julio.quigley@yahoo.com', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', '09wsgAtue4', 2, 3, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(51, 'Moises VonRueden I', 'levi94@considine.org', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'di8OmERqyk', 2, 1, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(52, 'Anais Ebert', 'theresia.koelpin@yahoo.com', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'CowF4gbZWX', 2, 2, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(53, 'Garret Yost', 'wilderman.carissa@denesik.com', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'qBGlH1DnPr', 1, 1, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(54, 'Madalyn Mitchell', 'willa.schneider@hotmail.com', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'CzcyySJdFw', 2, 3, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(55, 'Dave Shields', 'lafayette17@yahoo.com', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'KsM0o91AEv', 2, 1, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(56, 'Modesto Mitchell MD', 'koss.miguel@hotmail.com', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'xY266WsfYD', 1, 1, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(57, 'Prof. Aliyah Bradtke Jr.', 'blick.stanley@gmail.com', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'nEeCKda4tF', 2, 3, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(58, 'Mia Hessel', 'dina11@considine.com', '1', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'PkCw8uJwGr', 2, 3, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(59, 'Dr. Isaias Schaden III', 'ruecker.dustin@veum.biz', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'HKHATu1oEP', 1, 2, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(60, 'Prof. Tobin Haley', 'tharvey@yahoo.com', '0', '0', '0', '$2y$10$esztVqaH7VMjgfGxyL14T.O5dpFou4nia6Kw2lI6jxinGn/6sbCo6', 'EXGKAh4zMc', 1, 1, '2017-11-09 06:26:18', '2017-11-09 06:26:18');
+(1, 'Dr. Laury Maggio MD', 'grant63@shanahan.org', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'q4O66x5kANpxRmNs9fJDWOTyItiNDzYtjqGIRXfq3AmRpUGeipIKUfSDvkrz', 2, 2, '2017-12-10 06:34:21', '2017-12-10 06:48:23'),
+(2, 'Terrence Balistreri', 'chyna.connelly@hotmail.com', '0', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'gB4LsgYQdV', 1, 2, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(3, 'Kailey Mertz PhD', 'kirlin.raphael@yahoo.com', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'MP6JWrS9IAWYfBFxfmw5PjTM0LIVPF0p5bSMNma8Pu9XGHzIkuNa7XNrBvQz', 2, 1, '2017-12-10 06:34:21', '2017-12-10 06:53:42'),
+(4, 'Alvina Veum', 'marc91@zemlak.com', '0', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'cOjeMJ4phSaBZY0hfCJe16O89w1G11A1AWMsiBLONdAEGPjXL8AjcIfqw0uQ', 2, 1, '2017-12-10 06:34:21', '2017-12-10 06:55:39'),
+(5, 'Elinor Schaefer DVM', 'qbeier@gmail.com', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'gbqH6AHVV0HuEQCg3rG6gedGJJP1aubjJJfY6ClDXTsPhAxZxRCa9eZzkC3x', 1, 1, '2017-12-10 06:34:21', '2017-12-10 07:02:15'),
+(6, 'Eliane Kovacek', 'mkoch@cassin.com', '0', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', '0cMwSCKHc8', 1, 3, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(7, 'Miss Camila Bradtke PhD', 'rodolfo43@gmail.com', '0', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'nVpPHmcuFE', 1, 1, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(8, 'Jennyfer Murazik MD', 'king.carrie@buckridge.com', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'O2Fp0re43O', 2, 3, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(9, 'Jeramie Parisian', 'baron78@hotmail.com', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'Zkjtoau4jO', 1, 3, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(10, 'Yasmeen Abbott', 'treutel.eloy@hotmail.com', '0', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'fI0Jv3Gif8', 1, 1, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(11, 'Augustus Hauck', 'grimes.arlene@hotmail.com', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', '8CMI7DlhSQ', 1, 1, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(12, 'Itzel Wisozk', 'quinn68@vonrueden.com', '0', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'gJhWZFVQ0Q', 1, 3, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(13, 'Mrs. Fannie Reynolds IV', 'dcorwin@yahoo.com', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'SSVuyPDkce', 2, 3, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(14, 'Miss Marian McClure', 'gbrekke@yahoo.com', '0', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'CljEXNkbT9', 2, 2, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(15, 'Prof. Elroy Armstrong', 'ilabadie@mraz.com', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'arxYj8qVac', 2, 3, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(16, 'Davion Cummerata', 'kkiehn@smith.com', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'XkxEOsLwHz', 1, 1, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(17, 'Maurine Grimes', 'hailee22@roberts.com', '0', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'NLGVwzbgg0', 2, 2, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(18, 'Maynard Herzog', 'nkuhn@russel.info', '0', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'eGcTHwnbRZ', 2, 3, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(19, 'Kevin Prosacco', 'bergnaum.demond@hotmail.com', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'xScwBNti0F', 1, 1, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(20, 'Miss America Romaguera III', 'edgardo05@gmail.com', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'JbMNL3WKtk', 2, 2, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(21, 'Marlen Hermiston', 'scrist@yahoo.com', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'Rnajw76XOi', 1, 1, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(22, 'Mrs. Erna Murazik', 'romaguera.watson@graham.net', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'Wy5GHiSkzJ', 1, 3, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(23, 'Vella Heaney', 'sid.rempel@terry.com', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'PduGKm7aZE', 1, 1, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(24, 'Lyric Koepp', 'talia25@stark.com', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'fmvWyQl5VW', 1, 3, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(25, 'Miss Rose Brown I', 'major32@ritchie.org', '0', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'xEJ4weIKDE', 2, 2, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(26, 'Abbigail Roberts', 'maximillia09@marks.info', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'Fq2alfjmcs', 1, 2, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(27, 'Maurine Mraz', 'margaret57@harvey.com', '0', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'e9NZzR3bYG', 2, 1, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(28, 'Grover Langworth', 'paige37@friesen.biz', '0', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', '6OokcHrGxf', 1, 2, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(29, 'Sherwood Gorczany', 'eichmann.antonetta@okon.com', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'IeEXE1Px7T', 1, 3, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(30, 'Bethany Mitchell', 'hfeil@harvey.com', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'BE0J4M3FuO', 2, 1, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(31, 'Roel Marks', 'adelia19@yahoo.com', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'HRyeXBpyBs', 2, 1, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(32, 'Mr. Gregg Sawayn', 'pstroman@rogahn.biz', '0', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'XKGDMP7LHu', 2, 1, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(33, 'Lucious Ernser', 'bernard.quitzon@flatley.com', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'LE2RSgPPBI', 2, 1, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(34, 'Scotty Schumm', 'kassulke.polly@hotmail.com', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'G2cEl92ixQ', 1, 2, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(35, 'Mrs. Cordie Goodwin DDS', 'pemard@rosenbaum.net', '0', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'AHn1pGEqBj', 2, 1, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(36, 'Thaddeus Schneider', 'theo.bins@gmail.com', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'zvbleqNWmM', 2, 3, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(37, 'Alek Blanda', 'walter.hayley@yost.net', '0', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'sJs6DHEr0o', 1, 1, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(38, 'Soledad Buckridge', 'boehm.carolina@yahoo.com', '0', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'DtRxrMeu8E', 2, 3, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(39, 'Daisy Abbott', 'luella15@gmail.com', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'nOUYxEUMTB', 2, 2, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(40, 'Reggie Morissette', 'chadrick.stark@morissette.com', '0', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', '7sPSsynzZs', 1, 1, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(41, 'Mr. Dillon Hartmann', 'kgorczany@leannon.info', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'fXqaUUF6aJ', 1, 3, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(42, 'Miss Heidi Runolfsson', 'arielle.anderson@nader.com', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', '8Fys7vZeIs', 2, 3, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(43, 'Bettie Berge', 'kemmer.zelma@yahoo.com', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'm9jKqWf1z0', 2, 1, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(44, 'Nicole Brekke', 'roy.beier@gmail.com', '0', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'meRTavl4Mp', 2, 2, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(45, 'Ezequiel Williamson Jr.', 'bednar.madyson@herzog.com', '0', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'Z5ocVrOL0c', 2, 1, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(46, 'Brown Harber DDS', 'camilla.zieme@yahoo.com', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', '3PAHQJToch', 1, 1, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(47, 'Ronny Padberg', 'gaylord.tamia@bode.com', '0', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'GPEkk4Z47p', 2, 3, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(48, 'Mrs. Alia Runolfsson', 'dock.boyer@gmail.com', '0', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'QIr6c9oe3n', 2, 2, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(49, 'Shawna Senger', 'randy.greenholt@bartoletti.com', '0', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', '2tRvHm4cJG', 1, 3, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(50, 'Rico Will I', 'wiza.violet@ohara.org', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'VQIpK4oGYm', 1, 3, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(51, 'Alison Barton', 'don.nolan@swift.info', '0', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', '3Vt3QPyuHM', 1, 3, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(52, 'Prof. Leonora Hartmann', 'uconnelly@hotmail.com', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'tqwXknUm3t', 2, 2, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(53, 'Aliya Lebsack', 'abeahan@kuhlman.com', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'VlYuZFF8Io', 1, 3, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(54, 'Dr. Felton Labadie', 'zschamberger@kreiger.info', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'a0aN9fkRVq', 1, 3, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(55, 'Deangelo Kassulke', 'jamaal47@kessler.biz', '0', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'hzj48zHIUI', 1, 3, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(56, 'Ms. Frances Schowalter I', 'tkerluke@thiel.biz', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', '4fPAorTOza', 2, 1, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(57, 'Prof. Amani Ruecker', 'ike.jacobi@yahoo.com', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', '2o6phIM1AJ', 2, 1, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(58, 'Keagan O''Conner', 'qbosco@frami.com', '0', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'd3KOAY6Zsq', 2, 2, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(59, 'Mrs. Keely Durgan', 'delta.lind@hagenes.com', '1', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'KhcwAK0XqN', 1, 3, '2017-12-10 06:34:21', '2017-12-10 06:34:21'),
+(60, 'Camilla Hilpert', 'fgoodwin@dach.com', '0', '0', '0', '$2y$10$emmaAEbRAoabRvrsMyNNtuaG.8X5qc4mlBcMNpjxhWUJw1Y9a5X6C', 'Dr8uIIf1pz', 2, 3, '2017-12-10 06:34:21', '2017-12-10 06:34:21');
 
 -- --------------------------------------------------------
 
@@ -428,8 +387,8 @@ CREATE TABLE IF NOT EXISTS `teachers` (
 --
 
 INSERT INTO `teachers` (`id`, `username`, `email`, `password`, `remember_token`, `schools_id`, `created_at`, `updated_at`) VALUES
-(1, 'Mr. Jacey Haley DDS', 'nitzsche.delmer@kub.info', '$2y$10$FxSnrGOCjtg.M.JNhCxx9eZ3y95fBhGjr.KDOt6dH62PaEZGNwmPq', 'EWBheN39UO', 1, '2017-11-09 06:26:18', '2017-11-09 06:26:18'),
-(2, 'Dexter Reinger', 'fkutch@hotmail.com', '$2y$10$FxSnrGOCjtg.M.JNhCxx9eZ3y95fBhGjr.KDOt6dH62PaEZGNwmPq', 'JgtKuQhaAHQ3vU6RuBn0uFcVCMWC9rH2Mc5N26SEoEteShJYvFqYcgjD5Hil', 1, '2017-11-09 06:26:18', '2017-12-06 07:04:34');
+(1, 'Eusebio Larkin', 'djohnson@yahoo.com', '$2y$10$b4bDzbOFYl0YxmCBTabmfe.SJfkLqmxv5MhApcIGwRrSXe7CX5wVe', 'vZgwdYeAqCBkMxNAdroRmKlopQlwbxQ2z2W9COardhONRBqpr3HfwUNnaHOx', 1, '2017-12-10 06:34:21', '2017-12-10 08:00:00'),
+(2, 'Stefanie Greenholt', 'ariel.champlin@friesen.com', '$2y$10$b4bDzbOFYl0YxmCBTabmfe.SJfkLqmxv5MhApcIGwRrSXe7CX5wVe', 'ZaW973ghxl', 1, '2017-12-10 06:34:21', '2017-12-10 06:34:21');
 
 --
 -- Indexes for dumped tables
@@ -470,6 +429,14 @@ ALTER TABLE `lesson_logs`
   ADD KEY `fk_lesson_logs_teachers1_idx` (`teachers_id`),
   ADD KEY `fk_lesson_logs_lessons1_idx` (`lessons_id`),
   ADD KEY `fk_lesson_logs_sclasses1_idx` (`sclasses_id`);
+
+--
+-- Indexes for table `marks`
+--
+ALTER TABLE `marks`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_marks_posts1_idx` (`posts_id`),
+  ADD KEY `fk_marks_students1_idx` (`students_id`);
 
 --
 -- Indexes for table `migrations`
@@ -534,7 +501,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `groups`
 --
@@ -549,22 +516,27 @@ ALTER TABLE `lessons`
 -- AUTO_INCREMENT for table `lesson_logs`
 --
 ALTER TABLE `lesson_logs`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `marks`
+--
+ALTER TABLE `marks`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=131;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=195;
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=51;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `post_rates`
 --
 ALTER TABLE `post_rates`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `schools`
 --
@@ -611,11 +583,25 @@ ALTER TABLE `lesson_logs`
   ADD CONSTRAINT `fk_lesson_logs_teachers1_idx` FOREIGN KEY (`teachers_id`) REFERENCES `teachers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- 限制表 `marks`
+--
+ALTER TABLE `marks`
+  ADD CONSTRAINT `fk_marks_posts1_idx` FOREIGN KEY (`posts_id`) REFERENCES `posts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_marks_students1_idx` FOREIGN KEY (`students_id`) REFERENCES `students` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- 限制表 `posts`
 --
 ALTER TABLE `posts`
   ADD CONSTRAINT `fk_posts_lesson_logs1_idx` FOREIGN KEY (`lesson_logs_id`) REFERENCES `lesson_logs` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_posts_students1_idx` FOREIGN KEY (`students_id`) REFERENCES `students` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- 限制表 `post_rates`
+--
+ALTER TABLE `post_rates`
+  ADD CONSTRAINT `fk_post_rates_posts1_idx` FOREIGN KEY (`posts_id`) REFERENCES `posts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_post_rates_teachers1_idx` FOREIGN KEY (`teachers_id`) REFERENCES `teachers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- 限制表 `sclasses`
