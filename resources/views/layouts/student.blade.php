@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
     <title>{{ trans("layouts.title") }}</title>
@@ -13,13 +14,14 @@
 
     <link href="/css/jquery-ui.css" rel="stylesheet">
     <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/respond.min.js"></script>
 
     <script src="/js/plugins/canvas-to-blob.min.js" type="text/javascript"></script>
     <script src="/js/plugins/sortable.min.js" type="text/javascript"></script>
     <script src="/js/plugins/purify.min.js" type="text/javascript"></script>
     <script src="/js/fileinput.min.js"></script>
 
-    <script src="/js/bootstrap.min.js"></script>
     <script src="/js/locales/zh.js"></script>
 
     <script src="/js/student/student-upload.js"></script>
