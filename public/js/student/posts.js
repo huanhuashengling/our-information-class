@@ -34,7 +34,7 @@ $(document).ready(function() {
                     url: '/student/getCommentByPostsId',
                     data: {posts_id : postsId},
                     success: function( data ) {
-                        console.log(data);
+                        //console.log(data);
                         var conmmentStr = "暂无评论";
                         if ("false" != data) {
                             conmmentStr = JSON.parse(data)['content'];

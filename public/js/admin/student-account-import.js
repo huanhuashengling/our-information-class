@@ -40,7 +40,7 @@ $(document).ready(function() {
                         }  
                     }],
 	        responseHandler: function (res) {
-	        	console.log(res);
+	        	//console.log(res);
 	            return res;
 	        },
 	    });
