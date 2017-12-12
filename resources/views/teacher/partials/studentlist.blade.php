@@ -13,34 +13,31 @@
     @if ("noPosted" == $showLimit && isset($studentPostData))
         @continue;
     @endif
-    <div class="col-md-2 col-sm-3 col-xs-4">
-        <table class="table table-bordered">
-            <tr><td>{{ $py->getFirstchar($student->username) }} {{ $student->username }}</td></tr>
-            <tr><td>
+    <div class="col-md-2 col-sm-4 col-xs-6">
+        <table class="table">
+            <tr><td style="background-color: #b3d9d9"><h4>{{ $py->getFirstchar($student->username) }} <small>{{ $student->username }}</small></h4></td></tr>
+            <tr><td style="background-color: #d1e9e9">
             @if (isset($studentPostData))
-                <button class='btn btn-success form-control' value="{{ $studentPostData['id'] }}">已提交</button>
+                <button class='btn btn-success form-control post-btn' value="{{ $studentPostData['id'] }}">
+                @if ("outstanding" == $rate)
+                    优秀 / 
+                @elseif ("good" == $rate)
+                    良好 / 
+                @elseif ("lower" == $rate)
+                    合格 / 
+                @endif
+                
+                @if ("true" == $hasComment)
+                    已评 / 
+                @endif
+                @if (isset($studentPostData))
+                    {{$marksNum}}个赞
+                @endif
+                </button>
             @else
-                <button class='btn btn-default form-control disabled'>未提交</button>
+                <button class='btn btn-default form-control'>未提交</button>
             @endif
             </td></tr>
-            <tr>
-            <td>
-            @if ("outstanding" == $rate)
-                <button class="btn btn-danger btn-xs">优秀</button>
-            @elseif ("good" == $rate)
-                <button class="btn btn-warning btn-xs">良好</button>
-            @elseif ("lower" == $rate)
-                <button class="btn btn-success btn-xs">合格</button>
-            @endif
-            
-            @if ("true" == $hasComment)
-                <button class="btn btn-info btn-xs">已评</button>
-            @endif
-            @if (isset($studentPostData))
-                <button class="btn btn-danger btn-xs">{{$marksNum}}赞</button>
-            @endif
-            </td>
-            </tr>
         </table>
     </div>
 @endforeach

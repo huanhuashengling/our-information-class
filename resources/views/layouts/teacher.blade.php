@@ -55,7 +55,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/teacher/') }}">选课上课</a></li>
                     <li><a href="{{ url('/teacher/lesson') }}">课程管理</a></li>
-                    <li><a href="{{ url('/teacher/lessonLog') }}">上课纪录</a></li>
+                    <li><a href="{{ url('/teacher/lessonLog') }}">上课记录</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->

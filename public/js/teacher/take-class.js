@@ -21,7 +21,8 @@ $(document).ready(function() {
         });
     });
 
-    $('.btn-success').on('click', function (e) {
+    $('.post-btn').on('click', function (e) {
+        e.preventDefault();
         if ($(".rate-btn").hasClass('active')) {
           setTimeout(function() {
             $(".rate-btn").removeClass('active').find('input').prop('checked', false);
@@ -29,8 +30,6 @@ $(document).ready(function() {
         }
         $('#post-comment').val("");
         var postsId = (e.target.value).split(',')[0]; 
-// alert(postsId);
-        e.preventDefault();
         $.ajax({
             type: "POST",
             url: '/teacher/getPostRate',
@@ -93,7 +92,8 @@ $(document).ready(function() {
             success: function( data ) {
                 // alert(data);
                 if ("true" == data) {
-                    window.location.href = "/teacher/takeclass";
+                    // window.location.href = "/teacher/takeclass";
+                    $('#myModal').modal("hide");
                 } else {
                     alert('评价失败!');
                 }
@@ -110,8 +110,10 @@ $(document).ready(function() {
             data: data,
             success: function( data ) {
                 if ("true" == data) {
-                    window.location.href = "/teacher/takeclass";
-                    alert('添加评论成功!');
+                    // window.location.href = "/teacher/takeclass";
+                    $('#myModal').modal("hide");
+
+                    // alert('添加评论成功!');
                 } else {
                     alert('添加评论失败!');
                 }
@@ -130,8 +132,10 @@ $(document).ready(function() {
             data: data,
             success: function( data ) {
                 if ("true" == data) {
-                    window.location.href = "/teacher/takeclass";
-                    alert('编辑评论成功!');
+                    // window.location.href = "/teacher/takeclass";
+                    $('#myModal').modal("hide");
+
+                    // alert('编辑评论成功!');
                 } else {
                     alert('编辑评论失败!');
                 }

@@ -154,14 +154,13 @@ class HomeController extends Controller
             $students = Student::leftJoin('lesson_logs', function($join) {
                 $join->on('students.sclasses_id', '=', 'lesson_logs.sclasses_id');
             })->where(["lesson_logs.id" => $lessonLog['lesson_logs_id']])->selectRaw("*, students.id as students_id")->get();
-// dd($students);
+
             $postData = [];
             foreach ($students as $key => $student) {
-                // echo($student->students_id."/");
                 $post = Post::where(['students_id' => $student->students_id, 'lesson_logs_id' => $lessonLog['lesson_logs_id']])->first();
-                // $postRate = PostRate::where(['posts_id' => $post['id']])->first();
-                // $rate = isset($postRate)?$postRate['rate']:"";
-                $rate = "";
+                $postRate = PostRate::where(['posts_id' => $post['id']])->first();
+                $rate = isset($postRate)?$postRate['rate']:"";
+
                 $comment = Comment::where(['posts_id' => $post['id']])->first();
                 $hasComment = isset($comment)?"true":"false";
                 $marksNum = Mark::where(['posts_id' => $post['id']])->count();
