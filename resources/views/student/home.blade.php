@@ -22,6 +22,7 @@
           </h4>
           
         </div>
+
         <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
           <div class="panel-body">
               {!! $lesson['help_md_doc'] !!}
@@ -38,6 +39,23 @@
           <input type="hidden" name="lesson_logs_id" value="{{$lessonLog['id']}}">
           {!! Form::file('source', ['id' => 'input-zh']) !!}
         {!! Form::close() !!}
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-info">
+        <div class="panel-heading" role="tab" id="headingOne">
+          <h4 class="panel-title" value="">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">本节课其他同学的作业
+            </a>
+          </h4>
+        </div>
+
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+              暂未开放
+          </div>
         </div>
       </div>
     </div>
