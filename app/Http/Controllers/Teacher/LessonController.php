@@ -13,6 +13,7 @@ class LessonController extends Controller
 {
     public function index()
     {
+        // dd(Lesson::find(1)->teacher());
         return view('teacher/lesson/index')->withLessons(Lesson::all());
     }
 

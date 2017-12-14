@@ -22,4 +22,9 @@ class Teacher extends Model implements AuthenticatableContract, CanResetPassword
     protected $hidden = [
         'password','remember_token',
     ];
+
+    public function lesson()
+    {
+        return $this->hasMany('App\Models\Lesson');
+    }
 }

@@ -9,4 +9,9 @@ class Lesson extends Model
     protected $fillable = [
         'teachers_id', 'title', 'subtitle', 'help_md_doc', 'allow_post_file_types', 'description', 'lesson_code'
     ];
+
+    public function teacher()
+    {
+        return $this->belongsTo('App\Models\Teacher');
+    }
 }

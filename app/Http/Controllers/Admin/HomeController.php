@@ -46,7 +46,7 @@ class HomeController extends Controller
             if(!empty($data) && $data->count()){
 
                 foreach ($data->toArray() as $value) {
-                    // var_dump($value);
+                    dd($value);
 
                     if(!empty($value)){
                         $this->createStudentAccount($value);
@@ -86,16 +86,12 @@ class HomeController extends Controller
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'gender' => $data['gender'],
+            'level' => $data['level'],
+            'score' => $data['score'],
+            'groups_id' => $data['groups_id'],
+            'sclasses_id' => $data['sclasses_id'],
         ]);
-        if ($student) {
-            $student = Student::create([
-                'is' => $student->id,
-                'gender' => $data['gender'],
-                'sclasses_id' => $data['sclasses_id'],
-                'level' => $data['level'],
-                'score' => $data['score'],
-            ]);
-        }
     }
 
     public function getReset()

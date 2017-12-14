@@ -51,9 +51,9 @@
                                 <button type="submit" class="btn btn-primary">
                                     确认修改
                                 </button>
-                                <button type="button" class="btn btn-danger">
+                                <a href="/student/" class="btn btn-danger">
                                     取消修改
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </form>

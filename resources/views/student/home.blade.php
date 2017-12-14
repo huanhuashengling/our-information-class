@@ -29,10 +29,10 @@
           </div>
         </div>
         <div class="panel-footer">
-        <h4>上传作业</h4>
+        <!-- <h4>上传作业</h4> -->
         @if(Session::has('success'))
           <div class="alert-box success">
-            <h2>{!! Session::get('success') !!}</h2>
+            <h4>{!! Session::get('success') !!}</h4>
           </div>
         @endif
         {!! Form::open(array('url'=>'student/upload','method'=>'POST', 'files'=>true)) !!}
