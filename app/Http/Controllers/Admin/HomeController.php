@@ -46,7 +46,7 @@ class HomeController extends Controller
             if(!empty($data) && $data->count()){
 
                 foreach ($data->toArray() as $value) {
-                    dd($value);
+                    // dd($value);
 
                     if(!empty($value)){
                         $this->createStudentAccount($value);
@@ -91,6 +91,7 @@ class HomeController extends Controller
             'score' => $data['score'],
             'groups_id' => $data['groups_id'],
             'sclasses_id' => $data['sclasses_id'],
+            'remember_token' => str_random(10),
         ]);
     }
 

@@ -15,7 +15,7 @@
     @endif
     <div class="col-md-2 col-sm-4 col-xs-6">
         <table class="table">
-            <tr><td style="background-color: #b3d9d9"><h4>{{ $py->getFirstchar($student->username) }} <small>{{ $student->username }}</small></h4></td></tr>
+            <tr><td style="background-color: #b3d9d9"><b>{{ $py->getFirstchar($student->username) }}</b> <small>{{ $student->username }}</small></td></tr>
             <tr><td style="background-color: #d1e9e9">
             @if (isset($studentPostData))
                 <button class='btn btn-success form-control post-btn' value="{{ $studentPostData['id'] }}">

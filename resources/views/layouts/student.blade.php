@@ -13,7 +13,7 @@
     <link href="/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
 
     <link href="/css/jquery-ui.css" rel="stylesheet">
-    <script src="/js/jquery-3.2.1.js"></script>
+    <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/respond.min.js"></script>
 

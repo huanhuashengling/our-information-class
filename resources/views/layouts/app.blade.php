@@ -10,7 +10,7 @@
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/jquery-ui.css" rel="stylesheet">
-    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/teacher/take-class.js"></script>
 

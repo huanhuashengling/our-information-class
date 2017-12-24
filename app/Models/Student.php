@@ -13,7 +13,7 @@ class Student extends Model implements AuthenticatableContract, CanResetPassword
     use Authenticatable, CanResetPassword;
     
     protected $fillable = [
-        'username', 'email', 'gender', 'sclasses_id', 'level', 'score', 'password', 'groups_id'
+        'username', 'email', 'gender', 'sclasses_id', 'level', 'score', 'password', 'groups_id', 'remember_token'
         ];
 
     protected $hidden = [

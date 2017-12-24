@@ -15,7 +15,7 @@
                             <!-- alue="{{ old('username') }}" -->
 
                             <div class="col-md-6">
-                                <input id="username" type="text" class="form-control" name="username" value="Kailey Mertz" required autofocus>
+                                <input id="username" type="text" class="form-control" name="username" value="" required autofocus>
 
                                 @if ($errors->has('username'))
                                     <span class="help-block">
@@ -29,7 +29,7 @@
                             <label for="password" class="col-md-4 control-label">密码</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" value="123456" class="form-control" name="password" required>
+                                <input id="password" type="password" value="" class="form-control" name="password" required>
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">

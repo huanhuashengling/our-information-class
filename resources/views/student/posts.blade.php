@@ -12,6 +12,7 @@
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
     @foreach ($postData as $key => $item)
         @php
+            $orderNum = $key + 1;
             $hasComment = ("true" == $item['hasComment'])?"有评语":"";
             $hasPostStr = "warning";
             $rateStr = "";
@@ -30,14 +31,14 @@
         @endphp
         <div class="col-md-12">
             <div class="panel panel-{{$hasPostStr}}">
-                <div class="panel-heading" role="tab" id="heading{{$key}}">
+                <div class="panel-heading" role="tab" id="heading{{$orderNum}}">
                   <h4 class="panel-title" value="{{ $item['post']['id'] }},{{ $item['post']['storage_name'] }}">
-                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$key}}" aria-expanded="true" aria-controls="collapse{{$key}}">
-                        #{{ $key }} 课题： {{ $item['lesson']['title'] }} <small>{{ $item['lesson']['subtitle'] }} </small>  <label class="text-right">{{$rateStr}} {{$hasComment}}</label>
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$orderNum}}" aria-expanded="true" aria-controls="collapse{{$orderNum}}">
+                        第{{ $orderNum }}节： {{ $item['lesson']['title'] }} <small>{{ $item['lesson']['subtitle'] }} </small>  <label class="text-right">{{$rateStr}} {{$hasComment}}</label>
                     </a>
                   </h4>
                 </div>
-                <div id="collapse{{$key}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{$key}}">
+                <div id="collapse{{$orderNum}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{$orderNum}}">
                 <div class="panel-body">
                     <div class="col-md-12">
                     @if (isset($item['post']))
