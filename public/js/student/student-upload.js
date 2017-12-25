@@ -2,7 +2,7 @@ $(document).ready(function() {
     $("#input-zh").fileinput({
 		language: "zh", 
 		// uploadUrl: "student/upload", 
-		allowedFileExtensions: ["jpg", "png", "gif", "bmp", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "html"], 
+		allowedFileExtensions: ["txt", "jpg", "png", "gif", "bmp", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "html"], 
 		// uploadAsync: true
 		overwriteInitial: true,
 		initialPreview: [
