@@ -18,14 +18,38 @@
             <tr><td style="background-color: #b3d9d9"><b>{{ $py->getFirstchar($student->username) }}</b> <small>{{ $student->username }}</small></td></tr>
             <tr><td style="background-color: #d1e9e9">
             @if (isset($studentPostData))
-                <button class='btn btn-success form-control post-btn' value="{{ $studentPostData['id'] }}">
+            @php
+                $rateStr = "";
+                $btnClass = "";
+                @endphp
                 @if ("outstanding" == $rate)
-                    优秀 / 
+                @php
+                    $rateStr = "优秀 / ";
+                    $btnClass = "danger";
+                    @endphp
                 @elseif ("good" == $rate)
-                    良好 / 
+                @php
+                    $rateStr = "良好 / ";
+                    $btnClass = "success";
+                    @endphp
                 @elseif ("lower" == $rate)
-                    合格 / 
+                @php
+                    $rateStr = "合格 / ";
+                    $btnClass = "info";
+                    @endphp
+                @elseif ("unqualified" == $rate)
+                @php
+                    $rateStr = "不合格 / ";
+                    $btnClass = "warning";
+                    @endphp
+                @else
+                @php
+                    $rateStr = "未评 / ";
+                    $btnClass = "primary";
+                    @endphp
                 @endif
+                <button class='btn btn-{{$btnClass}} form-control post-btn' value="{{ $studentPostData['id'] }}">
+                {{$rateStr}}
                 
                 @if ("true" == $hasComment)
                     已评 / 
