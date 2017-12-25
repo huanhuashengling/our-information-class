@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Models\Lesson;
-
+use \Auth;
 use EndaEditor;
 
 class LessonController extends Controller
