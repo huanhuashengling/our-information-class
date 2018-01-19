@@ -17,7 +17,7 @@
         <div class="panel-heading" role="tab" id="headingOne">
           <h4 class="panel-title" value="">
             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              本堂课内容：{{ $lesson['title'] }}<small>({{ $lesson['subtitle'] }})</small>
+              <b>Click me! <span class="glyphicon glyphicon-hand-down"></span> </b> 课题：{{ $lesson['title'] }}<small>({{ $lesson['subtitle'] }})</small>
             </a>
           </h4>
           
@@ -31,10 +31,17 @@
         <div class="panel-footer">
         <!-- <h4>上传作业</h4> -->
         @if(Session::has('success'))
-          <div class="alert-box success">
+          <div class="alert alert-success">
             <h4>{!! Session::get('success') !!}</h4>
           </div>
         @endif
+
+        @if(Session::has('danger'))
+          <div class="alert alert-danger">
+            <h4>{!! Session::get('danger') !!}</h4>
+          </div>
+        @endif
+
         {!! Form::open(array('url'=>'student/upload','method'=>'POST', 'files'=>true)) !!}
           <input type="hidden" name="lesson_logs_id" value="{{$lessonLog['id']}}">
           {!! Form::file('source', ['id' => 'input-zh']) !!}
