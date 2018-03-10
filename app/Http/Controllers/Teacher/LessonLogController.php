@@ -12,14 +12,29 @@ class LessonLogController extends Controller
 {
     public function store(Request $request)
     {
+        //TODO DO not readd the same lessonlog with the sanme teacher classe and lesson
+        $teachersId = \Auth::guard("teacher")->id();
+        $sclassesId = $request->get('sclasses_id');
+        $lessonsId = $request->get('lessons_id');
+        if (0 == $sclassesId) {
+            return redirect()->back()->withInput()->withErrors('请选择班级！');
+        }
+        if (0 == $lessonsId) {
+            return redirect()->back()->withInput()->withErrors('请选择课程！');
+        }
+        $oldlLessonLog = LessonLog::where(['teachers_id' => $teachersId, "sclasses_id" => $sclassesId, "lessons_id" => $lessonsId])->first();
+            
+
+
+        if($oldlLessonLog) {
+            $oldlLessonLog->status = 'open';
+            $oldlLessonLog->update();
+            return redirect('teacher/takeclass');
+        }
+
+        
         $lessonLog = new LessonLog();
-        // if (\Auth::user()->lessonLogs->save($lessonLog)) {
-            // return redirect('teacher/takeClass');
-        // } else {
-        //     return redirect()->back()->withInput()->withErrors('保存失败！');
-        // }
-        // $user = \Auth::user();
-        // dd(\Auth::user());die();
+
         $lessonLog->teachers_id = \Auth::guard("teacher")->id();
         $lessonLog->sclasses_id = $request->get('sclasses_id');
         $lessonLog->lessons_id = $request->get('lessons_id');

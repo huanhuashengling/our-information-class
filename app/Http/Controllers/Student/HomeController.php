@@ -50,12 +50,19 @@ class HomeController extends Controller
 
     public function upload(Request $request)
     {
-
       $file = $request->file('source');
+      if(!$file) {
+        return Redirect::to('student')->with('danger', '请重新选择作业提交！');
+      }
+
+      $studentsId = Auth::guard("student")->id();
+      $lessonLogsId = $request->get('lesson_logs_id');
+      $oldPost = Post::where(['lesson_logs_id' => $lessonLogsId, "students_id" => $studentsId])->orderBy('id', 'desc')->first();
 
       if ($file->isValid()) {
         // 原文件名
         $originalName = $file->getClientOriginalName();
+        // $bytes = File::size($filename);
         // 扩展名
         $ext = $file->getClientOriginalExtension();
         // $originalName = str_replace($originalName, ".".$ext);
@@ -69,26 +76,44 @@ class HomeController extends Controller
         $filename = $originalName . '-' . $uniqid . '.' . $ext;
 
         $bool = Storage::disk('posts')->put($filename, file_get_contents($realPath)); 
-        
-        $post = new Post();
+        //TDDO update these new or update code
+        if($oldPost) {
+          $oldFilename = $oldPost->storage_name;
+          $oldPost->storage_name = $filename;
+          $oldPost->original_name = $originalName;
+          $oldPost->file_ext = $ext;
+          $oldPost->mime_type = $type;
+          $oldPost->post_code = $uniqid;
+          $oldPost->content = "";
+          if ($oldPost->update()) {
+            $bool = Storage::disk('posts')->delete($oldFilename); 
 
-        $post->students_id = Auth::guard("student")->id();
-        $post->lesson_logs_id = $request->get('lesson_logs_id');
-        $post->storage_name = $filename;
-        $post->original_name = $originalName;
-        $post->file_ext = $ext;
-        $post->mime_type = $type;
-        $post->post_code = $uniqid;
-        $post->content = "";
-        // dd($post);die();
-        if ($post->save()) {
-          // Session::flash('success', '作业提交成功'); 
-          return Redirect::to('student')->with('success', '作业提交成功啦！');
+            // Session::flash('success', '作业提交成功'); 
+            return Redirect::to('student')->with('success', '作业提交成功啦！');
+          } else {
+            return Redirect::to('student')->with('danger', '作业提交失败，请重新操作！');
+            // Session::flash('error', '作业提交失败'); 
+          }
         } else {
-          return Redirect::to('student')->with('success', '作业提交失败，请重新操作！');
-
-          // Session::flash('error', '作业提交失败'); 
+          $post = new Post();
+          $post->students_id = Auth::guard("student")->id();
+          $post->lesson_logs_id = $request->get('lesson_logs_id');
+          $post->storage_name = $filename;
+          $post->original_name = $originalName;
+          $post->file_ext = $ext;
+          $post->mime_type = $type;
+          $post->post_code = $uniqid;
+          $post->content = "";
+          if ($post->save()) {
+            // Session::flash('success', '作业提交成功'); 
+            return Redirect::to('student')->with('success', '作业提交成功啦！');
+          } else {
+            return Redirect::to('student')->with('danger', '作业提交失败，请重新操作！');
+            // Session::flash('error', '作业提交失败'); 
+          }
         }
+      } else {
+        return Redirect::to('student')->with('danger', '文件上传失败，请确认是否文件过大？');
       }
     }
 

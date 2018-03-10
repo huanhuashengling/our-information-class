@@ -20,17 +20,11 @@
                     <div class="col-md-12">
                         {!! Form::open(['url'=>'teacher/createLessonLog']) !!}
                             <div class="form-group">
-                                {!! Form::label('sclasses','选择班级:') !!}
                                 {!! Form::select('sclasses_id', $classData, null, ['class'=>'form-control']) !!}
                             </div>
                             <div class="form-group">
-                                {!! Form::label('lessons','选择课程:') !!}
-                                <select name="lessons_id" id="name" class='form-control'>
-                                @foreach ($lessons as $lesson)
-                                    <option value="{{ $lesson['id'] }}">{{ $lesson['id'] }}. {{ $lesson['title'] }} ({{ $lesson['subtitle'] }})</option>
-                                @endforeach
-                                </select>
-                                <!-- {!! Form::select('lessons_id', $lessons, null, ['class'=>'form-control']) !!} -->
+                            {!! Form::select('lessons_id', $lessonsData, null, ['class'=>'form-control']) !!}
+                                
                             </div>
                             <div class="form-group col-md-3 col-md-offset-4">
                                 {!! Form::submit('开始上课',['class'=>'btn btn-primary  form-control']) !!}

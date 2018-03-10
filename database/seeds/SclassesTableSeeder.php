@@ -13,8 +13,8 @@ class SclassesTableSeeder extends Seeder
     {
         DB::table('schools')->delete();
         
-        factory('App\Models\Sclass', 3)->create([
-            'class_num' => 3
-            ]);
+        // factory('App\Models\Sclass', 3)->create([
+        //     'class_num' => 3
+        //     ]);
     }
 }

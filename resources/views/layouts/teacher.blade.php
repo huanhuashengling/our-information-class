@@ -23,6 +23,7 @@
     <script src="/js/fileinput.min.js"></script>
 
     <script src="/js/locales/zh.js"></script>
+    <script src="/js/teacher/select-class-lesson.js"></script>
     <script src="/js/teacher/take-class.js"></script>
     <script src="/js/teacher/lesson-history.js"></script>
 

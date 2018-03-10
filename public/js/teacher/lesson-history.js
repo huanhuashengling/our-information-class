@@ -27,7 +27,8 @@ $(document).ready(function() {
 	          	}.bind(this), 10);
 	        }
 	        $('#post-comment').val("");
-	        var postsId = (e.target.value).split(',')[0]; 
+	        // var postsId = (e.target.value).split(',')[0]; 
+	        var postsId = $(this).attr("value"); 
 	        $.ajax({
 	            type: "POST",
 	            url: '/teacher/getPostRate',

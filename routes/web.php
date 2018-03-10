@@ -121,6 +121,7 @@ Route::group(['middleware' => 'auth.teacher', 'prefix' => 'teacher','namespace' 
     Route::resource('updateRate', 'HomeController@updateRate');
     Route::post('getPostRate', 'HomeController@getPostRate');
 
+    $router->post('getLessonLog', 'HomeController@getLessonLog');
     $router->get('reset', 'HomeController@getReset');
     $router->post('reset', 'HomeController@postReset');
 
@@ -141,6 +142,8 @@ Route::group(['middleware' => 'auth.student', 'prefix' => 'student','namespace' 
     $router->post('getentry', 'HomeController@get');
     $router->post('getCommentByPostsId', 'HomeController@getCommentByPostsId');
     $router->post('getPostRate', 'HomeController@getPostRate');
+    
+    $router->get('classmate', 'ClassmateController@classmatePost');
 
     $router->get('reset', 'HomeController@getReset');
     $router->post('reset', 'HomeController@postReset');

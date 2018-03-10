@@ -30,6 +30,7 @@ class HomeController extends Controller
         $userId = auth()->guard('teacher')->id();
         // dd($userId);
         $lessonLog = LessonLog::where(['teachers_id' => $userId, 'status' => 'open'])->first();
+
         if ($lessonLog) {
             // dd($lessonLog);die();
             //If the teacher has one lesson log, only need redirect to route takeclass and load view
@@ -39,14 +40,19 @@ class HomeController extends Controller
 
         $sclasses = Sclass::get();
         $classData = [];
+        array_push($classData, "请选择班级");
         foreach ($sclasses as $key => $sclass) {
             // $dateDiff = date_diff($sclass['enter_school_year']."0801", date('y', time()).date('m',time())."01");
             // dd($dateDiff);
             $classData[$sclass['id']] = $sclass['enter_school_year'] . "级" . $sclass['class_title'] . "班";
         }
         $lessons = Lesson::get();
-// dd($classData);
-        return view('teacher/home', compact('classData', 'lessons'));
+        $lessonsData = [];
+        array_push($lessonsData, "请选择课程");
+        foreach ($lessons as $key => $lesson) {
+            $lessonsData[$lesson['id']] = $lesson['id'] . ". " . $lesson['title'] . "(". $lesson['subtitle'] .")";
+        }
+        return view('teacher/home', compact('classData', 'lessonsData'));
     }
 
     public function takeClass()
@@ -59,16 +65,25 @@ class HomeController extends Controller
 
         $sclass = Sclass::where(['id' => $lessonLog['sclasses_id']])->first();
         // dd($sclass);die();
-        $students = DB::table('students')->select('students.id as students_id', 'lesson_logs.id as lesson_logs_id', 'students.*', 'lesson_logs.*')->leftJoin('lesson_logs', 'students.sclasses_id', '=', 'lesson_logs.sclasses_id')->where(["lesson_logs.id" => $lessonLog['id']])->get();
-        // dd($students);
+        $students = DB::table('students')->select('students.id as students_id', 'lesson_logs.id as lesson_logs_id', 'students.*', 'lesson_logs.*')->leftJoin('lesson_logs', 'students.sclasses_id', '=', 'lesson_logs.sclasses_id')->where(["lesson_logs.id" => $lessonLog['id']])->orderBy(DB::raw('convert(students.username using gbk)'), "ASC")->get();
+        // dd($students);DB::raw('convert(title using gbk)')
         // $students = Student::->select('name', 'email as user_email')
         //     ->leftJoin('lesson_logs', function($join) {
         //     $join->on('students.sclasses_id', '=', 'lesson_logs.sclasses_id');
         // })->where(["lesson_logs.id" => $lessonLog['id']])->get();
         $postData = [];
+        $allCount = count($students);
+        $postedCount = 0;
         foreach ($students as $key => $student) {
             // var_dump($student->students_id);
             $post = Post::where(['students_id' => $student->students_id, 'lesson_logs_id' => $lessonLog['id']])->orderBy('id', 'desc')->first();
+            if (isset($post))
+            {
+                $postedCount++;
+                // $post["postDownloadPath"] = env('APP_URL')."/posts/".$post->storage_name;
+            } else {
+                // $post["postDownloadPath"] = env('APP_URL')."/images/defaultphoto.png";
+            }
             // dd($post);
             $postRate = PostRate::where(['posts_id' => $post['id']])->first();
             $rate = isset($postRate)?$postRate['rate']:"";
@@ -80,9 +95,10 @@ class HomeController extends Controller
 
             $postData[$student->students_id] = ['post' => $post, 'rate' => $rate, 'hasComment' => $hasComment, 'marksNum' => $marksNum];
         }
+        $unpostCount = $allCount - $postedCount;
         // dd($postData);die();
         $py = new pinyinfirstchar();
-        return view('teacher/takeclass', compact('sclass', 'lesson', 'students', 'lessonLog', 'postData', 'py'));
+        return view('teacher/takeclass', compact('sclass', 'lesson', 'students', 'lessonLog', 'postData', 'py', 'allCount', 'postedCount', 'unpostCount'));
     }
 
     public function updateRate(Request $request)
@@ -113,6 +129,22 @@ class HomeController extends Controller
             } else {
                 return "false";
             }
+        }
+    }
+
+    public function getLessonLog(Request $request)
+    {   
+        $teachersId = Auth::guard('teacher')->id();
+        $lessonLog = LessonLog::where(['lessons_id' => $request->input('lessonsId'), 
+                                    'sclasses_id' => $request->input('sclassesId'), 
+                                    'teachers_id' => $teachersId])->first();
+
+        if (isset($lessonLog)) {
+            $postNum = Post::where(['lesson_logs_id' => $lessonLog->id])->count();
+
+            return $postNum;
+        } else {
+            return "false";
         }
     }
 

@@ -82,17 +82,21 @@ class HomeController extends Controller
     }
 
     public function createStudentAccount($data) {
-        $student = Student::create([
-            'username' => $data['username'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-            'gender' => $data['gender'],
-            'level' => $data['level'],
-            'score' => $data['score'],
-            'groups_id' => $data['groups_id'],
-            'sclasses_id' => $data['sclasses_id'],
-            'remember_token' => str_random(10),
-        ]);
+        try {
+            $student = Student::create([
+                'username' => $data['username'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+                'gender' => $data['gender'],
+                'level' => $data['level'],
+                'score' => $data['score'],
+                'groups_id' => $data['groups_id'],
+                'sclasses_id' => $data['sclasses_id'],
+                'remember_token' => str_random(10),
+            ]);
+        } catch (Exception $e) {
+            throw new Exception("Error Processing Request", 1);
+        }
     }
 
     public function getReset()

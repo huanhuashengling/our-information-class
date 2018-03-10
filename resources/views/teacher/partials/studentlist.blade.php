@@ -4,6 +4,14 @@
         $rate = $postData[$student->students_id]['rate'];
         $hasComment = $postData[$student->students_id]['hasComment'];
         $marksNum = $postData[$student->students_id]['marksNum'];
+        $postClass = "";
+        
+        if (isset($studentPostData)) {
+            $img = env('APP_URL')."/posts/".$studentPostData['storage_name'];
+            $postClass = "post-btn";
+        } else {
+            $img = env('APP_URL')."/images/defaultphoto.png";
+        }
     @endphp
 
     @if ("posted" == $showLimit && !isset($studentPostData))
@@ -13,11 +21,19 @@
     @if ("noPosted" == $showLimit && isset($studentPostData))
         @continue;
     @endif
-    <div class="col-md-2 col-sm-4 col-xs-6">
-        <table class="table">
-            <tr><td style="background-color: #b3d9d9"><b>{{ $py->getFirstchar($student->username) }}</b> <small>{{ $student->username }}</small></td></tr>
-            <tr><td style="background-color: #d1e9e9">
-            @if (isset($studentPostData))
+    <!--
+       
+        style="background-color: #d1e9e9" img-responsive 
+         style="background:url({{$img}}); background-size: '20px 20px'"
+    -->
+    <div class="col-md-2 col-sm-4 col-xs-6" style="padding-left: 5px; padding-right: 5px;">
+        <div class="panel panel-default">
+            <div class="text-center"><img class="{{$postClass}}" height="90px" value="{{ $studentPostData['id'] }}" src="{{$img}}"></div>
+            <div class="text-center"><h3><b>{{ $py->getFirstchar($student->username) }}</b> <small>{{ $student->username }}<span class="text-right"> (优|评|20赞)</span></small></h3>  </div>
+
+        </div>
+            <!--@if (isset($studentPostData))
+            <tr><td>
             @php
                 $rateStr = "";
                 $btnClass = "";
@@ -48,7 +64,7 @@
                     $btnClass = "primary";
                     @endphp
                 @endif
-                <button class='btn btn-{{$btnClass}} form-control post-btn' value="{{ $studentPostData['id'] }}">
+                <label class='post-btn' value="{{ $studentPostData['id'] }}">
                 {{$rateStr}}
                 
                 @if ("true" == $hasComment)
@@ -57,11 +73,9 @@
                 @if (isset($studentPostData))
                     {{$marksNum}}个赞
                 @endif
-                </button>
-            @else
-                <button class='btn btn-default form-control'>未提交</button>
-            @endif
-            </td></tr>
-        </table>
+                </label>
+                </td></tr>
+            @endif-->
+            
     </div>
 @endforeach

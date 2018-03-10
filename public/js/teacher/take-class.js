@@ -29,7 +29,10 @@ $(document).ready(function() {
           }.bind(this), 10);
         }
         $('#post-comment').val("");
-        var postsId = (e.target.value).split(',')[0]; 
+        // console.log($(this).attr("value"));
+        // var postsId = (e.target.value).split(',')[0]; 
+        var postsId = $(this).attr("value");
+        $('#post-show').attr("src", "");
         $.ajax({
             type: "POST",
             url: '/teacher/getPostRate',

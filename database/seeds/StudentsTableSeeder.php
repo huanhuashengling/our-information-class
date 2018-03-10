@@ -13,8 +13,8 @@ class StudentsTableSeeder extends Seeder
     {
         DB::table('students')->delete();
 
-        factory('App\Models\Student', 60)->create([
-            'password' => bcrypt('123456')
-            ]);
+        // factory('App\Models\Student', 60)->create([
+        //     'password' => bcrypt('123456')
+        //     ]);
     }
 }

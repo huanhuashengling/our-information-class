@@ -38,9 +38,9 @@
             <div class="panel-body">
 
                 <ul class="nav nav-tabs">
-                    <li class='active'><a href="#show-all" data-toggle="tab">全部</a></li>
-                    <li><a href="#show-posted" data-toggle="tab">已交作业</a></li>
-                    <li><a href="#show-no-posted" data-toggle="tab">未交作业</a></li>
+                    <li class='active'><a href="#show-all" data-toggle="tab">全部(<span>{{$allCount}}</span>)</a></li>
+                    <li><a href="#show-posted" data-toggle="tab">已交作业(<span>{{$postedCount}}<span></span>)</a></li>
+                    <li><a href="#show-no-posted" data-toggle="tab">未交作业(<span>{{$unpostCount}}</span>)</a></li>
                     <!-- <li><a href="#identifier" data-toggle="tab">已评作业</a></li> -->
                 </ul>
                 <!-----start tab content-->
@@ -79,7 +79,7 @@
       </div>
       <div class="modal-body">
       <!-- <iframe src='https://docview.mingdao.com/op/embed.aspx?src=http://www.ccut.edu.tw/teachers/cskuan/downloads/ed01-ch01.ppt' width='800px' height='600px' frameborder='0'>This is an embedded <a target='_blank' href='http://office.com'>Microsoft Office</a> document, powered by <a target='_blank' href='http://office.com/webapps'>Office Web Apps</a>.</iframe> -->
-        <img src="" id='post-show' class="img-responsive">
+        <img src="" id='post-show' class="img-responsive img-thumbnail">
         <a href="" id="post-download-link">右键点击下载</a>
 
         <!-- https://docview.mingdao.com/op/generate.aspx -->
@@ -96,7 +96,6 @@
             <label class='btn btn-warning rate-btn' id="unqualified-rate" value="unqualified"><input type='radio'>不合格</label>
         </div>
 
-        <hr>
         <div class="">
             <h4>填写评价内容</h4>
             <textarea class="form-control" rows='3' id="post-comment" value=''></textarea>

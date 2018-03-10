@@ -57,7 +57,7 @@
                     <!--<li><a href="{{ url('/student') }}">我的小组</a></li>-->
                     <li><a href="{{ url('/student') }}">信息课</a></li>
                     <li><a href="{{ url('/student/posts') }}">作业记录</a></li>
-                    <!--<li><a href="{{ url('/student') }}">同学作业</a></li>-->
+                    <li><a href="{{ url('/student/classmate') }}">同学作业</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
