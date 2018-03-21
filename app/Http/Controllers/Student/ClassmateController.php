@@ -16,7 +16,7 @@ class ClassmateController extends Controller
     {
         $id = \Auth::guard("student")->id();
         $student = Student::find($id);
-        $posts = Post::where('students_id', '<>', $id)->get();
+        $posts = Post::where('students_id', '<>', $id)->orderby("id", "DESC")->get();
 // dd($posts);
         $postData = [];
         foreach ($posts as $key => $post) {
