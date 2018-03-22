@@ -12,13 +12,24 @@ use App\Models\PostRate;
 
 class ClassmateController extends Controller
 {
-    public function classmatePost()
+    public function classmatePost(Request $request)
     {
+        // dd($request);
+        // dd(\Request::get('page'));
+        if(isset($request['page']))
+        {
+            $page = $request['page'];
+            // dd($page);
+        }
         $id = \Auth::guard("student")->id();
-        $student = Student::find($id);
-        $posts = Post::where('students_id', '<>', $id)->orderby("id", "DESC")->get();
-// dd($posts);
-        $postData = [];
+        // $student = Student::find($id);
+        $posts = Post::where('students_id', '<>', $id)
+                ->leftjoin('students', 'posts.students_id', '=', 'students.id')
+                ->leftjoin('sclasses', 'students.sclasses_id', '=', 'sclasses.id')
+                ->leftjoin('post_rates', 'posts.id', '=', 'post_rates.posts_id')
+                ->orderby("posts.id", "DESC")->paginate(16);
+        // dd($posts);
+        /*$postData = [];
         foreach ($posts as $key => $post) {
             if("doc" == $post->file_ext || "docx" == $post->file_ext) {
                 $post->storage_name = env('APP_URL')."/images/doc.png";
@@ -42,13 +53,14 @@ class ClassmateController extends Controller
             } else {
                 $post->rate = "";
             }
+// dd($postData);
 
 
             $post->studentName = $postStudent->username;
             $post->studentClass = (2018-$sclass->enter_school_year) . $sclass->class_title . "班";
             array_push($postData, $post);
-        }
+        }*/
 
-        return view('student/classmatePost', compact('postData'));
+        return view('student/classmatePost', compact('posts'));
     }
 }
