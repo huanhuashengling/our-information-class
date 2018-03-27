@@ -14,13 +14,6 @@ class ClassmateController extends Controller
 {
     public function classmatePost(Request $request)
     {
-        // dd($request);
-        // dd(\Request::get('page'));
-        if(isset($request['page']))
-        {
-            $page = $request['page'];
-            // dd($page);
-        }
         $id = \Auth::guard("student")->id();
         // $student = Student::find($id);
         $posts = Post::where('students_id', '<>', $id)

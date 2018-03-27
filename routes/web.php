@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Illuminate\Support\Facades\Input;
 
 Route::get('/', function () {
     return view('welcome');
@@ -147,5 +148,26 @@ Route::group(['middleware' => 'auth.student', 'prefix' => 'student','namespace' 
 
     $router->get('reset', 'HomeController@getReset');
     $router->post('reset', 'HomeController@postReset');
+
+});
+
+Route::get('imager', function ()
+{
+    $src = Input::get('src', 1);
+    $cacheimage = Image::cache(function($image) use ($src) {
+        return $image->make($src)->resize(200,140);
+    }, 5, false); // one minute cache expiry
+
+    return Response::make($cacheimage, 200, array('Content-Type' => 'image/jpeg'));
+});
+
+Route::get('imager90', function ()
+{
+    $src = Input::get('src', 1);
+    $cacheimage = Image::cache(function($image) use ($src) {
+        return $image->make($src)->resize(120,90);
+    }, 5, false); // one minute cache expiry
+
+    return Response::make($cacheimage, 200, array('Content-Type' => 'image/jpeg'));
 });
 

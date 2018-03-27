@@ -165,7 +165,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         YuanChao\Editor\EndaEditorServiceProvider::class,
-
+        Intervention\Image\ImageServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -232,6 +232,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'EndaEditor' => YuanChao\Editor\Facade\EndaEditorFacade::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

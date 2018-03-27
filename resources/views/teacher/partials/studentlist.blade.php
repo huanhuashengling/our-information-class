@@ -7,10 +7,10 @@
         $postClass = "";
         
         if (isset($studentPostData)) {
-            $img = env('APP_URL')."/posts/".$studentPostData['storage_name'];
+            $img = "posts/".$studentPostData['storage_name'];
             $postClass = "post-btn";
         } else {
-            $img = env('APP_URL')."/images/defaultphoto.png";
+            $img = "images/defaultphoto.png";
         }
     @endphp
 
@@ -28,7 +28,7 @@
     -->
     <div class="col-md-2 col-sm-4 col-xs-6" style="padding-left: 5px; padding-right: 5px;">
         <div class="panel panel-default">
-            <div class="text-center"><img class="{{$postClass}}" height="90px" value="{{ $studentPostData['id'] }}" src="{{$img}}"></div>
+            <div class="text-center"><img class="{{$postClass}}" height="90px" value="{{ $studentPostData['id'] }}" src="/imager90?src={{$img}}"></div>
             <div class="text-center"><h3><b>{{ $py->getFirstchar($student->username) }}</b> <small>{{ $student->username }}<span class="text-right"> (优|评|20赞)</span></small></h3>  </div>
 
         </div>
