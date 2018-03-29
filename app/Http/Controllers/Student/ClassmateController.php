@@ -16,7 +16,8 @@ class ClassmateController extends Controller
     {
         $id = \Auth::guard("student")->id();
         // $student = Student::find($id);
-        $posts = Post::where('students_id', '<>', $id)
+        $posts = Post::select('posts.id as pid', 'sclasses.*', 'post_rates.*', 'posts.*', 'students.*')
+                ->where('students_id', '<>', $id)
                 ->leftjoin('students', 'posts.students_id', '=', 'students.id')
                 ->leftjoin('sclasses', 'students.sclasses_id', '=', 'sclasses.id')
                 ->leftjoin('post_rates', 'posts.id', '=', 'post_rates.posts_id')

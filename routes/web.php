@@ -143,6 +143,7 @@ Route::group(['middleware' => 'auth.student', 'prefix' => 'student','namespace' 
     $router->post('getentry', 'HomeController@get');
     $router->post('getCommentByPostsId', 'HomeController@getCommentByPostsId');
     $router->post('getPostRate', 'HomeController@getPostRate');
+    $router->post('getOnePost', 'HomeController@getOnePost');
     
     $router->get('classmate', 'ClassmateController@classmatePost');
 
@@ -158,7 +159,7 @@ Route::get('imager', function ()
         return $image->make($src)->resize(200,140);
     }, 5, false); // one minute cache expiry
 
-    return Response::make($cacheimage, 200, array('Content-Type' => 'image/jpeg'))->setMaxAge(604800)->setPublic();
+    return Response::make($cacheimage, 200, array('Content-Type' => 'image/jpeg'));//->setMaxAge(604800)->setPublic();
 });
 
 Route::get('imager90', function ()
@@ -168,6 +169,6 @@ Route::get('imager90', function ()
         return $image->make($src)->resize(120,90);
     }, 5, false); // one minute cache expiry
 
-    return Response::make($cacheimage, 200, array('Content-Type' => 'image/jpeg'))->setMaxAge(604800)->setPublic();
+    return Response::make($cacheimage, 200, array('Content-Type' => 'image/jpeg'));//->setMaxAge(604800)->setPublic();
 });
 

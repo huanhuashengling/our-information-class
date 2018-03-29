@@ -26,6 +26,7 @@
 
     <script src="/js/student/student-upload.js"></script>
     <script src="/js/student/posts.js"></script>
+    <script src="/js/student/classmate-post.js"></script>
 
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" /> -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script> -->

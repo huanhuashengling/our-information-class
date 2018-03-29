@@ -204,4 +204,15 @@ class HomeController extends Controller
             return "false";
         }
     }
+
+    public function getOnePost(Request $request)
+    {
+        $post = Post::find($request->input('posts_id'));
+
+        if (isset($post)) {
+            return env('APP_URL')."/posts/".$post['storage_name'];
+        } else {
+            return "false";
+        }
+    }
 }

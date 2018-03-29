@@ -33,12 +33,36 @@
         @endphp
         <div class="col-md-3 col-sm-4 col-xs-6" style="padding-left: 5px; padding-right: 5px;">
             <div class="panel panel-default">
-                <div class="text-center"></i><img height="140px" value="{{ $post['id'] }}" src="/imager?src={{$post_storage_name}}"></div>
+                <div class="text-center"></i><img height="140px" value="{{ $post['pid'] }}" src="/imager?src={{$post_storage_name}}"></div>
                 <div class="text-center"><h4><small>({{ $post->studentClass }})</small>{{ $post->username }}<small><{{ $post->rate }}><0赞></small></h4>  </div>
+                <input type="hidden" name="postInfo" value="{{ $post->studentClass }}班">
             </div>
         </div>
     @endforeach
     {{ $posts->links('pagination.limit_links') }}
     <!--{!! $posts->render() !!}-->
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="classmate-post-modal" tabindex="-1" role="dialog" aria-labelledby="classmatePostModalLabel">
+<input type="hidden" id="posts-id" value="">
+
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="classmate-post-modal-label">谁在什么课上提交的作品</h4>
+      </div>
+      <div class="modal-body">
+        <img src="" id='classmate-post-show' class="img-responsive img-thumbnail">
+        <a href="" id="classmate-post-download-link">右键点击下载</a>
+      </div>
+
+    <div class="modal-footer">
+            <label class='btn btn-danger' value="rate"><input type='radio'>(20)喜欢</label>
+    </div>
+  </div>
+</div>
+</div>
+
 @endsection
