@@ -144,6 +144,10 @@ Route::group(['middleware' => 'auth.student', 'prefix' => 'student','namespace' 
     $router->post('getCommentByPostsId', 'HomeController@getCommentByPostsId');
     $router->post('getPostRate', 'HomeController@getPostRate');
     $router->post('getOnePost', 'HomeController@getOnePost');
+    $router->post('getMarksByPostsId', 'HomeController@getMarksByPostsId');
+    $router->post('updateMarkState', 'HomeController@updateMarkState');
+
+    
     
     $router->get('classmate', 'ClassmateController@classmatePost');
 

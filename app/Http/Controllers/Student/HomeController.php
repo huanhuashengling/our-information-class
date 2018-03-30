@@ -13,6 +13,7 @@ use App\Models\LessonLog;
 use App\Models\Post;
 use App\Models\PostRate;
 use App\Models\Comment;
+use App\Models\Mark;
 
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
@@ -213,6 +214,41 @@ class HomeController extends Controller
             return env('APP_URL')."/posts/".$post['storage_name'];
         } else {
             return "false";
+        }
+    }
+
+    public function getMarksByPostsId(Request $request)
+    {
+        $marks = Mark::where(["posts_id" => $request->input('postsId'), "state_code" => 1])->get();
+
+        if (isset($marks)) {
+            return count($marks);
+        } else {
+            return 0;
+        }
+    }
+
+    public function updateMarkState(Request $request)
+    {
+        $studentsId = Auth::guard("student")->id();
+        $postsId =  $request->input('postsId');
+        $stateCode =  $request->input('stateCode');
+        
+        $mark = Mark::where(["posts_id" => $request->input('postsId')])->first();
+        // dd($mark);
+        if (isset($mark)) {
+          $mark->state_code = $stateCode;
+          if ($mark->save()) {
+            return "true";
+          }
+        } else {
+          $mark = new Mark();
+          $mark->posts_id = $postsId;
+          $mark->students_id = $studentsId;
+          $mark->state_code = $stateCode;
+          if ($mark->save()) {
+            return "true";
+          }
         }
     }
 }

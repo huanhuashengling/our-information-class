@@ -55,11 +55,13 @@
       </div>
       <div class="modal-body">
         <img src="" id='classmate-post-show' class="img-responsive img-thumbnail">
-        <a href="" id="classmate-post-download-link">右键点击下载</a>
+        <!-- <a href="" id="classmate-post-download-link">右键点击下载</a> -->
       </div>
 
     <div class="modal-footer">
-            <label class='btn btn-danger' value="rate"><input type='radio'>(20)喜欢</label>
+        <div class="switch">
+            <input type="checkbox" id="like-check-box" name="likeCheckBox" data-inverse="true"/>
+        </div>
     </div>
   </div>
 </div>

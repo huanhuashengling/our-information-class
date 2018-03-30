@@ -4,6 +4,29 @@ $(document).ready(function() {
 	    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	  }
 	});
+    
+    $("[name='likeCheckBox']").bootstrapSwitch({
+        onText: '不喜欢',
+        offText: '喜欢',
+        onColor: 'default',
+        offColor: 'danger',
+    });
+
+    $("[name='likeCheckBox']").on('switchChange.bootstrapSwitch', function (e, data) {
+        $.ajax({
+            type: "POST",
+            url: '/student/updateMarkState',
+            data: {postsId: $("#posts-id").val(), stateCode:((true == data)?1:0)},
+            success: function( data ) {
+                // console.log(data);
+                if ("false" == data) {
+
+                } else {
+                    $("[name='likeCheckBox']").siblings(".bootstrap-switch-label").text(data);
+                }
+            }
+        });
+    });
 
     $('img').on('click', function (e) {
         e.preventDefault();
@@ -26,6 +49,15 @@ $(document).ready(function() {
 
                 } else {
                 }
+            }
+        });
+
+        $.ajax({
+            type: "POST",
+            url: '/student/getMarksByPostsId',
+            data: {postsId: postsId},
+            success: function( data ) {
+                $("[name='likeCheckBox']").siblings(".bootstrap-switch-label").text(data);
             }
         });
 
