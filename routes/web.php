@@ -162,7 +162,7 @@ Route::get('imager', function ()
     $src = Input::get('src', 1);
     $cacheimage = Image::cache(function($image) use ($src) {
         return $image->make($src)->resize(200,140);
-    }, 5, false); // one minute cache expiry
+    }, 1, false); // one minute cache expiry
 
     return Response::make($cacheimage, 200, array('Content-Type' => 'image/jpeg'));//->setMaxAge(604800)->setPublic();
 });

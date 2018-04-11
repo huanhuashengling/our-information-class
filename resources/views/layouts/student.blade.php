@@ -11,7 +11,6 @@
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/bootstrap-switch.css" rel="stylesheet">
-    <link href="/css/bootstrap-switch.less" rel="stylesheet">
     <link href="/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
 
     <link href="/css/jquery-ui.css" rel="stylesheet">
