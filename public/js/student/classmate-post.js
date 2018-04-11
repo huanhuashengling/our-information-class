@@ -6,26 +6,41 @@ $(document).ready(function() {
 	});
     
     $("[name='likeCheckBox']").bootstrapSwitch({
-        onText: '不喜欢',
-        offText: '喜欢',
-        onColor: 'default',
-        offColor: 'danger',
+        onText: '喜欢',
+        offText: '不喜欢',
+        onColor: 'danger',
+        offColor: 'default',
     });
 
     $("[name='likeCheckBox']").on('switchChange.bootstrapSwitch', function (e, data) {
-        $.ajax({
-            type: "POST",
-            url: '/student/updateMarkState',
-            data: {postsId: $("#posts-id").val(), stateCode:((true == data)?1:0)},
-            success: function( data ) {
-                // console.log(data);
-                if ("false" == data) {
+        // var $el = $(data.el)
+        // , value = data.value;
+        if ("false" == $("#is-init").val()) {
+            var currentMarkNum = parseInt($("#mark-num").val());
+            // console.log(e, data, currentMarkNum);
 
-                } else {
-                    $("[name='likeCheckBox']").siblings(".bootstrap-switch-label").text(data);
+            var markNum = 0;
+            $.ajax({
+                type: "POST",
+                url: '/student/updateMarkState',
+                data: {postsId: $("#posts-id").val(), stateCode:((true == data)?1:0)},
+                success: function( returnData ) {
+                    // console.log(data);
+                    if ("false" == returnData) {
+
+                    } else {
+                        if (true == data) {
+                            markNum = currentMarkNum+1;
+                        } else {
+                            markNum = currentMarkNum-1;
+                        }
+                        $("#mark-num").val(markNum);
+                        $("[name='likeCheckBox']").siblings(".bootstrap-switch-label").text(markNum);
+                    }
                 }
-            }
-        });
+            });
+        }
+        
     });
 
     $('img').on('click', function (e) {
@@ -36,7 +51,7 @@ $(document).ready(function() {
           }.bind(this), 10);
         }
         $('#classmate-post-comment').val("");
-        console.log($(this).attr("value"));
+        // console.log($(this).attr("value"));
         // var postsId = (e.target.value).split(',')[0]; 
         var postsId = $(this).attr("value");
         $('#classmate-post-show').attr("src", "");
@@ -54,10 +69,23 @@ $(document).ready(function() {
 
         $.ajax({
             type: "POST",
-            url: '/student/getMarksByPostsId',
+            url: '/student/getMarkNumByPostsId',
             data: {postsId: postsId},
             success: function( data ) {
                 $("[name='likeCheckBox']").siblings(".bootstrap-switch-label").text(data);
+                $("#mark-num").val(data);
+            }
+        });
+
+        $.ajax({
+            type: "POST",
+            url: '/student/getIsMarkedByMyself',
+            data: {postsId: postsId},
+            success: function( data ) {
+                // $("#is-marked-by-myself").val(data);
+                $("[name='likeCheckBox']").bootstrapSwitch('state', ("true" == data));
+                // $("[name='likeCheckBox']").prop('checked', true);
+                $("#is-init").val("false");
             }
         });
 
@@ -66,11 +94,12 @@ $(document).ready(function() {
             url: '/student/getOnePost',
             data: {posts_id: postsId},
             success: function( data ) {
-                console.log(data);
+                // console.log(data);
                 if ("false" == data) {
 
                 } else {
-                    $('#classmate-post-show').attr("src", data);
+                    $('#classmate-post-show').attr("src", data.storage_name);
+                    $("#classmate-post-modal-label").html(data.username+" 同学在 "+data.lessontitle+"<small>"+data.lessonsubtitle+"</small> 课上提交的作品");
                 }
             }
         });
@@ -96,24 +125,5 @@ $(document).ready(function() {
         $('#posts-id').val(postsId);
         // $('#post-show').attr("src", filePath);
         $('#classmate-post-modal').modal();
-    });
-
-    $('.rate-btn').on('click', function (e) {
-        var data = {posts_id: $('#posts-id').val(), rate: $(this).attr("value")};
-        e.preventDefault();
-        $.ajax({
-            type: "POST",
-            url: '/teacher/updateRate',
-            data: data,
-            success: function( data ) {
-                // alert(data);
-                if ("true" == data) {
-                    // window.location.href = "/teacher/takeclass";
-                    $('#myModal').modal("hide");
-                } else {
-                    alert('评价失败!');
-                }
-            }
-        });
     });
 });

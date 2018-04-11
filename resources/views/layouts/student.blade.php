@@ -10,11 +10,14 @@
     <title>{{ trans("layouts.title") }}</title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap-switch.css" rel="stylesheet">
+    <link href="/css/bootstrap-switch.less" rel="stylesheet">
     <link href="/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
 
     <link href="/css/jquery-ui.css" rel="stylesheet">
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap-switch.min.js"></script>
     <script src="/js/respond.min.js"></script>
 
     <script src="/js/plugins/canvas-to-blob.min.js" type="text/javascript"></script>

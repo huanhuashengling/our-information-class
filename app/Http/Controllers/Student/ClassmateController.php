@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Student;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use \DB;
 use App\Models\Student;
 use App\Models\Sclass;
 use App\Models\Post;
@@ -16,11 +16,13 @@ class ClassmateController extends Controller
     {
         $id = \Auth::guard("student")->id();
         // $student = Student::find($id);
-        $posts = Post::select('posts.id as pid', 'sclasses.*', 'post_rates.*', 'posts.*', 'students.*')
-                ->where('students_id', '<>', $id)
+        $posts = Post::select('posts.id as pid', 'sclasses.class_title', 'sclasses.enter_school_year', 'post_rates.rate', 'posts.storage_name', 'students.username', DB::raw("SUM(`marks`.`state_code`) as mark_num"))
+                ->where('posts.students_id', '<>', $id)
                 ->leftjoin('students', 'posts.students_id', '=', 'students.id')
                 ->leftjoin('sclasses', 'students.sclasses_id', '=', 'sclasses.id')
                 ->leftjoin('post_rates', 'posts.id', '=', 'post_rates.posts_id')
+                ->leftjoin('marks', 'marks.posts_id', '=', 'posts.id')
+                ->groupBy('posts.id', 'sclasses.class_title', 'sclasses.enter_school_year', 'post_rates.rate', 'posts.storage_name', 'students.username')
                 ->orderby("posts.id", "DESC")->paginate(16);
         // dd($posts);
         /*$postData = [];

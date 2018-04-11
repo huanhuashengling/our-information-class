@@ -208,16 +208,24 @@ class HomeController extends Controller
 
     public function getOnePost(Request $request)
     {
-        $post = Post::find($request->input('posts_id'));
-
+        $post = Post::where("posts.id", "=", $request->input('posts_id'))
+                ->leftjoin('students', 'students.id', '=', "posts.students_id")
+                ->leftjoin('lesson_logs', 'lesson_logs.id', '=', "posts.lesson_logs_id")
+                ->leftjoin('lessons', 'lessons.id', '=', "lesson_logs.lessons_id")->first();
+                // return var_dump($post);
         if (isset($post)) {
-            return env('APP_URL')."/posts/".$post['storage_name'];
+          // $post['storage_name'] = env('APP_URL')."/posts/".$post['storage_name'];
+            // return env('APP_URL')."/posts/".$post['storage_name'];
+            return ["storage_name" => env('APP_URL')."/posts/".$post['storage_name'], 
+                    'username' => $post["username"], 
+                    'lessontitle' => $post["title"], 
+                    'lessonsubtitle' => $post["subtitle"]];
         } else {
             return "false";
         }
     }
 
-    public function getMarksByPostsId(Request $request)
+    public function getMarkNumByPostsId(Request $request)
     {
         $marks = Mark::where(["posts_id" => $request->input('postsId'), "state_code" => 1])->get();
 
@@ -228,13 +236,26 @@ class HomeController extends Controller
         }
     }
 
+    public function getIsMarkedByMyself(Request $request)
+    {
+      $studentsId = Auth::guard("student")->id();
+      $postsId =  $request->input('postsId');
+        $mark = Mark::where(["posts_id" => $postsId, "students_id" => $studentsId, "state_code" => 1])->first();
+
+        if (isset($mark)) {
+            return "true";
+        } else {
+            return "false";
+        }
+    }
+
     public function updateMarkState(Request $request)
     {
         $studentsId = Auth::guard("student")->id();
         $postsId =  $request->input('postsId');
         $stateCode =  $request->input('stateCode');
         
-        $mark = Mark::where(["posts_id" => $request->input('postsId')])->first();
+        $mark = Mark::where(["posts_id" => $postsId, "students_id" => $studentsId])->first();
         // dd($mark);
         if (isset($mark)) {
           $mark->state_code = $stateCode;
