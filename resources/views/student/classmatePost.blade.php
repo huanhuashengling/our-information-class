@@ -40,7 +40,8 @@
         @endphp
         <div class="col-md-3 col-sm-4 col-xs-6" style="padding-left: 5px; padding-right: 5px;">
             <div class="panel panel-default">
-                <div class="text-center"></i><img height="140px" value="{{ $post['pid'] }}" src="/imager?src={{$post_storage_name}}"></div>
+                <!--<div class="text-center"><img height="140px" value="{{ $post['pid'] }}" src="/imager?src={{$post_storage_name}}"></div>-->
+                <div class="text-center"><img class="img-responsive" value="{{ $post['pid'] }}" src="{{ getThumbnail($post->storage_name, 200, 140, 'fit') }}" alt=""></div>
                 <div class="text-center"><h4><small>({{ $post->studentClass }})</small>{{ $post->username }} <small>{{ $ratestr }}{{$gap}}{{ $markstr}}</small></h4>  </div>
                 <input type="hidden" name="postInfo" value="{{ $post->studentClass }}班">
             </div>

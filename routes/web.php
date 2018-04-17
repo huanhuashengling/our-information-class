@@ -164,7 +164,7 @@ Route::get('imager', function ()
         return $image->make($src)->resize(200,140);
     }, 1, false); // one minute cache expiry
 
-    return Response::make($cacheimage, 200, array('Content-Type' => 'image/jpeg'));//->setMaxAge(604800)->setPublic();
+    return Response::make($cacheimage, 200, array('Content-Type' => 'image/jpeg'));
 });
 
 Route::get('imager90', function ()
@@ -172,7 +172,7 @@ Route::get('imager90', function ()
     $src = Input::get('src', 1);
     $cacheimage = Image::cache(function($image) use ($src) {
         return $image->make($src)->resize(120,90);
-    }, 5, false); // one minute cache expiry
+    }, 5); // one minute cache expiry
 
     return Response::make($cacheimage, 200, array('Content-Type' => 'image/jpeg'));//->setMaxAge(604800)->setPublic();
 });

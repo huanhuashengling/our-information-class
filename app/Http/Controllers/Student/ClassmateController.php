@@ -17,7 +17,7 @@ class ClassmateController extends Controller
         $id = \Auth::guard("student")->id();
         // $student = Student::find($id);
         $posts = Post::select('posts.id as pid', 'sclasses.class_title', 'sclasses.enter_school_year', 'post_rates.rate', 'posts.storage_name', 'students.username', DB::raw("SUM(`marks`.`state_code`) as mark_num"))
-                ->where('posts.students_id', '<>', $id)
+                // ->where('posts.students_id', '<>', $id)
                 ->leftjoin('students', 'posts.students_id', '=', 'students.id')
                 ->leftjoin('sclasses', 'students.sclasses_id', '=', 'sclasses.id')
                 ->leftjoin('post_rates', 'posts.id', '=', 'post_rates.posts_id')
