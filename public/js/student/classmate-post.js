@@ -11,11 +11,13 @@ $(document).ready(function() {
         onColor: 'danger',
         offColor: 'default',
     });
-
+    // $("#is-init").val("true");
     $("[name='likeCheckBox']").on('switchChange.bootstrapSwitch', function (e, data) {
+        // console.log("change state event init value "+$("#is-init").val() +" data "+data);
         // var $el = $(data.el)
         // , value = data.value;
-        if ("false" == $("#is-init").val()) {
+        // console.log("init" + $("#is-init").val());
+        if ("true" == $("#is-init").val()) {
             var currentMarkNum = parseInt($("#mark-num").val());
             // console.log(e, data, currentMarkNum);
 
@@ -32,7 +34,7 @@ $(document).ready(function() {
                         if (true == data) {
                             markNum = currentMarkNum+1;
                         } else {
-                            markNum = currentMarkNum-1;
+                            markNum = (0 == currentMarkNum)?0:(currentMarkNum-1);
                         }
                         $("#mark-num").val(markNum);
                         $("[name='likeCheckBox']").siblings(".bootstrap-switch-label").text(markNum);
@@ -40,11 +42,12 @@ $(document).ready(function() {
                 }
             });
         }
-        
+        $("#is-init").val("true");
     });
 
-    $('img').on('click', function (e) {
+    $('.thumb-img').on('click', function (e) {
         e.preventDefault();
+        // $("[name='likeCheckBox']").bootstrapSwitch('state', "false");
         if ($(".rate-btn").hasClass('active')) {
           setTimeout(function() {
             $(".rate-btn").removeClass('active').find('input').prop('checked', false);
@@ -82,10 +85,17 @@ $(document).ready(function() {
             url: '/student/getIsMarkedByMyself',
             data: {postsId: postsId},
             success: function( data ) {
-                // $("#is-marked-by-myself").val(data);
-                $("[name='likeCheckBox']").bootstrapSwitch('state', ("true" == data));
-                // $("[name='likeCheckBox']").prop('checked', true);
-                $("#is-init").val("false");
+                // console.log("getIsMarkedByMyself " + data);
+
+                if ("true" == data) {
+                    $("#is-init").val("false");
+                    // $("#is-marked-by-myself").val(data);
+                    $("[name='likeCheckBox']").bootstrapSwitch('state', true);
+                    // $("[name='likeCheckBox']").prop('checked', true);
+                } else {
+                    $("[name='likeCheckBox']").bootstrapSwitch('state', false);
+                }
+                
             }
         });
 

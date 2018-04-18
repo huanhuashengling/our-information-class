@@ -166,8 +166,9 @@ class HomeController extends Controller
         if (isset($post)) {
             // $file = Storage::disk('uploads')->get($post->storage_name)->getPath();
                 // $post->storage_name = env('APP_URL')."/posts/".$post->storage_name;
+            return getThumbnail($post['storage_name'], 800, 600, 'fit');
         
-            return env('APP_URL')."/posts/".$post->storage_name;
+            // return env('APP_URL')."/posts/".$post->storage_name;
         } else {
             return "false";
         }

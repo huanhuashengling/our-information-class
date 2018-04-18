@@ -216,7 +216,9 @@ class HomeController extends Controller
         if (isset($post)) {
           // $post['storage_name'] = env('APP_URL')."/posts/".$post['storage_name'];
             // return env('APP_URL')."/posts/".$post['storage_name'];
-            return ["storage_name" => env('APP_URL')."/posts/".$post['storage_name'], 
+            // {{ getThumbnail($post->storage_name, 140, 100, 'fit') }}
+            // return ["storage_name" => env('APP_URL')."/posts/".$post['storage_name'], 
+            return ["storage_name" => getThumbnail($post['storage_name'], 800, 600, 'fit'), 
                     'username' => $post["username"], 
                     'lessontitle' => $post["title"], 
                     'lessonsubtitle' => $post["subtitle"]];
@@ -240,7 +242,7 @@ class HomeController extends Controller
     {
       $studentsId = Auth::guard("student")->id();
       $postsId =  $request->input('postsId');
-        $mark = Mark::where(["posts_id" => $postsId, "students_id" => $studentsId, "state_code" => 1])->first();
+      $mark = Mark::where(["posts_id" => $postsId, "students_id" => $studentsId, "state_code" => 1])->first();
 
         if (isset($mark)) {
             return "true";

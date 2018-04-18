@@ -23,7 +23,7 @@ class ClassmateController extends Controller
                 ->leftjoin('post_rates', 'posts.id', '=', 'post_rates.posts_id')
                 ->leftjoin('marks', 'marks.posts_id', '=', 'posts.id')
                 ->groupBy('posts.id', 'sclasses.class_title', 'sclasses.enter_school_year', 'post_rates.rate', 'posts.storage_name', 'students.username')
-                ->orderby("posts.id", "DESC")->paginate(16);
+                ->orderby("posts.id", "DESC")->paginate(24);
         // dd($posts);
         /*$postData = [];
         foreach ($posts as $key => $post) {
