@@ -59,7 +59,7 @@
               <th data-field="users_id" data-formatter="resetCol" data-events="resetActionEvents">
                   重置密码
               </th>
-              <th data-field="users_id" data-formatter="actionCol" data-events="actionEvents">
+              <th data-field="studentsId" data-formatter="actionCol" data-events="actionEvents">
                   操作
               </th> 
             </tr>

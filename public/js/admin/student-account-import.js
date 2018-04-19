@@ -40,7 +40,7 @@ $(document).ready(function() {
                         }  
                     }],
 	        responseHandler: function (res) {
-	        	console.log(res);
+	        	// console.log(res);
 	            return res;
 	        },
 	    });
@@ -66,10 +66,17 @@ function resetCol(value, row, index) {
 }
 
 function actionCol(value, row, index) {
+    var lockStr = "锁定";
+    var lockClass = "lock";
+    if (1 == row.is_lock)
+    {
+        lockStr = "解锁";
+        lockClass = "unlock";
+    }
     return [
-        '<a class="btn btn-warning btn-sm">锁定</a> ',
-        ' <a class="btn btn-danger btn-sm">编辑</a> ',
-        ' <a class="btn btn-danger btn-sm">删除</a>'
+        '<a class="btn btn-warning btn-sm '+ lockClass+'">'+lockStr+'</a> ',
+        ' <a class="btn btn-danger btn-sm edit">编辑</a> ',
+        ' <a class="btn btn-danger btn-sm del">删除</a>'
     ].join('');
 }
 
@@ -87,5 +94,44 @@ window.resetActionEvents = {
             	}
             }
         });
+    },
+}
+
+window.actionEvents = {
+    'click .lock': function(e, value, row, index) {
+        // console.log(row);
+        $.ajax({
+            type: "POST",
+            url: '/admin/lockOneStudentAccount',
+            data: {users_id: row.studentsId},
+            success: function( data ) {
+                if("true" == data) {
+                    alert(row.username+"已被锁定！")
+                } else if ("false" == data) {
+                    alert("锁定失败！")
+                }
+            }
+        });
+    },
+    'click .unlock': function(e, value, row, index) {
+        // console.log(row);
+        $.ajax({
+            type: "POST",
+            url: '/admin/unlockOneStudentAccount',
+            data: {users_id: row.studentsId},
+            success: function( data ) {
+                if("true" == data) {
+                    alert(row.username+"解锁成功！")
+                } else if ("false" == data) {
+                    alert("解锁失败！")
+                }
+            }
+        });
+    },
+    'click .edit': function(e, value, row, index) {
+        console.log("click edit students id "+row.studentsId);
+    },
+    'click .del': function(e, value, row, index) {
+        console.log("click delete students id "+row.studentsId);
     },
 }

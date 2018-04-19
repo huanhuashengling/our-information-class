@@ -87,6 +87,8 @@ Route::group(['middleware' => 'auth.admin:admin, admin/login', 'prefix' => 'admi
     $router->post('importStudents', 'HomeController@importStudents');
     $router->post('getStudentsData', 'HomeController@getStudentsData');
     $router->post('resetStudentPassword', 'HomeController@resetStudentPassword');
+    $router->post('lockOneStudentAccount', 'HomeController@lockOneStudentAccount');
+    $router->post('unlockOneStudentAccount', 'HomeController@unlockOneStudentAccount');
 
 
     $router->get('reset', 'HomeController@getReset');
@@ -165,15 +167,5 @@ Route::get('imager', function ()
     }, 1, false); // one minute cache expiry
 
     return Response::make($cacheimage, 200, array('Content-Type' => 'image/jpeg'));
-});
-
-Route::get('imager90', function ()
-{
-    $src = Input::get('src', 1);
-    $cacheimage = Image::cache(function($image) use ($src) {
-        return $image->make($src)->resize(120,90);
-    }, 5); // one minute cache expiry
-
-    return Response::make($cacheimage, 200, array('Content-Type' => 'image/jpeg'));//->setMaxAge(604800)->setPublic();
 });
 

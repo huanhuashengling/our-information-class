@@ -82,6 +82,28 @@ class HomeController extends Controller
         }
     }
 
+    public function lockOneStudentAccount(Request $request) {
+        $student = Student::find($request->get('users_id'));
+        if ($student) {
+            $student->is_lock = 1;
+            $student->save();
+            return "true";
+        } else {
+            return "false";
+        }
+    }
+
+    public function unlockOneStudentAccount(Request $request) {
+        $student = Student::find($request->get('users_id'));
+        if ($student) {
+            $student->is_lock = 0;
+            $student->save();
+            return "true";
+        } else {
+            return "false";
+        }
+    }
+
     public function createStudentAccount($data) {
         try {
             $student = Student::create([
