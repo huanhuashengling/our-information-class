@@ -2,6 +2,17 @@
     @php
         $studentPostData = $postData[$student->students_id]['post'];
         $rate = $postData[$student->students_id]['rate'];
+        if ("outstanding" == $rate) {
+            $ratestr = "优";
+        } elseif ("good" == $rate) {
+            $ratestr = "良";
+        } elseif ("lower" == $rate) {
+            $ratestr = "合";
+        } elseif ("unqualified" == $rate) {
+            $ratestr = "差";
+        } else {
+            $ratestr = "";
+        }
         $hasComment = $postData[$student->students_id]['hasComment']?"未评":"已评";
         $marksNum = $postData[$student->students_id]['marksNum'];
         $postClass = "";
@@ -33,7 +44,7 @@
         <div class="panel panel-default">
             <!--<div class="text-center"><img class="{{$postClass}}" height="90px" value="{{ $studentPostData['id'] }}" src="{{$img}}"></div>-->
             <div class="text-center"><img class="img-responsive {{$postClass}}" value="{{ $studentPostData['id'] }}" src="{{ getThumbnail($img, 140, 100, 'fit') }}" alt=""></div>
-            <div class="text-center"><h3><b>{{ $py->getFirstchar($student->username) }}</b> <small>{{ $student->username }}<span class="text-right"> ({{$rate}}|{{$hasComment}}|{{$marksNum}}赞)</span></small></h3>  </div>
+            <div class="text-center"><h3><b>{{ $py->getFirstchar($student->username) }}</b> <small>{{ $student->username }}<span class="text-right"> ({{$ratestr}}|{{$hasComment}}|{{$marksNum}}赞)</span></small></h3>  </div>
 
         </div>
             <!--@if (isset($studentPostData))
