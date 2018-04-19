@@ -60,7 +60,8 @@ class HomeController extends Controller
     public function getStudentsData(Request $request) {
         $sclass = Sclass::find($request->get('sclasses_id'));
         if (isset($sclass)) {
-            $students = Student::leftJoin('sclasses', function($join){
+            $students = Student::select('students.id as studentsId', 'students.*', 'sclasses.*')
+            ->leftJoin('sclasses', function($join){
               $join->on('sclasses.id', '=', 'students.sclasses_id');
             })
             ->where(['sclasses_id' => $sclass->id])->get();
@@ -71,7 +72,7 @@ class HomeController extends Controller
     }
 
     public function resetStudentPassword(Request $request) {
-        $student = Student::find($request->get('id'));
+        $student = Student::find($request->get('users_id'));
         if ($student) {
             $student->password = bcrypt("123456");
             $student->save();

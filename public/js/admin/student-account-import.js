@@ -40,7 +40,7 @@ $(document).ready(function() {
                         }  
                     }],
 	        responseHandler: function (res) {
-	        	//console.log(res);
+	        	console.log(res);
 	            return res;
 	        },
 	    });
@@ -78,7 +78,7 @@ window.resetActionEvents = {
      	$.ajax({
             type: "POST",
             url: '/admin/resetStudentPassword',
-            data: {users_id: row.users_id},
+            data: {users_id: row.studentsId},
             success: function( data ) {
             	if("true" == data) {
             		alert("重置密码成功，已修改为默认密码123456！")
