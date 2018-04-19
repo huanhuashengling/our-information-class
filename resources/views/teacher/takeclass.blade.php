@@ -33,37 +33,13 @@
                     <div class="col-md-1 col-sm-2">{!! Form::button('点赞排序',['class'=>'btn btn-info', 'id' => 'close-lesson-log']) !!}</div> -->
                     <div class="col-md-2 col-sm-2 col-xs-6">{!! Form::button('结束上课',['class'=>'btn btn-danger', 'id' => 'close-lesson-log']) !!}</div>
                     <div class="col-md-2 col-sm-2 col-xs-6"><a href="/teacher/takeclass" class="btn btn-warning">刷新作业</a></div>
+                    <div class="col-md-3 col-sm-3 col-xs-6"><h4>(全部{{$allCount}})(已交{{$postedCount}})/(未交{{$unpostCount}})</h4></div>
                 </div>
             </div>
             <div class="panel-body">
-
-                <ul class="nav nav-tabs">
-                    <li class='active'><a href="#show-all" data-toggle="tab">全部(<span>{{$allCount}}</span>)</a></li>
-                    <li><a href="#show-posted" data-toggle="tab">已交作业(<span>{{$postedCount}}<span></span>)</a></li>
-                    <li><a href="#show-no-posted" data-toggle="tab">未交作业(<span>{{$unpostCount}}</span>)</a></li>
-                    <!-- <li><a href="#identifier" data-toggle="tab">已评作业</a></li> -->
-                </ul>
-                <!-----start tab content-->
-                <div class="tab-content">
-                    <!-----start tab-->
-                    <div class="tab-pane fade in active" id='show-all'>
-                        @include('teacher.partials.studentlist', array('students' => $students, 'postData' => $postData, 'showLimit' => "all"))
-                    </div>
-                    <!--end tab-->
-                    <!-----start tab-->
-                    <div class="tab-pane fade" id="show-posted">
-                        @include('teacher.partials.studentlist', array('students' => $students, 'postData' => $postData, 'showLimit' => "posted"))
-                    </div>
-                    <div class="tab-pane fade" id="show-no-posted">
-                        @include('teacher.partials.studentlist', array('students' => $students, 'postData' => $postData, 'showLimit' => "noPosted"))
-                    </div>
-                    <!--end tab-->
+                    @include('teacher.partials.studentlist', array('students' => $students, 'postData' => $postData, 'showLimit' => "all"))
                 </div>
-                <!--end tab content-->
             </div>
-            <!--end panel body-->
-        </div>
-        <!-----end panel-->
     @endif
 </div>
 
