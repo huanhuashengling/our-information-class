@@ -93,6 +93,11 @@ Route::group(['middleware' => 'auth.admin:admin, admin/login', 'prefix' => 'admi
 
     $router->get('reset', 'HomeController@getReset');
     $router->post('reset', 'HomeController@postReset');
+
+
+    $router->get('export-post', 'ExportPostController@index');
+    $router->post('load-lesson-log-info', 'ExportPostController@loadLessonLogInfo');
+    $router->post('load-post-list', 'ExportPostController@loadPostList');
 });
 
 Route::group(['prefix' => 'teacher','namespace' => 'Teacher'],function ($router)
