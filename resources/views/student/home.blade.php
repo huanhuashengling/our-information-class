@@ -3,6 +3,12 @@
 @section('content')
 
 <div class="container">
+  @if (0 < $unPostedLessonLogsNum)
+    <div class="alert alert-danger">
+      <h3><small>你之前还有</small><strong>{{$unPostedLessonLogsNum}}</strong><small>节课没有提交作业，请记得</small><a href="/student/posts">点击这里</a><small>补交作业！</small></h3>
+
+    </div>
+  @endif
   @if (is_null($lessonLog))
     <div class="jumbotron">
       <h1>别着急，还未开始上课!</h1>

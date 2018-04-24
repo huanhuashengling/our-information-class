@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Student;
 use App\Models\Post;
+use App\Models\Mark;
 use App\Models\Comment;
 use App\Models\PostRate;
 use App\Models\Lesson;
@@ -30,6 +31,7 @@ class PostController extends Controller
             // $post->storage_name = env('APP_URL')."/posts/".$post->storage_name;
             $rate = "";
             $hasComment = "";
+            $markNum = 0;
             if (isset($post)) {
                 $post->storage_name = env('APP_URL')."/posts/".$post->storage_name;
 
@@ -37,9 +39,11 @@ class PostController extends Controller
                 $rate = isset($postRate)?$postRate['rate']:"";
                 $comment = Comment::where(['posts_id' => $post['id']])->first();
                 $hasComment = isset($comment)?"true":"false";
+                $marks = Mark::where(['posts_id' => $post['id']])->get();
+                $markNum = count($marks);
             }
 
-            $postData[] = ["lesson" => $lesson, 'post' => $post, 'rate' => $rate, 'lessonLog' => $lessonLog, 'hasComment' => $hasComment];
+            $postData[] = ["lesson" => $lesson, 'post' => $post, 'rate' => $rate, 'lessonLog' => $lessonLog, 'hasComment' => $hasComment, 'markNum' => $markNum];
         }
 
         return view('student/posts', compact('postData'));

@@ -31,6 +31,21 @@ class HomeController extends Controller
         $student = Student::find($id);
         $lessonLog = LessonLog::where(['sclasses_id' => $student['sclasses_id'], 'status' => 'open'])->first();
 
+        $allLessonLogs = LessonLog::select('lesson_logs.id as lesson_logs_id', 'lessons.title', 'lessons.subtitle')
+        ->leftJoin('lessons', 'lessons.id', '=', "lesson_logs.lessons_id")
+        ->where(['lesson_logs.sclasses_id' => $student['sclasses_id'], 'status' => 'close'])->get();
+        $unPostedLessonLogs = array();
+        // dd($allLessonLogs);
+        foreach ($allLessonLogs as $key => $lessonLogData) {
+          $post = Post::where(['students_id' => $id, 'lesson_logs_id' => $lessonLogData['lesson_logs_id']])->first();
+          // dd($post);
+          if (!isset($post)) {
+            array_push($unPostedLessonLogs, $lessonLogData);
+          }
+          
+        }
+        // dd($unPostedLessonLogs);
+        $unPostedLessonLogsNum = count($unPostedLessonLogs);
         $lesson = "";
         $sclass = "";
         $post = "";
@@ -46,7 +61,7 @@ class HomeController extends Controller
             }
         }
         // dd($post);
-        return view('student/home', compact('sclass', 'lesson', 'lessonLog', 'post'));
+        return view('student/home', compact('sclass', 'lesson', 'lessonLog', 'post', 'unPostedLessonLogsNum'));
     }
 
     public function upload(Request $request)

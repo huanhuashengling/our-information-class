@@ -14,11 +14,14 @@
         @php
             $orderNum = $key + 1;
             $hasComment = ("true" == $item['hasComment'])?"有评语":"";
-            $hasPostStr = "warning";
+            $hasPostCss = "warning";
+            $hasPostStr = "(未交)";
             $rateStr = "";
-
+            $markStr = "";
             if (isset($item['post'])) {
-                $hasPostStr = "success";
+                $hasPostCss = "success";
+                $hasPostStr = "";
+                $markStr = $item['markNum']."个赞";
             }
             
             if ("outstanding" == $item['rate']) {
@@ -30,11 +33,11 @@
             }
         @endphp
         <div class="col-md-12">
-            <div class="panel panel-{{$hasPostStr}}">
+            <div class="panel panel-{{$hasPostCss}}">
                 <div class="panel-heading" role="tab" id="heading{{$orderNum}}">
                   <h4 class="panel-title" value="{{ $item['post']['id'] }},{{ $item['post']['storage_name'] }}">
                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$orderNum}}" aria-expanded="true" aria-controls="collapse{{$orderNum}}">
-                        第{{ $orderNum }}节： {{ $item['lesson']['title'] }} <small>{{ $item['lesson']['subtitle'] }} </small>  <label class="text-right">{{$rateStr}} {{$hasComment}}</label>
+                        第{{ $orderNum }}节： {{ $item['lesson']['title'] }} <small>{{ $item['lesson']['subtitle'] }} </small>  <label class="text-right">{{$rateStr}} {{$hasComment}} {{$markStr}}{{$hasPostStr}}</label>
                     </a>
                   </h4>
                 </div>
