@@ -58,47 +58,38 @@ class HomeController extends Controller
     public function takeClass()
     {
         $userId = auth()->guard('teacher')->id();
-        $lessonLog = LessonLog::where(['teachers_id' => $userId, 'status' => 'open'])->first();
+        $lessonLog = LessonLog::select('lesson_logs.id', 'lesson_logs.sclasses_id', 'lessons.title', 'lessons.subtitle', 'sclasses.enter_school_year', 'sclasses.class_title')
+        ->leftJoin("lessons", 'lessons.id', '=', 'lesson_logs.lessons_id')
+        ->leftJoin("sclasses", 'sclasses.id', '=', 'lesson_logs.sclasses_id')
+        ->where(['lesson_logs.teachers_id' => $userId, 'lesson_logs.status' => 'open'])->first();
         // dd($lessonLog);die();
 
-        $lesson = Lesson::where(['id' => $lessonLog['lessons_id']])->first();
-
-        $sclass = Sclass::where(['id' => $lessonLog['sclasses_id']])->first();
-        // dd($sclass);die();
-        $students = DB::table('students')->select('students.id as students_id', 'lesson_logs.id as lesson_logs_id', 'students.*', 'lesson_logs.*')->leftJoin('lesson_logs', 'students.sclasses_id', '=', 'lesson_logs.sclasses_id')->where(["lesson_logs.id" => $lessonLog['id']])->orderBy(DB::raw('convert(students.username using gbk)'), "ASC")->get();
-        // dd($students);DB::raw('convert(title using gbk)')
-        // $students = Student::->select('name', 'email as user_email')
-        //     ->leftJoin('lesson_logs', function($join) {
-        //     $join->on('students.sclasses_id', '=', 'lesson_logs.sclasses_id');
-        // })->where(["lesson_logs.id" => $lessonLog['id']])->get();
-        $postData = [];
-        $allCount = count($students);
-        $postedCount = 0;
+        $students = DB::table('students')->select('students.id', 'students.username', 'posts.storage_name', 'comments.content', 'post_rates.rate', 'posts.id as posts_id', DB::raw("COUNT(`marks`.`id`) as mark_num"))
+        ->leftJoin('posts', 'posts.students_id', '=', 'students.id')
+        ->leftJoin('post_rates', 'post_rates.posts_id', '=', 'posts.id')
+        ->leftJoin('comments', 'comments.posts_id', '=', 'posts.id')
+        ->leftJoin('marks', 'marks.posts_id', '=', 'posts.id')
+        ->where(["students.sclasses_id" => $lessonLog['sclasses_id'], 'posts.lesson_logs_id' => $lessonLog['id']])
+        ->groupBy('students.id', 'students.username', 'posts.storage_name', 'comments.content', 'post_rates.rate', 'posts.id')
+        ->orderBy(DB::raw('convert(students.username using gbk)'), "ASC")->get();
+        // dd($students);
+        $unPostStudentName = [];
+        
+        $postedStudents = [];
+        $allStudentsList = DB::table('students')->select('students.username')
+        ->where(['students.sclasses_id' => $lessonLog['sclasses_id']])->get();
         foreach ($students as $key => $student) {
-            // var_dump($student->students_id);
-            $post = Post::where(['students_id' => $student->students_id, 'lesson_logs_id' => $lessonLog['id']])->orderBy('id', 'desc')->first();
-            if (isset($post))
-            {
-                $postedCount++;
-                // $post["postDownloadPath"] = env('APP_URL')."/posts/".$post->storage_name;
-            } else {
-                // $post["postDownloadPath"] = env('APP_URL')."/images/defaultphoto.png";
-            }
-            // dd($post);
-            $postRate = PostRate::where(['posts_id' => $post['id']])->first();
-            $rate = isset($postRate)?$postRate['rate']:"";
-            // $rate = "";
-            $comment = Comment::where(['posts_id' => $post['id']])->first();
-            $hasComment = isset($comment)?"true":"false";
-            
-            $marksNum = Mark::where(['posts_id' => $post['id']])->count();
-
-            $postData[$student->students_id] = ['post' => $post, 'rate' => $rate, 'hasComment' => $hasComment, 'marksNum' => $marksNum];
+            array_push($postedStudents, $student->username);
         }
-        $unpostCount = $allCount - $postedCount;
-        // dd($postData);die();
+        foreach ($allStudentsList as $key => $studentsName) {
+            if (!in_array($studentsName->username, $postedStudents)) {
+                array_push($unPostStudentName, $studentsName->username);
+            }
+        }
+        // dd($unPostStudentName);
+        $allCount = count($allStudentsList);
         $py = new pinyinfirstchar();
-        return view('teacher/takeclass', compact('sclass', 'lesson', 'students', 'lessonLog', 'postData', 'py', 'allCount', 'postedCount', 'unpostCount'));
+        return view('teacher/takeclass', compact('students', 'lessonLog', 'py', 'allCount', 'unPostStudentName'));
     }
 
     public function updateRate(Request $request)
@@ -180,7 +171,7 @@ class HomeController extends Controller
         $lessons_id = $request->get('lessons_id');
         $lessonLogs = LessonLog::leftJoin('sclasses', function($join) {
             $join->on('sclasses.id', '=', 'lesson_logs.sclasses_id');
-        })->where(['lessons_id' => $lessons_id, 'teachers_id' => $id])->orderBy('sclasses.id', 'asc')->selectRaw("lesson_logs.id as lesson_logs_id, sclasses.class_title as class_title, sclasses.enter_school_year as enter_school_year")->get();
+        })->where(['lessons_id' => $lessons_id, 'teachers_id' => $id])->orderBy('sclasses.id', 'asc')->selectRaw("lesson_logs.id as lesson_logs_id, sclasses.class_title, sclasses.enter_school_year")->get();
         $newLessonLogs = [];
         $students = [];
         foreach ($lessonLogs as $key => $lessonLog) {
@@ -220,10 +211,8 @@ class HomeController extends Controller
         $returnHtml .= "<div class='tab-content'>";
             foreach ($lessonLogs as $key => $lessonLog) {
                 $students = $lessonLog['students'];
-                $postData = $lessonLog['postData'];
-                $showLimit = "all";
                 $active = (0 == $key)?"in active":"";
-                $html = View::make('teacher.partials.studentlist', compact('students', 'postData', 'showLimit', 'py'))->render();
+                $html = View::make('teacher.partials.studentlist', compact('students', 'py'))->render();
                 $returnHtml .= "<div class='tab-pane fade " . $active . "' id='show-class" . $lessonLog["lesson_logs_id"] . "'>" . $html . "</div>";
             }
         $returnHtml .= "</div>";

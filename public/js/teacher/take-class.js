@@ -23,11 +23,14 @@ $(document).ready(function() {
 
     $('.post-btn').on('click', function (e) {
         e.preventDefault();
-        if ($(".rate-btn").hasClass('active')) {
-          setTimeout(function() {
-            $(".rate-btn").removeClass('active').find('input').prop('checked', false);
-          }.bind(this), 10);
-        }
+        $("div[name='level-btn-group'] label").each(function(){
+            $(this).removeClass("active");
+        });
+        // if ($(".rate-btn").hasClass('active')) {
+        //   setTimeout(function() {
+        //     $(".rate-btn").removeClass('active').find('input').prop('checked', false);
+        //   }.bind(this), 10);
+        // }
         $('#post-comment').val("");
         // console.log($(this).attr("value"));
         // var postsId = (e.target.value).split(',')[0]; 
@@ -41,7 +44,12 @@ $(document).ready(function() {
                 if ("false" == data) {
 
                 } else {
-                    $('#'+data+'-rate').addClass("active");
+                    $("div[name='level-btn-group'] label").each(function(){
+    // console.log($(this).children().attr("value"));
+                    if (data == $(this).children().attr("value")) {
+                        $(this).addClass("active");
+                        }
+                    });
                 }
             }
         });
@@ -85,8 +93,9 @@ $(document).ready(function() {
         $('#myModal').modal();
     });
 
-    $('.rate-btn').on('click', function (e) {
-        var data = {posts_id: $('#posts-id').val(), rate: $(this).attr("value")};
+    $("div[name='level-btn-group'] label").on('click', function (e) {
+        var data = {posts_id: $('#posts-id').val(), rate: $(this).children().attr("value")};
+        // console.log($(this).children().attr("value"));
         e.preventDefault();
         $.ajax({
             type: "POST",

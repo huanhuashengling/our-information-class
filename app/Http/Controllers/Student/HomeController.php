@@ -31,18 +31,20 @@ class HomeController extends Controller
         $student = Student::find($id);
         $lessonLog = LessonLog::where(['sclasses_id' => $student['sclasses_id'], 'status' => 'open'])->first();
 
-        $allLessonLogs = LessonLog::select('lesson_logs.id as lesson_logs_id', 'lessons.title', 'lessons.subtitle')
+        $allLessonLogs = LessonLog::select('lesson_logs.id as lesson_logs_id', 'lessons.title', 'lessons.subtitle', 'lesson_logs.updated_at')
         ->leftJoin('lessons', 'lessons.id', '=', "lesson_logs.lessons_id")
         ->where(['lesson_logs.sclasses_id' => $student['sclasses_id'], 'status' => 'close'])->get();
         $unPostedLessonLogs = array();
         // dd($allLessonLogs);
         foreach ($allLessonLogs as $key => $lessonLogData) {
-          $post = Post::where(['students_id' => $id, 'lesson_logs_id' => $lessonLogData['lesson_logs_id']])->first();
-          // dd($post);
-          if (!isset($post)) {
-            array_push($unPostedLessonLogs, $lessonLogData);
-          }
-          
+
+          // if (2017 < date('Y',strtotime($lessonLogData['updated_at'])) && 2 < date('m',strtotime($lessonLogData['updated_at']))) {
+              $post = Post::where(['students_id' => $id, 'lesson_logs_id' => $lessonLogData['lesson_logs_id']])->first();
+            // dd($post);
+            if (!isset($post)) {
+              array_push($unPostedLessonLogs, $lessonLogData);
+            }
+          // }
         }
         // dd($unPostedLessonLogs);
         $unPostedLessonLogsNum = count($unPostedLessonLogs);
@@ -122,7 +124,7 @@ class HomeController extends Controller
           $post->content = "";
           if ($post->save()) {
             // Session::flash('success', '作业提交成功'); 
-            return Redirect::to('student')->with('success', '作业提交成功啦！');
+            return Redirect::to('student')->with('success', '作业提交成功啦！快去到<a href="/student/classmate">作业墙</a>里看看有谁为自己点赞！');
           } else {
             return Redirect::to('student')->with('danger', '作业提交失败，请重新操作！');
             // Session::flash('error', '作业提交失败'); 

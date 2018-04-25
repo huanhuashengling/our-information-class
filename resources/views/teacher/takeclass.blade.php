@@ -21,23 +21,36 @@
             <p>请点击<a href="/teacher">选课上课</a>链接开始你的新课课，你也可以去管理自己的<a href="/teacher/lesson">课程列表</a>。</p>
         </div>
     @else
+        @php
+            $unpostCount = count($unPostStudentName);
+            $postedCount = $allCount-$unpostCount;
+        @endphp
         <input type="hidden" id="lesson-log-id" value="{{ $lessonLog['id'] }}">
         <!-----start panel-->
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="row">
-                    <div class="col-md-2 col-sm-4 col-xs-6"><h4>{{ $sclass['enter_school_year'] }}级{{ $sclass['class_title'] }}班</h4></div>
-                    <div class="col-md-3 col-sm-4 col-xs-6"><h4><small></small>{{ $lesson['title'] }}<small>({{ $lesson['subtitle'] }})</small></h4></div>
+                    <div class="col-md-2 col-sm-4 col-xs-6"><h4>{{ $lessonLog['enter_school_year'] }}级{{ $lessonLog['class_title'] }}班</h4></div>
+                    <div class="col-md-3 col-sm-4 col-xs-6"><h4><small></small>{{ $lessonLog['title'] }}<small>({{ $lessonLog['subtitle'] }})</small></h4></div>
                     
                     <!-- <div class="col-md-2 col-sm-2">{!! Form::button('姓名排序',['class'=>'btn btn-info', 'id' => 'sort-by-name']) !!}</div>
                     <div class="col-md-1 col-sm-2">{!! Form::button('点赞排序',['class'=>'btn btn-info', 'id' => 'close-lesson-log']) !!}</div> -->
                     <div class="col-md-2 col-sm-2 col-xs-6">{!! Form::button('结束上课',['class'=>'btn btn-danger', 'id' => 'close-lesson-log']) !!}</div>
                     <div class="col-md-2 col-sm-2 col-xs-6"><a href="/teacher/takeclass" class="btn btn-warning">刷新作业</a></div>
-                    <div class="col-md-3 col-sm-3 col-xs-6"><h4>(全部{{$allCount}})(已交{{$postedCount}})/(未交{{$unpostCount}})</h4></div>
+                    <div class="col-md-3 col-sm-3 col-xs-6"><h4>(全部{{$allCount}}) (已交{{$postedCount}}) (未交{{$unpostCount}})</h4></div>
                 </div>
             </div>
             <div class="panel-body">
-                    @include('teacher.partials.studentlist', array('students' => $students, 'postData' => $postData, 'showLimit' => "all"))
+                    @include('teacher.partials.studentlist', array('students' => $students))
+            </div>
+            <div class="panel-footer">
+                    <h4>未交名单:
+                    @php
+                        foreach ($unPostStudentName as $key => $unPostedName) {
+                            echo "  " . ($key+1) . ". " . $unPostedName . " ";
+                        }
+                    @endphp
+                    </h4>
                 </div>
             </div>
     @endif
@@ -55,7 +68,7 @@
       </div>
       <div class="modal-body">
       <!-- <iframe src='https://docview.mingdao.com/op/embed.aspx?src=http://www.ccut.edu.tw/teachers/cskuan/downloads/ed01-ch01.ppt' width='800px' height='600px' frameborder='0'>This is an embedded <a target='_blank' href='http://office.com'>Microsoft Office</a> document, powered by <a target='_blank' href='http://office.com/webapps'>Office Web Apps</a>.</iframe> -->
-        <img src="" id='post-show' class="img-responsive img-thumbnail">
+        <img src="" id='post-show' class="img-responsive img-thumbnail center-block">
         <a href="" id="post-download-link">右键点击下载</a>
 
         <!-- https://docview.mingdao.com/op/generate.aspx -->
@@ -65,11 +78,11 @@
       </div>
 
     <div class="modal-footer">
-        <div class="btn-group" name="rate-btn-group" data-toggle="buttons">
-            <label class='btn btn-danger rate-btn' id="outstanding-rate" value="outstanding"><input type='radio'>优秀</label>
-            <label class='btn btn-success rate-btn' id="good-rate" value="good"><input type='radio'>良好</label>
-            <label class='btn btn-info rate-btn' id="lower-rate" value="lower"><input type='radio'>合格</label>
-            <label class='btn btn-warning rate-btn' id="unqualified-rate" value="unqualified"><input type='radio'>不合格</label>
+        <div class='btn-group' name='level-btn-group' data-toggle='buttons'>
+            <label class='btn btn-default'><input type='radio' value='优'>优秀</label>
+            <label class='btn btn-default'><input type='radio' value='良'>良好</label>
+            <label class='btn btn-default'><input type='radio' value='合格'>合格</label>
+            <label class='btn btn-default'><input type='radio' value='差'>不合格</label>
         </div>
 
         <div class="">
