@@ -16,14 +16,10 @@ $(document).ready(function() {
                     url: '/student/getPostRate',
                     data: {posts_id : postsId},
                     success: function( data ) {
-                        // console.log(data);
-                        var rateStr = "暂未评等第";
-                        if ("outstanding" == data) {
-                            rateStr = "本次作业：优秀";
-                        } else if ("good" == data) {
-                            rateStr = "本次作业：良好";
-                        } else if ("lower" == data) {
-                            rateStr = "本次作业：合格";
+                        console.log(data);
+                        var rateStr = "暂无等第";
+                        if ("false" != data) {
+                           rateStr = "等第：" + data;
                         }
                         $('#rate-label-'+postsId).text(rateStr);
                     }
@@ -34,12 +30,12 @@ $(document).ready(function() {
                     url: '/student/getCommentByPostsId',
                     data: {posts_id : postsId},
                     success: function( data ) {
-                        //console.log(data);
-                        var conmmentStr = "暂无评论";
+                        var conmmentStr = "暂无评语";
                         if ("false" != data) {
-                            conmmentStr = JSON.parse(data)['content'];
+                            conmmentStr = "老师评语：" + JSON.parse(data)['content'];
+                        // console.log(JSON.parse(data));
                         }
-                        $('#post-comment-'+postsId).val(conmmentStr);
+                        $('#post-comment-'+postsId).text(conmmentStr);
                     }
                 });
 

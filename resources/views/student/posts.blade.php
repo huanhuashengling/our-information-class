@@ -9,6 +9,9 @@
             {!! implode('<br>', $errors->all()) !!}
         </div>
     @endif
+    <div class="alert alert-info col-md-8 col-md-offset-2">
+        <h4>目前得分：共{{$allMarkNum}}个赞 * 1 + 共{{$allRateNum}}个优 * 5 + 共{{$allCommentNum}}条评语 * 2 = {{$allScore}}分</h4>
+    </div>
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
     @foreach ($postData as $key => $item)
         @php
@@ -24,20 +27,13 @@
                 $markStr = $item['markNum']."个赞";
             }
             
-            if ("outstanding" == $item['rate']) {
-                $rateStr = " 优";
-            } elseif ("good" == $item['rate']) {
-                $rateStr = " 良";
-            } elseif ("lower" == $item['rate']) {
-                $rateStr = " 合格";
-            }
         @endphp
         <div class="col-md-12">
             <div class="panel panel-{{$hasPostCss}}">
                 <div class="panel-heading" role="tab" id="heading{{$orderNum}}">
                   <h4 class="panel-title" value="{{ $item['post']['id'] }},{{ $item['post']['storage_name'] }}">
                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$orderNum}}" aria-expanded="true" aria-controls="collapse{{$orderNum}}">
-                        第{{ $orderNum }}节： {{ $item['lesson']['title'] }} <small>{{ $item['lesson']['subtitle'] }} </small>  <label class="text-right">{{$rateStr}} {{$hasComment}} {{$markStr}}{{$hasPostStr}}</label>
+                        第{{ $orderNum }}节： {{ $item['lesson']['title'] }} <small>{{ $item['lesson']['subtitle'] }} </small>  <label class="text-right">{{$item['rate']}} {{$hasComment}} {{$markStr}}{{$hasPostStr}}</label>
                     </a>
                   </h4>
                 </div>
@@ -48,14 +44,19 @@
                         <img src="" id="post-show-{{$item['post']['id']}}" class="img-responsive">
                         <!-- <embed src="" width="1024" height="768" id="post-show-{{$item['post']['id']}}" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html"> -->
                         <a href="" id="post-download-{{$item['post']['id']}}">右键点击下载</a>
-                        <hr>
+                        <p></p>
                         <div class="form-group">
-                            <h4><label id="rate-label-{{$item['post']['id']}}"></label></h4>
+                            <label id="rate-label-{{$item['post']['id']}}"></label>
                             <!--<h4>点赞：<small>刘奥，刘胜翔</small></h4>-->
                         </div>
                         <div class="form-group">
-                            <h4>老师评语：</h4>
-                            <textarea rows='3' id="post-comment-{{$item['post']['id']}}" class="form-control" readonly="readonly"  value=''></textarea>
+                            <label id="post-comment-{{$item['post']['id']}}" value=''></label>
+                        </div>
+                        <div class="form-group">
+                            {{$item['markNum']}}个人为你点赞：
+                            @foreach ($item['markNames'] as $key => $name)
+                                {{$name->username}},
+                            @endforeach
                         </div>
                     @else
                         <h4>请补交作业</h4>

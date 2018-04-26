@@ -23,6 +23,9 @@ class PostController extends Controller
         $student = Student::find($id);
         $lessonLogs = LessonLog::where(['sclasses_id' => $student['sclasses_id']])->get();
 
+        $allMarkNum = 0;
+        $allRateNum = 0;
+        $allCommentNum = 0;
         $postData = [];
         foreach ($lessonLogs as $key => $lessonLog) {
             $lesson = Lesson::where(['id' => $lessonLog['lessons_id']])->first();
@@ -30,22 +33,38 @@ class PostController extends Controller
             $post = Post::where(['lesson_logs_id' => $lessonLog['id'], "students_id" => $id])->orderBy('id', 'desc')->first();
             // $post->storage_name = env('APP_URL')."/posts/".$post->storage_name;
             $rate = "";
-            $hasComment = "";
+            $hasComment = "false";
             $markNum = 0;
+            $markNames = [];
             if (isset($post)) {
                 $post->storage_name = env('APP_URL')."/posts/".$post->storage_name;
 
                 $postRate = PostRate::where(['posts_id' => $post['id']])->first();
-                $rate = isset($postRate)?$postRate['rate']:"";
+                // $rate = isset($postRate)?$postRate['rate']:"";
+                if (isset($postRate)) {
+                    $rate = $postRate['rate'];
+                    if ("优" == $rate) {
+                        $allRateNum ++;
+                    }
+                }
                 $comment = Comment::where(['posts_id' => $post['id']])->first();
-                $hasComment = isset($comment)?"true":"false";
-                $marks = Mark::where(['posts_id' => $post['id']])->get();
-                $markNum = count($marks);
+                // $hasComment = isset($comment)?"true":"false";
+                if (isset($comment)) {
+                    $hasComment = "true";
+                    $allCommentNum ++;
+                }
+                $markNames = Mark::select('students.username')
+                ->leftJoin("students", 'students.id', '=', 'marks.students_id')
+                ->where(['posts_id' => $post['id'], 'state_code' => 1])->get();
+                $markNum = count($markNames);
+                $allMarkNum += $markNum;
+                // dd($marks);
             }
 
-            $postData[] = ["lesson" => $lesson, 'post' => $post, 'rate' => $rate, 'lessonLog' => $lessonLog, 'hasComment' => $hasComment, 'markNum' => $markNum];
+            $postData[] = ["lesson" => $lesson, 'post' => $post, 'rate' => $rate, 'lessonLog' => $lessonLog, 'hasComment' => $hasComment, 'markNum' => $markNum, 'markNames' => $markNames];
         }
-
-        return view('student/posts', compact('postData'));
+        $allScore = $allMarkNum + $allRateNum * 5 + $allCommentNum * 2;
+// dd($postData);
+        return view('student/posts', compact('postData', 'allMarkNum', 'allRateNum', 'allCommentNum', 'allScore'));
     }
 }
