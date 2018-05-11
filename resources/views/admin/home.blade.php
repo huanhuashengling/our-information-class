@@ -1,24 +1,46 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+<div class="container" style="">
+        <!-- <div class="col-md-10 col-md-offset-1"> -->
+            <!-- <div class="col-md-4 col-md-offset-1"> -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">三年级作业数统计</div>
+                    <div class="panel-body">
+                        <canvas id="posts-count-per-class-same-grade-chart-1"></canvas>
+                    </div>
+                </div>
+            <!-- </div> -->
+            <!-- <div class="col-md-4"> -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">四年级作业数统计</div>
+                    <div class="panel-body">
+                        <canvas id="posts-count-per-class-same-grade-chart-2"></canvas>
+                    </div>
+                </div>
+            <!-- </div> -->
+        <!-- </div> -->
+
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
-
-                <div class="panel-body">
-
-                    <a href="{{ url('admin/post') }}" class="btn btn-lg btn-success col-xs-12">管理文章</a>
-
-                </div>
-                <div class="panel-body">
-
-                    <a href="{{ url('admin/comment') }}" class="btn btn-lg btn-success col-xs-12">管理评论</a>
-
-                </div>
+                <div class="panel-heading">三年级点赞数统计</div>
+                <canvas id="mark-count-per-class-same-grade-chart-1"></canvas>
             </div>
-        </div>
-    </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">四年级点赞数统计</div>
+                <canvas id="mark-count-per-class-same-grade-chart-2"></canvas>
+            </div>
+
+            <!-- <div class="panel panel-default">
+                <div class="panel-heading">完成作业率统计，每节课作业数比班总人数</div>
+                <canvas id="posted-percent-per-class-chart"></canvas>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">某节课在各年级完成数</div>
+                <canvas id="posted-count-per-lesson-log-chart"></canvas>
+            </div>
+        </div> -->
+<!-- </div> -->
 </div>
 @endsection

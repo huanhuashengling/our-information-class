@@ -27,6 +27,9 @@
     <script src="/js/locales/zh.js"></script>
     <script src="/js/admin/student-account-import.js"></script>
     <script src="/js/admin/export-post.js"></script>
+    <script src="/js/admin/Chart.js"></script>
+    <script src="/js/admin/utils.js"></script>
+    <script src="/js/admin/dashboard.js"></script>
 
 
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" /> -->
@@ -56,6 +59,7 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
+                    <li><a href="{{ url('/admin/dashboard') }}">数据报表</a></li>
                     <li><a href="{{ url('/admin/students') }}">学生账户</a></li>
                     <li><a href="{{ url('/admin/teachers') }}">教师账户</a></li>
                     <li><a href="{{ url('/admin/export-post') }}">导出作业</a></li>

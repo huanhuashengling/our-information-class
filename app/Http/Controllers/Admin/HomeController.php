@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\Sclass;
+use App\Models\Lesson;
+use App\Models\Post;
+use App\Models\Mark;
 use Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
@@ -18,7 +21,216 @@ class HomeController extends Controller
 {
     public function index()
     {
+        
         return view('admin/home');
+    }
+
+    public function getPostCountPerClassWithSameGradeData1()
+    {
+        $lessonsData = Lesson::select('lessons.title', 'lessons.id')
+                    ->leftJoin('lesson_logs', function($join) {
+                        $join->on('lesson_logs.lessons_id', '=', 'lessons.id');
+                    })
+                    ->leftJoin('posts', function($join) {
+                        $join->on('posts.lesson_logs_id', '=', 'lesson_logs.id');
+                    })
+                    ->leftJoin('students', function($join) {
+                        $join->on('posts.students_id', '=', 'students.id');
+                    })
+                    ->leftJoin('sclasses', function($join) {
+                        $join->on('students.sclasses_id', '=', 'sclasses.id');
+                    }) 
+                    ->where('sclasses.enter_school_year', '=', 2015)
+                    ->whereDate('lessons.created_at', '>', '2018-2-30')
+                    ->groupBy('lessons.title', 'lessons.id')
+                    ->orderBy('lessons.created_at')
+                    ->get();
+
+        $sclassData = Sclass::select('sclasses.id', 'sclasses.class_title', 'sclasses.enter_school_year')
+                    ->where('sclasses.enter_school_year', '=', 2015)
+                    ->get();
+
+        $postsData = [];
+        foreach ($sclassData as $key => $sclass) {
+            $tPostData=[];
+            foreach ($lessonsData as $key => $lesson) {
+                $tPostData[] = Post::select(DB::raw('count(posts.id) as count'))
+                    ->leftJoin('lesson_logs', function($join) {
+                        $join->on('posts.lesson_logs_id', '=', 'lesson_logs.id');
+                    })
+                    ->leftJoin('students', function($join) {
+                        $join->on('posts.students_id', '=', 'students.id');
+                    })
+                    ->leftJoin('sclasses', function($join) {
+                        $join->on('students.sclasses_id', '=', 'sclasses.id');
+                    })
+                    ->where('lesson_logs.lessons_id', '=', $lesson->id)
+                    ->where('students.sclasses_id', '=', $sclass->id)
+                    ->get();
+            }
+            $postsData[] = ['label' => $sclass->enter_school_year . "级" .$sclass->class_title . "班", 'data' => $tPostData];
+        }
+
+        $dataset = ["lessonsData" => $lessonsData, 'postsData' => $postsData];
+        return json_encode($dataset);
+    }
+
+    public function getPostCountPerClassWithSameGradeData2()
+    {
+        $lessonsData = Lesson::select('lessons.title', 'lessons.id')
+                    ->leftJoin('lesson_logs', function($join) {
+                        $join->on('lesson_logs.lessons_id', '=', 'lessons.id');
+                    })
+                    ->leftJoin('posts', function($join) {
+                        $join->on('posts.lesson_logs_id', '=', 'lesson_logs.id');
+                    })
+                    ->leftJoin('students', function($join) {
+                        $join->on('posts.students_id', '=', 'students.id');
+                    })
+                    ->leftJoin('sclasses', function($join) {
+                        $join->on('students.sclasses_id', '=', 'sclasses.id');
+                    })
+                    ->where('sclasses.enter_school_year', '=', 2014)
+                    ->whereDate('lessons.created_at', '>', '2018-2-30')
+                    ->groupBy('lessons.title', 'lessons.id')
+                    ->orderBy('lessons.created_at')
+                    ->get();
+
+        $sclassData = Sclass::select('sclasses.id', 'sclasses.class_title', 'sclasses.enter_school_year')
+                    ->where('sclasses.enter_school_year', '=', 2014)
+                    ->get();
+
+        $postsData = [];
+        foreach ($sclassData as $key => $sclass) {
+            $tPostData=[];
+            foreach ($lessonsData as $key => $lesson) {
+                $tPostData[] = Post::select(DB::raw('count(posts.id) as count'))
+                    ->leftJoin('lesson_logs', function($join) {
+                        $join->on('posts.lesson_logs_id', '=', 'lesson_logs.id');
+                    })
+                    ->leftJoin('students', function($join) {
+                        $join->on('posts.students_id', '=', 'students.id');
+                    })
+                    ->leftJoin('sclasses', function($join) {
+                        $join->on('students.sclasses_id', '=', 'sclasses.id');
+                    })
+                    ->where('lesson_logs.lessons_id', '=', $lesson->id)
+                    ->where('students.sclasses_id', '=', $sclass->id)
+                    ->get();
+            }
+            $postsData[] = ['label' => $sclass->enter_school_year . "级" .$sclass->class_title . "班", 'data' => $tPostData];
+        }
+
+        $dataset = ["lessonsData" => $lessonsData, 'postsData' => $postsData];
+        return json_encode($dataset);
+    }
+
+    public function getMarkCountPerClassWithSameGradeData1()
+    {
+        $lessonsData = Lesson::select('lessons.title', 'lessons.id')
+                    ->leftJoin('lesson_logs', function($join) {
+                        $join->on('lesson_logs.lessons_id', '=', 'lessons.id');
+                    })
+                    ->leftJoin('posts', function($join) {
+                        $join->on('posts.lesson_logs_id', '=', 'lesson_logs.id');
+                    })
+                    ->leftJoin('students', function($join) {
+                        $join->on('posts.students_id', '=', 'students.id');
+                    })
+                    ->leftJoin('sclasses', function($join) {
+                        $join->on('students.sclasses_id', '=', 'sclasses.id');
+                    }) 
+                    ->where('sclasses.enter_school_year', '=', 2015)
+                    ->whereDate('lessons.created_at', '>', '2018-2-30')
+                    ->groupBy('lessons.title', 'lessons.id')
+                    ->orderBy('lessons.created_at')
+                    ->get();
+
+        $sclassData = Sclass::select('sclasses.id', 'sclasses.class_title', 'sclasses.enter_school_year')
+                    ->where('sclasses.enter_school_year', '=', 2015)
+                    ->get();
+
+        $marksData = [];
+        foreach ($sclassData as $key => $sclass) {
+            $tMarkData=[];
+            foreach ($lessonsData as $key => $lesson) {
+                $tMarkData[] = Mark::select(DB::raw('count(marks.id) as count'))
+                    ->leftJoin('posts', function($join) {
+                        $join->on('marks.posts_id', '=', 'posts.id');
+                    })
+                    ->leftJoin('lesson_logs', function($join) {
+                        $join->on('posts.lesson_logs_id', '=', 'lesson_logs.id');
+                    })
+                    ->leftJoin('students', function($join) {
+                        $join->on('posts.students_id', '=', 'students.id');
+                    })
+                    ->leftJoin('sclasses', function($join) {
+                        $join->on('students.sclasses_id', '=', 'sclasses.id');
+                    })
+                    ->where('lesson_logs.lessons_id', '=', $lesson->id)
+                    ->where('marks.state_code', '=', 1)
+                    ->where('students.sclasses_id', '=', $sclass->id)
+                    ->get();
+            }
+            $marksData[] = ['label' => $sclass->enter_school_year . "级" .$sclass->class_title . "班", 'data' => $tMarkData];
+        }
+
+        $dataset = ["lessonsData" => $lessonsData, 'marksData' => $marksData];
+        return json_encode($dataset);
+    }
+
+    public function getMarkCountPerClassWithSameGradeData2()
+    {
+        $lessonsData = Lesson::select('lessons.title', 'lessons.id')
+                    ->leftJoin('lesson_logs', function($join) {
+                        $join->on('lesson_logs.lessons_id', '=', 'lessons.id');
+                    })
+                    ->leftJoin('posts', function($join) {
+                        $join->on('posts.lesson_logs_id', '=', 'lesson_logs.id');
+                    })
+                    ->leftJoin('students', function($join) {
+                        $join->on('posts.students_id', '=', 'students.id');
+                    })
+                    ->leftJoin('sclasses', function($join) {
+                        $join->on('students.sclasses_id', '=', 'sclasses.id');
+                    })
+                    ->where('sclasses.enter_school_year', '=', 2014)
+                    ->whereDate('lessons.created_at', '>', '2018-2-30')
+                    ->groupBy('lessons.title', 'lessons.id')
+                    ->orderBy('lessons.created_at')
+                    ->get();
+
+        $sclassData = Sclass::select('sclasses.id', 'sclasses.class_title', 'sclasses.enter_school_year')
+                    ->where('sclasses.enter_school_year', '=', 2014)
+                    ->get();
+
+        $marksData = [];
+        foreach ($sclassData as $key => $sclass) {
+            $tMarkData=[];
+            foreach ($lessonsData as $key => $lesson) {
+                $tMarkData[] = Mark::select(DB::raw('count(marks.id) as count'))
+                    ->leftJoin('posts', function($join) {
+                        $join->on('marks.posts_id', '=', 'posts.id');
+                    })
+                    ->leftJoin('lesson_logs', function($join) {
+                        $join->on('posts.lesson_logs_id', '=', 'lesson_logs.id');
+                    })
+                    ->leftJoin('students', function($join) {
+                        $join->on('posts.students_id', '=', 'students.id');
+                    })
+                    ->leftJoin('sclasses', function($join) {
+                        $join->on('students.sclasses_id', '=', 'sclasses.id');
+                    })
+                    ->where('lesson_logs.lessons_id', '=', $lesson->id)
+                    ->where('marks.state_code', '=', 1)
+                    ->where('students.sclasses_id', '=', $sclass->id)
+                    ->get();
+            }
+            $marksData[] = ['label' => $sclass->enter_school_year . "级" .$sclass->class_title . "班", 'data' => $tMarkData];
+        }
+
+        $dataset = ["lessonsData" => $lessonsData, 'marksData' => $marksData];
+        return json_encode($dataset);
     }
 
     public function studentsAccountManagement()
@@ -29,6 +241,7 @@ class HomeController extends Controller
                               })
                               ->where('sclasses.enter_school_year', '<', 2016)
                               ->groupBy('sclasses.class_title', 'sclasses.enter_school_year', 'sclasses.id')
+                              ->orderBy('sclasses.id')
                               ->get();
         foreach ($sclassesData as $key => $item) {
             $sclassesData[$key]["title"] = $item['enter_school_year'] . "级" . $item["class_title"] . "班";

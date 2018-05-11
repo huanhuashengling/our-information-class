@@ -80,7 +80,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function ($router)
 
 Route::group(['middleware' => 'auth.admin:admin, admin/login', 'prefix' => 'admin','namespace' => 'Admin'],function ($router)
 {
-    $router->get('/', 'HomeController@index');
+    $router->get('/dashboard', 'HomeController@index');
 
     $router->get('students', 'HomeController@studentsAccountManagement');
 
@@ -96,8 +96,16 @@ Route::group(['middleware' => 'auth.admin:admin, admin/login', 'prefix' => 'admi
 
 
     $router->get('export-post', 'ExportPostController@index');
+    $router->post('export-post-files', 'ExportPostController@exportPostFiles');
     $router->post('load-lesson-log-info', 'ExportPostController@loadLessonLogInfo');
     $router->post('load-post-list', 'ExportPostController@loadPostList');
+
+
+
+    $router->get('get-post-count-per-class-same-grade-data-1', 'HomeController@getPostCountPerClassWithSameGradeData1');
+    $router->get('get-post-count-per-class-same-grade-data-2', 'HomeController@getPostCountPerClassWithSameGradeData2');
+    $router->get('get-mark-count-per-class-same-grade-data-1', 'HomeController@getMarkCountPerClassWithSameGradeData1');
+    $router->get('get-mark-count-per-class-same-grade-data-2', 'HomeController@getMarkCountPerClassWithSameGradeData2');
 });
 
 Route::group(['prefix' => 'teacher','namespace' => 'Teacher'],function ($router)
