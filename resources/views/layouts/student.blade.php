@@ -36,7 +36,7 @@
     
 </head>
 <body id="app-layout">
-    <nav class="navbar navbar-default navbar-static-top">
+    <nav class="navbar navbar-default navbar-static-top" style="margin-bottom: 0px">
         <div class="container">
             <div class="navbar-header">
 
@@ -55,35 +55,66 @@
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    <!--<li><a href="{{ url('/student') }}">我的小组</a></li>-->
-                    <li><a href="{{ url('/student') }}">信息课</a></li>
-                    <li><a href="{{ url('/student/posts') }}">作业记录</a></li>
-                    <li><a href="{{ url('/student/classmate') }}">作业墙</a></li>
-                </ul>
-
-                <!-- Right Side Of Navbar -->
-                <ul class="nav navbar-nav navbar-right">
-                <li><a href=""> </a></li>
                     <!-- Authentication Links -->
                     @if (Auth::guard("student")->guest())
-                        <li><a href="{{ url('/login') }}">{{ trans("layouts.login") }}</a></li>
-                        <!-- <li><a href="{{ url('/register') }}">{{ trans("layouts.register") }}</a></li> -->
-                    @else
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hello,
-                                {{ Auth::guard("student")->user()->username }} <span class="caret"></span>
-                            </a>
+                        <!-- <li><a href="{{ url('/login') }}">{{ trans("layouts.login") }}</a></li> -->
+                        <form class="navbar-form navbar-right" role="form" method="POST" action="{{ route('student.login') }}">
+                        {{ csrf_field() }}
+                        <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
+                                <input id="username" type="text" class="form-control" name="username" value="蔡俊杰" placeholder="用户名" required autofocus>
 
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/student/reset') }}"><i class="fa fa-btn fa-sign-out"></i>修改个人信息</a></li>
-                                <li><a href="{{ url('/student/reset') }}"><i class="fa fa-btn fa-sign-out"></i>修改密码</a></li>
-                                <li><a href="{{ url('/student/logout') }}"><i class="fa fa-btn fa-sign-out"></i>{{ trans("layouts.logout") }}</a></li>
-                            </ul>
-                        </li>
+                                @if ($errors->has('username'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('username') }}</strong>
+                                    </span>
+                                @endif
+                        </div>
+
+                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                                <input id="password" type="password" value="123456" class="form-control" name="password"  placeholder="密码"  required>
+
+                                @if ($errors->has('password'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
+                        </div>
+
+                        <div class="form-group">
+                                <button type="submit" class="btn btn-success">
+                                    登录
+                                </button>
+                                <a class="btn btn-link disabled" href="{{ url('/password/reset') }}">
+                                    <small>忘记密码？请联系老师重置</small>
+                                </a>
+                        </div>
+
+                          </form>
+                    @else
+                        <!-- Left Side Of Navbar -->
+                        <ul class="nav navbar-nav">
+                            <!--<li><a href="{{ url('/student') }}">我的小组</a></li>-->
+                            <li><a href="{{ url('/student') }}">信息课</a></li>
+                            <li><a href="{{ url('/student/posts') }}">作业记录</a></li>
+                            <li><a href="{{ url('/student/classmate') }}">作业墙</a></li>
+                        </ul>
+
+                        <!-- Right Side Of Navbar -->
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hello,
+                                    {{ Auth::guard("student")->user()->username }} <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{ url('/student/reset') }}"><i class="fa fa-btn fa-sign-out"></i>修改个人信息</a></li>
+                                    <li><a href="{{ url('/student/reset') }}"><i class="fa fa-btn fa-sign-out"></i>修改密码</a></li>
+                                    <li><a href="{{ url('/student/logout') }}"><i class="fa fa-btn fa-sign-out"></i>{{ trans("layouts.logout") }}</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                     @endif
-                </ul>
+                
             </div>
         </div>
     </nav>
