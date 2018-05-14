@@ -3,7 +3,7 @@
     "title": "En route pour le Puy de Sancy",
     "details": "Equirectangular panorama built from 10 pictures, shot handheld.",
     "owner": "Alexandre Duret-Lutz",
-    "overlay": "/images/panorama/程楷轩-5ae29c220dc0d.jpg",
+    "overlay": "/images/panorama/程楷轩-5aebda0ce11bf.jpg",
     "image": "/images/panorama/puydesancy.jpg",
     "audio": "audio/235428__allanz10d__calm-ocean-breeze-simulation.ogg",
     "source": "http://bit.ly/1xk9Vk1",
@@ -13,40 +13,10 @@
     "title": "Musée du Louvre",
     "details": "Equirectangular panorama built from 8 pictures.",
     "owner": "Alexandre Duret-Lutz",
-    "overlay": "/images/panorama/谭哲溪-5ae28241de141.jpg",
+    "overlay": "/images/panorama/刘熙梓-5af11255304f3.jpg",
     "image": "/images/panorama/louvre.jpg",
     "audio": "audio/235428__allanz10d__calm-ocean-breeze-simulation.ogg",
     "source": "https://www.flickr.com/photos/gadl/406108908",
-    "license": "Creative Commons"
-  },
-  {
-    "title": "Sunrise on Tintamarre",
-    "details": "Equirectangular panorama built from 8 pictures.",
-    "owner": "Alexandre Duret-Lutz",
-    "overlay": "/images/panorama/程楷轩-5ae29c220dc0d.jpg",
-    "image": "/images/panorama/tintamarre.jpg",
-    "audio": "audio/235428__allanz10d__calm-ocean-breeze-simulation.ogg",
-    "source": "g",
-    "license": "Creative Commons"
-  },
-  {
-    "title": "Sunrise on Tintamarre",
-    "details": "Equirectangular panorama built from 8 pictures.",
-    "owner": "Alexandre Duret-Lutz",
-    "overlay": "/images/panorama/程楷轩-5ae29c220dc0d.jpg",
-    "image": "/images/panorama/information-room.jpg",
-    "audio": "audio/235428__allanz10d__calm-ocean-breeze-simulation.ogg",
-    "source": "g",
-    "license": "Creative Commons"
-  },
-    {
-    "title": "Sunrise on Tintamarre",
-    "details": "Equirectangular panorama built from 8 pictures.",
-    "owner": "Alexandre Duret-Lutz",
-    "overlay": "/images/panorama/谭哲溪-5ae28241de141.jpg",
-    "image": "/images/panorama/dalitang.jpg",
-    "audio": "audio/235428__allanz10d__calm-ocean-breeze-simulation.ogg",
-    "source": "g",
     "license": "Creative Commons"
   }
 ]
