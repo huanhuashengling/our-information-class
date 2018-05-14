@@ -58,7 +58,7 @@
                     <!-- Authentication Links -->
                     @if (Auth::guard("student")->guest())
                         <!-- <li><a href="{{ url('/login') }}">{{ trans("layouts.login") }}</a></li> -->
-                        <form class="navbar-form navbar-right" role="form" method="POST" action="{{ route('student.login') }}">
+                        <!-- <form class="navbar-form navbar-right" role="form" method="POST" action="{{ route('student.login') }}">
                         {{ csrf_field() }}
                         <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
                                 <input id="username" type="text" class="form-control" name="username" value="" placeholder="用户名" required autofocus>
@@ -89,7 +89,7 @@
                                 </a>
                         </div>
 
-                          </form>
+                          </form> -->
                     @else
                         <!-- Left Side Of Navbar -->
                         <ul class="nav navbar-nav">

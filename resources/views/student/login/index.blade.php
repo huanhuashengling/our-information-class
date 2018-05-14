@@ -1,7 +1,7 @@
 @extends('layouts.student')
 
 @section('content')
-<!-- <div class="container"> -->
+<div class="container">
     <!-- <a-scene>
       <a-sky src="/images/panorama/information-room.jpg" rotation="0 -130 0"></a-sky>
 
@@ -9,7 +9,7 @@
               rotation="0 15 0"></a-text>
     </a-scene> -->
 
-<!--
+
 <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -22,7 +22,7 @@
                             <label for="username" class="col-md-4 control-label">用户名</label>
 
                             <div class="col-md-6">
-                                <input id="username" type="text" class="form-control" name="username" value="蔡俊杰" required autofocus>
+                                <input id="username" type="text" class="form-control" name="username" value="" required autofocus>
 
                                 @if ($errors->has('username'))
                                     <span class="help-block">
@@ -36,7 +36,7 @@
                             <label for="password" class="col-md-4 control-label">密码</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" value="123456" class="form-control" name="password" required>
+                                <input id="password" type="password" value="" class="form-control" name="password" required>
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">
@@ -45,7 +45,7 @@
                                 @endif
                             </div>
                         </div>
--
+<!--
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <div class="checkbox">
@@ -55,7 +55,7 @@
                                 </div>
                             </div>
                         </div>
--
+-->
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
@@ -71,9 +71,9 @@
                 </div>
             </div>
         </div>
-    </div>-->
+    </div>
     <!-- <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script> -->
-    <button id="enterVr" hidden>ENTER VR</button>
+    <!-- <button id="enterVr" hidden>ENTER VR</button>
     <script src="/js/panorama/lib/fetch.js"></script>
     <script src="/js/panorama/three.min.js"></script>
     <script src="/js/panorama/webvr-polyfill.js"></script>
@@ -81,6 +81,6 @@
     <script src="/js/panorama/VRControls.js"></script>
     <script src="/js/panorama/VREffect.js"></script>
     <script src="/js/panorama/OrbitControls.js"></script>
-    <script src="/js/panorama/main.js"></script>
-<!-- </div> -->
+    <script src="/js/panorama/main.js"></script> -->
+</div> 
 @endsection
