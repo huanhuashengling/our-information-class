@@ -2,7 +2,22 @@
 
 @section('content')
 
-<div class="container" style="margin-top: 20px">
+<div class="container" style="padding-left: 0px; padding-right: 0px">
+    <div class="col-md-1" >
+        <button class="btn btn-info form-control" id="my-posts-btn">我的</button>
+        <button class="btn btn-info form-control" id="same-sclass-posts-btn">同班级</button>
+        <button class="btn btn-info form-control" id="same-grade-posts-btn">同年级</button>
+        
+        <button class="btn btn-info form-control" id="my-marked-posts-btn">我点赞</button>
+        <button class="btn btn-info form-control" id="most-marked-posts-btn">最多赞</button>
+        <button class="btn btn-info form-control" id="has-comment-posts-btn">有评语</button>
+        <!--<button class="btn btn-info form-control">最多分</button> -->
+        <!-- <button class="btn btn-info form-control">画图</button>
+        <button class="btn btn-info form-control">打字</button>
+        <button class="btn btn-info form-control">美图</button> -->
+        <button class="btn btn-info form-control" id="all-posts-btn">全部</button>
+    </div>
+    <div class="col-md-11" id="posts-list">
     @foreach($posts as $key=>$post)
         <!-- {{$post["students_id"]}} -->
         @php
@@ -18,7 +33,7 @@
                 $post_storage_name = "posts/".$post->storage_name;
                 //echo public_path()."/posts/".$post->storage_name;
             }
-            $post->studentClass = (2018-$post->enter_school_year) . $post->class_title . "班";
+            $post->studentClass = (2018-$post->enter_school_year) . $post->class_title . "";
             $gap = "";
             $ratestr = isset($post->rate)?$post->rate:"";
 
@@ -30,7 +45,7 @@
             }
         @endphp
         <div class="col-md-2 col-sm-3 col-xs-4" style="padding-left: 5px; padding-right: 5px;">
-            <div class="alert alert-info" style="height: 147px">
+            <div class="alert alert-info" style="height: 147px; padding-left: 10px; padding-right: 10px">
                 <!--<div class="text-center"><img height="140px" value="{{ $post['pid'] }}" src="/imager?src={{$post_storage_name}}"></div>-->
                 <div><img class="img-responsive thumb-img" value="{{ $post['pid'] }}" src="{{ getThumbnail($post->storage_name, 140, 100, 'fit') }}" alt=""></div>
                 <div><h4 style="margin-top: 10px; margin-bottom: 5px;"><small>({{ $post->studentClass }})</small>{{ $post->username }} <small>{{ $ratestr }}{{$gap}}{{ $markstr}}</small></h4>  </div>
@@ -38,7 +53,8 @@
             </div>
         </div>
     @endforeach
-    {{ $posts->links('pagination.limit_links') }}
+    {{ $posts->appends(Illuminate\Support\Facades\Input::except('page'))->links('pagination.limit_links') }}
+    </div>
     <!--{!! $posts->render() !!}-->
 </div>
 
@@ -57,6 +73,7 @@
       <div class="modal-body">
         <img src="" id='classmate-post-show' class="img-responsive img-thumbnail center-block">
         <!-- <a href="" id="classmate-post-download-link">右键点击下载</a> -->
+        <label id="post-comment"></label>
       </div>
 
     <div class="modal-footer">

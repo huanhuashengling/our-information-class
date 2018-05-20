@@ -4,7 +4,7 @@ $(document).ready(function() {
 	    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	  }
 	});
-    
+
     $("[name='likeCheckBox']").bootstrapSwitch({
         onText: '喜欢',
         offText: '不喜欢',
@@ -43,6 +43,34 @@ $(document).ready(function() {
             });
         }
         $("#is-init").val("true");
+    });
+
+    $('#my-posts-btn').on('click', function (e) {
+        top.location='/student/classmate?type=my'; 
+    });
+
+    $('#all-posts-btn').on('click', function (e) {
+        top.location='/student/classmate?type=all'; 
+    });
+
+    $('#same-sclass-posts-btn').on('click', function (e) {
+        top.location='/student/classmate?type=same-sclass'; 
+    });
+
+    $('#same-grade-posts-btn').on('click', function (e) {
+        top.location='/student/classmate?type=same-grade'; 
+    });
+
+    $('#my-marked-posts-btn').on('click', function (e) {
+        top.location='/student/classmate?type=my-marked'; 
+    });
+
+    $('#most-marked-posts-btn').on('click', function (e) {
+        top.location='/student/classmate?type=most-marked'; 
+    });
+
+    $('#has-comment-posts-btn').on('click', function (e) {
+        top.location='/student/classmate?type=has-comment'; 
     });
 
     $('.thumb-img').on('click', function (e) {
@@ -119,13 +147,14 @@ $(document).ready(function() {
             url: '/student/getCommentByPostsId',
             data: {posts_id: postsId},
             success: function( data ) {
+                // console.log(data);
                 if ("false" == data) {
                     $("#edit-post-comment-btn").addClass("hidden");
                     $("#add-post-comment-btn").removeClass("hidden");
                 } else {
                     var comment = JSON.parse(data);
                     $("#edit-post-comment-btn").val(comment['id']);
-                    $('#post-comment').val(comment['content']);
+                    $('#post-comment').text("老师评语：" + comment['content']);
                     $("#edit-post-comment-btn").removeClass("hidden");
                     $("#add-post-comment-btn").addClass("hidden");
                 }

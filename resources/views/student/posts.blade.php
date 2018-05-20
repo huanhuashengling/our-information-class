@@ -1,7 +1,7 @@
 @extends('layouts.student')
 
 @section('content')
-<div class="container" style="margin-top: 20px">
+<div class="container">
     <div class="row">
     @if (count($errors) > 0)
         <div class="alert alert-danger">

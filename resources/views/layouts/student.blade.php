@@ -36,7 +36,7 @@
     
 </head>
 <body id="app-layout">
-    <nav class="navbar navbar-default navbar-static-top" style="margin-bottom: 0px">
+    <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
             <div class="navbar-header">
 

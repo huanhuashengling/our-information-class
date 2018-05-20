@@ -166,6 +166,8 @@ Route::group(['middleware' => 'auth.student', 'prefix' => 'student','namespace' 
     
     
     $router->get('classmate', 'ClassmateController@classmatePost');
+    
+    $router->post('getPostsDataByType', 'ClassmateController@getPostsDataByType');
 
     $router->get('reset', 'HomeController@getReset');
     $router->post('reset', 'HomeController@postReset');
