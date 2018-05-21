@@ -4,18 +4,18 @@
 
 <div class="container" style="padding-left: 0px; padding-right: 0px">
     <div class="col-md-1" >
-        <button class="btn btn-info form-control" id="my-posts-btn">我的</button>
-        <button class="btn btn-info form-control" id="same-sclass-posts-btn">同班级</button>
-        <button class="btn btn-info form-control" id="same-grade-posts-btn">同年级</button>
+        <button class="btn btn-info btn-sm form-control" id="my-posts-btn">我的</button>
+        <button class="btn btn-info btn-sm form-control" id="same-sclass-posts-btn">同班级</button>
+        <button class="btn btn-info btn-sm form-control" id="same-grade-posts-btn">同年级</button>
         
-        <button class="btn btn-info form-control" id="my-marked-posts-btn">我点赞</button>
-        <button class="btn btn-info form-control" id="most-marked-posts-btn">最多赞</button>
-        <button class="btn btn-info form-control" id="has-comment-posts-btn">有评语</button>
-        <!--<button class="btn btn-info form-control">最多分</button> -->
-        <!-- <button class="btn btn-info form-control">画图</button>
-        <button class="btn btn-info form-control">打字</button>
-        <button class="btn btn-info form-control">美图</button> -->
-        <button class="btn btn-info form-control" id="all-posts-btn">全部</button>
+        <button class="btn btn-info btn-sm form-control" id="my-marked-posts-btn">我点赞</button>
+        <button class="btn btn-info btn-sm form-control" id="most-marked-posts-btn">最多赞</button>
+        <button class="btn btn-info btn-sm form-control" id="has-comment-posts-btn">有评语</button>
+        <!--<button class="btn btn-info btn-sm form-control">最多分</button> -->
+        <!-- <button class="btn btn-info btn-sm form-control">画图</button>
+        <button class="btn btn-info btn-sm form-control">打字</button>
+        <button class="btn btn-info btn-sm form-control">美图</button> -->
+        <button class="btn btn-info btn-sm form-control" id="all-posts-btn">全部</button>
     </div>
     <div class="col-md-11" id="posts-list">
     @foreach($posts as $key=>$post)
