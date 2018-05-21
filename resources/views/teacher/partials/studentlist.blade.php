@@ -1,7 +1,15 @@
 @foreach ($students as $student)
     @php
-        $ratestr = isset($student->rate)?$student->rate:"";
-        $hasCommentCss = isset($student->content)?"alert-danger":"alert-info";
+        if (isset($student->rate)) {
+            $ratestr = $student->rate;
+            $hasCommentCss = "alert-info";
+        } else {
+            $ratestr = "";
+            $hasCommentCss = "alert-default";
+        }
+        if (isset($student->content)) {
+            $hasCommentCss = "alert-danger";
+        }
         $marksNum = isset($student->mark_num)?($student->mark_num . "赞"):"";
     @endphp
     <div class="col-md-2 col-sm-4 col-xs-6" style="padding-left: 5px; padding-right: 5px;">
