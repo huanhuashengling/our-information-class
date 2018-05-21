@@ -14,13 +14,7 @@
 
 ##Change Log
 
-2016-11-16 Create the repository and write the first version readme.
-
-2016-11-28 Done Laravel setting and running at my laptop
-
-2016-11-28 First Laravel code commit to github 
-
-2016-12-04 Follow the [tutorial](https://github.com/johnlui/Learn-Laravel-5/issues) and build a example project.
+[Change Log](https://github.com/huanhuashengling/our-information-class/blob/master/CHANGELOG.md)
 
 ##Goal
 
