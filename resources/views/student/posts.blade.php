@@ -10,7 +10,20 @@
         </div>
     @endif
     <div class="alert alert-info col-md-8 col-md-offset-2">
-        <h4>目前得分：共{{$allMarkNum}}个赞 * 1 + 共{{$allRateNum}}个优 * 5 + 共{{$allCommentNum}}条评语 * 2 = {{$allScore}}分</h4>
+        <h4>目前得分：有效赞{{$allEffectMarkNum}} * 0.5 + 共{{$allRateNum}}个优 * 8 + 共{{$allCommentNum}}条评语 * 1 = {{$allScore}}分</h4>
+        <h5>总赞数(共{{$allMarkNum}}个赞)，有效赞为每次作业最多四次赞有效，以每个0.5分计入期末成绩，共2分</h5>
+
+        @if(Session::has('success'))
+          <div class="alert alert-success">
+            <h4>{!! Session::get('success') !!}</h4>
+          </div>
+        @endif
+
+        @if(Session::has('danger'))
+          <div class="alert alert-danger">
+            <h4>{!! Session::get('danger') !!}</h4>
+          </div>
+        @endif
     </div>
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
     @foreach ($postData as $key => $item)

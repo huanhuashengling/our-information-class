@@ -16,7 +16,7 @@ $(document).ready(function() {
                     url: '/student/getPostRate',
                     data: {posts_id : postsId},
                     success: function( data ) {
-                        console.log(data);
+                        //console.log(data);
                         var rateStr = "暂无等第";
                         if ("false" != data) {
                            rateStr = "等第：" + data;

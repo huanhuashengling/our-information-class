@@ -24,6 +24,7 @@ class PostController extends Controller
         $lessonLogs = LessonLog::where(['sclasses_id' => $student['sclasses_id']])->get();
 
         $allMarkNum = 0;
+        $allEffectMarkNum = 0;
         $allRateNum = 0;
         $allCommentNum = 0;
         $postData = [];
@@ -58,13 +59,14 @@ class PostController extends Controller
                 ->where(['posts_id' => $post['id'], 'state_code' => 1])->get();
                 $markNum = count($markNames);
                 $allMarkNum += $markNum;
+                $allEffectMarkNum += ($markNum>4)?4:$markNum;
                 // dd($marks);
             }
 
             $postData[] = ["lesson" => $lesson, 'post' => $post, 'rate' => $rate, 'lessonLog' => $lessonLog, 'hasComment' => $hasComment, 'markNum' => $markNum, 'markNames' => $markNames];
         }
-        $allScore = $allMarkNum + $allRateNum * 5 + $allCommentNum * 2;
+        $allScore = $allEffectMarkNum * 0.5 + $allRateNum * 8 + $allCommentNum * 1;
 // dd($postData);
-        return view('student/posts', compact('postData', 'allMarkNum', 'allRateNum', 'allCommentNum', 'allScore'));
+        return view('student/posts', compact('postData', 'allMarkNum', 'allEffectMarkNum', 'allRateNum', 'allCommentNum', 'allScore'));
     }
 }
