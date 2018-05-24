@@ -26,6 +26,7 @@
     <script src="/js/teacher/select-class-lesson.js"></script>
     <script src="/js/teacher/take-class.js"></script>
     <script src="/js/teacher/lesson-history.js"></script>
+    <script src="/js/teacher/no-post-report.js"></script>
 
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" /> -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script> -->
@@ -57,6 +58,7 @@
                     <li><a href="{{ url('/teacher/') }}">选课上课</a></li>
                     <li><a href="{{ url('/teacher/lesson') }}">课程管理</a></li>
                     <li><a href="{{ url('/teacher/lessonLog') }}">上课记录</a></li>
+                    <li><a href="{{ url('/teacher/noPostReport') }}">作业欠交</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->

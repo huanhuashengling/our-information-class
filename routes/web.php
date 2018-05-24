@@ -141,6 +141,9 @@ Route::group(['middleware' => 'auth.teacher', 'prefix' => 'teacher','namespace' 
     $router->get('reset', 'HomeController@getReset');
     $router->post('reset', 'HomeController@postReset');
 
+    $router->get('noPostReport', 'NoPostReportController@index');
+    $router->post('getNoPostReport', 'NoPostReportController@report');
+
 });
 
 Route::group(['prefix' => 'student','namespace' => 'Student'],function ($router)
