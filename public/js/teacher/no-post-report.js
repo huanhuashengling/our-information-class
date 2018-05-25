@@ -5,23 +5,19 @@ $(document).ready(function() {
 	  }
 	});
 
-	$("[name='sclasses_id']").on("change", function(e) {
-		checkSelection();
+	$("[name='no_post_sclasses_id']").on("change", function(e) {
+		var sclassesId = $("[name='no_post_sclasses_id']").val();
+		if(0 !=  sclassesId) {
+			// alert(sclassesId + " --- " +lessonsId);
+			$.ajax({
+	            type: "POST",
+	            url: '/teacher/getNoPostReport',
+	            data: {sclassesId: sclassesId},
+	            success: function( data ) {
+	                // console.log(data);
+	                $("#no-post-report").html(data);
+	            }
+	        });
+		}
 	});
 });
-
-function checkSelection() {
-	var sclassesId = $("[name='sclasses_id']").val();
-	if(0 !=  sclassesId) {
-		// alert(sclassesId + " --- " +lessonsId);
-		$.ajax({
-            type: "POST",
-            url: '/teacher/getNoPostReport',
-            data: {sclassesId: sclassesId},
-            success: function( data ) {
-                // console.log(data);
-                $("#no-post-report").html(data);
-            }
-        });
-	}
-}

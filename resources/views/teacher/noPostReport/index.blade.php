@@ -12,7 +12,7 @@
                         </div>
                     @endif
                     <div class="form-group">
-                        {!! Form::select('sclasses_id', $classData, null, ['class'=>'form-control']) !!}
+                        {!! Form::select('no_post_sclasses_id', $classData, null, ['class'=>'form-control']) !!}
                     </div>
                 </div>
             </div>
