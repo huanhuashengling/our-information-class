@@ -30,6 +30,7 @@
     <script src="/js/admin/Chart.js"></script>
     <script src="/js/admin/utils.js"></script>
     <script src="/js/admin/dashboard.js"></script>
+    <script src="/js/admin/lesson-log.js"></script>
 
 
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" /> -->
@@ -63,6 +64,7 @@
                     <li><a href="{{ url('/admin/students') }}">学生账户</a></li>
                     <li><a href="{{ url('/admin/teachers') }}">教师账户</a></li>
                     <li><a href="{{ url('/admin/export-post') }}">导出作业</a></li>
+                    <li><a href="{{ url('/admin/lessonLog') }}">课程记录</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->

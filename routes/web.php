@@ -99,7 +99,11 @@ Route::group(['middleware' => 'auth.admin:admin, admin/login', 'prefix' => 'admi
     $router->post('export-post-files', 'ExportPostController@exportPostFiles');
     $router->post('load-lesson-log-info', 'ExportPostController@loadLessonLogInfo');
     $router->post('load-post-list', 'ExportPostController@loadPostList');
+    
 
+    $router->get('lessonLog', 'LessonLogController@index');
+    $router->post('get-lesson-log-list', 'LessonLogController@getLessonLogList');
+    $router->post('delLessonLog', 'LessonLogController@delLessonLog');
 
 
     $router->get('get-post-count-per-class-same-grade-data-1', 'HomeController@getPostCountPerClassWithSameGradeData1');
