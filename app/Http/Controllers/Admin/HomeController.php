@@ -66,6 +66,7 @@ class HomeController extends Controller
                     })
                     ->where('lesson_logs.lessons_id', '=', $lesson->id)
                     ->where('students.sclasses_id', '=', $sclass->id)
+                    ->where('students.is_lock', "!=", "1")
                     ->get();
             }
             $postsData[] = ['label' => $sclass->enter_school_year . "级" .$sclass->class_title . "班", 'data' => $tPostData];
@@ -116,6 +117,7 @@ class HomeController extends Controller
                     })
                     ->where('lesson_logs.lessons_id', '=', $lesson->id)
                     ->where('students.sclasses_id', '=', $sclass->id)
+                    ->where('students.is_lock', "!=", "1")
                     ->get();
             }
             $postsData[] = ['label' => $sclass->enter_school_year . "级" .$sclass->class_title . "班", 'data' => $tPostData];
@@ -141,6 +143,7 @@ class HomeController extends Controller
                         $join->on('students.sclasses_id', '=', 'sclasses.id');
                     }) 
                     ->where('sclasses.enter_school_year', '=', 2015)
+                    ->where('students.is_lock', "!=", "1")
                     ->whereDate('lessons.created_at', '>', '2018-2-30')
                     ->groupBy('lessons.title', 'lessons.id')
                     ->orderBy('lessons.created_at')
@@ -170,6 +173,7 @@ class HomeController extends Controller
                     ->where('lesson_logs.lessons_id', '=', $lesson->id)
                     ->where('marks.state_code', '=', 1)
                     ->where('students.sclasses_id', '=', $sclass->id)
+                    ->where('students.is_lock', "!=", "1")
                     ->get();
             }
             $marksData[] = ['label' => $sclass->enter_school_year . "级" .$sclass->class_title . "班", 'data' => $tMarkData];
@@ -224,6 +228,7 @@ class HomeController extends Controller
                     ->where('lesson_logs.lessons_id', '=', $lesson->id)
                     ->where('marks.state_code', '=', 1)
                     ->where('students.sclasses_id', '=', $sclass->id)
+                    ->where('students.is_lock', "!=", "1")
                     ->get();
             }
             $marksData[] = ['label' => $sclass->enter_school_year . "级" .$sclass->class_title . "班", 'data' => $tMarkData];

@@ -44,3 +44,9 @@
 <!-- </div> -->
 </div>
 @endsection
+
+@section('scripts')
+    <script src="/js/admin/Chart.js"></script>
+    <script src="/js/admin/utils.js"></script>
+    <script src="/js/admin/dashboard.js"></script>
+@endsection

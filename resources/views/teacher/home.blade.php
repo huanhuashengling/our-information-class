@@ -38,3 +38,7 @@
 </div>
 
 @endsection
+
+@section('scripts')
+    <script src="/js/teacher/select-class-lesson.js"></script>
+@endsection

@@ -65,7 +65,7 @@ function resetCol(value, row, index) {
     ].join('');
 }
 
-function actionCol(value, row, index) {
+function studentAccountActionCol(value, row, index) {
     var lockStr = "锁定";
     var lockClass = "lock";
     if (1 == row.is_lock)
@@ -97,7 +97,7 @@ window.resetActionEvents = {
     },
 }
 
-window.actionEvents = {
+window.studentAccountActionEvents = {
     'click .lock': function(e, value, row, index) {
         // console.log(row);
         $.ajax({

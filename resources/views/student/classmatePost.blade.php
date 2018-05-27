@@ -86,3 +86,9 @@
 </div>
 
 @endsection
+
+@section('scripts')
+    <link href="/css/bootstrap-switch.css" rel="stylesheet">
+    <script src="/js/bootstrap-switch.min.js"></script>
+    <script src="/js/student/classmate-post.js"></script>
+@endsection

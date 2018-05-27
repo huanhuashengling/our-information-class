@@ -42,6 +42,7 @@ class NoPostReportController extends Controller
             ->leftJoin('marks', 'marks.posts_id', '=', 'posts.id')
             ->where(["students.sclasses_id" => $lessonLog['sclasses_id'], 'posts.lesson_logs_id' => $lessonLog['id']])
             ->where("post_rates.rate", "!=", "'优'")
+            ->where('students.is_lock', "!=", "1")
             ->groupBy('students.id', 'students.username', 'posts.storage_name', 'comments.content', 'post_rates.rate', 'posts.id')
             ->orderBy(DB::raw('convert(students.username using gbk)'), "ASC")->get();
             // dd($students);
@@ -49,7 +50,7 @@ class NoPostReportController extends Controller
             
             $postedStudentsName = [];
             $allStudentsList = DB::table('students')->select('students.username')
-            ->where(['students.sclasses_id' => $lessonLog['sclasses_id']])->get();
+            ->where(['students.sclasses_id' => $lessonLog['sclasses_id']])->where('students.is_lock', "!=", "1")->get();
             foreach ($students as $key => $student) {
                 array_push($postedStudentsName, $student->username);
             }

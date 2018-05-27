@@ -59,7 +59,7 @@
               <th data-field="users_id" data-formatter="resetCol" data-events="resetActionEvents">
                   重置密码
               </th>
-              <th data-field="studentsId" data-formatter="actionCol" data-events="actionEvents">
+              <th data-field="studentsId" data-formatter="studentAccountActionCol" data-events="studentAccountActionEvents">
                   操作
               </th> 
             </tr>
@@ -68,4 +68,11 @@
   </div>
 </div>
 </div>
+@endsection
+
+@section('scripts')
+    <link href="/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="/js/fileinput.min.js"></script>
+    <script src="/js/locales/zh.js"></script>
+    <script src="/js/admin/student-account-import.js"></script>
 @endsection

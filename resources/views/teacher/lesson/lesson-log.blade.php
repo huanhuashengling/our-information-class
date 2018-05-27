@@ -64,3 +64,7 @@
 </div>
 </div>
 @endsection
+
+@section('scripts')
+    <script src="/js/teacher/lesson-history.js"></script>
+@endsection

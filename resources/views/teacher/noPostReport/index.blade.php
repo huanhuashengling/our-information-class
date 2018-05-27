@@ -23,3 +23,7 @@
     
 </div>
 @endsection
+
+@section('scripts')
+    <script src="/js/teacher/no-post-report.js"></script>
+@endsection

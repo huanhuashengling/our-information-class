@@ -37,3 +37,7 @@
     </table>
 </div>
 @endsection
+
+@section('scripts')
+    <script src="/js/admin/lesson-log.js"></script>
+@endsection

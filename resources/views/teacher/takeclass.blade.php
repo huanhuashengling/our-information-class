@@ -97,3 +97,7 @@
 </div>
 
 @endsection
+
+@section('scripts')
+    <script src="/js/teacher/take-class.js"></script>
+@endsection

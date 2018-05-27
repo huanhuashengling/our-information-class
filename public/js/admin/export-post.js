@@ -21,6 +21,19 @@ $(document).ready(function() {
         });
     });
 
+    $("#export-btn").click(function(e){
+        $.ajax({
+            type: "POST",
+            url: '/admin/export-post-files',
+            data: {exportDir: $("#output-dir").val(), sclassesId: $("#classes-selection").val(), lessonlogsId: $("#lesson-log-selection").val()},
+            success: function( data ) {
+                // $("#lesson-log-selection").html(data);
+                console.log(data);
+
+            }
+        });
+    });
+
     $("#lesson-log-selection").change(function(e){
     	// alert("asasas");
     	$('#posts-list').bootstrapTable("refresh");

@@ -10,7 +10,6 @@
     <title>{{ trans("layouts.title") }}</title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
     <link href="/css/bootstrap-table.css" media="all" rel="stylesheet" type="text/css" />
 
     <link href="/css/jquery-ui.css" rel="stylesheet">
@@ -21,18 +20,7 @@
     <script src="/js/plugins/canvas-to-blob.min.js" type="text/javascript"></script>
     <script src="/js/plugins/sortable.min.js" type="text/javascript"></script>
     <script src="/js/plugins/purify.min.js" type="text/javascript"></script>
-    <script src="/js/fileinput.min.js"></script>
     <script src="/js/bootstrap-table.js"></script>
-
-    <script src="/js/locales/zh.js"></script>
-    <script src="/js/admin/student-account-import.js"></script>
-    <script src="/js/admin/export-post.js"></script>
-    <script src="/js/admin/Chart.js"></script>
-    <script src="/js/admin/utils.js"></script>
-    <script src="/js/admin/dashboard.js"></script>
-    <script src="/js/admin/lesson-log.js"></script>
-
-
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" /> -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script> -->
 
@@ -93,5 +81,6 @@
 
     @yield('content')
 
+    @yield('scripts')
 </body>
 </html>

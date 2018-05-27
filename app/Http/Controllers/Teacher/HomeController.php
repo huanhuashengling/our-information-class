@@ -46,11 +46,13 @@ class HomeController extends Controller
             // dd($dateDiff);
             $classData[$sclass['id']] = $sclass['enter_school_year'] . "级" . $sclass['class_title'] . "班";
         }
-        $lessons = Lesson::get();
+        $lessons = Lesson::orderBy("lessons.created_at", "DESC")->get();
         $lessonsData = [];
         array_push($lessonsData, "请选择课程");
+        $order = 1;
         foreach ($lessons as $key => $lesson) {
-            $lessonsData[$lesson['id']] = $lesson['id'] . ". " . $lesson['title'] . "(". $lesson['subtitle'] .")";
+            $lessonsData[$lesson['id']] = $order . ". " . $lesson['title'] . "(". $lesson['subtitle'] .")";
+            $order++;
         }
         return view('teacher/home', compact('classData', 'lessonsData'));
     }
@@ -70,6 +72,7 @@ class HomeController extends Controller
         ->leftJoin('comments', 'comments.posts_id', '=', 'posts.id')
         ->leftJoin('marks', 'marks.posts_id', '=', 'posts.id')
         ->where(["students.sclasses_id" => $lessonLog['sclasses_id'], 'posts.lesson_logs_id' => $lessonLog['id']])
+        ->where('students.is_lock', "!=", "1")
         ->groupBy('students.id', 'students.username', 'posts.storage_name', 'comments.content', 'post_rates.rate', 'posts.id')
         ->orderBy(DB::raw('convert(students.username using gbk)'), "ASC")->get();
         // dd($students);
@@ -77,7 +80,7 @@ class HomeController extends Controller
         
         $postedStudents = [];
         $allStudentsList = DB::table('students')->select('students.username')
-        ->where(['students.sclasses_id' => $lessonLog['sclasses_id']])->get();
+        ->where(['students.sclasses_id' => $lessonLog['sclasses_id']])->where('students.is_lock', "!=", "1")->get();
         foreach ($students as $key => $student) {
             array_push($postedStudents, $student->username);
         }
