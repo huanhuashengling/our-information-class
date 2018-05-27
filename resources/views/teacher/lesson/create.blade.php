@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">添加课程</div>
+                <div class="panel-heading"><h4>添加课程</h4></div>
                 <div class="panel-body">
 
                     @if (count($errors) > 0)
@@ -28,7 +28,8 @@
                             {!! Form::textarea('content', '', ['class' => 'form-control','id'=>'myEditor']) !!}
                         </div>
                         <br>
-                        <button class="btn btn-lg btn-info">添加</button>
+                        <button class="btn btn-success btn-lg pull-right">添加</button> 
+                         <a class="btn btn-info btn-lg pull-right" href="javascript:window.history.back()">返回</a>
                     </form>
 
                 </div>
