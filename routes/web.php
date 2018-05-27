@@ -148,6 +148,12 @@ Route::group(['middleware' => 'auth.teacher', 'prefix' => 'teacher','namespace' 
     $router->get('noPostReport', 'NoPostReportController@index');
     $router->post('getNoPostReport', 'NoPostReportController@report');
 
+
+    $router->get('get-lesson-list', 'LessonController@getLessonList');
+    $router->post('deleteLesson', 'LessonController@deleteLesson');
+    $router->post('getLesson', 'LessonController@getLesson');
+
+
 });
 
 Route::group(['prefix' => 'student','namespace' => 'Student'],function ($router)

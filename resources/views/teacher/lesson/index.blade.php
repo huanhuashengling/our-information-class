@@ -2,42 +2,55 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading"><h4><p class="text-center">课程列表</p></h4></div>
-                <div class="panel-body">
-                    @if (count($errors) > 0)
-                        <div class="alert alert-danger">
-                            {!! implode('<br>', $errors->all()) !!}
-                        </div>
-                    @endif
-                    <h4>我是搜索框</h4>
-                    <table class="table table-striped">
-                    <thead><tr><th>课程编号</th><th>课程标题</th><th>课程副标题</th><th>操作</th></tr></thead>
-                    <tbody>
-                    @foreach ($lessons as $key => $lesson)
-                        <tr>
-                        <td>{{ $key }}</td>
-                        <td>{{ $lesson->title }}</td>
-                        <td>{{ $lesson->subtitle }}</td>
-                        <td>
-                            <a href="{{ url('teacher/lesson/'.$lesson->id.'/edit') }}" class="btn btn-success">编辑</a>
-                            <form action="{{ url('teacher/lesson/'.$lesson->id) }}" method="POST" style="display: inline;">
-                                {{ method_field('DELETE') }}
-                                {{ csrf_field() }}
-                                <button type="submit" class="btn btn-danger">删除</button>
-                            </form>
-                        </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                    </table>
-                    <a href="{{ url('teacher/lesson/create') }}" class="btn  btn-primary">新增</a>
+    <div id="toolbar">
+        <button class="btn btn-success" id="add-lesson-btn">新增课程</button>
+    </div>
+    <table id="lesson-list" class="table table-condensed table-responsive">
+        <thead>
+            <tr>
+                <th data-field="" checkbox="true">
 
-                </div>
-            </div>
+                </th>
+                <th data-field="">
+                    序号
+                </th>
+                <th data-field="title" data-sortable="true">
+                    标题
+                </th>
+                <th data-field="subtitle" data-sortable="true">
+                    副标题
+                </th>
+                <th data-field="username" data-sortable="true">
+                    创建者
+                </th>
+                <th data-field="lesson_log_num" data-sortable="true">
+                    上课次数
+                </th>
+                <th data-field="updated_at" data-sortable="true">
+                    创建时间
+                </th>
+                <th data-field="lessonsId" data-formatter="actionCol" data-events="actionEvents">
+                  操作
+                </th>
+            </tr>
+        </thead>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="lesson-detail-modal" tabindex="-2" role="dialog" aria-labelledby="lesson-detail-modal">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="lesson-detail-title">查看课程内容</h4>
+          </div>
+          <div class="modal-body" id="lesson-detail-help-md-doc">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          </div>
         </div>
+      </div>
     </div>
 </div>
 @endsection

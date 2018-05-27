@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Lesson;
 use \Auth;
+use \DB;
 use EndaEditor;
 
 class LessonController extends Controller
@@ -71,6 +72,15 @@ class LessonController extends Controller
         return redirect()->back()->withInput()->withErrors('删除成功！');
     }
 
+    public function deleteLesson(Request $request)
+    {
+        if (Lesson::find($request->get('lessonsId'))->delete()) {
+            return "true";
+        } else {
+            return "false";
+        }
+    }
+
     public function uploadMDImage()
     {
         $data = EndaEditor::uploadImgFile('uploads/md');
@@ -86,5 +96,24 @@ class LessonController extends Controller
             $helpMDDoc[$lesson->subtitle] = $lesson->help_md_doc;
         }
         return $helpMDDoc;
+    }
+
+    public function getLesson(Request $request)
+    {
+        $lessonsId = $request->get('lessonsId');
+        $lesson = Lesson::find($lessonsId);
+        $lesson->help_md_doc = EndaEditor::MarkDecode($lesson->help_md_doc);
+        return $lesson;
+    }
+
+    public function getLessonList()
+    {
+        $lessons = Lesson::select('lessons.id', 'lessons.title', 'lessons.subtitle', 'lessons.updated_at', 'teachers.username', DB::raw("COUNT(`lesson_logs`.`id`) as lesson_log_num"))
+            ->leftJoin("teachers", "teachers.id", "=", "lessons.teachers_id")
+            ->leftJoin("lesson_logs", "lesson_logs.lessons_id", "=", "lessons.id")
+            ->groupBy('lessons.id', 'lessons.title', 'lessons.subtitle', 'lessons.updated_at', 'teachers.username')
+            ->orderBy('lessons.updated_at', 'DESC')
+            ->get();
+        return $lessons;
     }
 }

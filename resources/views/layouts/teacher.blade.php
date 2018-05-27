@@ -11,6 +11,8 @@
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="/css/bootstrap-table.css" media="all" rel="stylesheet" type="text/css" />
+
 
     <link href="/css/jquery-ui.css" rel="stylesheet">
     <script src="/js/jquery-3.2.1.min.js"></script>
@@ -21,12 +23,15 @@
     <script src="/js/plugins/sortable.min.js" type="text/javascript"></script>
     <script src="/js/plugins/purify.min.js" type="text/javascript"></script>
     <script src="/js/fileinput.min.js"></script>
+    <script src="/js/bootstrap-table.js"></script>
+    
 
     <script src="/js/locales/zh.js"></script>
     <script src="/js/teacher/select-class-lesson.js"></script>
     <script src="/js/teacher/take-class.js"></script>
     <script src="/js/teacher/lesson-history.js"></script>
     <script src="/js/teacher/no-post-report.js"></script>
+    <script src="/js/teacher/lesson.js"></script>
 
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" /> -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script> -->
