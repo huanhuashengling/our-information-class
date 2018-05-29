@@ -16,6 +16,8 @@
         <button class="btn btn-info btn-sm form-control">打字</button>
         <button class="btn btn-info btn-sm form-control">美图</button> -->
         <button class="btn btn-info btn-sm form-control" id="all-posts-btn">全部</button>
+        <input type="text" name="" id="search-name" class="form-control input-sm" placeholder="姓名">
+        <button class="btn btn-info btn-sm form-control" id="name-search-btn">搜索</button>
     </div>
     <div class="col-md-11" id="posts-list">
     @foreach($posts as $key=>$post)

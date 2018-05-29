@@ -40,7 +40,9 @@ class ClassmateController extends Controller
                 $posts = $this->getHasCommentPostsData();
                 break;
             default:
-                # code...
+                if ("search-name" == explode("=",$getDataType)[0]) {
+                    $posts = $this->getSearchNamePostsData(explode("=",$getDataType)[1]);
+                }
                 break;
         }
         return view('student/classmatePost', compact('posts'));
@@ -139,6 +141,19 @@ class ClassmateController extends Controller
                 ->leftjoin('post_rates', 'posts.id', '=', 'post_rates.posts_id')
                 ->leftjoin('marks', 'marks.posts_id', '=', 'posts.id')
                 ->leftjoin('comments', 'comments.posts_id', '=', 'posts.id')
+                ->groupBy('posts.id', 'sclasses.class_title', 'sclasses.enter_school_year', 'post_rates.rate', 'posts.storage_name', 'students.username', 'comments.id')
+                ->orderby("cid", "DESC")->paginate(24);
+        return $posts;
+    }
+
+    public function getSearchNamePostsData($searchName) {
+        $posts = Post::select('posts.id as pid', 'sclasses.class_title', 'sclasses.enter_school_year', 'post_rates.rate', 'posts.storage_name', 'students.username', 'comments.id as cid', DB::raw("SUM(`marks`.`state_code`) as mark_num"))
+                ->leftjoin('students', 'posts.students_id', '=', 'students.id')
+                ->leftjoin('sclasses', 'students.sclasses_id', '=', 'sclasses.id')
+                ->leftjoin('post_rates', 'posts.id', '=', 'post_rates.posts_id')
+                ->leftjoin('marks', 'marks.posts_id', '=', 'posts.id')
+                ->leftjoin('comments', 'comments.posts_id', '=', 'posts.id')
+                ->where('students.username', 'like', '%'.$searchName.'%')
                 ->groupBy('posts.id', 'sclasses.class_title', 'sclasses.enter_school_year', 'post_rates.rate', 'posts.storage_name', 'students.username', 'comments.id')
                 ->orderby("cid", "DESC")->paginate(24);
         return $posts;

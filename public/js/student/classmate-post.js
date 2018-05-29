@@ -73,6 +73,14 @@ $(document).ready(function() {
         top.location='/student/classmate?type=has-comment'; 
     });
 
+    $('#name-search-btn').on('click', function (e) {
+        if("" == $("#search-name").val()) {
+            alert("姓名不能为空！");
+        } else {
+            top.location='/student/classmate?type=search-name=' + $("#search-name").val(); 
+        }
+    });
+
     $('.thumb-img').on('click', function (e) {
         e.preventDefault();
         // $("[name='likeCheckBox']").bootstrapSwitch('state', "false");
