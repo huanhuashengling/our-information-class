@@ -66,7 +66,15 @@ class PostController extends Controller
             $postData[] = ["lesson" => $lesson, 'post' => $post, 'rate' => $rate, 'lessonLog' => $lessonLog, 'hasComment' => $hasComment, 'markNum' => $markNum, 'markNames' => $markNames];
         }
         $allScore = $allEffectMarkNum * 0.5 + $allRateNum * 8 + $allCommentNum * 1;
-// dd($postData);
-        return view('student/posts', compact('postData', 'allMarkNum', 'allEffectMarkNum', 'allRateNum', 'allCommentNum', 'allScore'));
+        if ($allScore < 60) {
+            $levelStr = "不合格";
+        } else if ($allScore < 80) {
+            $levelStr = "合格";
+        } else if ($allScore < 95) {
+            $levelStr = "优秀";
+        } else {
+            $levelStr = "非常优秀";
+        } 
+        return view('student/posts', compact('postData', 'allMarkNum', 'allEffectMarkNum', 'allRateNum', 'allCommentNum', 'allScore', 'levelStr'));
     }
 }

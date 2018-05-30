@@ -36,13 +36,13 @@
                 //echo public_path()."/posts/".$post->storage_name;
             }
             $post->studentClass = (2018-$post->enter_school_year) . $post->class_title . "";
-            $gap = "";
+            $gap = " ";
             $ratestr = isset($post->rate)?$post->rate:"";
 
             if ($post->mark_num) {
                 $markstr = $post->mark_num . "赞";
             } else {
-                $gap = "";
+                $gap = " ";
                 $markstr = "";
             }
         @endphp
