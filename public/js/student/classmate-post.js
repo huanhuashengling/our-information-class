@@ -89,7 +89,7 @@ $(document).ready(function() {
             $(".rate-btn").removeClass('active').find('input').prop('checked', false);
           }.bind(this), 10);
         }
-        $('#classmate-post-comment').val("");
+        $('#post-comment').val("");
         // console.log($(this).attr("value"));
         // var postsId = (e.target.value).split(',')[0]; 
         var postsId = $(this).attr("value");
