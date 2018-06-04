@@ -78,9 +78,9 @@ $(document).ready(function() {
                     console.log(OnCreateUrl(data));
 
                     if ("doc" == data.filetype) {
-                        $('#doc-preview').html(OnCreateUrl(data));
+                        $('#doc-preview').html(OnCreateUrl(data.url));
                     } else if ("img" == data.filetype) {
-                        $('#post-show').attr("src", data);
+                        $('#post-show').attr("src", data.url);
                     }
                     // $('#doc-preview').attr("src", "http://mydocview.contoso.com/op/embed.aspx?src=" + data);
                     $('#post-download-link').attr("href", data);
