@@ -72,11 +72,6 @@
         <div id="doc-preview"></div>
         <img src="" id='post-show' class="img-responsive img-thumbnail center-block">
         <a href="" id="post-download-link">右键点击下载</a>
-
-        <!-- https://docview.mingdao.com/op/generate.aspx -->
-        <!-- <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=http://www.ccut.edu.tw/teachers/cskuan/downloads/ed01-ch01.ppt' width='800px' height='600px' frameborder='0'> -->
-        <!-- <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=http://www.lf1.cuni.cz/zfisar/psychiatry/Child%20Psychiatry.ppt' width='800px' height='600px' frameborder='0'> -->
-        <!-- </iframe> -->
       </div>
 
     <div class="modal-footer">

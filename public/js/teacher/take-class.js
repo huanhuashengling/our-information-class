@@ -76,9 +76,13 @@ $(document).ready(function() {
                 } else {
                     console.log(data);
                     console.log(OnCreateUrl(data));
-                    $('#doc-preview').html(OnCreateUrl(data));
+
+                    if ("doc" == data.filetype) {
+                        $('#doc-preview').html(OnCreateUrl(data));
+                    } else if ("img" == data.filetype) {
+                        $('#post-show').attr("src", data);
+                    }
                     // $('#doc-preview').attr("src", "http://mydocview.contoso.com/op/embed.aspx?src=" + data);
-                    $('#post-show').attr("src", data);
                     $('#post-download-link').attr("href", data);
 
                 }

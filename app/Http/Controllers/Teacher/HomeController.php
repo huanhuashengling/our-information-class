@@ -156,13 +156,18 @@ class HomeController extends Controller
     public function getPost(Request $request)
     {
         $post = Post::where(['id' => $request->input('posts_id')])->orderBy('id', 'desc')->first();
-
+        $imgTypes = ['jpg', 'jpeg', 'bmp', 'gif', 'png'];
+        $docTypes = ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'];
         if (isset($post)) {
+            if (in_array($post->file_ext, $imgTypes)) {
+                return ["filetype"=>"img", "url" => getThumbnail($post['storage_name'], 800, 600, 'fit')];
+            } elseif (in_array($post->file_ext, $docTypes)) {
+                return ["filetype"=>"doc", "url" => env('APP_URL')."/posts/".$post->storage_name];
+            }
             // $file = Storage::disk('uploads')->get($post->storage_name)->getPath();
                 // $post->storage_name = env('APP_URL')."/posts/".$post->storage_name;
             // return getThumbnail($post['storage_name'], 800, 600, 'fit');
         
-            return env('APP_URL')."/posts/".$post->storage_name;
         } else {
             return "false";
         }
