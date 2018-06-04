@@ -68,6 +68,8 @@
       </div>
       <div class="modal-body">
       <!-- <iframe src='https://docview.mingdao.com/op/embed.aspx?src=http://www.ccut.edu.tw/teachers/cskuan/downloads/ed01-ch01.ppt' width='800px' height='600px' frameborder='0'>This is an embedded <a target='_blank' href='http://office.com'>Microsoft Office</a> document, powered by <a target='_blank' href='http://office.com/webapps'>Office Web Apps</a>.</iframe> -->
+
+        <div id="doc-preview"></div>
         <img src="" id='post-show' class="img-responsive img-thumbnail center-block">
         <a href="" id="post-download-link">右键点击下载</a>
 
