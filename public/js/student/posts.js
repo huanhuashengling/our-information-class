@@ -51,6 +51,7 @@ $(document).ready(function() {
 
                 $('#posts-id').val(postsId);
                 if ("doc" == filetype) {
+                    console.log(OnCreateUrl(previewPath));
                     $('#doc-preview-'+postsId).html(OnCreateUrl(previewPath));
                 } else if ("img" == filetype) {
                     $('#post-show-'+postsId).attr("src", filePath);
