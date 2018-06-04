@@ -83,9 +83,17 @@ class ImageController extends Controller
             //return the url of the thumbnail
             return url("{$images_path}/thumbs/" . "{$width}x{$height}/" . $path);
         } else {
-
-            //return a placeholder image
-            return "http://placehold.it/{$width}x{$height}";
+            $docTypes = ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'];
+            $docMimeType = ["application/msword", 'application/x-xls', 'application/vnd.ms-excel', 'application/x-ppt', 'application/vnd.ms-powerpoint'];
+            if (in_array($contentType, ["application/msword"])) {
+                return url("images/doc.png");
+            } elseif (in_array($contentType, ["application/x-xls", 'application/vnd.ms-excel'])) {
+                return url("images/xls.png");
+            } elseif (in_array($contentType, ["application/x-ppt", 'application/vnd.ms-powerpoint'])) {
+                return url("images/ppt.png");
+            } else {
+                return "http://placehold.it/{$width}x{$height}";
+            }
         }
     }
 }
