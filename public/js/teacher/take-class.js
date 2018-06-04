@@ -74,8 +74,8 @@ $(document).ready(function() {
                 if ("false" == data) {
 
                 } else {
-                    console.log(data);
-                    console.log(OnCreateUrl(data));
+                    // console.log(data);
+                    // console.log(OnCreateUrl(data));
 
                     if ("doc" == data.filetype) {
                         $('#doc-preview').html(OnCreateUrl(data.url));

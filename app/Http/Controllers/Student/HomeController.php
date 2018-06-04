@@ -69,6 +69,7 @@ class HomeController extends Controller
     public function upload(Request $request)
     {
       $file = $request->file('source');
+      // $redirectUrl = ($request->input('url'))?("/" . $request->input('url')):"";
       if(!$file) {
         return Redirect::to('student')->with('danger', '请重新选择作业提交！');
       }
@@ -225,12 +226,27 @@ class HomeController extends Controller
 
     public function getOnePost(Request $request)
     {
+        $imgTypes = ['jpg', 'jpeg', 'bmp', 'gif', 'png'];
+        $docTypes = ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'];
         $post = Post::where("posts.id", "=", $request->input('posts_id'))
                 ->leftjoin('students', 'students.id', '=', "posts.students_id")
                 ->leftjoin('lesson_logs', 'lesson_logs.id', '=', "posts.lesson_logs_id")
                 ->leftjoin('lessons', 'lessons.id', '=', "lesson_logs.lessons_id")->first();
                 // return var_dump($post);
         if (isset($post)) {
+          if (in_array($post->file_ext, $imgTypes)) {
+                return ["filetype"=>"img", 
+                    "storage_name" => getThumbnail($post['storage_name'], 800, 600, 'fit'), 
+                    'username' => $post["username"], 
+                    'lessontitle' => $post["title"], 
+                    'lessonsubtitle' => $post["subtitle"]];
+            } elseif (in_array($post->file_ext, $docTypes)) {
+              return ["filetype"=>"doc", 
+                    "storage_name" => env('APP_URL')."/posts/".$post->storage_name, 
+                    'username' => $post["username"], 
+                    'lessontitle' => $post["title"], 
+                    'lessonsubtitle' => $post["subtitle"]];
+            }
           // $post['storage_name'] = env('APP_URL')."/posts/".$post['storage_name'];
             // return env('APP_URL')."/posts/".$post['storage_name'];
             // {{ getThumbnail($post->storage_name, 140, 100, 'fit') }}

@@ -19,6 +19,9 @@ class PostController extends Controller
 {
     public function index()
     {
+        $imgTypes = ['jpg', 'jpeg', 'bmp', 'gif', 'png'];
+        $docTypes = ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'];
+
         $id = \Auth::guard("student")->id();
         $student = Student::find($id);
         $lessonLogs = LessonLog::where(['sclasses_id' => $student['sclasses_id']])->get();
@@ -39,6 +42,15 @@ class PostController extends Controller
             $markNames = [];
             if (isset($post)) {
                 $post->storage_name = env('APP_URL')."/posts/".$post->storage_name;
+
+                if (in_array($post->file_ext, $imgTypes)) {
+                    $post["filetype"] = "img";
+                    $post["previewPath"] = getThumbnail($post['storage_name'], 800, 600, 'fit');
+                } elseif (in_array($post->file_ext, $docTypes)) {
+                    $post["filetype"] = "doc";
+                    $post["previewPath"] = env('APP_URL')."/posts/".$post->storage_name;
+                }
+
 
                 $postRate = PostRate::where(['posts_id' => $post['id']])->first();
                 // $rate = isset($postRate)?$postRate['rate']:"";

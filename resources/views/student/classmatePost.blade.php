@@ -73,6 +73,7 @@
         <h4 class="modal-title" id="classmate-post-modal-label"></h4>
       </div>
       <div class="modal-body">
+        <div id='doc-preview'></div>
         <img src="" id='classmate-post-show' class="img-responsive img-thumbnail center-block">
         <!-- <a href="" id="classmate-post-download-link">右键点击下载</a> -->
         <label id="post-comment"></label>

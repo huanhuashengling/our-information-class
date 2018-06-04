@@ -1,3 +1,11 @@
+var ViewUrlMask = "http:\u002f\u002fmydocview.contoso.com\u002fop\u002fview.aspx?src=WACFILEURL";
+var EmbedCodeMask = "\u003ciframe src=\u0027http:\u002f\u002fmydocview.contoso.com\u002fop\u002fembed.aspx?src=WACFILEURL\u0027 width=\u0027800px\u0027 height=\u0027600px\u0027 frameborder=\u00270\u0027\u003eThis is an embedded \u003ca target=\u0027_blank\u0027 href=\u0027http:\u002f\u002foffice.com\u0027\u003eMicrosoft Office\u003c\u002fa\u003e document, powered by \u003ca target=\u0027_blank\u0027 href=\u0027http:\u002f\u002foffice.com\u002fwebapps\u0027\u003eOffice Web Apps\u003c\u002fa\u003e.\u003c\u002fiframe\u003e";
+var UrlPlaceholder = "WACFILEURL";
+var OriginalUrlElementId = "OriginalUrl";
+var GeneratedViewUrlElementId = "GeneratedViewUrl";
+var GeneratedEmbedCodeElementId = "GeneratedEmbedCode";
+var CopyViewUrlLinkId = "CopyViewUrl";
+var CopyEmbedCodeLinkId = "CopyEmbedCode";
 $(document).ready(function() {
 	$.ajaxSetup({
 	  headers: {
@@ -9,6 +17,8 @@ $(document).ready(function() {
             if ($(this).attr("value")) {
                 var postsId = $(this).attr("value").split(',')[0]; 
                 var filePath = $(this).attr("value").split(',')[1]; 
+                var filetype = $(this).attr("value").split(',')[2]; 
+                var previewPath = $(this).attr("value").split(',')[3]; 
 
                 e.preventDefault();
                 $.ajax({
@@ -40,7 +50,12 @@ $(document).ready(function() {
                 });
 
                 $('#posts-id').val(postsId);
-                $('#post-show-'+postsId).attr("src", filePath);
+                if ("doc" == filetype) {
+                    $('#doc-preview-'+postsId).html(OnCreateUrl(previewPath));
+                } else if ("img" == filetype) {
+                    $('#post-show-'+postsId).attr("src", filePath);
+                }
+                // $('#post-show-'+postsId).attr("src", filePath);
                 $('#post-download-'+postsId).attr("href", filePath);
                 // $('#post-show-'+postsId).attr("href", filePath);
                 //$('#myModal').modal();
@@ -63,3 +78,15 @@ $(document).ready(function() {
             initialPreviewAsData: true, // 特别重要
     });
 });
+
+function OnCreateUrl(data)
+{
+    // var originalUrl = document.getElementById(OriginalUrlElementId).value;
+    var originalUrl = data;
+
+    var generatedViewUrl = ViewUrlMask.replace(UrlPlaceholder, encodeURIComponent(originalUrl));
+    var generatedEmbedCode = EmbedCodeMask.replace(UrlPlaceholder, encodeURIComponent(originalUrl));
+    return generatedEmbedCode;
+    // document.getElementById(GeneratedViewUrlElementId).value = generatedViewUrl;
+    // document.getElementById(GeneratedEmbedCodeElementId).value = generatedEmbedCode;
+}

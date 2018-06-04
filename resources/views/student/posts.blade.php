@@ -44,7 +44,7 @@
         <div class="col-md-12">
             <div class="panel panel-{{$hasPostCss}}">
                 <div class="panel-heading" role="tab" id="heading{{$orderNum}}">
-                  <h4 class="panel-title" value="{{ $item['post']['id'] }},{{ $item['post']['storage_name'] }}">
+                  <h4 class="panel-title" value="{{ $item['post']['id'] }},{{ $item['post']['storage_name'] }},{{ $item['post']['filetype'] }},{{ $item['post']['previewPath'] }}">
                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$orderNum}}" aria-expanded="true" aria-controls="collapse{{$orderNum}}">
                         第{{ $orderNum }}节： {{ $item['lesson']['title'] }} <small>{{ $item['lesson']['subtitle'] }} </small>  <label class="text-right">{{$item['rate']}} {{$hasComment}} {{$markStr}}{{$hasPostStr}}</label>
                     </a>
@@ -54,6 +54,7 @@
                 <div class="panel-body">
                     <div class="col-md-12">
                     @if (isset($item['post']))
+                        <div id="doc-preview-{{$item['post']['id']}}"></div>
                         <img src="" id="post-show-{{$item['post']['id']}}" class="img-responsive">
                         <!-- <embed src="" width="1024" height="768" id="post-show-{{$item['post']['id']}}" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html"> -->
                         <a href="" id="post-download-{{$item['post']['id']}}">右键点击下载</a>
