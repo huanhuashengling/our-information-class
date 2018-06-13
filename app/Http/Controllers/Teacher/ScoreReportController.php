@@ -27,7 +27,7 @@ class ScoreReportController extends Controller
             // dd($dateDiff);
             $classData[$sclass['id']] = $sclass['enter_school_year'] . "级" . $sclass['class_title'] . "班";
         }
-        return view('teacher/noPostReport/index', compact('classData'));
+        return view('teacher/scoreReport/index', compact('classData'));
     }
 
     public function report(Request $request) {
@@ -40,6 +40,9 @@ class ScoreReportController extends Controller
         foreach ($students as $key => $student) {
             $tDate = [];
             $tDate['username'] = $student->username;
+            $tDate['postedNum'] = Post::where("posts.students_id", '=', $student->id)
+                                        ->where(DB::raw('YEAR(posts.created_at)'), ">", 2017)
+                                        ->count();
             // $tDate['postedNum'] 
             $posts = Post::select('posts.id', DB::raw("SUM(`marks`.`state_code`) as mark_num"))
                             ->leftJoin("marks", 'marks.posts_id', '=', 'posts.id')
@@ -48,7 +51,6 @@ class ScoreReportController extends Controller
                             ->where(DB::raw('YEAR(posts.created_at)'), ">", 2017)
                             ->groupBy('posts.id')
                             ->get();
-            $tDate['postedNum'] = count($posts);
             $tDate['markNum'] = 0;
             $tDate['effectMarkNum'] = 0;
             foreach ($posts as $key => $post) {
