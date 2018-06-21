@@ -48,7 +48,7 @@ class PostController extends Controller
                     $post["previewPath"] = getThumbnail($post['storage_name'], 800, 600, 'fit');
                 } elseif (in_array($post->file_ext, $docTypes)) {
                     $post["filetype"] = "doc";
-                    $post["previewPath"] = env('APP_URL')."/posts/".$post->storage_name;
+                    $post["previewPath"] = $post->storage_name;
                 }
 
 

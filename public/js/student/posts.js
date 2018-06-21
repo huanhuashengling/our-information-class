@@ -51,7 +51,8 @@ $(document).ready(function() {
 
                 $('#posts-id').val(postsId);
                 if ("doc" == filetype) {
-                    console.log(OnCreateUrl(previewPath));
+                    // console.log(OnCreateUrl(previewPath));
+                    // console.log((previewPath));
                     $('#doc-preview-'+postsId).html(OnCreateUrl(previewPath));
                 } else if ("img" == filetype) {
                     $('#post-show-'+postsId).attr("src", filePath);
@@ -85,7 +86,7 @@ function OnCreateUrl(data)
     // var originalUrl = document.getElementById(OriginalUrlElementId).value;
     var originalUrl = data;
 
-    var generatedViewUrl = ViewUrlMask.replace(UrlPlaceholder, encodeURIComponent(originalUrl));
+    // var generatedViewUrl = ViewUrlMask.replace(UrlPlaceholder, encodeURIComponent(originalUrl));
     var generatedEmbedCode = EmbedCodeMask.replace(UrlPlaceholder, encodeURIComponent(originalUrl));
     return generatedEmbedCode;
     // document.getElementById(GeneratedViewUrlElementId).value = generatedViewUrl;
