@@ -48,8 +48,8 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/admin/dashboard') }}">数据报表</a></li>
                     <li><a href="{{ url('/admin/students') }}">学生账户</a></li>
+                    <li><a href="{{ url('/admin/dashboard') }}">数据报表</a></li>
                     <li><a href="{{ url('/admin/teachers') }}">教师账户</a></li>
                     <li><a href="{{ url('/admin/export-post') }}">导出作业</a></li>
                     <li><a href="{{ url('/admin/lessonLog') }}">课程记录</a></li>
