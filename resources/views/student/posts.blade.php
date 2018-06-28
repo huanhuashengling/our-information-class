@@ -29,15 +29,28 @@
     @foreach ($postData as $key => $item)
         @php
             $orderNum = $key + 1;
-            $hasComment = ("true" == $item['hasComment'])?"有评语":"";
-            $hasPostCss = "warning";
+            $hasComment = "";
+            
+            $hasPostCss = "default";
             $hasPostStr = "(未交)";
             $rateStr = "";
             $markStr = "";
             if (isset($item['post'])) {
-                $hasPostCss = "success";
                 $hasPostStr = "";
                 $markStr = $item['markNum']."个赞";
+
+                if ("优" == $item['rate']) {
+                    $hasPostCss = "success";
+                } elseif ("良" == $item['rate']) {
+                    $hasPostCss = "info";
+                } else {
+                    $hasPostCss = "warning";
+                }
+            }
+
+            if ("true" == $item['hasComment']) {
+                $hasComment = "有评语";
+                $hasPostCss = "danger";
             }
             
         @endphp
