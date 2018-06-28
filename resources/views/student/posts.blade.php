@@ -41,6 +41,9 @@
             }
             
         @endphp
+        @if ("优" != $item['rate'])
+            <input type="hidden" name="" id="posted-path-{{$item['post']['id']}}" value="{{ $item['post']['storage_name'] }}" />
+        @endif
         <div class="col-md-12">
             <div class="panel panel-{{$hasPostCss}}">
                 <div class="panel-heading" role="tab" id="heading{{$orderNum}}">
@@ -53,25 +56,26 @@
                 <div id="collapse{{$orderNum}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{$orderNum}}">
                 <div class="panel-body">
                     <div class="col-md-12">
-                    @if (isset($item['post']))
-                        <div id="doc-preview-{{$item['post']['id']}}"></div>
-                        <img src="" id="post-show-{{$item['post']['id']}}" class="img-responsive">
-                        <!-- <embed src="" width="1024" height="768" id="post-show-{{$item['post']['id']}}" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html"> -->
-                        <a href="" id="post-download-{{$item['post']['id']}}">右键点击下载</a>
-                        <p></p>
-                        <div class="form-group">
-                            <label id="rate-label-{{$item['post']['id']}}"></label>
-                            <!--<h4>点赞：<small>刘奥，刘胜翔</small></h4>-->
-                        </div>
-                        <div class="form-group">
-                            <label id="post-comment-{{$item['post']['id']}}" value=''></label>
-                        </div>
-                        <div class="form-group">
-                            {{$item['markNum']}}个人为你点赞：
-                            @foreach ($item['markNames'] as $key => $name)
-                                {{$name->username}},
-                            @endforeach
-                        </div>
+                    @if (isset($item['post']) && "优" == $item['rate'])
+                        
+                            <div id="doc-preview-{{$item['post']['id']}}"></div>
+                            <img src="" id="post-show-{{$item['post']['id']}}" class="img-responsive">
+                            <!-- <embed src="" width="1024" height="768" id="post-show-{{$item['post']['id']}}" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html"> -->
+                            <a href="" id="post-download-{{$item['post']['id']}}">右键点击下载</a>
+                            <p></p>
+                            <div class="form-group">
+                                <label id="rate-label-{{$item['post']['id']}}"></label>
+                                <!--<h4>点赞：<small>刘奥，刘胜翔</small></h4>-->
+                            </div>
+                            <div class="form-group">
+                                <label id="post-comment-{{$item['post']['id']}}" value=''></label>
+                            </div>
+                            <div class="form-group">
+                                {{$item['markNum']}}个人为你点赞：
+                                @foreach ($item['markNames'] as $key => $name)
+                                    {{$name->username}},
+                                @endforeach
+                            </div>
                     @else
                         <h4>请补交作业</h4>
                         {!! $item['lesson']['help_md_doc'] !!}
@@ -83,7 +87,7 @@
                         @endif
                         {!! Form::open(array('url'=>'student/upload','method'=>'POST', 'files'=>true)) !!}
                             <input type="hidden" name="lesson_logs_id" value="{{$item['lessonLog']['id']}}">
-                            {!! Form::file('source', ['class' => 'input-zh']) !!}
+                            {!! Form::file('source', ['id' => 'input-zh-'.$item["post"]["id"], 'class' => 'input-zh']) !!}
                             <p class="errors">{!!$errors->first('image')!!}</p>
                         {!! Form::close() !!}
                     @endif
