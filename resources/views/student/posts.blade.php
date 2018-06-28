@@ -12,7 +12,7 @@
     <div class="alert alert-info col-md-8 col-md-offset-2">
         <h4>当前成绩：有效赞{{$allEffectMarkNum}} * 0.5 + 共{{$allRateNum}}个优 * 8 + 共{{$allCommentNum}}条评语 * 1 = {{$allScore}}分 （当前等第：{{$levelStr}}）</h4>
         <h5>总赞数(共{{$allMarkNum}}个赞)，每次作业四次为有效赞，以每个0.5分计入期末成绩，共2分</h5>
-
+        <h5>本页以下作业颜色注释，白色为未提交，黄色为未看或不合格，绿色为优等，红色为优并有评语</h5>
         @if(Session::has('success'))
           <div class="alert alert-success">
             <h4>{!! Session::get('success') !!}</h4>
