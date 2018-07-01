@@ -57,4 +57,8 @@
 
 @section('scripts')
     <script src="/js/teacher/score-report.js"></script>
+
+    <script src="/js/FileSaver.js"></script>
+    <script src="/js/bootstrap-table-export.js"></script>
+    <script src="/js/tableExport.js"></script>
 @endsection

@@ -90,7 +90,6 @@
                                 @endforeach
                             </div>
                     @else
-                        <h4>请补交作业</h4>
                         {!! $item['lesson']['help_md_doc'] !!}
 
                         @if(Session::has('success'))

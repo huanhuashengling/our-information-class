@@ -22,6 +22,8 @@ $(document).ready(function() {
         pageSize: 50,
         pageNumber: 1,
         toolbar:"#toolbar",
+        showExport: true,                     //是否显示导出
+        exportDataType: "basic",              //basic', 'all', 'selected'.
     	queryParams: function(params) {
     		var temp = { 
 		        sclassesId : $("[name='no_post_sclasses_id']").val(),
