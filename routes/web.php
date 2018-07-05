@@ -147,12 +147,11 @@ Route::group(['middleware' => 'auth.teacher', 'prefix' => 'teacher','namespace' 
 
     $router->get('scoreReport', 'ScoreReportController@index');
     $router->post('getScoreReport', 'ScoreReportController@report');
-
+    $router->post('getSclassTermsList', 'ScoreReportController@getSclassTermsList');
 
     $router->get('get-lesson-list', 'LessonController@getLessonList');
     $router->post('deleteLesson', 'LessonController@deleteLesson');
     $router->post('getLesson', 'LessonController@getLesson');
-
 
 });
 
@@ -167,6 +166,8 @@ Route::group(['middleware' => 'auth.student', 'prefix' => 'student','namespace' 
 {
     $router->get('/', 'HomeController@index');
     $router->get('/posts', 'PostController@index');
+    $router->post('getPostsByTerm', 'PostController@getPostsByTerm');
+    
     $router->post('upload', 'HomeController@upload');
     $router->post('getentry', 'HomeController@get');
     $router->post('getCommentByPostsId', 'HomeController@getCommentByPostsId');
@@ -181,6 +182,7 @@ Route::group(['middleware' => 'auth.student', 'prefix' => 'student','namespace' 
     $router->get('classmate', 'ClassmateController@classmatePost');
     
     $router->post('getPostsDataByType', 'ClassmateController@getPostsDataByType');
+    
 
     $router->get('reset', 'HomeController@getReset');
     $router->post('reset', 'HomeController@postReset');

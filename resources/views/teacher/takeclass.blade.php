@@ -30,7 +30,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="row">
-                    <div class="col-md-2 col-sm-4 col-xs-6"><h4>{{ $lessonLog['enter_school_year'] }}级{{ $lessonLog['class_title'] }}班</h4></div>
+                    <div class="col-md-2 col-sm-4 col-xs-6"><h4>{{ $lessonLog['grade_key'] }}{{ $lessonLog['class_title'] }}班</h4></div>
                     <div class="col-md-3 col-sm-4 col-xs-6"><h4><small></small>{{ $lessonLog['title'] }}<small>({{ $lessonLog['subtitle'] }})</small></h4></div>
                     
                     <!-- <div class="col-md-2 col-sm-2">{!! Form::button('姓名排序',['class'=>'btn btn-info', 'id' => 'sort-by-name']) !!}</div>
@@ -67,8 +67,6 @@
         <h4 class="modal-title" id="myModalLabel">批阅作业</h4>
       </div>
       <div class="modal-body">
-      <!-- <iframe src='https://docview.mingdao.com/op/embed.aspx?src=http://www.ccut.edu.tw/teachers/cskuan/downloads/ed01-ch01.ppt' width='800px' height='600px' frameborder='0'>This is an embedded <a target='_blank' href='http://office.com'>Microsoft Office</a> document, powered by <a target='_blank' href='http://office.com/webapps'>Office Web Apps</a>.</iframe> -->
-
         <div id="doc-preview"></div>
         <img src="" id='post-show' class="img-responsive img-thumbnail center-block">
         <a href="" id="post-download-link">右键点击下载</a>

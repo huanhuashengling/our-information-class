@@ -12,9 +12,35 @@ $(document).ready(function() {
 	    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	  }
 	});
+
+    $("#term-selection").change(function(e){
+        refreshPostList();
+    })
+    refreshPostList();
     $(document)
 	   .on('click', '.panel-title', function (e) {
             if ($(this).attr("value")) {
+
+                // $.ajax({
+                //     type: "POST",
+                //     url: '/student/getOnePost',
+                //     data: {posts_id: postsId},
+                //     success: function( data ) {
+                //         // console.log(data);
+                //         if ("false" == data) {
+
+                //         } else {
+                //             if ("doc" == data.filetype) {
+                //                 $('#doc-preview').html(OnCreateUrl(data.storage_name));
+                //             } else if ("img" == data.filetype) {
+                //                 $('#classmate-post-show').attr("src", data.storage_name);
+                //             }
+                //             // $('#classmate-post-show').attr("src", data.storage_name);
+                //             $("#classmate-post-modal-label").html(data.username+" 同学在 "+data.lessontitle+"<small>"+data.lessonsubtitle+"</small> 课上提交的作品");
+                //         }
+                //     }
+                // });
+                
                 var postsId = $(this).attr("value").split(',')[0]; 
                 var filePath = $(this).attr("value").split(',')[1]; 
                 var filetype = $(this).attr("value").split(',')[2]; 
@@ -64,30 +90,66 @@ $(document).ready(function() {
             }
             
         });
-        $(".input-zh").each(function() {
-            // console.log($(this).attr("id"));
-            var postsId = $(this).attr("id").split("-")[2];
-            if (postsId) {
-                $(this).fileinput({
-                    language: "zh", 
-                    // uploadUrl: "student/upload", 
-                    allowedFileExtensions: ["jpg", "png", "gif", "bmp", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "html"], 
-                    // uploadAsync: true
-                    // overwriteInitial: true,
-                    initialPreview: [
-                        $("#posted-path-"+postsId).val(),
-                    ],
-                    initialPreviewAsData: true, // 特别重要
-                });
-            } else {
-                $(this).fileinput({
-                    language: "zh", 
-                    allowedFileExtensions: ["jpg", "png", "gif", "bmp", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "html"], 
-                    initialPreviewAsData: true, // 特别重要
-                });
-            }
-        })
+        // $(".input-zh").each(function() {
+        //     console.log($(this).attr("id"));
+        //     var postsId = $(this).attr("id").split("-")[2];
+        //     if (postsId) {
+        //         $(this).fileinput({
+        //             language: "zh", 
+        //             // uploadUrl: "student/upload", 
+        //             allowedFileExtensions: ["jpg", "png", "gif", "bmp", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "html"], 
+        //             // uploadAsync: true
+        //             // overwriteInitial: true,
+        //             initialPreview: [
+        //                 $("#posted-path-"+postsId).val(),
+        //             ],
+        //             initialPreviewAsData: true, // 特别重要
+        //         });
+        //     } else {
+        //         $(this).fileinput({
+        //             language: "zh", 
+        //             allowedFileExtensions: ["jpg", "png", "gif", "bmp", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "html"], 
+        //             initialPreviewAsData: true, // 特别重要
+        //         });
+        //     }
+        // })
 });
+
+function refreshPostList() {
+    // alert($("#term-selection").val());
+    $.ajax({
+        type: "POST",
+        url: '/student/getPostsByTerm',
+        data: {termsId : $("#term-selection").val()},
+        success: function( data ) {
+            $("#posts-list").html(data);
+            // console.log(data);
+            $(".input-zh").each(function() {
+                // console.log($(this).attr("id"));
+                var postsId = $(this).attr("id").split("-")[2];
+                if (postsId) {
+                    $(this).fileinput({
+                        language: "zh", 
+                        // uploadUrl: "student/upload", 
+                        allowedFileExtensions: ["jpg", "png", "gif", "bmp", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "html"], 
+                        // uploadAsync: true
+                        // overwriteInitial: true,
+                        initialPreview: [
+                            $("#posted-path-"+postsId).val(),
+                        ],
+                        initialPreviewAsData: true, // 特别重要
+                    });
+                } else {
+                    $(this).fileinput({
+                        language: "zh", 
+                        allowedFileExtensions: ["jpg", "png", "gif", "bmp", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "html"], 
+                        initialPreviewAsData: true, // 特别重要
+                    });
+                }
+            })
+        }
+    });
+}
 
 function OnCreateUrl(data)
 {

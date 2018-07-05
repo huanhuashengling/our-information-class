@@ -5,13 +5,33 @@ $(document).ready(function() {
 	  }
 	});
 
-	$("[name='no_post_sclasses_id']").on("change", function(e) {
-		var sclassesId = $("[name='no_post_sclasses_id']").val();
+	$("[name='score_report_sclasses_id']").on("change", function(e) {
+		var sclassesId = $("[name='score_report_sclasses_id']").val();
 		if(0 !=  sclassesId) {
 			// alert(sclassesId + " --- " +lessonsId);
-			$('#score-report').bootstrapTable("refresh");
+			// $('#score-report').bootstrapTable("refresh");
+
+            $.ajax({
+            type: "POST",
+            url: '/teacher/getSclassTermsList',
+            data: {sclassesId: sclassesId},
+            success: function( data ) {
+                // console.log(data);
+                $("[name='score_report_terms_id']").html(data);
+                console.log($("[name='score_report_terms_id']"));
+                $('#score-report').bootstrapTable("refresh");
+            }
+        });
 		}
 	});
+
+    $("[name='score_report_terms_id']").on("change", function(e) {
+        var termsId = $("[name='score_report_terms_id']").val();
+        if(0 !=  termsId) {
+            // alert(sclassesId + " --- " +lessonsId);
+            $('#score-report').bootstrapTable("refresh");
+        }
+    });
 	
 	$('#score-report').bootstrapTable({
         method: 'post', 
@@ -26,7 +46,8 @@ $(document).ready(function() {
         exportDataType: "basic",              //basic', 'all', 'selected'.
     	queryParams: function(params) {
     		var temp = { 
-		        sclassesId : $("[name='no_post_sclasses_id']").val(),
+                sclassesId : $("[name='score_report_sclasses_id']").val(),
+		        termsId : $("[name='score_report_terms_id']").val(),
 		    };
 		    return temp;
     	},

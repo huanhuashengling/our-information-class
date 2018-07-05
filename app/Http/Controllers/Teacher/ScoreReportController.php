@@ -12,6 +12,7 @@ use App\Models\Post;
 use App\Models\PostRate;
 use App\Models\Comment;
 use App\Models\Mark;
+use App\Models\Term;
 
 use \DB;
 
@@ -30,9 +31,32 @@ class ScoreReportController extends Controller
         return view('teacher/scoreReport/index', compact('classData'));
     }
 
+    public function getSclassTermsList(Request $request) {
+        $sclassesId = $request->get('sclassesId');
+        $sclass = Sclass::find($sclassesId);
+        $terms = Term::where("terms.enter_school_year", '=', $sclass->enter_school_year)->get();
+        return $this->buildTermsSelectionHtml($terms);
+    }
+
+    public function buildTermsSelectionHtml($terms) {
+        $resultHtml = "";
+        foreach ($terms as $key => $term) {
+            $class = $term->is_current?"selected":"";
+            $hint = $term->is_current?"（本学期）":"";
+            $resultHtml .= "<option value='" . $term->id . "' " . $class . ">" . $term->grade_key . "年" . $term->term_segment . "期".$hint."</option>";
+        }
+
+        return $resultHtml;
+    }
+
     public function report(Request $request) {
         $sclassesId = $request->get('sclassesId');
-        $lessonLogCount = LessonLog::where("lesson_logs.sclasses_id", '=', $sclassesId)->where(DB::raw('YEAR(lesson_logs.created_at)'), ">", 2017)->count();
+        $termsId = $request->get('termsId');
+        // dd($sclassesId."-".$termsId);
+        $term = Term::find($termsId);
+        $from = date('Y-m-d', strtotime($term->from_date)); 
+        $to = date('Y-m-d', strtotime($term->to_date));
+        $lessonLogCount = LessonLog::where("lesson_logs.sclasses_id", '=', $sclassesId)->whereBetween('lesson_logs.created_at', array($from, $to))->count();
         $students = Student::where("sclasses_id", "=", $sclassesId)->where("students.is_lock", "!=", "1")->get();
         // dd($students);
         // order username postednum unpostnum rate1num rate2num rate3num rate4num commentnum marknum scorecount
@@ -40,15 +64,17 @@ class ScoreReportController extends Controller
         foreach ($students as $key => $student) {
             $tDate = [];
             $tDate['username'] = $student->username;
-            $tDate['postedNum'] = Post::where("posts.students_id", '=', $student->id)
-                                        ->where(DB::raw('YEAR(posts.created_at)'), ">", 2017)
+            $tDate['postedNum'] = Post::leftJoin("lesson_logs", 'lesson_logs.id', '=', 'posts.lesson_logs_id')
+                                        ->where("posts.students_id", '=', $student->id)
+                                        ->whereBetween('lesson_logs.created_at', array($from, $to))
                                         ->count();
             // $tDate['postedNum'] 
             $posts = Post::select('posts.id', DB::raw("SUM(`marks`.`state_code`) as mark_num"))
                             ->leftJoin("marks", 'marks.posts_id', '=', 'posts.id')
+                            ->leftJoin("lesson_logs", 'lesson_logs.id', '=', 'posts.lesson_logs_id')
                             ->where("posts.students_id", '=', $student->id)
                             ->where("marks.state_code", "=", 1)
-                            ->where(DB::raw('YEAR(posts.created_at)'), ">", 2017)
+                            ->whereBetween('lesson_logs.created_at', array($from, $to))
                             ->groupBy('posts.id')
                             ->get();
             $tDate['markNum'] = 0;
@@ -60,16 +86,18 @@ class ScoreReportController extends Controller
             // dd($posts);
             $tDate['unPostedNum'] = $lessonLogCount - $tDate['postedNum'];
             $tDate['commentNum'] = Comment::leftJoin("posts", 'posts.id', '=', 'comments.posts_id')
+                                            ->leftJoin("lesson_logs", 'lesson_logs.id', '=', 'posts.lesson_logs_id')
                                             ->leftJoin("students", 'students.id', '=', 'posts.students_id')
                                             ->where("posts.students_id", '=', $student->id)
-                                            ->where(DB::raw('YEAR(posts.created_at)'), ">", 2017)
+                                            ->whereBetween('lesson_logs.created_at', array($from, $to))
                                             ->count();
                     
             $rates = PostRate::leftJoin("posts", 'posts.id', '=', 'post_rates.posts_id')
-                                            ->leftJoin("students", 'students.id', '=', 'posts.students_id')
-                                            ->where("posts.students_id", '=', $student->id)
-                                            ->where(DB::raw('YEAR(posts.created_at)'), ">", 2017)
-                                            ->get();
+                                ->leftJoin("lesson_logs", 'lesson_logs.id', '=', 'posts.lesson_logs_id')
+                                ->leftJoin("students", 'students.id', '=', 'posts.students_id')
+                                ->where("posts.students_id", '=', $student->id)
+                                ->whereBetween('lesson_logs.created_at', array($from, $to))
+                                ->get();
             $tDate['rateYouNum'] = 0;
             $tDate['rateLiangNum'] = 0;
             $tDate['rateHeNum'] = 0;

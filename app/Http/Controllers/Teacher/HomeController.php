@@ -60,10 +60,11 @@ class HomeController extends Controller
     public function takeClass()
     {
         $userId = auth()->guard('teacher')->id();
-        $lessonLog = LessonLog::select('lesson_logs.id', 'lesson_logs.sclasses_id', 'lessons.title', 'lessons.subtitle', 'sclasses.enter_school_year', 'sclasses.class_title')
+        $lessonLog = LessonLog::select('lesson_logs.id', 'lesson_logs.sclasses_id', 'lessons.title', 'lessons.subtitle', 'sclasses.enter_school_year', 'sclasses.class_title', 'terms.grade_key', 'terms.term_segment')
         ->leftJoin("lessons", 'lessons.id', '=', 'lesson_logs.lessons_id')
         ->leftJoin("sclasses", 'sclasses.id', '=', 'lesson_logs.sclasses_id')
-        ->where(['lesson_logs.teachers_id' => $userId, 'lesson_logs.status' => 'open'])->first();
+        ->leftJoin("terms", 'terms.enter_school_year', '=', 'sclasses.enter_school_year')
+        ->where(['lesson_logs.teachers_id' => $userId, 'lesson_logs.status' => 'open', 'terms.is_current' => 1])->first();
         // dd($lessonLog);die();
 
         $students = DB::table('students')->select('students.id', 'students.username', 'posts.storage_name', 'comments.content', 'post_rates.rate', 'posts.id as posts_id', DB::raw("COUNT(`marks`.`id`) as mark_num"))
@@ -75,7 +76,7 @@ class HomeController extends Controller
         ->where('students.is_lock', "!=", "1")
         ->groupBy('students.id', 'students.username', 'posts.storage_name', 'comments.content', 'post_rates.rate', 'posts.id')
         ->orderBy(DB::raw('convert(students.username using gbk)'), "ASC")->get();
-        // dd($students);
+        // dd($lessonLog);
         $unPostStudentName = [];
         
         $postedStudents = [];

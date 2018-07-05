@@ -2,7 +2,12 @@
 
 @section('content')
 <div class="container">
-    <div class="form-group col-md-5">{!! Form::select('no_post_sclasses_id', $classData, null, ['class'=>'form-control']) !!}</div>
+    <div class="form-group col-md-2">{!! Form::select('score_report_sclasses_id', $classData, null, ['class'=>'form-control']) !!}</div>
+    <div class="form-group col-md-2">
+        <select name="score_report_terms_id" class='form-control'>
+            <option>请先选择班级</option>
+        </select>
+    </div>
     <div id="toolbar">
         <button class="btn btn-success" id="export-score-report-btn">导出成绩</button>
     </div>
