@@ -2,12 +2,12 @@
 
 @section('content')
 <div class="container">
-    <!-- <a-scene>
+    <a-scene>
       <a-sky src="/images/panorama/information-room.jpg" rotation="0 -130 0"></a-sky>
 
       <a-text font="kelsonsans" value="Puy de Sancy, France" width="6" position="-2.5 0.25 -1.5"
               rotation="0 15 0"></a-text>
-    </a-scene> -->
+    </a-scene>
 
 
 <div class="row">
@@ -72,8 +72,8 @@
             </div>
         </div>
     </div>
-    <!-- <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script> -->
-    <!-- <button id="enterVr" hidden>ENTER VR</button>
+    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+    <button id="enterVr" hidden>ENTER VR</button>
     <script src="/js/panorama/lib/fetch.js"></script>
     <script src="/js/panorama/three.min.js"></script>
     <script src="/js/panorama/webvr-polyfill.js"></script>
@@ -81,6 +81,6 @@
     <script src="/js/panorama/VRControls.js"></script>
     <script src="/js/panorama/VREffect.js"></script>
     <script src="/js/panorama/OrbitControls.js"></script>
-    <script src="/js/panorama/main.js"></script> -->
+    <script src="/js/panorama/main.js"></script>
 </div> 
 @endsection
