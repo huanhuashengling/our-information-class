@@ -156,7 +156,7 @@ class PostController extends Controller
                     $resultHtml .= "<div class='form-group'><label id='post-comment-" . $item['post']['id'] . "' value=''></label></div>";
                     $resultHtml .= "<div class='form-group'>" . $item['markNum'] . "个人为你点赞：";
                         foreach ($item['markNames'] as $key => $name) {
-                            $resultHtml .= $name->username;
+                            $resultHtml .= $name->username . ", ";
                         }
                     $resultHtml .= "</div>";
                 } else {
