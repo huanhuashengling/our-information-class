@@ -19,6 +19,12 @@
                     <form action="{{ url('teacher/lesson/'.$lesson->id) }}" method="POST">
                         {{ method_field('PATCH') }}
                         {!! csrf_field() !!}
+                        <div class="form-group">
+                            {!! Form::select('courses_id', $courses, $lesson->courses_id, ['class' => 'form-control', 'placeholder' => '请选择课程']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::select('units_id', $units, $lesson->units_id, ['class' => 'form-control', 'id' => 'units-id', 'placeholder' => '请先选择单元']) !!}
+                        </div>
                         课程标题： <input type="text" name="title" class="form-control" required="required" value="{{ $lesson->title }}" placeholder="请输入标题">
                         <br>
                         副标题：<input name="subtitle" rows="10" class="form-control" required="required" placeholder="请输入副标题" value="{{ $lesson->subtitle }}"</input>
@@ -37,4 +43,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script src="/js/teacher/lesson-edit.js"></script>
 @endsection

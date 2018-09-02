@@ -153,6 +153,13 @@ Route::group(['middleware' => 'auth.teacher', 'prefix' => 'teacher','namespace' 
     $router->post('deleteLesson', 'LessonController@deleteLesson');
     $router->post('getLesson', 'LessonController@getLesson');
 
+    Route::resource('course', 'CourseController');
+    Route::get('get-course-list', 'CourseController@getCourseList');
+
+    Route::resource('unit', 'UnitController');
+    Route::get('get-unit-list', 'UnitController@getUnitList');
+    Route::post('get-unit-list-by-courses-id', 'UnitController@getUnitListByCoursesId');
+
 });
 
 Route::group(['prefix' => 'student','namespace' => 'Student'],function ($router)

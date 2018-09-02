@@ -5,10 +5,10 @@ $(document).ready(function() {
 	  }
 	});
 
-	$('#lesson-list').bootstrapTable({
+	$('#course-list').bootstrapTable({
         method: 'get', 
         search: "true",
-        url: "/teacher/get-lesson-list",
+        url: "/teacher/get-course-list",
         pagination:"true",
         pageList: [15, 30], 
         pageSize:15,
@@ -16,7 +16,7 @@ $(document).ready(function() {
         toolbar:"#toolbar",
     	// queryParams: function(params) {
     	// 	var temp = { 
-		   //      lessonsId : $("#lesson-selection").val(),
+		   //      coursesId : $("#course-selection").val(),
 		   //  };
 		   //  return temp;
     	// },
@@ -30,55 +30,36 @@ $(document).ready(function() {
                     }  
                 }],
         responseHandler: function (res) {
-        	// console.log(res);
+        	console.log(res);
             return res;
         },
     });
 
-    $("#add-lesson-btn").click(function(e) {
-    	window.location.href = "/teacher/lesson/create";
+    $("#add-course-btn").click(function(e) {
+    	window.location.href = "/teacher/course/create";
     });
 });
 
-function courseTitleCol(value, row, index) {
+function classTitleCol(value, row, index) {
     return [
-        // "<span>" + row["enter_school_year"] + "级" + row["class_title"] + '班</span>'
-    ].join('');
-}
-
-function unitTitleCol(value, row, index) {
-    return [
-        "<span>" + row["units"]["title"] + "</span>"
+        "<span>" + row["enter_school_year"] + "级" + row["class_title"] + '班</span>'
     ].join('');
 }
 
 function actionCol(value, row, index) {
     return [
-        ' <a class="btn btn-info btn-sm detail">查看</a>',
         ' <a class="btn btn-warning btn-sm edit">编辑</a>',
         ' <a class="btn btn-danger btn-sm del">删除</a>'
     ].join('');
 }
 
 window.actionEvents = {
-	'click .detail': function(e, value, row, index) {
-		$.ajax({
-            type: "POST",
-            url: '/teacher/getLesson',
-            data: {lessonsId: row.id},
-            success: function( data ) {
-                // console.log(data);
-                $("#lesson-detail-title").html("课题：" + data.title + " <small>" + data.subtitle + "</small>");
-                $("#lesson-detail-help-md-doc").html(data.help_md_doc);
-				$("#lesson-detail-modal").modal("show");
-            }
-        });
-    },
 	'click .edit': function(e, value, row, index) {
-		window.location.href = "/teacher/lesson/"+row.id+"/edit";
+		window.location.href = "/teacher/course/"+row.id+"/edit";
     },
     'click .del': function(e, value, row, index) {
-    	if(row.lesson_log_num > 0) {
+    	alert("目前不能删除！！");
+    	/*if(row.lesson_log_num > 0) {
     		alert("上课纪录大于1，不能删除！！");
     	} else {
 	    	if (confirm("确认删除当前的课程吗？")==true) {
@@ -98,7 +79,7 @@ window.actionEvents = {
 		            }
 		        });
 		  	}
-    	}
+    	}*/
 		
     },
 }

@@ -14,4 +14,9 @@ class Lesson extends Model
     {
         return $this->belongsTo('App\Models\Teacher');
     }
+
+    public function units()
+    {
+        return $this->belongsTo(Unit::class, 'units_id');
+    }
 }

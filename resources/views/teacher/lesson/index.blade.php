@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div id="toolbar">
-        <button class="btn btn-success" id="add-lesson-btn">新增课程</button>
+        <button class="btn btn-success" id="add-lesson-btn">新增课</button>
     </div>
     <table id="lesson-list" class="table table-condensed table-responsive">
         <thead>
@@ -13,6 +13,12 @@
                 </th>
                 <th data-field="">
                     序号
+                </th>
+                <th data-field="title" data-sortable="true" data-formatter="courseTitleCol">
+                    所属课程
+                </th>
+                <th data-field="title" data-sortable="true" data-formatter="unitTitleCol">
+                    所属单元
                 </th>
                 <th data-field="title" data-sortable="true">
                     标题

@@ -48,10 +48,10 @@
                     <!-- Authentication Links -->
                     @if (Auth::guard("student")->guest())
                         <!-- <li><a href="{{ url('/login') }}">{{ trans("layouts.login") }}</a></li> -->
-                        <!-- <form class="navbar-form navbar-right" role="form" method="POST" action="{{ route('student.login') }}">
+                        <form class="navbar-form navbar-right" role="form" method="POST" action="{{ route('student.login') }}">
                         {{ csrf_field() }}
                         <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-                                <input id="username" type="text" class="form-control" name="username" value="" placeholder="用户名" required autofocus>
+                                <input id="username" type="text" class="form-control" name="username" value="刘熙梓" placeholder="用户名" required autofocus>
 
                                 @if ($errors->has('username'))
                                     <span class="help-block">
@@ -61,7 +61,7 @@
                         </div>
 
                             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                <input id="password" type="password" value="" class="form-control" name="password"  placeholder="密码"  required>
+                                <input id="password" type="password" value="123456" class="form-control" name="password"  placeholder="密码"  required>
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">
@@ -79,7 +79,7 @@
                                 </a>
                         </div>
 
-                          </form> -->
+                          </form>
                     @else
                         <!-- Left Side Of Navbar -->
                         <ul class="nav navbar-nav">

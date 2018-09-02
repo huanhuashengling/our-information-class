@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Models\Lesson;
+use App\Models\Course;
+use App\Models\Unit;
 use \Auth;
 use \DB;
 use EndaEditor;
@@ -14,13 +16,13 @@ class LessonController extends Controller
 {
     public function index()
     {
-        // dd(Lesson::find(1)->teacher());
-        return view('teacher/lesson/index')->withLessons(Lesson::all());
+        // dd(Lesson::with("units")->get());
+        return view('teacher/lesson/index')->withLessons(Lesson::with("units")->get());
     }
 
     public function create()
     {
-        return view('teacher/lesson/create');
+        return view('teacher/lesson/create')->withCourses(Course::get()->pluck('title', 'id'));
     }
 
     public function store(Request $request)
@@ -28,9 +30,13 @@ class LessonController extends Controller
         $this->validate($request, [
             'title' => 'required|unique:lessons|max:255',
             'subtitle' => 'required',
+            'courses_id' => 'required',
+            'units_id' => 'required',
         ]);
 
         $lesson = new Lesson;
+        $lesson->units_id = $request->get('units_id');
+        $lesson->courses_id = $request->get('courses_id');
         $lesson->title = $request->get('title');
         $lesson->subtitle = $request->get('subtitle');
         $lesson->help_md_doc = $request->get('content');
@@ -45,7 +51,11 @@ class LessonController extends Controller
 
     public function edit(Request $request, $id)
     {
-        return view('teacher/lesson/edit')->withLesson(Lesson::find($id));
+        $lesson = Lesson::with("units")->find($id);
+        $courses = Course::get()->pluck('title', 'id');
+        $units = Unit::get()->pluck('title', 'id');
+        // dd($lesson);
+        return view('teacher/lesson/edit', compact("lesson", "courses", "units"));
     }
 
     public function update(Request $request, $id)
@@ -53,8 +63,12 @@ class LessonController extends Controller
         $this->validate($request, [
             'title' => 'required|unique:lessons,title,'.$id.'|max:255',
             'subtitle' => 'required',
+            'courses_id' => 'required',
+            'units_id' => 'required',
         ]);
         $lesson = Lesson::find($id);
+        $lesson->units_id = $request->get('units_id');
+        $lesson->courses_id = $request->get('courses_id');
         $lesson->title = $request->get('title');
         $lesson->subtitle = $request->get('subtitle');
         $lesson->help_md_doc = $request->get('content');
