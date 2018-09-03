@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading"><h4>添加课程</h4></div>
+                <div class="panel-heading"><h4>添加课时</h4></div>
                 <div class="panel-body">
 
                     @if (count($errors) > 0)
@@ -27,9 +27,9 @@
                                 <option>请先选择课程，再来选择单元</option>
                             </select>
                         </div>
-                        <input type="text" name="title" class="form-control" required="required" placeholder="请输入标题">
+                        <input type="text" name="title" class="form-control" required="required" placeholder="请输入课时标题">
                         <br>
-                        <input type="text" name="subtitle" class="form-control" required="required" placeholder="请输入副标题" />
+                        <input type="text" name="subtitle" class="form-control" required="required" placeholder="请输入课时副标题" />
                         <br>
                         <p>编写课堂帮助文档</p>
                         <div class="editor"> 

@@ -40,18 +40,6 @@ $(document).ready(function() {
     });
 });
 
-function courseTitleCol(value, row, index) {
-    return [
-        // "<span>" + row["enter_school_year"] + "级" + row["class_title"] + '班</span>'
-    ].join('');
-}
-
-function unitTitleCol(value, row, index) {
-    return [
-        "<span>" + row["units"]["title"] + "</span>"
-    ].join('');
-}
-
 function actionCol(value, row, index) {
     return [
         ' <a class="btn btn-info btn-sm detail">查看</a>',

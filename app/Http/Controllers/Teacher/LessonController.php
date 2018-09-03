@@ -16,8 +16,7 @@ class LessonController extends Controller
 {
     public function index()
     {
-        // dd(Lesson::with("units")->get());
-        return view('teacher/lesson/index')->withLessons(Lesson::with("units")->get());
+        return view('teacher/lesson/index');
     }
 
     public function create()
@@ -53,7 +52,7 @@ class LessonController extends Controller
     {
         $lesson = Lesson::with("units")->find($id);
         $courses = Course::get()->pluck('title', 'id');
-        $units = Unit::get()->pluck('title', 'id');
+        $units = Unit::where(['courses_id' => $lesson->courses_id])->get()->pluck('title', 'id');
         // dd($lesson);
         return view('teacher/lesson/edit', compact("lesson", "courses", "units"));
     }
@@ -122,10 +121,12 @@ class LessonController extends Controller
 
     public function getLessonList()
     {
-        $lessons = Lesson::select('lessons.id', 'lessons.title', 'lessons.subtitle', 'lessons.updated_at', 'teachers.username', DB::raw("COUNT(`lesson_logs`.`id`) as lesson_log_num"))
+        $lessons = Lesson::select('lessons.id', 'lessons.title', 'lessons.subtitle', 'lessons.updated_at', 'teachers.username', 'units.title as unit_title', 'courses.title as course_title', DB::raw("COUNT(`lesson_logs`.`id`) as lesson_log_num"))
             ->leftJoin("teachers", "teachers.id", "=", "lessons.teachers_id")
             ->leftJoin("lesson_logs", "lesson_logs.lessons_id", "=", "lessons.id")
-            ->groupBy('lessons.id', 'lessons.title', 'lessons.subtitle', 'lessons.updated_at', 'teachers.username')
+            ->leftJoin("units", "units.id", "=", "lessons.units_id")
+            ->leftJoin("courses", "courses.id", "=", "units.courses_id")
+            ->groupBy('lessons.id', 'lessons.title', 'lessons.subtitle', 'lessons.updated_at', 'teachers.username', 'unit_title', 'course_title')
             ->orderBy('lessons.updated_at', 'DESC')
             ->get();
         return $lessons;

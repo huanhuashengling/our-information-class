@@ -14,12 +14,12 @@
                 <th data-field="">
                     序号
                 </th>
-                <!--<th data-field="title" data-sortable="true" data-formatter="courseTitleCol">
+                <th data-field="course_title" data-sortable="true">
                     所属课程
                 </th>
-                <th data-field="title" data-sortable="true" data-formatter="unitTitleCol">
+                <th data-field="unit_title" data-sortable="true">
                     所属单元
-                </th>-->
+                </th>
                 <th data-field="title" data-sortable="true">
                     标题
                 </th>
