@@ -322,17 +322,29 @@ class HomeController extends Controller
         }
     }
 
+    public function createOneStudent(Request $request)
+    {
+        $data = [];
+        $data["username"] = $request->get('username');
+        $data["gender"] = $request->get('gender');
+        $data["password"] = $request->get('password');
+        $data["groups_id"] = $request->get('groups_id');
+        $data["sclasses_id"] = $request->get('sclasses_id');
+        return $this->createStudentAccount($data);
+    }
+
     public function createStudentAccount($data) {
         try {
             $student = Student::create([
                 'username' => $data['username'],
-                'email' => $data['email'],
+                'email' => "",
                 'password' => bcrypt($data['password']),
                 'gender' => $data['gender'],
-                'level' => $data['level'],
-                'score' => $data['score'],
+                'level' => 0,
+                'score' => 0,
                 'groups_id' => $data['groups_id'],
                 'sclasses_id' => $data['sclasses_id'],
+                'is_lock' => 0,
                 'remember_token' => str_random(10),
             ]);
         } catch (Exception $e) {

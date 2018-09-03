@@ -89,6 +89,7 @@ Route::group(['middleware' => 'auth.admin:admin, admin/login', 'prefix' => 'admi
     $router->post('resetStudentPassword', 'HomeController@resetStudentPassword');
     $router->post('lockOneStudentAccount', 'HomeController@lockOneStudentAccount');
     $router->post('unlockOneStudentAccount', 'HomeController@unlockOneStudentAccount');
+    $router->post('createOneStudent', 'HomeController@createOneStudent');
 
 
     $router->get('reset', 'HomeController@getReset');

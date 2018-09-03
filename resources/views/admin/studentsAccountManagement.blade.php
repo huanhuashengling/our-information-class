@@ -27,10 +27,10 @@
   <div class="panel-heading">班级学生账户列表</div>
   <div class="panel-body">
     <div id="toolbar">
-        <button id="remove-btn" class="btn btn-danger">锁定</button>
-        <button id="remove-btn" class="btn btn-danger">激活</button>
-        <button id="remove-btn" class="btn btn-success">重置密码</button>
-        <button id="remove-btn" class="btn btn-success">新增学生</button>
+        <button id="lock-btn" class="btn btn-danger">锁定</button>
+        <button id="active-btn" class="btn btn-danger">激活</button>
+        <button id="reset-pass-btn" class="btn btn-success">重置密码</button>
+        <button id="add-new-btn" class="btn btn-success hidden">新增学生</button>
     </div>
     <table id="student-list" class="table table-condensed table-responsive">
         <thead>
@@ -67,6 +67,32 @@
     </table>
   </div>
 </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="add-new-student-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">增加学生</h4>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label>学生姓名</label>
+                <input type="text" class="form-control" name="studentName" id="student-name" required="">
+              </div>
+              <div class="form-group">
+                <label>学生性别（1为男生／0为女生）</label>
+                <input type="text" class="form-control" name="gender" id="gender" required="">
+              </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-success" id="confirm-add-new-btn">增加</button>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 

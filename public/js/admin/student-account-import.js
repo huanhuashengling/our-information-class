@@ -14,6 +14,8 @@ $(document).ready(function() {
 		$('#student-list').bootstrapTable('destroy');
 		// console.log($(this).val());
 		var sclassesId = $(this).val();
+        $("#add-new-btn").removeClass("hidden");
+        $("#add-new-btn").val(sclassesId);
 
 		$('#student-list').bootstrapTable({
 	        method: 'post', 
@@ -45,6 +47,38 @@ $(document).ready(function() {
 	        },
 	    });
 	});
+
+    $("#add-new-btn").click(function(e) {
+        // alert($(this).val());
+        $("#add-new-student-modal").modal("show");
+    });
+
+    $("#confirm-add-new-btn").click(function(e) {
+        if("" == $("#student-name").val() || "" == $("#gender").val())
+        {
+            alert("姓名和性别不能为空！");
+            return;
+        }
+        data = {
+            'username' : $("#student-name").val(),
+            'gender' : $("#gender").val(),
+            'password' : "123456",
+            'groups_id' : '1',
+            'sclasses_id' : $("#add-new-btn").val(),
+        }
+        $.ajax({
+            type: "POST",
+            url: '/admin/createOneStudent',
+            data: data,
+            success: function( data ) {
+                $("#add-new-student-modal").modal("hide");
+                $('#student-list').bootstrapTable('refresh');
+            }
+        });
+        // console.log($("#student-name").val());
+        // console.log($("#gender").val());
+        // console.log($("#add-new-btn").val());
+    });
 });
 
 function genderCol(value, row, index) {
