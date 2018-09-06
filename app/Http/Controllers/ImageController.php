@@ -10,7 +10,6 @@ class ImageController extends Controller
 
     public function getImageThumbnail($path, $width = null, $height = null, $type = "fit")
     {
-
         $images_path = config('definitions.images_path');
         $path = ltrim($path, "/");
 
@@ -87,7 +86,7 @@ class ImageController extends Controller
             $docMimeType = ["application/msword", 'application/x-xls', 'application/vnd.ms-excel', 'application/x-ppt', 'application/vnd.ms-powerpoint'];
             if (in_array($contentType, ["application/msword"])) {
                 return url("images/doc.png");
-            } elseif (in_array($contentType, ["application/x-xls", 'application/vnd.ms-excel'])) {
+            } elseif (in_array($contentType, ["application/x-xls", 'application/vnd.ms-excel', 'application/vnd.ms-office', 'application/octet-stream', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'])) {
                 return url("images/xls.png");
             } elseif (in_array($contentType, ["application/x-ppt", 'application/vnd.ms-powerpoint'])) {
                 return url("images/ppt.png");

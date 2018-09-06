@@ -153,8 +153,12 @@ $(document).ready(function() {
 
                 } else {
                     if ("doc" == data.filetype) {
+                        $('#doc-preview').removeClass("hidden");
+                        $('#classmate-post-show').addClass("hidden");
                         $('#doc-preview').html(OnCreateUrl(data.storage_name));
                     } else if ("img" == data.filetype) {
+                        $('#doc-preview').addClass("hidden");
+                        $('#classmate-post-show').removeClass("hidden");
                         $('#classmate-post-show').attr("src", data.storage_name);
                     }
                     // $('#classmate-post-show').attr("src", data.storage_name);
