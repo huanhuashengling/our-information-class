@@ -78,8 +78,13 @@ $(document).ready(function() {
                     // console.log(OnCreateUrl(data));
 
                     if ("doc" == data.filetype) {
+                        $('#post-show').addClass("hidden");
+                        $('#doc-preview').removeClass("hidden");
                         $('#doc-preview').html(OnCreateUrl(data.url));
                     } else if ("img" == data.filetype) {
+                        $('#post-show').removeClass("hidden");
+                        $('#doc-preview').addClass("hidden");
+
                         $('#post-show').attr("src", data.url);
                     }
                     // $('#doc-preview').attr("src", "http://lessons_id/op/embed.aspx?src=" + data);

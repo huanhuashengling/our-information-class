@@ -67,7 +67,7 @@ class HomeController extends Controller
         ->where(['lesson_logs.teachers_id' => $userId, 'lesson_logs.status' => 'open', 'terms.is_current' => 1])->first();
         // dd($lessonLog);die();
 
-        $students = DB::table('students')->select('students.id', 'students.username', 'posts.storage_name', 'comments.content', 'post_rates.rate', 'posts.id as posts_id', DB::raw("COUNT(`marks`.`id`) as mark_num"))
+        $students = DB::table('students')->select('students.id', 'students.username', 'posts.file_ext', 'posts.storage_name', 'comments.content', 'post_rates.rate', 'posts.id as posts_id', DB::raw("COUNT(`marks`.`id`) as mark_num"))
         ->leftJoin('posts', 'posts.students_id', '=', 'students.id')
         ->leftJoin('post_rates', 'post_rates.posts_id', '=', 'posts.id')
         ->leftJoin('comments', 'comments.posts_id', '=', 'posts.id')
@@ -161,7 +161,7 @@ class HomeController extends Controller
         $docTypes = ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'];
         if (isset($post)) {
             if (in_array($post->file_ext, $imgTypes)) {
-                return ["filetype"=>"img", "url" => getThumbnail($post['storage_name'], 800, 600, 'fit')];
+                return ["filetype"=>"img", "url" => getThumbnail($post['storage_name'], 800, 600, 'fit', $post['file_ext'])];
             } elseif (in_array($post->file_ext, $docTypes)) {
                 return ["filetype"=>"doc", "url" => env('APP_URL')."/posts/".$post->storage_name];
             }

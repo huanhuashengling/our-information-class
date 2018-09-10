@@ -67,7 +67,7 @@ class PostController extends Controller
 
                 if (in_array($post->file_ext, $imgTypes)) {
                     $post["filetype"] = "img";
-                    $post["previewPath"] = getThumbnail($post['storage_name'], 800, 600, 'fit');
+                    $post["previewPath"] = getThumbnail($post['storage_name'], 800, 600, 'fit', $post['file_ext']);
                 } elseif (in_array($post->file_ext, $docTypes)) {
                     $post["filetype"] = "doc";
                     $post["previewPath"] = $post->storage_name;

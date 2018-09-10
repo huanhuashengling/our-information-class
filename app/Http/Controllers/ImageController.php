@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\File;
 
+
 class ImageController extends Controller
 {
 
-    public function getImageThumbnail($path, $width = null, $height = null, $type = "fit")
+    public function getImageThumbnail($path, $width = null, $height = null, $type = "fit", $file_ext = "")
     {
         $images_path = config('definitions.images_path');
         $path = ltrim($path, "/");
@@ -38,10 +39,16 @@ class ImageController extends Controller
         }
 
         $allowedMimeTypes = ['image/gif', 'image/png', 'image/jpeg', 'image/bmp', 'image/x-ms-bmp', 'image/webp'];
+        $picFileExt = ['gif', 'png', 'jpeg', 'bmp', 'jpg'];
+
+        // $contentType = mime_content_type("{$images_path}/" . $path);
+        // $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        // dd (finfo_file($finfo, "{$images_path}/" . $path));
+        // finfo_close($finfo);
         $contentType = mime_content_type("{$images_path}/" . $path);
         // var_dump($allowedMimeTypes);
-        // dd($contentType);
-        if (in_array($contentType, $allowedMimeTypes)) { //Checks if is an image
+        // dd($file_ext);
+        if (in_array($file_ext, $picFileExt)) { //Checks if is an image
             Image::configure(array('driver' => 'imagick')); 
             $image = Image::make(public_path("{$images_path}/" . $path));
 
@@ -81,14 +88,15 @@ class ImageController extends Controller
 
             //return the url of the thumbnail
             return url("{$images_path}/thumbs/" . "{$width}x{$height}/" . $path);
-        } else {
-            $docTypes = ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'];
+        } else { //Checks if is an document
+            $docFileExt = ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'];
             $docMimeType = ["application/msword", 'application/x-xls', 'application/vnd.ms-excel', 'application/x-ppt', 'application/vnd.ms-powerpoint'];
-            if (in_array($contentType, ["application/msword"])) {
+            if (in_array($file_ext, ["doc", "docx"])) {
                 return url("images/doc.png");
-            } elseif (in_array($contentType, ["application/x-xls", 'application/vnd.ms-excel', 'application/vnd.ms-office', 'application/octet-stream', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'])) {
+                // return "http://owa.docview.com/op/embed.aspx?src=http%3A%2F%2Fwww.oic.com%3A8001%2Fposts%2F%E5%91%B3%E9%81%93.docx-5b96766db52f2.docx";
+            } elseif (in_array($file_ext, ["xls", 'xlsx'])) {
                 return url("images/xls.png");
-            } elseif (in_array($contentType, ["application/x-ppt", 'application/vnd.ms-powerpoint'])) {
+            } elseif (in_array($file_ext, ["ppt", "pptx"])) {
                 return url("images/ppt.png");
             } else {
                 return "http://placehold.it/{$width}x{$height}";

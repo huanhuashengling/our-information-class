@@ -236,7 +236,7 @@ class HomeController extends Controller
         if (isset($post)) {
           if (in_array($post->file_ext, $imgTypes)) {
                 return ["filetype"=>"img", 
-                    "storage_name" => getThumbnail($post['storage_name'], 800, 600, 'fit'), 
+                    "storage_name" => getThumbnail($post['storage_name'], 800, 600, 'fit', $post['file_ext']), 
                     'username' => $post["username"], 
                     'lessontitle' => $post["title"], 
                     'lessonsubtitle' => $post["subtitle"]];
@@ -251,7 +251,7 @@ class HomeController extends Controller
             // return env('APP_URL')."/posts/".$post['storage_name'];
             // {{ getThumbnail($post->storage_name, 140, 100, 'fit') }}
             // return ["storage_name" => env('APP_URL')."/posts/".$post['storage_name'], 
-            return ["storage_name" => getThumbnail($post['storage_name'], 800, 600, 'fit'), 
+            return ["storage_name" => getThumbnail($post['storage_name'], 800, 600, 'fit', $post['file_ext']), 
                     'username' => $post["username"], 
                     'lessontitle' => $post["title"], 
                     'lessonsubtitle' => $post["subtitle"]];
