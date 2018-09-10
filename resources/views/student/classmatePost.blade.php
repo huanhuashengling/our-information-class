@@ -34,7 +34,7 @@
                 $post_storage_name = "posts/".$post->storage_name;
                 //echo public_path()."/posts/".$post->storage_name;
             }
-            $post->studentClass = (2018-$post->enter_school_year) . $post->class_title . "";
+            $post->studentClass = $post->grade_key . $post->class_title;
             $gap = " ";
             $ratestr = isset($post->rate)?$post->rate:"";
 
