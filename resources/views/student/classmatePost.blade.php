@@ -21,7 +21,6 @@
     </div>
     <div class="col-md-11" id="posts-list">
     @foreach($posts as $key=>$post)
-        <!-- {{$post["students_id"]}} -->
         @php
         if("doc" == $post->file_ext || "docx" == $post->file_ext) {
                 $post_storage_name = "images/doc.png";
@@ -49,7 +48,8 @@
         <div class="col-md-2 col-sm-3 col-xs-4" style="padding-left: 5px; padding-right: 5px;">
             <div class="alert alert-info" style="height: 147px; padding-left: 10px; padding-right: 10px">
                 <!--<div class="text-center"><img height="140px" value="{{ $post['pid'] }}" src="/imager?src={{$post_storage_name}}"></div>-->
-                <div><img class="img-responsive thumb-img" value="{{ $post['pid'] }}" src="{{ getThumbnail($post->storage_name, 140, 100, 'fit') }}" alt=""></div>
+
+                <div><img class="img-responsive thumb-img" value="{{ $post['pid'] }}" src="{{ getThumbnail($post->storage_name, 140, 100, 'fit', $post->file_ext) }}" alt=""></div>
                 <div><h4 style="margin-top: 10px; margin-bottom: 5px;"><small>({{ $post->studentClass }})</small>{{ $post->username }} <small>{{ $ratestr }}{{$gap}}{{ $markstr}}</small></h4>  </div>
                 <input type="hidden" name="postInfo" value="{{ $post->studentClass }}班">
             </div>
