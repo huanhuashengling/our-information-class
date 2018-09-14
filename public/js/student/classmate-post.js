@@ -148,7 +148,7 @@ $(document).ready(function() {
             url: '/student/getOnePost',
             data: {posts_id: postsId},
             success: function( data ) {
-                // console.log(data);
+                console.log(data);
                 if ("false" == data) {
 
                 } else {

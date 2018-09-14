@@ -74,7 +74,7 @@ $(document).ready(function() {
                 if ("false" == data) {
 
                 } else {
-                    // console.log(data.filetype);
+                    console.log(data);
                     // console.log(OnCreateUrl(data));
 
                     if ("doc" == data.filetype) {
