@@ -88,6 +88,7 @@ $(document).ready(function() {
                         $('#flashContent').addClass("hidden");
                         $('#post-show').attr("src", data.url);
                     } else if ("sb2" == data.filetype) {
+                        alert("sb2");
                         $('#post-show').addClass("hidden");
                         $('#doc-preview').addClass("hidden");
                         $('#flashContent').removeClass("hidden");
@@ -188,6 +189,8 @@ $(document).ready(function() {
 
 function showScratch(sbPath)
 {
+                        alert("sb3");
+
     var flashvars = {
       // project: '/scratch/'+filename,
       project: sbPath,
