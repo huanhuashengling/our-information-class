@@ -246,6 +246,12 @@ class HomeController extends Controller
                     'username' => $post["username"], 
                     'lessontitle' => $post["title"], 
                     'lessonsubtitle' => $post["subtitle"]];
+            } elseif ("sb2" == $post->file_ext) {
+              return ["filetype"=>"sb2", 
+                    "storage_name" => env('APP_URL')."/posts/".$post->storage_name, 
+                    'username' => $post["username"], 
+                    'lessontitle' => $post["title"], 
+                    'lessonsubtitle' => $post["subtitle"]];
             }
           // $post['storage_name'] = env('APP_URL')."/posts/".$post['storage_name'];
             // return env('APP_URL')."/posts/".$post['storage_name'];

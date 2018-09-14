@@ -74,18 +74,24 @@ $(document).ready(function() {
                 if ("false" == data) {
 
                 } else {
-                    // console.log(data);
+                    // console.log(data.filetype);
                     // console.log(OnCreateUrl(data));
 
                     if ("doc" == data.filetype) {
                         $('#post-show').addClass("hidden");
                         $('#doc-preview').removeClass("hidden");
+                        $('#flashContent').addClass("hidden");
                         $('#doc-preview').html(OnCreateUrl(data.url));
                     } else if ("img" == data.filetype) {
                         $('#post-show').removeClass("hidden");
                         $('#doc-preview').addClass("hidden");
-
+                        $('#flashContent').addClass("hidden");
                         $('#post-show').attr("src", data.url);
+                    } else if ("sb2" == data.filetype) {
+                        $('#post-show').addClass("hidden");
+                        $('#doc-preview').addClass("hidden");
+                        $('#flashContent').removeClass("hidden");
+                        showScratch(data.url);
                     }
                     // $('#doc-preview').attr("src", "http://lessons_id/op/embed.aspx?src=" + data);
                     $('#post-download-link').attr("href", data);
@@ -179,6 +185,26 @@ $(document).ready(function() {
         });
     });
 });
+
+function showScratch(sbPath)
+{
+    var flashvars = {
+      // project: '/scratch/'+filename,
+      project: sbPath,
+      autostart: 'false'
+    };
+
+    var params = {
+      bgcolor: '#FFFFFF',
+      allowScriptAccess: 'always',
+      allowFullScreen: 'true',
+      wmode: "direct",
+      menu: "false"
+    };
+    var attributes = {};
+
+    swfobject.embedSWF('/scratch/Scratch.swf', 'flashContent', '100%', '600px', '10.2.0','/scratch/expressInstall.swf', flashvars, params, attributes);
+}
 
 function OnCreateUrl(data)
 {

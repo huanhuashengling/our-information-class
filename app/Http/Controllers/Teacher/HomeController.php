@@ -164,6 +164,8 @@ class HomeController extends Controller
                 return ["filetype"=>"img", "url" => getThumbnail($post['storage_name'], 800, 600, 'fit', $post['file_ext'])];
             } elseif (in_array($post->file_ext, $docTypes)) {
                 return ["filetype"=>"doc", "url" => env('APP_URL')."/posts/".$post->storage_name];
+            } elseif ("sb2" == $post->file_ext) {
+                return ["filetype"=>"sb2", "url" => env('APP_URL')."/posts/".$post->storage_name];
             }
             // $file = Storage::disk('uploads')->get($post->storage_name)->getPath();
                 // $post->storage_name = env('APP_URL')."/posts/".$post->storage_name;

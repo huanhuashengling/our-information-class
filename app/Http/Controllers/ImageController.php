@@ -98,6 +98,8 @@ class ImageController extends Controller
                 return url("images/xls.png");
             } elseif (in_array($file_ext, ["ppt", "pptx"])) {
                 return url("images/ppt.png");
+            } elseif (in_array($file_ext, ["sb2"])) {
+                return url("images/scratch.png");
             } else {
                 return "http://placehold.it/{$width}x{$height}";
             }

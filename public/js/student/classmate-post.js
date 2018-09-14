@@ -155,11 +155,18 @@ $(document).ready(function() {
                     if ("doc" == data.filetype) {
                         $('#doc-preview').removeClass("hidden");
                         $('#classmate-post-show').addClass("hidden");
+                        $('#flashContent').addClass("hidden");
                         $('#doc-preview').html(OnCreateUrl(data.storage_name));
                     } else if ("img" == data.filetype) {
                         $('#doc-preview').addClass("hidden");
                         $('#classmate-post-show').removeClass("hidden");
+                        $('#flashContent').addClass("hidden");
                         $('#classmate-post-show').attr("src", data.storage_name);
+                    } else if ("sb2" == data.filetype) {
+                        $('#doc-preview').addClass("hidden");
+                        $('#classmate-post-show').addClass("hidden");
+                        $('#flashContent').removeClass("hidden");
+                        showScratch(data.url);
                     }
                     // $('#classmate-post-show').attr("src", data.storage_name);
                     $("#classmate-post-modal-label").html(data.username+" 同学在 "+data.lessontitle+"<small>"+data.lessonsubtitle+"</small> 课上提交的作品");
@@ -191,6 +198,26 @@ $(document).ready(function() {
         $('#classmate-post-modal').modal();
     });
 });
+
+function showScratch(sbPath)
+{
+    var flashvars = {
+      project: sbPath,
+      autostart: 'false'
+    };
+
+    var params = {
+      bgcolor: '#FFFFFF',
+      allowScriptAccess: 'always',
+      allowFullScreen: 'true',
+      wmode: "direct",
+      menu: "false"
+      
+    };
+    var attributes = {};
+
+    swfobject.embedSWF('/scratch/Scratch.swf', 'flashContent', '100%', '600px', '10.2.0','/scratch/expressInstall.swf', flashvars, params, attributes);
+}
 
 function OnCreateUrl(data)
 {

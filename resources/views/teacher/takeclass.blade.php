@@ -69,12 +69,10 @@
       <div class="modal-body">
         <div id="doc-preview"></div>
         <img src="" id='post-show' class="img-responsive img-thumbnail center-block">
-        <a href="" id="post-download-link">右键点击下载</a>
-
-        <!--
         <div id='flashContent' width='482px' height='387px'>
             Get <a href="http://www.adobe.com/go/getflash">Adobe Flash Player</a>, otherwise this Scratch movie will not play.
-        </div>-->
+        </div>
+        <a href="" id="post-download-link">右键点击下载</a>
       </div>
 
     <div class="modal-footer">
@@ -99,8 +97,8 @@
 @endsection
 
 @section('scripts')
-    <!--<script type="text/javascript" src="/scratch/swfobject.js"></script>
-    <script type='text/javascript'>
+    <script type="text/javascript" src="/scratch/swfobject.js"></script>
+     <!-- <script type='text/javascript'>
     var flashvars = {
       project: '/scratch/dts.sb2',
       autostart: 'false'
@@ -118,6 +116,6 @@
 
     swfobject.embedSWF('/scratch/Scratch.swf', 'flashContent', '100%', '600px', '10.2.0','/scratch/expressInstall.swf', flashvars, params, attributes);
 
-    </script>-->
+    </script> -->
     <script src="/js/teacher/take-class.js"></script>
 @endsection
