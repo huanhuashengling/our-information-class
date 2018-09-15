@@ -148,7 +148,7 @@ $(document).ready(function() {
             url: '/student/getOnePost',
             data: {posts_id: postsId},
             success: function( data ) {
-                console.log(data);
+                // console.log(data);
                 if ("false" == data) {
 
                 } else {
@@ -166,7 +166,16 @@ $(document).ready(function() {
                         $('#doc-preview').addClass("hidden");
                         $('#classmate-post-show').addClass("hidden");
                         $('#flashContent').removeClass("hidden");
-                        showScratch(data.url);
+                        var tHtml = "<object type='application/x-shockwave-flash' data='/scratch/Scratch.swf' width='850px' height='850px'>\n"+
+                                        "<param name='movie' value='/scratch/Scratch.swf'/>\n"+
+                                        "<param name='bgcolor' value='#FFFFFF'/>\n"+
+                                        "<param name='FlashVars' value='project=" + data.storage_name + "&autostart=false' />\n"+
+                                        "<param name='allowscriptaccess' value='always'/>\n"+
+                                        "<param name='allowFullScreen' value='true'/>\n"+
+                                        "<param name='wmode' value='direct'/>\n"+
+                                        "<param name='menu' value='false'/>\n"+
+                                    "</object>";
+                        $('#flashContent').html(tHtml);
                     }
                     // $('#classmate-post-show').attr("src", data.storage_name);
                     $("#classmate-post-modal-label").html(data.username+" 同学在 "+data.lessontitle+"<small>"+data.lessonsubtitle+"</small> 课上提交的作品");

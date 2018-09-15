@@ -74,7 +74,7 @@ $(document).ready(function() {
                 if ("false" == data) {
 
                 } else {
-                    console.log(data);
+                    // console.log(data);
                     // console.log(OnCreateUrl(data));
 
                     if ("doc" == data.filetype) {
@@ -88,11 +88,22 @@ $(document).ready(function() {
                         $('#flashContent').addClass("hidden");
                         $('#post-show').attr("src", data.url);
                     } else if ("sb2" == data.filetype) {
-                        alert("sb2");
+                        // alert("sb2");
                         $('#post-show').addClass("hidden");
                         $('#doc-preview').addClass("hidden");
                         $('#flashContent').removeClass("hidden");
-                        showScratch(data.url);
+                        var tHtml = "<object type='application/x-shockwave-flash' data='/scratch/Scratch.swf' width='850px' height='850px'>\n"+
+                                        "<param name='movie' value='/scratch/Scratch.swf'/>\n"+
+                                        "<param name='bgcolor' value='#FFFFFF'/>\n"+
+                                        "<param name='FlashVars' value='project=" + data.url + "&autostart=false' />\n"+
+                                        "<param name='allowscriptaccess' value='always'/>\n"+
+                                        "<param name='allowFullScreen' value='true'/>\n"+
+                                        "<param name='wmode' value='direct'/>\n"+
+                                        "<param name='menu' value='false'/>\n"+
+                                    "</object>";
+                        $('#flashContent').html(tHtml);
+                        // showScratch(data.url);
+                        // showScratch(data.url);
                     }
                     // $('#doc-preview').attr("src", "http://lessons_id/op/embed.aspx?src=" + data);
                     $('#post-download-link').attr("href", data);

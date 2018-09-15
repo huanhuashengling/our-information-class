@@ -75,8 +75,8 @@
       <div class="modal-body">
         <div id='doc-preview'></div>
         <img src="" id='classmate-post-show' class="img-responsive img-thumbnail center-block">
-        <div id='flashContent' width='482px' height='387px'>
-            Get <a href="http://www.adobe.com/go/getflash">Adobe Flash Player</a>, otherwise this Scratch movie will not play.
+        <div id='flashContent'>
+            <!-- Get <a href="http://www.adobe.com/go/getflash">Adobe Flash Player</a>, otherwise this Scratch movie will not play. -->
         </div>
         <!-- <a href="" id="classmate-post-download-link">右键点击下载</a> -->
         <label id="post-comment"></label>
@@ -94,7 +94,7 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript" src="/scratch/swfobject.js"></script>
+    <!-- <script type="text/javascript" src="/scratch/swfobject.js"></script> -->
     <link href="/css/bootstrap-switch.css" rel="stylesheet">
     <script src="/js/bootstrap-switch.min.js"></script>
     <script src="/js/student/classmate-post.js"></script>

@@ -69,8 +69,17 @@
       <div class="modal-body">
         <div id="doc-preview"></div>
         <img src="" id='post-show' class="img-responsive img-thumbnail center-block">
-        <div id='flashContent' width='482px' height='387px'>
-            Get <a href="http://www.adobe.com/go/getflash">Adobe Flash Player</a>, otherwise this Scratch movie will not play.
+        <div id='flashContent'>
+            <!-- Get <a href="http://www.adobe.com/go/getflash">Adobe Flash Player</a>, otherwise this Scratch movie will not play. -->
+            <!-- <object type="application/x-shockwave-flash" data="/scratch/Scratch.swf" width="850px" height="850px">
+                <param name='movie' value="/scratch/Scratch.swf"/>
+                <param name='bgcolor' value="#FFFFFF"/>
+                <param name='FlashVars' value="project=/scratch/dts.sb2&autostart=false" />
+                <param name='allowscriptaccess' value="always"/>
+                <param name='allowFullScreen' value="true"/>
+                <param name='wmode' value="direct"/>
+                <param name='menu' value="false"/>
+            </object> -->
         </div>
         <a href="" id="post-download-link">右键点击下载</a>
       </div>
@@ -97,7 +106,7 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript" src="/scratch/swfobject.js"></script>
+    <!-- <script type="text/javascript" src="/scratch/swfobject.js"></script> -->
      <!-- <script type='text/javascript'>
     var flashvars = {
       project: '/scratch/dts.sb2',
