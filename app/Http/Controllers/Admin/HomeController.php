@@ -10,6 +10,7 @@ use App\Models\Sclass;
 use App\Models\Lesson;
 use App\Models\Post;
 use App\Models\Mark;
+use App\Models\Term;
 use Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
@@ -21,12 +22,12 @@ class HomeController extends Controller
 {
     public function index()
     {
-        
         return view('admin/home');
     }
 
     public function getPostCountPerClassWithSameGradeData1()
     {
+        $term = Term::where(['enter_school_year' => 2015, 'is_current' => 1])->first();
         $lessonsData = Lesson::select('lessons.title', 'lessons.id')
                     ->leftJoin('lesson_logs', function($join) {
                         $join->on('lesson_logs.lessons_id', '=', 'lessons.id');
@@ -41,7 +42,8 @@ class HomeController extends Controller
                         $join->on('students.sclasses_id', '=', 'sclasses.id');
                     }) 
                     ->where('sclasses.enter_school_year', '=', 2015)
-                    ->whereDate('lessons.created_at', '>', '2018-2-30')
+                    ->whereBetween('lessons.created_at', array($term->from_date, $term->to_date))
+                    // ->whereDate('lessons.created_at', '>', '2018-2-30')
                     ->groupBy('lessons.title', 'lessons.id')
                     ->orderBy('lessons.created_at')
                     ->get();
@@ -78,6 +80,8 @@ class HomeController extends Controller
 
     public function getPostCountPerClassWithSameGradeData2()
     {
+        $term = Term::where(['enter_school_year' => 2014, 'is_current' => 1])->first();
+
         $lessonsData = Lesson::select('lessons.title', 'lessons.id')
                     ->leftJoin('lesson_logs', function($join) {
                         $join->on('lesson_logs.lessons_id', '=', 'lessons.id');
@@ -92,7 +96,9 @@ class HomeController extends Controller
                         $join->on('students.sclasses_id', '=', 'sclasses.id');
                     })
                     ->where('sclasses.enter_school_year', '=', 2014)
-                    ->whereDate('lessons.created_at', '>', '2018-2-30')
+                    ->whereBetween('lessons.created_at', array($term->from_date, $term->to_date))
+
+                    // ->whereDate('lessons.created_at', '>', '2018-2-30')
                     ->groupBy('lessons.title', 'lessons.id')
                     ->orderBy('lessons.created_at')
                     ->get();
@@ -129,6 +135,7 @@ class HomeController extends Controller
 
     public function getMarkCountPerClassWithSameGradeData1()
     {
+        $term = Term::where(['enter_school_year' => 2015, 'is_current' => 1])->first();
         $lessonsData = Lesson::select('lessons.title', 'lessons.id')
                     ->leftJoin('lesson_logs', function($join) {
                         $join->on('lesson_logs.lessons_id', '=', 'lessons.id');
@@ -144,7 +151,8 @@ class HomeController extends Controller
                     }) 
                     ->where('sclasses.enter_school_year', '=', 2015)
                     ->where('students.is_lock', "!=", "1")
-                    ->whereDate('lessons.created_at', '>', '2018-2-30')
+                    ->whereBetween('lessons.created_at', array($term->from_date, $term->to_date))
+                    // ->whereDate('lessons.created_at', '>', '2018-2-30')
                     ->groupBy('lessons.title', 'lessons.id')
                     ->orderBy('lessons.created_at')
                     ->get();
@@ -185,6 +193,7 @@ class HomeController extends Controller
 
     public function getMarkCountPerClassWithSameGradeData2()
     {
+        $term = Term::where(['enter_school_year' => 2014, 'is_current' => 1])->first();
         $lessonsData = Lesson::select('lessons.title', 'lessons.id')
                     ->leftJoin('lesson_logs', function($join) {
                         $join->on('lesson_logs.lessons_id', '=', 'lessons.id');
@@ -199,7 +208,8 @@ class HomeController extends Controller
                         $join->on('students.sclasses_id', '=', 'sclasses.id');
                     })
                     ->where('sclasses.enter_school_year', '=', 2014)
-                    ->whereDate('lessons.created_at', '>', '2018-2-30')
+                    ->whereBetween('lessons.created_at', array($term->from_date, $term->to_date))
+                    // ->whereDate('lessons.created_at', '>', '2018-2-30')
                     ->groupBy('lessons.title', 'lessons.id')
                     ->orderBy('lessons.created_at')
                     ->get();

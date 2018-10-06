@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container" style="">
+    <h4>本页面统计为当前学期的数据</h4>
         <!-- <div class="col-md-10 col-md-offset-1"> -->
             <!-- <div class="col-md-4 col-md-offset-1"> -->
                 <div class="panel panel-default">
