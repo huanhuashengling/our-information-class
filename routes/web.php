@@ -133,6 +133,7 @@ Route::group(['middleware' => 'auth.teacher', 'prefix' => 'teacher','namespace' 
     Route::get('lessonLog', 'LessonLogController@listLessonLog');
     Route::post('createLessonLog', 'LessonLogController@store');
     Route::post('updateLessonLog', 'LessonLogController@update');
+    Route::post('updateRethink', 'LessonLogController@updateRethink');
     
     Route::resource('createComment', 'CommentController@store');
     Route::resource('updateComment', 'CommentController@update');

@@ -175,6 +175,28 @@ $(document).ready(function() {
         });
     });
 
+    $("#update-rethink").on('click', function (e) {
+        // console.log($("#rethink").val());
+        if ("" == $("#rethink").val())
+        {
+            alert("反思没有内容！！");
+            return;
+        }
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: '/teacher/updateRethink',
+            data: {lessonLogId: $("#lesson-log-id").val(), rethink:$("#rethink").val()},
+            success: function( data ) {
+                if ("true" == data) {
+                    alert('反思更新成功!');
+                } else {
+                    alert('反思更新失败!');
+                }
+            }
+        });
+    });
+
     $("#edit-post-comment-btn").on('click', function (e) {
         var data = {posts_id: $('#posts-id').val(), 
                     content: $('#post-comment').val(), 

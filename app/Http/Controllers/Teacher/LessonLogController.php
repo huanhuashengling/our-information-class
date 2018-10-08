@@ -38,6 +38,7 @@ class LessonLogController extends Controller
         $lessonLog->teachers_id = \Auth::guard("teacher")->id();
         $lessonLog->sclasses_id = $request->get('sclasses_id');
         $lessonLog->lessons_id = $request->get('lessons_id');
+        $lessonLog->rethink = $request->get('rethink');
         $lessonLog->status = 'open';
         // dd($lessonLog);die();
         if ($lessonLog->save()) {
@@ -55,6 +56,19 @@ class LessonLogController extends Controller
             $lessonLog = LessonLog::where(['id' => $lessonLogId])->first();
             $lessonLog->status = 'close';
         }
+        if ($lessonLog->update()) {
+            return "true";
+        } else {
+            return "false";
+        }
+    }
+
+    public function updateRethink(Request $request)
+    {
+        $lessonLogId = $request->get('lessonLogId');
+        $rethink = $request->get('rethink');
+        $lessonLog = LessonLog::where(['id' => $lessonLogId])->first();
+        $lessonLog->rethink = $rethink;
         if ($lessonLog->update()) {
             return "true";
         } else {

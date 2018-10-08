@@ -44,15 +44,25 @@
                     @include('teacher.partials.studentlist', array('students' => $students))
             </div>
             <div class="panel-footer">
-                    <h4>未交名单:
-                    @php
-                        foreach ($unPostStudentName as $key => $unPostedName) {
-                            echo "  " . ($key+1) . ". " . $unPostedName . " ";
-                        }
-                    @endphp
-                    </h4>
-                </div>
+                <h4>未交名单:
+                @php
+                    foreach ($unPostStudentName as $key => $unPostedName) {
+                        echo "  " . ($key+1) . ". " . $unPostedName . " ";
+                    }
+                @endphp
+                </h4>
             </div>
+            </div>
+            <input type="hidden" id="lesson-log-id" value="{{ $lessonLog['id'] }}">
+        <!-----start panel-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><button class="btn btn-default" id="update-rethink">点击记录教学反思</button></div>
+            </div>
+            <div class="panel-body">
+                <textarea class="form-control" rows="5" id="rethink" name="rethink"></textarea>
+            </div>
+        </div>
     @endif
 </div>
 
