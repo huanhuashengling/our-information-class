@@ -93,7 +93,7 @@ class ImageController extends Controller
             $docMimeType = ["application/msword", 'application/x-xls', 'application/vnd.ms-excel', 'application/x-ppt', 'application/vnd.ms-powerpoint'];
             if (in_array($file_ext, ["doc", "docx"])) {
                 return url("images/doc.png");
-                // return "http://owa.docview.com/op/embed.aspx?src=http%3A%2F%2Fwww.oic.com%3A8001%2Fposts%2F%E5%91%B3%E9%81%93.docx-5b96766db52f2.docx";
+                // return "http://10.63.7.189/op/embed.aspx?src=http%3A%2F%2Fwww.oic.com%3A8001%2Fposts%2F%E5%91%B3%E9%81%93.docx-5b96766db52f2.docx";
             } elseif (in_array($file_ext, ["xls", 'xlsx'])) {
                 return url("images/xls.png");
             } elseif (in_array($file_ext, ["ppt", "pptx"])) {
