@@ -60,7 +60,7 @@
                 <div class="panel-title"><button class="btn btn-default" id="update-rethink">点击记录教学反思</button></div>
             </div>
             <div class="panel-body">
-                <textarea class="form-control" rows="5" id="rethink" name="rethink"></textarea>
+                <textarea class="form-control" rows="5" id="rethink" name="rethink">{{$lessonLog['rethink']}}</textarea>
             </div>
         </div>
     @endif

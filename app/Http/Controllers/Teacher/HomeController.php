@@ -60,7 +60,7 @@ class HomeController extends Controller
     public function takeClass()
     {
         $userId = auth()->guard('teacher')->id();
-        $lessonLog = LessonLog::select('lesson_logs.id', 'lesson_logs.sclasses_id', 'lessons.title', 'lessons.subtitle', 'sclasses.enter_school_year', 'sclasses.class_title', 'terms.grade_key', 'terms.term_segment')
+        $lessonLog = LessonLog::select('lesson_logs.id', 'lesson_logs.rethink', 'lesson_logs.sclasses_id', 'lessons.title', 'lessons.subtitle', 'sclasses.enter_school_year', 'sclasses.class_title', 'terms.grade_key', 'terms.term_segment')
         ->leftJoin("lessons", 'lessons.id', '=', 'lesson_logs.lessons_id')
         ->leftJoin("sclasses", 'sclasses.id', '=', 'lesson_logs.sclasses_id')
         ->leftJoin("terms", 'terms.enter_school_year', '=', 'sclasses.enter_school_year')
