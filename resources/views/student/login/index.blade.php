@@ -4,9 +4,9 @@
 
     
 <a-scene>
-    <a-sky src="/images/panorama/dalitang.jpg" rotation="0 -150 0"></a-sky>
+    <a-sky src="/images/panorama/information-room1.jpg" rotation="0 -150 0"></a-sky>
 
-    <a-text font="kelsonsans" value="Yan Wu Ju Chang" width="6" position="-2.5 0.25 -1.5"
+    <a-text font="kelsonsans" value="xin xi ji fang" width="6" position="-2.5 0.25 -1.5"
               rotation="0 15 0"></a-text>
 </a-scene>
 <!--    <div class="container">
