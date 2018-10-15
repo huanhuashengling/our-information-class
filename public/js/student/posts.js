@@ -131,7 +131,7 @@ function refreshPostList() {
                     $(this).fileinput({
                         language: "zh", 
                         // uploadUrl: "student/upload", 
-                        allowedFileExtensions: ["jpg", "png", "gif", "bmp", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "html"], 
+                        allowedFileExtensions: ["jpg", "png", "gif", "bmp", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "html", "sb2"], 
                         // uploadAsync: true
                         // overwriteInitial: true,
                         initialPreview: [
@@ -142,7 +142,7 @@ function refreshPostList() {
                 } else {
                     $(this).fileinput({
                         language: "zh", 
-                        allowedFileExtensions: ["jpg", "png", "gif", "bmp", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "html"], 
+                        allowedFileExtensions: ["jpg", "png", "gif", "bmp", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "html", "sb2"], 
                         initialPreviewAsData: true, // 特别重要
                     });
                 }
