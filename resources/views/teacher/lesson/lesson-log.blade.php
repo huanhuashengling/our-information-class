@@ -2,28 +2,44 @@
 
 @section('content')
 <div class="container">
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-        @foreach ($lessonLogs as $key => $lesson)
-            <div class="panel panel-info">
-                <div class="panel-heading" role="tab" id="heading{{$key}}">
-                  <h4 class="panel-title"  value="{{$lesson['lessons_id']}}">
-                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$key}}" aria-expanded="true" aria-controls="collapse{{$key}}">
-                      {{ $key+1 }}. {{ $lesson->title }} {{ $lesson->subtitle }}
-                    </a>
-                  </h4>
-                </div>
-                <div id="collapse{{$key}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{$key}}">
-                  <div class="panel-body">
-                    <div id="lesson{{$lesson['lessons_id']}}">
-                    </div>
-                  </div>
-                </div>
-              </div>
-        @endforeach
+  <form class="form-inline">
 
+    <div class="form-group">
+      <select class="form-control" id="term-selection">
+          <option value="0">选择学期</option>
+          @foreach ($terms as $term)
+          @php
+            $currentStr = "";
+            if ($term->is_current) {
+              $currentStr = "  (当前学期)";
+            }
+          @endphp
+          <option value="{{$term->id}}">{{$term->enter_school_year}}级{{$term->grade_key}}年{{$term->term_segment}}期{{$currentStr}}</option>
+          @endforeach
+      </select>
     </div>
+    <div class="form-group">
+      <select class="form-control" id="classes-selection">
+          <option value="0">选择班级</option>
+          <option value="1">甲班</option>
+          <option value="2">乙班</option>
+          <option value="3">丙班</option>
+          <option value="4">丁班</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <select class="form-control" id="lesson-log-selection">
+        <option>选择上课记录</option>
+      </select>
+    </div>
+  </form>
+
+  <div id="posts_area">
+
+  </div>
 </div>
 
+<!-- Modal -->
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 <input type="hidden" id="posts-id" value="">
@@ -35,24 +51,31 @@
         <h4 class="modal-title" id="myModalLabel">批阅作业</h4>
       </div>
       <div class="modal-body">
-      <!-- <iframe src='https://docview.mingdao.com/op/embed.aspx?src=http://www.ccut.edu.tw/teachers/cskuan/downloads/ed01-ch01.ppt' width='800px' height='600px' frameborder='0'>This is an embedded <a target='_blank' href='http://office.com'>Microsoft Office</a> document, powered by <a target='_blank' href='http://office.com/webapps'>Office Web Apps</a>.</iframe> -->
-        <img src="" id='post-show' class="img-responsive">
+        <div id="doc-preview"></div>
+        <img src="" id='post-show' class="img-responsive img-thumbnail center-block">
+        <div id='flashContent'>
+            <!-- Get <a href="http://www.adobe.com/go/getflash">Adobe Flash Player</a>, otherwise this Scratch movie will not play. -->
+            <!-- <object type="application/x-shockwave-flash" data="/scratch/Scratch.swf" width="850px" height="850px">
+                <param name='movie' value="/scratch/Scratch.swf"/>
+                <param name='bgcolor' value="#FFFFFF"/>
+                <param name='FlashVars' value="project=/scratch/dts.sb2&autostart=false" />
+                <param name='allowscriptaccess' value="always"/>
+                <param name='allowFullScreen' value="true"/>
+                <param name='wmode' value="direct"/>
+                <param name='menu' value="false"/>
+            </object> -->
+        </div>
         <a href="" id="post-download-link">右键点击下载</a>
-
-        <!-- https://docview.mingdao.com/op/generate.aspx -->
-        <!-- <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=http://www.ccut.edu.tw/teachers/cskuan/downloads/ed01-ch01.ppt' width='800px' height='600px' frameborder='0'> -->
-        <!-- <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=http://www.lf1.cuni.cz/zfisar/psychiatry/Child%20Psychiatry.ppt' width='800px' height='600px' frameborder='0'> -->
-        <!-- </iframe> -->
       </div>
 
     <div class="modal-footer">
-        <div class="btn-group" name="rate-btn-group" data-toggle="buttons">
-            <label class='btn btn-primary rate-btn' id="outstanding-rate" value="outstanding"><input type='radio'>优秀</label>
-            <label class='btn btn-primary rate-btn' id="good-rate" value="good"><input type='radio'>良好</label>
-            <label class='btn btn-primary rate-btn' id="lower-rate" value="lower"><input type='radio'>合格</label>
+        <div class='btn-group' name='level-btn-group' data-toggle='buttons'>
+            <label class='btn btn-default'><input type='radio' value='优'>优秀</label>
+            <label class='btn btn-default'><input type='radio' value='良'>良好</label>
+            <label class='btn btn-default'><input type='radio' value='合格'>合格</label>
+            <label class='btn btn-default'><input type='radio' value='差'>不合格</label>
         </div>
 
-        <hr>
         <div class="">
             <h4>填写评价内容</h4>
             <textarea class="form-control" rows='3' id="post-comment" value=''></textarea>

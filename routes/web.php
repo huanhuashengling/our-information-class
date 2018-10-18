@@ -125,12 +125,13 @@ Route::group(['middleware' => 'auth.teacher', 'prefix' => 'teacher','namespace' 
     $router->get('/', 'HomeController@index');
     $router->get('takeclass', 'HomeController@takeclass');
     $router->resource('lesson', 'LessonController');
-    $router->resource('lessonLog', 'LessonLogController@listLessonLog');
     $router->post('getLessonPostPerSclass', 'HomeController@getLessonPostPerSclass');
 
     Route::post('uploadMDImage', 'LessonController@uploadMDImage');
     Route::get('ajaxSearchTopics', 'LessonController@ajaxSearchTopics');
     Route::get('lessonLog', 'LessonLogController@listLessonLog');
+    Route::post('loadLessonLogSelection', 'LessonLogController@loadLessonLogSelection');
+    Route::post('getPostDataByTermAndSclass', 'LessonLogController@getPostDataByTermAndSclass');
     Route::post('createLessonLog', 'LessonLogController@store');
     Route::post('updateLessonLog', 'LessonLogController@update');
     Route::post('updateRethink', 'LessonLogController@updateRethink');
