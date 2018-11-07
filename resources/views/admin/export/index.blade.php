@@ -1,20 +1,23 @@
 @extends('layouts.admin')
 
 @section('content')
+@php
+
+@endphp
 <div class="container">
   <div id="toolbar">
     <form class="form-inline">
       <div class="form-group">
         <select class="form-control" id="classes-selection">
           <option value="0">选择班级</option>
-          <option value="1">三甲班</option>
-          <option value="2">三乙班</option>
-          <option value="3">三丙班</option>
-          <option value="4">三丁班</option>
-          <option value="5">四甲班</option>
-          <option value="6">四乙班</option>
-          <option value="7">四丙班</option>
-          <option value="8">四丁班</option>
+          <option value="1">四甲班</option>
+          <option value="2">四乙班</option>
+          <option value="3">四丙班</option>
+          <option value="4">四丁班</option>
+          <option value="5">五甲班</option>
+          <option value="6">五乙班</option>
+          <option value="7">五丙班</option>
+          <option value="8">五丁班</option>
       </select>
   </div>
   <div class="form-group">
@@ -22,10 +25,9 @@
       <option>选择上课记录</option>
   </select>
 </div>
-<div class="form-group">
-    <input type="" name="" id="output-dir" placeholder="文件导出目录" value="/Users/ywj/Downloads/post_download/" class="form-control">
-</div>
-<a id="export-btn" class="btn btn-success">Export</a>
+<a id="export-btn" class="btn btn-success">创建导出链接</a>
+<a id="clear-btn" class="btn btn-danger">清除zip</a>
+<div id="export-url"></div>
 </form>
 </div>
 <table id="posts-list" class="table table-condensed table-responsive">

@@ -5,6 +5,7 @@ $(document).ready(function() {
 	  }
 	});
     $("#classes-selection").change(function(e){
+        $("#export-url").html("");
     	// alert($("#classes-selection").val());
     	if (0 == $("#classes-selection").val()) {
     		$("#lesson-log-selection").html("<option>选择上课记录</option>");
@@ -22,24 +23,39 @@ $(document).ready(function() {
     });
 
     $("#export-btn").click(function(e){
+        $("#export-url").html("");
         $.ajax({
-            type: "POST",
-            url: '/admin/export-post-files',
-            data: {exportDir: $("#output-dir").val(), sclassesId: $("#classes-selection").val(), lessonlogsId: $("#lesson-log-selection").val()},
+            type: "GET",
+            url: '/admin/create-zip',
+            data: {sclassesId: $("#classes-selection").val(), lessonlogsId: $("#lesson-log-selection").val()},
             success: function( data ) {
                 // $("#lesson-log-selection").html(data);
-                console.log(data);
+                // console.log(data);
+                $("#export-url").html("<br /> <a href='" + data + "'>" + data.split("/")[4] + "</a>");
+            }
+        });
+    });
 
+    $("#clear-btn").click(function(e){
+        $("#export-url").html("");
+        $.ajax({
+            type: "GET",
+            url: '/admin/clear-all-zip',
+            success: function( data ) {
+                // console.log(data);
+                if ("true" == data) {
+                    alert("清除所有Zip文件成功！")
+                }
             }
         });
     });
 
     $("#lesson-log-selection").change(function(e){
+        $("#export-url").html("");
     	// alert("asasas");
     	$('#posts-list').bootstrapTable("refresh");
     	$('#posts-list').bootstrapTable({
 	        method: 'post', 
-	        search: "true",
 	        url: "/admin/load-post-list",
 	        pagination:"true",
 	        pageList: [55, 60], 

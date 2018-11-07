@@ -111,6 +111,11 @@ Route::group(['middleware' => 'auth.admin:admin, admin/login', 'prefix' => 'admi
     $router->get('get-post-count-per-class-same-grade-data-2', 'HomeController@getPostCountPerClassWithSameGradeData2');
     $router->get('get-mark-count-per-class-same-grade-data-1', 'HomeController@getMarkCountPerClassWithSameGradeData1');
     $router->get('get-mark-count-per-class-same-grade-data-2', 'HomeController@getMarkCountPerClassWithSameGradeData2');
+
+
+    $router->get('create-zip', 'ExportPostController@exportPostFiles');
+    $router->get('clear-all-zip', 'ExportPostController@clearALlZip');
+
 });
 
 Route::group(['prefix' => 'teacher','namespace' => 'Teacher'],function ($router)

@@ -6,7 +6,7 @@
         <!-- <div class="col-md-10 col-md-offset-1"> -->
             <!-- <div class="col-md-4 col-md-offset-1"> -->
                 <div class="panel panel-default">
-                    <div class="panel-heading">三年级作业数统计</div>
+                    <div class="panel-heading">四年级作业数统计</div>
                     <div class="panel-body">
                         <canvas id="posts-count-per-class-same-grade-chart-1"></canvas>
                     </div>
@@ -14,7 +14,7 @@
             <!-- </div> -->
             <!-- <div class="col-md-4"> -->
                 <div class="panel panel-default">
-                    <div class="panel-heading">四年级作业数统计</div>
+                    <div class="panel-heading">五年级作业数统计</div>
                     <div class="panel-body">
                         <canvas id="posts-count-per-class-same-grade-chart-2"></canvas>
                     </div>
@@ -23,12 +23,12 @@
         <!-- </div> -->
 
             <div class="panel panel-default">
-                <div class="panel-heading">三年级点赞数统计</div>
+                <div class="panel-heading">四年级点赞数统计</div>
                 <canvas id="mark-count-per-class-same-grade-chart-1"></canvas>
             </div>
 
             <div class="panel panel-default">
-                <div class="panel-heading">四年级点赞数统计</div>
+                <div class="panel-heading">五年级点赞数统计</div>
                 <canvas id="mark-count-per-class-same-grade-chart-2"></canvas>
             </div>
 
