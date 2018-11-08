@@ -2,9 +2,6 @@
 
 @section('content')
 @php
-echo exec('whoami');
-echo phpinfo();
-
 @endphp
 <div class="container">
   <div id="toolbar">
