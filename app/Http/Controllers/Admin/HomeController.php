@@ -254,7 +254,7 @@ class HomeController extends Controller
                               ->leftJoin('students', function($join) {
                                   $join->on('students.sclasses_id', '=', 'sclasses.id');
                               })
-                              ->where('sclasses.enter_school_year', '<', 2016)
+                              ->where('sclasses.is_graduated', '=', 0)
                               ->groupBy('sclasses.class_title', 'sclasses.enter_school_year', 'sclasses.id')
                               ->orderBy('sclasses.id')
                               ->get();
@@ -278,6 +278,25 @@ class HomeController extends Controller
 
                     if(!empty($value)){
                         $this->createStudentAccount($value);
+                        // die();
+                    }
+                }
+            }
+        }
+    }
+
+    public function updateStudentEmail(Request $request)
+    {
+        if($request->hasFile('xls')){
+            $path = $request->file('xls')->getRealPath();
+            $data = Excel::load($path, function($reader) {})->get();
+            if(!empty($data) && $data->count()){
+
+                foreach ($data->toArray() as $value) {
+                    // dd($value);
+
+                    if(!empty($value)){
+                        $this->updateOneStudentEmail($value);
                         // die();
                     }
                 }
@@ -357,6 +376,16 @@ class HomeController extends Controller
                 'is_lock' => 0,
                 'remember_token' => str_random(10),
             ]);
+        } catch (Exception $e) {
+            throw new Exception("Error Processing Request", 1);
+        }
+    }
+
+    public function updateOneStudentEmail($data) {
+        try {
+            $student = Student::find($data["id"]);
+            $student->email = $data["email"];
+            $student->save();
         } catch (Exception $e) {
             throw new Exception("Error Processing Request", 1);
         }

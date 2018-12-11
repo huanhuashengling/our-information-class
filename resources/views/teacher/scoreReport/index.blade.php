@@ -10,6 +10,7 @@
     </div>
     <div id="toolbar">
         <button class="btn btn-success" id="export-score-report-btn">导出成绩</button>
+        <button class="btn btn-success" id="email-all-out-btn">发送所有邮件</button>
     </div>
     <table id="score-report" class="table table-condensed table-responsive">
         <thead>
@@ -19,6 +20,9 @@
                 </th>
                 <th data-field="">
                     序号
+                </th>
+                <th data-field="users_id" data-sortable="true">
+                    ID
                 </th>
                 <th data-field="username" data-sortable="true">
                     学生姓名
@@ -53,6 +57,9 @@
                 <th data-field="scoreCount" data-sortable="true">
                     分数合计
                 </th>
+                <th data-field="users_id" data-formatter="emailCol" data-events="emailActionEvents">
+                  邮件报告
+              </th>
             </tr>
         </thead>
     </table>

@@ -53,6 +53,7 @@
                     <li><a href="{{ url('/admin/teachers') }}">教师账户</a></li>
                     <li><a href="{{ url('/admin/export-post') }}">导出作业</a></li>
                     <li><a href="{{ url('/admin/lessonLog') }}">课程记录</a></li>
+                    <li><a href="{{ url('/admin/send-mail') }}">邮件发送</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->

@@ -100,7 +100,7 @@ class ExportPostController extends Controller
 
         if ($request->has('download') || true) {
             $zipFileName = $lessonLog->enter_school_year . "_" . $lessonLog->class_title . "_" . $lessonLog->title . '_' . count($posts) . '_' . date('YmdHis') . ".zip";
-            $store_path = public_path() . '/zip/' .$zipFileName;
+            $store_path = public_path() . '/downloads/' .$zipFileName;
 
             $zip = new ZipArchive;
             if ($zip->open($store_path, ZipArchive::CREATE) === TRUE) {
@@ -111,7 +111,7 @@ class ExportPostController extends Controller
                 }
                 $zip->close();
             }
-            if (!is_writable(public_path() . '/zip/')) { die(public_path() . '/zip/' . 'directory not writable'); }
+            if (!is_writable(public_path() . '/downloads/')) { die(public_path() . '/downloads/' . 'directory not writable'); }
 
             // $headers = array(
             //     'Cache-Control' => 'max-age=0',
@@ -121,7 +121,7 @@ class ExportPostController extends Controller
             //     'Content-Transfer-Encoding' => 'binary',
             //     'Content-Length' => filesize($store_path),
             // );
-            return env("APP_URL")."/zip/".basename($store_path);
+            return env("APP_URL")."/downloads/".basename($store_path);
 
             // header("Cache-Control: max-age=0");
             // header("Content-Description: File Transfer");
@@ -135,12 +135,12 @@ class ExportPostController extends Controller
 
     public function clearAllZip()
     {
-        $zipfiles = scandir(public_path() . '/zip/');
+        $zipfiles = scandir(public_path() . '/downloads/');
         foreach ($zipfiles as $key => $zipfile) {
             //排除目录中的.和..
             if($zipfile !="." && $zipfile !=".."){
                 //如果是文件直接删除
-                unlink(public_path() . '/zip/'.$zipfile);
+                unlink(public_path() . '/downloads/'.$zipfile);
             }
         }
         return "true";

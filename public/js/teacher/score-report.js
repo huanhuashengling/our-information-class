@@ -18,7 +18,7 @@ $(document).ready(function() {
             success: function( data ) {
                 // console.log(data);
                 $("[name='score_report_terms_id']").html(data);
-                console.log($("[name='score_report_terms_id']"));
+                // console.log($("[name='score_report_terms_id']"));
                 $('#score-report').bootstrapTable("refresh");
             }
         });
@@ -32,7 +32,18 @@ $(document).ready(function() {
             $('#score-report').bootstrapTable("refresh");
         }
     });
-	
+
+	$('#email-all-out-btn').on("click", function(e) {
+        // console.log($('#score-report').bootstrapTable('getSelections'));
+        var data = $('#score-report').bootstrapTable('getSelections');
+        for (var i = 0; i < data.length; i++) {
+            if (data[i]["email"]) {
+                emailOutStudentPostReport(data[i], i);
+            }
+        }
+    });
+
+
 	$('#score-report').bootstrapTable({
         method: 'post', 
         search: "true",
@@ -67,3 +78,32 @@ $(document).ready(function() {
     });
 	
 });
+
+function emailCol(value, row, index) {
+    if (row.email) {
+        return [
+            '<a class="btn btn-info btn-sm email" data-unique-id="', row.users_id, '">发送</a>'
+        ].join('');
+    } else {
+        return "无邮箱";
+    }
+}
+
+window.emailActionEvents = {
+    'click .email': function(e, value, row, index) {
+        emailOutStudentPostReport(row, 1);
+    },
+}
+
+function emailOutStudentPostReport(rowdata, emailCount) {
+    var sclassesId = $("[name='score_report_sclasses_id']").val();
+    var termsId = $("[name='score_report_terms_id']").val();
+    $.ajax({
+            type: "POST", 
+            url: '/teacher/email-out',
+            data: {sclassesId: sclassesId, termsId: termsId, rowdata: rowdata, emailCount: emailCount},
+            success: function( data ) {
+                console.log(data);
+            }
+        });
+}

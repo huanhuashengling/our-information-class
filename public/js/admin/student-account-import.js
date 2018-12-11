@@ -10,6 +10,12 @@ $(document).ready(function() {
 		allowedFileExtensions: ["xls", "xlsx", "csv"],
 	});
 
+    $("#update-student-email").fileinput({
+        showPreview: false,
+        language: "zh", 
+        allowedFileExtensions: ["xls", "xlsx", "csv"],
+    });
+
 	$(".sclass-btn").click(function(e) {
 		$('#student-list').bootstrapTable('destroy');
 		// console.log($(this).val());

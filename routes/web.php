@@ -85,6 +85,7 @@ Route::group(['middleware' => 'auth.admin:admin, admin/login', 'prefix' => 'admi
     $router->get('students', 'HomeController@studentsAccountManagement');
 
     $router->post('importStudents', 'HomeController@importStudents');
+    $router->post('updateStudentEmail', 'HomeController@updateStudentEmail');
     $router->post('getStudentsData', 'HomeController@getStudentsData');
     $router->post('resetStudentPassword', 'HomeController@resetStudentPassword');
     $router->post('lockOneStudentAccount', 'HomeController@lockOneStudentAccount');
@@ -115,6 +116,13 @@ Route::group(['middleware' => 'auth.admin:admin, admin/login', 'prefix' => 'admi
 
     $router->get('create-zip', 'ExportPostController@exportPostFiles');
     $router->get('clear-all-zip', 'ExportPostController@clearALlZip');
+
+
+
+    $router->get('send-mail', 'SendMailController@index');
+    $router->get('get-send-mail-list', 'SendMailController@listAllMails');
+    $router->post('addSendMail', 'SendMailController@addSendMail');
+    $router->post('updateSendMail', 'SendMailController@updateSendMail');
 
 });
 
@@ -156,6 +164,8 @@ Route::group(['middleware' => 'auth.teacher', 'prefix' => 'teacher','namespace' 
     $router->get('scoreReport', 'ScoreReportController@index');
     $router->post('getScoreReport', 'ScoreReportController@report');
     $router->post('getSclassTermsList', 'ScoreReportController@getSclassTermsList');
+    $router->post('email-out', 'ScoreReportController@emailOut');
+
 
     $router->get('get-lesson-list', 'LessonController@getLessonList');
     $router->post('deleteLesson', 'LessonController@deleteLesson');
@@ -167,6 +177,7 @@ Route::group(['middleware' => 'auth.teacher', 'prefix' => 'teacher','namespace' 
     Route::resource('unit', 'UnitController');
     Route::get('get-unit-list', 'UnitController@getUnitList');
     Route::post('get-unit-list-by-courses-id', 'UnitController@getUnitListByCoursesId');
+
 
 });
 

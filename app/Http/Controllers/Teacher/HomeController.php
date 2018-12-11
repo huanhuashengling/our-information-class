@@ -13,6 +13,7 @@ use App\Models\PostRate;
 use App\Models\Comment;
 use App\Models\LessonLog;
 use App\Models\Mark;
+use App\Models\Term;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Validator;
 use \Auth;
@@ -38,13 +39,12 @@ class HomeController extends Controller
         }
 
 
-        $sclasses = Sclass::get();
+        $sclasses = Sclass::where("is_graduated", "=", 0)->get();
         $classData = [];
         array_push($classData, "请选择班级");
         foreach ($sclasses as $key => $sclass) {
-            // $dateDiff = date_diff($sclass['enter_school_year']."0801", date('y', time()).date('m',time())."01");
-            // dd($dateDiff);
-            $classData[$sclass['id']] = $sclass['enter_school_year'] . "级" . $sclass['class_title'] . "班";
+            $term = Term::where(['enter_school_year' => $sclass['enter_school_year'], 'is_current' => 1])->first();
+            $classData[$sclass['id']] = $term['grade_key'] . $sclass['class_title'] . "班";
         }
         $lessons = Lesson::orderBy("lessons.created_at", "DESC")->get();
         $lessonsData = [];

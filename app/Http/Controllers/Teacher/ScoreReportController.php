@@ -13,14 +13,17 @@ use App\Models\PostRate;
 use App\Models\Comment;
 use App\Models\Mark;
 use App\Models\Term;
+use App\Models\SendMailList;
 
+use App\Mail\PostReport;
+use Carbon\Carbon;
 use \DB;
 
 class ScoreReportController extends Controller
 {
     public function index() {
 
-        $sclasses = Sclass::get();
+        $sclasses = Sclass::where("is_graduated", "=", 0)->get();
         $classData = [];
         array_push($classData, "请选择班级");
         foreach ($sclasses as $key => $sclass) {
@@ -62,13 +65,15 @@ class ScoreReportController extends Controller
         // order username postednum unpostnum rate1num rate2num rate3num rate4num commentnum marknum scorecount
         $dataset = [];
         foreach ($students as $key => $student) {
-            $tDate = [];
-            $tDate['username'] = $student->username;
-            $tDate['postedNum'] = Post::leftJoin("lesson_logs", 'lesson_logs.id', '=', 'posts.lesson_logs_id')
+            $tData = [];
+            $tData['users_id'] = $student->id;
+            $tData['email'] = $student->email;
+            $tData['username'] = $student->username;
+            $tData['postedNum'] = Post::leftJoin("lesson_logs", 'lesson_logs.id', '=', 'posts.lesson_logs_id')
                                         ->where("posts.students_id", '=', $student->id)
                                         ->whereBetween('lesson_logs.created_at', array($from, $to))
                                         ->count();
-            // $tDate['postedNum'] 
+            // $tData['postedNum'] 
             $posts = Post::select('posts.id', DB::raw("SUM(`marks`.`state_code`) as mark_num"))
                             ->leftJoin("marks", 'marks.posts_id', '=', 'posts.id')
                             ->leftJoin("lesson_logs", 'lesson_logs.id', '=', 'posts.lesson_logs_id')
@@ -77,15 +82,15 @@ class ScoreReportController extends Controller
                             ->whereBetween('lesson_logs.created_at', array($from, $to))
                             ->groupBy('posts.id')
                             ->get();
-            $tDate['markNum'] = 0;
-            $tDate['effectMarkNum'] = 0;
+            $tData['markNum'] = 0;
+            $tData['effectMarkNum'] = 0;
             foreach ($posts as $key => $post) {
-                $tDate['markNum'] += $post->mark_num;
-                $tDate['effectMarkNum'] += ($post->mark_num > 4)?4:$post->mark_num; 
+                $tData['markNum'] += $post->mark_num;
+                $tData['effectMarkNum'] += ($post->mark_num > 4)?4:$post->mark_num; 
             }
             // dd($posts);
-            $tDate['unPostedNum'] = $lessonLogCount - $tDate['postedNum'];
-            $tDate['commentNum'] = Comment::leftJoin("posts", 'posts.id', '=', 'comments.posts_id')
+            $tData['unPostedNum'] = $lessonLogCount - $tData['postedNum'];
+            $tData['commentNum'] = Comment::leftJoin("posts", 'posts.id', '=', 'comments.posts_id')
                                             ->leftJoin("lesson_logs", 'lesson_logs.id', '=', 'posts.lesson_logs_id')
                                             ->leftJoin("students", 'students.id', '=', 'posts.students_id')
                                             ->where("posts.students_id", '=', $student->id)
@@ -98,25 +103,80 @@ class ScoreReportController extends Controller
                                 ->where("posts.students_id", '=', $student->id)
                                 ->whereBetween('lesson_logs.created_at', array($from, $to))
                                 ->get();
-            $tDate['rateYouNum'] = 0;
-            $tDate['rateLiangNum'] = 0;
-            $tDate['rateHeNum'] = 0;
-            $tDate['rateChaNum'] = 0;
+            $tData['rateYouNum'] = 0;
+            $tData['rateLiangNum'] = 0;
+            $tData['rateHeNum'] = 0;
+            $tData['rateChaNum'] = 0;
             foreach ($rates as $key => $rate) {
                 if ("优" == $rate->rate) {
-                    $tDate['rateYouNum'] ++;
+                    $tData['rateYouNum'] ++;
                 } elseif ("良" == $rate->rate) {
-                    $tDate['rateLiangNum'] ++;
+                    $tData['rateLiangNum'] ++;
                 } elseif ("合格" == $rate->rate) {
-                    $tDate['rateHeNum'] ++;
+                    $tData['rateHeNum'] ++;
                 } elseif ("差" == $rate->rate) {
-                    $tDate['rateChaNum'] ++;
+                    $tData['rateChaNum'] ++;
                 }
             }
-            $tDate['scoreCount'] = $tDate['rateYouNum'] * 8 + $tDate['effectMarkNum'] * 0.5 + $tDate['commentNum'];
-            $dataset[] = $tDate;
+            $tData['scoreCount'] = $tData['rateYouNum'] * 8 + $tData['effectMarkNum'] * 0.5 + $tData['commentNum'];
+            $dataset[] = $tData;
 
         }
         return $dataset;
+    }
+
+    public function emailOut(Request $request)
+    {
+        $sclassesId = $request->get('sclassesId');
+        $termsId = $request->get('termsId');
+        $rowdata = $request->get('rowdata');
+        $emailCount = $request->get('emailCount');
+
+        $when = Carbon::now()->addSeconds(10);
+        $sendMailList = SendMailList::all();
+        $mailDatas = [];
+        foreach ($sendMailList as $key => $sendMail) {
+            $mailDatas[] = ['address' => $sendMail->mail_address, 'username' => $sendMail->username, 'password' => $sendMail->auth_code];
+        }
+        // $mailDatas = [
+        //     ['address' => "yanshanoic@126.com", 'username' => 'yanshanoic@126.com', 'password' => 'oic1234yanshan'],
+        //     ['address' => "yanshanoic1@126.com", 'username' => 'yanshanoic1@126.com', 'password' => 'oic11234yanshan'],
+        //     ['address' => "yanshanoic2@126.com", 'username' => 'yanshanoic2@126.com', 'password' => 'oic21234yanshan'],
+        //     ['address' => "yanshanoic3@126.com", 'username' => 'yanshanoic3@126.com', 'password' => 'oic31234yanshan'],
+        //     ['address' => "yanshanoic4@126.com", 'username' => 'yanshanoic4@126.com', 'password' => 'oic41234yanshan'],
+        //     ['address' => "yanshanoic5@126.com", 'username' => 'yanshanoic5@126.com', 'password' => 'oic51234yanshan'],
+        //     ['address' => "yanshanoic6@126.com", 'username' => 'yanshanoic6@126.com', 'password' => 'oic61234yanshan'],
+        //     ['address' => "yanshanoic7@126.com", 'username' => 'yanshanoic7@126.com', 'password' => 'oic71234yanshan'],
+        //     ['address' => "yanshanoic8@126.com", 'username' => 'yanshanoic8@126.com', 'password' => 'oic81234yanshan'],
+        //     ];
+        // $mailDatas = [
+        //     ['address' => "3492490584@qq.com", 'username' => '3492490584@qq.com', 'password' => 'xmmlsfzlqzvodcaj'],
+        //     ['address' => "1521419855@qq.com", 'username' => '1521419855@qq.com', 'password' => 'ccworqlfaxmejcac'],
+        //     ['address' => "3411985763@qq.com", 'username' => '3411985763@qq.com', 'password' => 'oxamzmezdwrscjdi'],
+        //     ['address' => "3286948136@qq.com", 'username' => '3286948136@qq.com', 'password' => 'amzfjrnbmvacchgb']
+        //     ];
+        
+        $mailData = $mailDatas[$emailCount % count($mailDatas)];
+        // var_dump($mailData);
+        // $mailData = $mailDatas[0];
+        config(['mail.from' => array('address' => $mailData['address'], 'name' => "燕山小学我们的信息课")]);
+        config(['mail.username' => $mailData['username']]);
+        config(['mail.password' => $mailData['password']]);
+        // return floor($emailCount/10) . "_". $emailCount . " true";
+        // return var_dump($emailCount % count($mailDatas));
+        // \Mail::to($rowdata["email"])->(new PostReport($termsId, $sclassesId, $rowdata));
+        \Mail::to($rowdata["email"])->later($when, new PostReport($termsId, $sclassesId, $rowdata));
+
+        if (!\Mail::failures()) {
+            return $rowdata["username"] . $emailCount . " true";
+        } else {
+            return $rowdata["username"] . $emailCount . " false";
+        }
+        // try{
+        //     \Mail::to($rowdata["email"])->queue(new PostReport($termsId, $sclassesId, $rowdata));
+        //     return $rowdata["username"] . $emailCount . " success";
+        // }catch(\Exception $e){
+        //     return $rowdata["username"] . $emailCount . " failure";    
+        // }
     }
 }
