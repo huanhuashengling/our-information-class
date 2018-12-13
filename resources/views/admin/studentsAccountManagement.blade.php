@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 
-<div class="panel panel-success">
+<div class="panel panel-success col-md-6">
   <div class="panel-heading">导入学生账户</div>
   <div class="panel-body">
     {!! Form::open(array('url'=>'admin/importStudents','method'=>'POST','files'=>'true')) !!}
@@ -11,8 +11,15 @@
     {!! Form::close() !!}
   </div>
 </div>
-
-<div class="panel panel-success">
+<div class="panel panel-success col-md-6">
+  <div class="panel-heading">导入学生邮箱</div>
+  <div class="panel-body">
+    {!! Form::open(array('url'=>'admin/updateStudentEmail','method'=>'POST','files'=>'true')) !!}
+    {!! Form::file('xls', ['id' => 'update-student-email', 'type'=>"file", 'class'=>"file-loading"]) !!}
+    {!! Form::close() !!}
+  </div>
+</div>
+<div class="panel panel-success col-md-12">
   <div class="panel-heading">管理学生账户</div>
   <div class="panel-body">
 
@@ -23,7 +30,7 @@
   </div>
 </div>
 
-<div class="panel panel-success">
+<div class="panel panel-success col-md-12">
   <div class="panel-heading">班级学生账户列表</div>
   <div class="panel-body">
     <div id="toolbar">
@@ -55,6 +62,9 @@
               </th>
               <th data-field="level">
                   等级
+              </th>
+              <th data-field="email">
+                  邮箱
               </th>
               <th data-field="users_id" data-formatter="resetCol" data-events="resetActionEvents">
                   重置密码
