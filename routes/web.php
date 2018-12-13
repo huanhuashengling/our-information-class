@@ -16,6 +16,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/term-check/', 'TermCheckController@index');
+Route::post('/term-check-load-lesson-log/', 'TermCheckController@loadLessonLogSelection');
+Route::post('/term-check-get-post-data/', 'TermCheckController@getPostDataByTermAndSclass');
+Route::post('/term-check-get-post-rate/', 'TermCheckController@getPostRate');
+Route::post('/term-check-get-post/', 'TermCheckController@getPost');
+Route::post('/term-check-get-comment/', 'TermCheckController@getCommentByPostsId');
+
 // Auth::routes();
 // Route::auth();
 
