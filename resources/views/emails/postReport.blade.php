@@ -6,7 +6,7 @@
 <body>
     <p>尊敬的{{$rowdata["username"]}}同学家长：</p>
     <p>感谢您的信任并提供了您的邮箱地址，现将您孩子到目前为止信息技术课堂的作业完成情况以及分数报告给您。<br>
-    本学期{{$term["grade_key"]}}{{$sclass->class_title}}班共计上课{{count($lessonLogs)}}节(有些课是两课时，也有几节被学校活动冲掉)。{{$rowdata["username"]}}同学共提交了{{$rowdata["postedNum"]}}次信息课课堂作业。<br>
+    本学期{{$term["grade_key"]}}{{$sclass->class_title}}班共计上课{{count($lessonLogs)}}节(有些课是两课时)。{{$rowdata["username"]}}同学共提交了{{$rowdata["postedNum"]}}次信息课课堂作业。<br>
     其中{{$rowdata["rateYouNum"]}}节评为了优等，每个计8分，其中有{{$rowdata["effectMarkNum"]}}个有效赞，记为{{$rowdata["effectMarkNum"]*0.5}}分，其中有{{$rowdata["commentNum"]}}次作业有老师评语，计{{$rowdata["commentNum"]}}分。合计分数为{{$rowdata["scoreCount"]}}分。<br>
     课程列表如下：</p>
     <ol>
