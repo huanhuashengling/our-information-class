@@ -17,6 +17,10 @@
           <option value="6">五乙班</option>
           <option value="7">五丙班</option>
           <option value="8">五丁班</option>
+          <option value="9">六甲班</option>
+          <option value="10">六乙班</option>
+          <option value="11">六丙班</option>
+          <option value="12">六丁班</option>
       </select>
   </div>
   <div class="form-group">
