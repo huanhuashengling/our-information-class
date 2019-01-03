@@ -132,8 +132,8 @@ class ScoreReportController extends Controller
         $rowdata = $request->get('rowdata');
         $emailCount = $request->get('emailCount');
 
-        $when = Carbon::now()->addSeconds(10);
-        $sendMailList = SendMailList::all();
+        $when = Carbon::now()->addSeconds(40);
+        $sendMailList = SendMailList::where(["is_useable" => 1])->get();
         $mailDatas = [];
         foreach ($sendMailList as $key => $sendMail) {
             $mailDatas[] = ['address' => $sendMail->mail_address, 'username' => $sendMail->username, 'password' => $sendMail->auth_code];
@@ -163,7 +163,8 @@ class ScoreReportController extends Controller
         config(['mail.username' => $mailData['username']]);
         config(['mail.password' => $mailData['password']]);
         // return floor($emailCount/10) . "_". $emailCount . " true";
-        // return var_dump($emailCount % count($mailDatas));
+        // var_dump($rowdata);
+        // return count($mailDatas);
         // \Mail::to($rowdata["email"])->(new PostReport($termsId, $sclassesId, $rowdata));
         \Mail::to($rowdata["email"])->later($when, new PostReport($termsId, $sclassesId, $rowdata));
 
