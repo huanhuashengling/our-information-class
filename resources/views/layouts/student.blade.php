@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+    <link rel="icon" href="/img/oic.ico" type="image/x-icon" />
     <title>{{ trans("layouts.title") }}</title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
