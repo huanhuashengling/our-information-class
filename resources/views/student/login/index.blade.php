@@ -4,10 +4,11 @@
 
     
 <a-scene>
-    <a-sky src="/images/panorama/information-room1.jpg" rotation="0 -150 0"></a-sky>
-
-    <a-text font="kelsonsans" value="xin xi ji fang" width="6" position="-2.5 0.25 -1.5"
-              rotation="0 15 0"></a-text>
+    <!-- <a-box color="#ff0000" position="0 0.25 -1.5" rotation="20 40 0" height="0.5" width="0.5"></a-box> -->
+    <a-sky src="/images/panorama/meishujiaoshi.jpg" rotation="0 0 0"></a-sky>
+    <!-- <a-text font="kelsonsans" value="yin yue jiao shi" color="#00ff00" width="6" position="-2.5 0.25 -1.5" -->
+              <!-- rotation="0 15 0"></a-text> -->
+<!-- <a-image src="/images/panorama/刘熙梓-5af11255304f3.jpg"></a-image>  -->
 </a-scene>
 <!--    <div class="container">
 <div class="row">
@@ -75,7 +76,7 @@
     </div>
     
 </div> -->
-<script src="/js/aframe-master.js"></script>
+<!-- <script src="/js/aframe-master.js"></script> -->
 <!-- <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script> -->
     <!-- <script src="https://npmcdn.com/aframe-animation-component@3.0.1"></script>
     <script src="https://npmcdn.com/aframe-event-set-component@3.0.1"></script>
