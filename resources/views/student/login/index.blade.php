@@ -28,25 +28,25 @@
 
     <a-sky id="image-360"></a-sky>
 
-    <a-box src="/images/panorama/pig.jpg" rotation="45 45 45" position="2 0.25 2">
+    <a-box src="/images/panorama/pig.jpg" rotation="45 45 45" position="1.5 0.25 1.5">
         <!-- <a-animation attribute="position" begin="click" to="1 0.25 1" direction="alternate" dur="100"></a-animation> -->
-        <a-animation attribute="rotation" begin="click" to="360 280 -45" dur="2000"></a-animation>
+        <a-animation attribute="rotation" begin="click" to="360 360 360" dur="2000"></a-animation>
         <!-- <a-animation attribute="position" begin="mouseleave" to="2 0.25 2" dur="100"></a-animation> -->
     </a-box>
-    <a-box src="/images/panorama/pig1.jpg" rotation="35 45 0" position="2 0.25 -2">
+    <a-box src="/images/panorama/pig1.jpg" rotation="45 45 45" position="1.5 0.25 -1.5">
         <!-- <a-animation attribute="position" to="2 0.25 -2" direction="alternate" dur="2000" repeat="indefinite"></a-animation> -->
-        <a-animation attribute="rotation" begin="click" to="-45 -45 -45" direction="alternate" dur="2000"></a-animation>
+        <a-animation attribute="rotation" begin="click" to="360 360 360" direction="alternate" dur="2000"></a-animation>
     </a-box>
-    <a-box src="/images/panorama/pig2.jpeg" rotation="65 45 0" position="-2 0.25 -2">
+    <a-box src="/images/panorama/pig2.jpeg" rotation="45 45 45" position="-1.5 0.25 -1.5">
         <!-- <a-animation attribute="position" to="-2 0.25 -2" direction="alternate" dur="2000" repeat="indefinite"></a-animation> -->
-        <a-animation attribute="rotation" begin="click" to="-45 -45 -45" direction="alternate" dur="2000"></a-animation>
+        <a-animation attribute="rotation" begin="click" to="360 360 360" direction="alternate" dur="2000"></a-animation>
     </a-box>
-    <a-box src="/images/panorama/pig3.jpeg" rotation="78 45 45" position="-2 0.25 2">
+    <a-box src="/images/panorama/pig3.jpeg" rotation="45 45 45" position="-1.5 0.25 1.5">
         <!-- <a-animation attribute="position" to="-2 0.25 2" direction="alternate" dur="2000" repeat="indefinite"></a-animation> -->
-        <a-animation attribute="rotation" begin="click" to="-45 -45 -45" direction="alternate" dur="2000"></a-animation>
+        <a-animation attribute="rotation" begin="click" to="360 360 360" direction="alternate" dur="2000"></a-animation>
     </a-box>
 
-    <a-text value="Happy New Year!" color="#ff0000" position="-0.9 0.2 -3" scale="1.5 1.5 1.5"></a-text>
+    <a-text value="Happy New Year!" color="#ff0000" position="-1.16 2.5 -5" scale="1.5 1.5 1.5"></a-text>
     <a-camera>
         <a-cursor></a-cursor>
     </a-camera>
@@ -130,7 +130,15 @@
 <script>
 $(document).ready(function() {
     var pnum = Math.floor(Math.random()*5) + 1;
+    var pr = ["0 215 -0.8", "0 -9 -0.5", "0 190 0", "0 135 0", "0 -140 -2"];
+    // var pr2 = "0 -9 -0.5";
+    // var pr3 = "0 190 0";
+    // var pr4 = "0 135 0";
+    // var pr5 = "0 -140 -2";
     $("#image-360").attr("src", "#p"+pnum)
+    $("#image-360").attr("rotation", pr[pnum-1])
+    // $("#image-360").attr("src", "#p5");
+    // $("#image-360").attr("rotation", "0 -140 -2");
 });
 </script>
 @endsection
