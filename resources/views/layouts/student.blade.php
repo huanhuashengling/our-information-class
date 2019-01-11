@@ -17,7 +17,13 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/respond.min.js"></script>
 
-<script src="/js/aframe-master.js" type="text/javascript"></script>
+    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-animation-component@3.2.1/dist/aframe-animation-component.min.js"></script>
+    <!-- <script src="https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js"></script> -->
+    <!-- <script src="https://unpkg.com/aframe-outline@%5E1.1.0/build/aframe-outline.min.js"></script> -->
+    <!-- <script src="https://unpkg.com/aframe-template-component@3.x.x/dist/aframe-template-component.min.js"></script> -->
+    <!-- <script src="https://unpkg.com/aframe-layout-component@3.x.x/dist/aframe-layout-component.min.js"></script> -->
+    <!-- <script src="https://unpkg.com/aframe-event-set-component@3.x.x/dist/aframe-event-set-component.min.js"></script> -->
 
     <script src="/js/plugins/canvas-to-blob.min.js" type="text/javascript"></script>
     <script src="/js/plugins/sortable.min.js" type="text/javascript"></script>
