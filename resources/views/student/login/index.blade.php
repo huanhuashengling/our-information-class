@@ -28,12 +28,12 @@
 
     <a-sky id="image-360" src="#p1"></a-sky>
 
-    <a-box src="/images/panorama/pig.png" rotation="45 45 45" position="2 0.25 2">
+    <a-box src="/images/panorama/pig.jpg" rotation="45 45 45" position="2 0.25 2">
         <!-- <a-animation attribute="position" begin="click" to="1 0.25 1" direction="alternate" dur="100"></a-animation> -->
         <a-animation attribute="rotation" begin="click" to="360 280 -45" dur="2000"></a-animation>
         <!-- <a-animation attribute="position" begin="mouseleave" to="2 0.25 2" dur="100"></a-animation> -->
     </a-box>
-    <a-box src="/images/panorama/pig1.png" rotation="35 45 0" position="2 0.25 -2">
+    <a-box src="/images/panorama/pig1.jpg" rotation="35 45 0" position="2 0.25 -2">
         <!-- <a-animation attribute="position" to="2 0.25 -2" direction="alternate" dur="2000" repeat="indefinite"></a-animation> -->
         <a-animation attribute="rotation" begin="click" to="-45 -45 -45" direction="alternate" dur="2000"></a-animation>
     </a-box>
