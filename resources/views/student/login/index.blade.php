@@ -26,7 +26,7 @@
     <img id="p5" src="/images/panorama/menting.jpg">
   </a-assets>
 
-    <a-sky id="image-360" src="#p1"></a-sky>
+    <a-sky id="image-360"></a-sky>
 
     <a-box src="/images/panorama/pig.jpg" rotation="45 45 45" position="2 0.25 2">
         <!-- <a-animation attribute="position" begin="click" to="1 0.25 1" direction="alternate" dur="100"></a-animation> -->
