@@ -106,7 +106,7 @@ $(document).ready(function() {
                         // showScratch(data.url);
                     }
                     // $('#doc-preview').attr("src", "http://lessons_id/op/embed.aspx?src=" + data);
-                    $('#post-download-link').attr("href", data);
+                    $('#post-download-link').attr("href", data["url"]);
 
                 }
             }
