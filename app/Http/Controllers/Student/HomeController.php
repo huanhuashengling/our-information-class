@@ -268,7 +268,7 @@ class HomeController extends Controller
           }
         }
         $markOthersNum = Mark::where(['marks.students_id' => $userId])->count();
-        return view('student/login/info', compact('student', 'postNum', 'rateYouNum', 'rateLiangNum', 'rateHegeNum', 'rateBuhegeNum', 'commentNum', 'markNum', 'markOthersNum', 'rateWeipingNum', 'unPostNum'));
+        return view('student/login/info', compact('student', 'postNum', 'rateYouNum', 'rateLiangNum', 'rateHegeNum', 'rateBuhegeNum', 'commentNum', 'markNum', 'markOthersNum', 'rateWeipingNum', 'unPostNum', 'allLessonLogNum'));
     }
 
     public function getOnePost(Request $request)
