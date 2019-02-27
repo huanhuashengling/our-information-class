@@ -263,9 +263,7 @@ class HomeController extends Controller
             $commentNum++;
           }
           $mark = Mark::where(['marks.posts_id' => $post->id, 'marks.state_code' => 1])->count();
-          if ($comment) {
-            $markNum += $mark;
-          }
+          $markNum += $mark;
         }
         $markOthersNum = Mark::where(['marks.students_id' => $userId])->count();
         return view('student/login/info', compact('student', 'postNum', 'rateYouNum', 'rateLiangNum', 'rateHegeNum', 'rateBuhegeNum', 'commentNum', 'markNum', 'markOthersNum', 'rateWeipingNum', 'unPostNum', 'allLessonLogNum'));
