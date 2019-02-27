@@ -27,6 +27,8 @@
                     <dl class="dl-horizontal">
                         <dt>已交作业数量：</dt>
                         <dd>{{ $postNum }}</dd>
+                        <dt>未交作业数量：</dt>
+                        <dd>{{ $unPostNum }}</dd>
                         <dt>评优作业数量：</dt>
                         <dd>{{ $rateYouNum }}</dd>
                         <dt>评良作业数量：</dt>

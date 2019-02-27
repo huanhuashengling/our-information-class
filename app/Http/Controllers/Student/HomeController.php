@@ -242,7 +242,9 @@ class HomeController extends Controller
         $rateWeipingNum = 0;
         $commentNum = 0;
         $markNum = 0;
-        $markOthersNum = 0;
+        
+        $allLessonLogNum = LessonLog::where(['lesson_logs.sclasses_id' => $student->sclasses_id])->count();
+        $unPostNum = $allLessonLogNum - $postNum;
         foreach ($posts as $key => $post) {
           $post_rate = PostRate::where(['post_rates.posts_id' => $post->id])->first();
           if (!$post_rate) {
@@ -266,9 +268,9 @@ class HomeController extends Controller
           }
         }
         $markOthersNum = Mark::where(['marks.students_id' => $userId])->count();
-        return view('student/login/info', compact('student', 'postNum', 'rateYouNum', 'rateLiangNum', 'rateHegeNum', 'rateBuhegeNum', 'commentNum', 'markNum', 'markOthersNum', 'rateWeipingNum'));
+        return view('student/login/info', compact('student', 'postNum', 'rateYouNum', 'rateLiangNum', 'rateHegeNum', 'rateBuhegeNum', 'commentNum', 'markNum', 'markOthersNum', 'rateWeipingNum', 'unPostNum'));
     }
-    
+
     public function getOnePost(Request $request)
     {
         $imgTypes = ['jpg', 'jpeg', 'bmp', 'gif', 'png'];
