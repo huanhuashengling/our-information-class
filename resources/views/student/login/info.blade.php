@@ -25,7 +25,7 @@
                 <div class="panel-heading">你的全部作业情况</div>
                 <div class="panel-body">
                     <dl class="dl-horizontal">
-                        <dt>已交上课数量：</dt>
+                        <dt>已上信息课数量：</dt>
                         <dd>{{ $allLessonLogNum }}</dd>
                         <dt>已交作业数量：</dt>
                         <dd>{{ $postNum }}</dd>
