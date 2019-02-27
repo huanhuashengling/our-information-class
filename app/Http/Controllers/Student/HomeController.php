@@ -224,6 +224,51 @@ class HomeController extends Controller
         }
     }
 
+    public function getStudentInfo()
+    {
+        $userId = auth()->guard('student')->id();
+        $student = Student::select('students.*', 'terms.grade_key', 'sclasses.class_title', 'schools.title', 'schools.district')
+                ->leftJoin('sclasses', 'sclasses.id', '=', "students.sclasses_id")
+                ->leftJoin('schools', 'schools.id', '=', "sclasses.schools_id")
+                ->leftJoin('terms', 'terms.enter_school_year', '=', "sclasses.enter_school_year")
+                ->where(['students.id' => $userId, 'terms.is_current' => 1])
+                ->first();
+        $posts = Post::where(['posts.students_id' => $userId])->get();
+        $postNum = count($posts);
+        $rateYouNum = 0;
+        $rateLiangNum = 0;
+        $rateHegeNum = 0;
+        $rateBuhegeNum = 0;
+        $rateWeipingNum = 0;
+        $commentNum = 0;
+        $markNum = 0;
+        $markOthersNum = 0;
+        foreach ($posts as $key => $post) {
+          $post_rate = PostRate::where(['post_rates.posts_id' => $post->id])->first();
+          if (!$post_rate) {
+            $rateWeipingNum++;
+          } else if ("优" == $post_rate->rate) {
+            $rateYouNum++;
+          } else if ("良" == $post_rate->rate) {
+            $rateLiangNum++;
+          } else if ("合格" == $post_rate->rate) {
+            $rateHegeNum++;
+          } else if ("不合格" == $post_rate->rate) {
+            $rateBuhegeNum++;
+          }
+          $comment = Comment::where(['comments.posts_id' => $post->id])->first();
+          if ($comment) {
+            $commentNum++;
+          }
+          $mark = Mark::where(['marks.posts_id' => $post->id, 'marks.state_code' => 1])->count();
+          if ($comment) {
+            $markNum += $mark;
+          }
+        }
+        $markOthersNum = Mark::where(['marks.students_id' => $userId])->count();
+        return view('student/login/info', compact('student', 'postNum', 'rateYouNum', 'rateLiangNum', 'rateHegeNum', 'rateBuhegeNum', 'commentNum', 'markNum', 'markOthersNum', 'rateWeipingNum'));
+    }
+    
     public function getOnePost(Request $request)
     {
         $imgTypes = ['jpg', 'jpeg', 'bmp', 'gif', 'png'];

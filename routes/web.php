@@ -218,6 +218,7 @@ Route::group(['middleware' => 'auth.student', 'prefix' => 'student','namespace' 
     
 
     $router->get('reset', 'HomeController@getReset');
+    $router->get('info', 'HomeController@getStudentInfo');
     $router->post('reset', 'HomeController@postReset');
 
 });

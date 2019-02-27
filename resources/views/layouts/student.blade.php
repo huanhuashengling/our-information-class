@@ -105,7 +105,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="{{ url('/student/reset') }}"><i class="fa fa-btn fa-sign-out"></i>修改个人信息</a></li>
+                                    <li><a href="{{ url('/student/info') }}"><i class="fa fa-btn fa-sign-out"></i>个人信息</a></li>
                                     <li><a href="{{ url('/student/reset') }}"><i class="fa fa-btn fa-sign-out"></i>修改密码</a></li>
                                     <li><a href="{{ url('/student/logout') }}"><i class="fa fa-btn fa-sign-out"></i>{{ trans("layouts.logout") }}</a></li>
                                 </ul>
