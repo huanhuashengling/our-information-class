@@ -23,51 +23,71 @@ Route::post('/term-check-get-post-rate/', 'TermCheckController@getPostRate');
 Route::post('/term-check-get-post/', 'TermCheckController@getPost');
 Route::post('/term-check-get-comment/', 'TermCheckController@getCommentByPostsId');
 
-// Auth::routes();
-// Route::auth();
-
-// Route::group(['prefix'=>'{guard}'],function(){ Route::auth();});
 
 
-// Route::get('/', 'HomeController@index');
-// Route::get('/home', 'HomeController@index');
 
-// Route::get('/logout', function (){ Auth::logout(); return redirect('/'); });
+Route::group(['prefix' => 'district','namespace' => 'District'],function ($router)
+{
+    $router->get('login', 'LoginController@showLoginForm')->name('district.login');
+    $router->post('login', 'LoginController@login');
+    $router->get('logout', 'LoginController@logout');
 
-// Route::get('reset', 'UserController@getReset');
-// Route::post('reset', 'UserController@postReset');
+});
 
-// Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin'], function() {
-    // Route::get('students', 'HomeController@studentsAccountManagement');
-    // Route::post('importStudents', 'HomeController@importStudents');
-    // Route::get('getStudentsData', 'HomeController@getStudentsData');
-    // Route::post('resetStudentPassword', 'HomeController@resetStudentPassword');
+Route::group(['middleware' => 'auth.district:district, district/login', 'prefix' => 'district','namespace' => 'District'],function ($router)
+{
+    $router->get('/dashboard', 'HomeController@index');
+    $router->get('/', 'HomeController@index');
 
-// });
+    $router->get('schools', 'SchoolController@index');
+    $router->post('getSchoolsAccountData', 'SchoolController@getSchoolsData');
 
-// Route::group(['middleware' => 'auth', 'namespace' => 'Teacher', 'prefix' => 'teacher'], function() {
-//     Route::get('/', 'HomeController@index');
-//     Route::resource('class', 'SchoolClassController');
-//     Route::resource('lesson', 'LessonController');
-//     Route::post('uploadMDImage', 'LessonController@uploadMDImage');
-//     Route::get('ajaxSearchTopics', 'LessonController@ajaxSearchTopics');
 
-//     Route::resource('createComment', 'CommentController@store');
-//     Route::resource('updateComment', 'CommentController@update');
-//     Route::resource('getCommentByPostsId', 'CommentController@getByPostsId');
 
-//     Route::resource('updateRate', 'HomeController@updateRate');
-//     Route::resource('getPostRate', 'HomeController@getPostRate');
 
-//     Route::get('lessonLog', 'LessonLogController@listLessonLog');
-//     Route::post('createLessonLog', 'LessonLogController@store');
-//     Route::post('updateLessonLog', 'LessonLogController@update');
 
-//     Route::get('takeclass', 'HomeController@takeClass');
+    $router->post('importStudents', 'HomeController@importStudents');
+    $router->post('updateStudentEmail', 'HomeController@updateStudentEmail');
+    $router->post('getStudentsData', 'HomeController@getStudentsData');
+    $router->post('resetStudentPassword', 'HomeController@resetStudentPassword');
+    $router->post('lockOneStudentAccount', 'HomeController@lockOneStudentAccount');
+    $router->post('unlockOneStudentAccount', 'HomeController@unlockOneStudentAccount');
+    $router->post('createOneStudent', 'HomeController@createOneStudent');
 
-//     Route::get('getLessonPostPerSchoolClass', 'HomeController@getLessonPostPerSchoolClass');
 
-// });
+    $router->get('reset', 'HomeController@getReset');
+    $router->post('reset', 'HomeController@postReset');
+
+
+    $router->get('export-post', 'ExportPostController@index');
+    $router->post('export-post-files', 'ExportPostController@exportPostFiles');
+    $router->post('load-lesson-log-info', 'ExportPostController@loadLessonLogInfo');
+    $router->post('load-post-list', 'ExportPostController@loadPostList');
+    
+
+    $router->get('lessonLog', 'LessonLogController@index');
+    $router->post('get-lesson-log-list', 'LessonLogController@getLessonLogList');
+    $router->post('delLessonLog', 'LessonLogController@delLessonLog');
+
+
+    $router->get('get-post-count-per-class-same-grade-data-1', 'HomeController@getPostCountPerClassWithSameGradeData1');
+    $router->get('get-post-count-per-class-same-grade-data-2', 'HomeController@getPostCountPerClassWithSameGradeData2');
+    $router->get('get-mark-count-per-class-same-grade-data-1', 'HomeController@getMarkCountPerClassWithSameGradeData1');
+    $router->get('get-mark-count-per-class-same-grade-data-2', 'HomeController@getMarkCountPerClassWithSameGradeData2');
+
+
+    $router->get('create-zip', 'ExportPostController@exportPostFiles');
+    $router->get('clear-all-zip', 'ExportPostController@clearALlZip');
+
+    $router->get('teachers', 'TeacherAccountController@index');
+    $router->post('createOneTeacherAccount', 'TeacherAccountController@createOneTeacherAccount');
+
+    $router->get('send-mail', 'SendMailController@index');
+    $router->get('get-send-mail-list', 'SendMailController@listAllMails');
+    $router->post('addSendMail', 'SendMailController@addSendMail');
+    $router->post('updateSendMail', 'SendMailController@updateSendMail');
+
+});
 
 
 // Route::group(['middleware' => 'auth', 'namespace' => 'Student', 'prefix' => 'student'], function() {
@@ -77,17 +97,18 @@ Route::post('/term-check-get-comment/', 'TermCheckController@getCommentByPostsId
 // });
 
 
-Route::group(['prefix' => 'admin','namespace' => 'Admin'],function ($router)
+Route::group(['prefix' => 'school','namespace' => 'School'],function ($router)
 {
-    $router->get('login', 'LoginController@showLoginForm')->name('admin.login');
+    $router->get('login', 'LoginController@showLoginForm')->name('school.login');
     $router->post('login', 'LoginController@login');
     $router->get('logout', 'LoginController@logout');
 
 });
 
-Route::group(['middleware' => 'auth.admin:admin, admin/login', 'prefix' => 'admin','namespace' => 'Admin'],function ($router)
+Route::group(['middleware' => 'auth.school:school, school/login', 'prefix' => 'school','namespace' => 'School'],function ($router)
 {
     $router->get('/dashboard', 'HomeController@index');
+    $router->get('/', 'HomeController@index');
 
     $router->get('students', 'HomeController@studentsAccountManagement');
 
@@ -124,7 +145,9 @@ Route::group(['middleware' => 'auth.admin:admin, admin/login', 'prefix' => 'admi
     $router->get('create-zip', 'ExportPostController@exportPostFiles');
     $router->get('clear-all-zip', 'ExportPostController@clearALlZip');
 
-
+    $router->get('teachers', 'TeacherAccountController@index');
+    $router->post('getTeachersAccountData', 'TeacherAccountController@getTeachersAccountData');
+    $router->post('createOneTeacherAccount', 'TeacherAccountController@createOneTeacherAccount');
 
     $router->get('send-mail', 'SendMailController@index');
     $router->get('get-send-mail-list', 'SendMailController@listAllMails');
@@ -184,7 +207,6 @@ Route::group(['middleware' => 'auth.teacher', 'prefix' => 'teacher','namespace' 
     Route::resource('unit', 'UnitController');
     Route::get('get-unit-list', 'UnitController@getUnitList');
     Route::post('get-unit-list-by-courses-id', 'UnitController@getUnitListByCoursesId');
-
 
 });
 

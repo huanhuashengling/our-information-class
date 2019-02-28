@@ -48,30 +48,26 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/school/students') }}">学生账户</a></li>
-                    <li><a href="{{ url('/school/dashboard') }}">数据报表</a></li>
-                    <li><a href="{{ url('/school/teachers') }}">教师账户</a></li>
-                    <li><a href="{{ url('/school/export-post') }}">导出作业</a></li>
-                    <li><a href="{{ url('/school/lessonLog') }}">课程记录</a></li>
-                    <li><a href="{{ url('/school/send-mail') }}">邮件发送</a></li>
+                    <li><a href="{{ url('/district/schools') }}">学校账户管理</a></li>
+                    <li><a href="{{ url('/district/dashboard') }}">数据报表</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
-                    @if (Auth::guard("school")->guest())
+                    @if (Auth::guard("district")->guest())
                         <li><a href="{{ url('/login') }}">{{ trans("layouts.login") }}</a></li>
                         <!-- <li><a href="{{ url('/register') }}">{{ trans("layouts.register") }}</a></li> -->
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">你好， 
-                                {{ Auth::guard("school")->user()->display_name }} <span class="caret"></span>
+                                {{ Auth::guard("district")->user()->display_name }} <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/school/reset') }}"><i class="fa fa-btn fa-sign-out"></i>修改个人信息</a></li>
-                                <li><a href="{{ url('/school/reset') }}"><i class="fa fa-btn fa-sign-out"></i>修改密码</a></li>
-                                <li><a href="{{ url('/school/logout') }}"><i class="fa fa-btn fa-sign-out"></i>{{ trans("layouts.logout") }}</a></li>
+                                <li><a href="{{ url('/district/reset') }}"><i class="fa fa-btn fa-sign-out"></i>修改个人信息</a></li>
+                                <li><a href="{{ url('/district/reset') }}"><i class="fa fa-btn fa-sign-out"></i>修改密码</a></li>
+                                <li><a href="{{ url('/district/logout') }}"><i class="fa fa-btn fa-sign-out"></i>{{ trans("layouts.logout") }}</a></li>
                             </ul>
                         </li>
                     @endif

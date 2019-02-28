@@ -40,9 +40,13 @@ return [
             'driver' => 'session',
             'provider' => 'students',
         ],
-        'admin' => [
+        'school' => [
             'driver' => 'session',
-            'provider' => 'admins',
+            'provider' => 'schools',
+        ],
+        'district' => [
+            'driver' => 'session',
+            'provider' => 'districts',
         ],
         'teacher' => [
             'driver' => 'session',
@@ -80,9 +84,13 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Teacher::class,
         ],
-        'admins' => [
+        'schools' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Admin::class,
+            'model' => App\Models\School::class,
+        ],
+        'districts' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\District::class,
         ],
     ],
 
