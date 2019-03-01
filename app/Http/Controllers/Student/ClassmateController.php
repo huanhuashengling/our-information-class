@@ -50,30 +50,32 @@ class ClassmateController extends Controller
 
     public function getMyPostsData() {
         $id = \Auth::guard("student")->id();
-        $posts = Post::select('posts.id as pid', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username', DB::raw("SUM(`marks`.`state_code`) as mark_num"))
+        $posts = Post::select('posts.id as pid', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username', 'comments.content', DB::raw("SUM(`marks`.`state_code`) as mark_num"))
                 // ->where('posts.students_id', '<>', $id)
                 ->leftjoin('students', 'posts.students_id', '=', 'students.id')
                 ->leftjoin('sclasses', 'students.sclasses_id', '=', 'sclasses.id')
                 ->leftjoin('post_rates', 'posts.id', '=', 'post_rates.posts_id')
                 ->leftjoin('marks', 'marks.posts_id', '=', 'posts.id')
+                ->leftjoin('comments', 'comments.posts_id', '=', 'posts.id')
                 ->leftjoin('terms', 'terms.enter_school_year', '=', 'sclasses.enter_school_year')
                 ->where('terms.is_current', '=', 1)
                 ->where('students.id', '=', $id)
-                ->groupBy('posts.id', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username')
+                ->groupBy('posts.id', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username', 'comments.content')
                 ->orderby("posts.id", "DESC")->paginate(24);
         return $posts;
     }
 
     public function getAllPostsData() {
-        $posts = Post::select('posts.id as pid', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username', DB::raw("SUM(`marks`.`state_code`) as mark_num"))
+        $posts = Post::select('posts.id as pid', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username', 'comments.content', DB::raw("SUM(`marks`.`state_code`) as mark_num"))
                 // ->where('posts.students_id', '<>', $id)
                 ->leftjoin('students', 'posts.students_id', '=', 'students.id')
                 ->leftjoin('sclasses', 'students.sclasses_id', '=', 'sclasses.id')
                 ->leftjoin('post_rates', 'posts.id', '=', 'post_rates.posts_id')
                 ->leftjoin('marks', 'marks.posts_id', '=', 'posts.id')
+                ->leftjoin('comments', 'comments.posts_id', '=', 'posts.id')
                 ->leftjoin('terms', 'terms.enter_school_year', '=', 'sclasses.enter_school_year')
                 ->where('terms.is_current', '=', 1)
-                ->groupBy('posts.id', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username')
+                ->groupBy('posts.id', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username', 'comments.content')
                 ->orderby("posts.id", "DESC")->paginate(24);
         return $posts;
     }
@@ -81,16 +83,17 @@ class ClassmateController extends Controller
     public function getSameSclassPostsData() {
         $id = \Auth::guard("student")->id();
         $student = Student::select('students.sclasses_id')->where('students.id', '=', $id)->first();
-        $posts = Post::select('posts.id as pid', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username', DB::raw("SUM(`marks`.`state_code`) as mark_num"))
+        $posts = Post::select('posts.id as pid', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username', 'comments.content', DB::raw("SUM(`marks`.`state_code`) as mark_num"))
                 // ->where('posts.students_id', '<>', $id)
                 ->leftjoin('students', 'posts.students_id', '=', 'students.id')
                 ->leftjoin('sclasses', 'students.sclasses_id', '=', 'sclasses.id')
                 ->leftjoin('post_rates', 'posts.id', '=', 'post_rates.posts_id')
                 ->leftjoin('marks', 'marks.posts_id', '=', 'posts.id')
+                ->leftjoin('comments', 'comments.posts_id', '=', 'posts.id')
                 ->leftjoin('terms', 'terms.enter_school_year', '=', 'sclasses.enter_school_year')
                 ->where('terms.is_current', '=', 1)
                 ->where('sclasses.id', '=', $student->sclasses_id)
-                ->groupBy('posts.id', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username')
+                ->groupBy('posts.id', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username', 'comments.content')
                 ->orderby("posts.id", "DESC")->paginate(24);
         return $posts;
     }
@@ -99,54 +102,7 @@ class ClassmateController extends Controller
         $id = \Auth::guard("student")->id();
         $sclass = Sclass::leftjoin('students', 'students.sclasses_id', '=', 'sclasses.id')
                 ->where('students.id', '=', $id)->first();
-        $posts = Post::select('posts.id as pid', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username', DB::raw("SUM(`marks`.`state_code`) as mark_num"))
-                // ->where('posts.students_id', '<>', $id)
-                ->leftjoin('students', 'posts.students_id', '=', 'students.id')
-                ->leftjoin('sclasses', 'students.sclasses_id', '=', 'sclasses.id')
-                ->leftjoin('post_rates', 'posts.id', '=', 'post_rates.posts_id')
-                ->leftjoin('marks', 'marks.posts_id', '=', 'posts.id')
-                ->leftjoin('terms', 'terms.enter_school_year', '=', 'sclasses.enter_school_year')
-                ->where('terms.is_current', '=', 1)
-                ->where('sclasses.enter_school_year', '=', $sclass->enter_school_year)
-                ->groupBy('posts.id', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username')
-                ->orderby("posts.id", "DESC")->paginate(24);
-        return $posts;
-    }
-
-    public function getMyMarkedPostsData() {
-        $id = \Auth::guard("student")->id();
-        $posts = Post::select('posts.id as pid', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username', DB::raw("SUM(`marks`.`state_code`) as mark_num"))
-                // ->where('posts.students_id', '<>', $id)
-                ->leftjoin('students', 'posts.students_id', '=', 'students.id')
-                ->leftjoin('sclasses', 'students.sclasses_id', '=', 'sclasses.id')
-                ->leftjoin('post_rates', 'posts.id', '=', 'post_rates.posts_id')
-                ->leftjoin('marks', 'marks.posts_id', '=', 'posts.id')
-                ->leftjoin('terms', 'terms.enter_school_year', '=', 'sclasses.enter_school_year')
-                ->where('terms.is_current', '=', 1)
-                ->where('marks.students_id', '=', $id)
-                ->groupBy('posts.id', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username')
-                ->orderby("posts.id", "DESC")->paginate(24);
-        return $posts;
-    }
-
-    public function getMostMarkedPostsData() {
-        $id = \Auth::guard("student")->id();
-        $posts = Post::select('posts.id as pid', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username', DB::raw("SUM(`marks`.`state_code`) as mark_num"))
-                // ->where('posts.students_id', '<>', $id)
-                ->leftjoin('students', 'posts.students_id', '=', 'students.id')
-                ->leftjoin('sclasses', 'students.sclasses_id', '=', 'sclasses.id')
-                ->leftjoin('post_rates', 'posts.id', '=', 'post_rates.posts_id')
-                ->leftjoin('marks', 'marks.posts_id', '=', 'posts.id')
-                ->leftjoin('terms', 'terms.enter_school_year', '=', 'sclasses.enter_school_year')
-                ->where('terms.is_current', '=', 1)
-                ->groupBy('posts.id', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username')
-                ->orderby("mark_num", "DESC")->paginate(24);
-        return $posts;
-    }
-
-    public function getHasCommentPostsData() {
-        $id = \Auth::guard("student")->id();
-        $posts = Post::select('posts.id as pid', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username', 'comments.id as cid', DB::raw("SUM(`marks`.`state_code`) as mark_num"))
+        $posts = Post::select('posts.id as pid', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username', 'comments.content', DB::raw("SUM(`marks`.`state_code`) as mark_num"))
                 // ->where('posts.students_id', '<>', $id)
                 ->leftjoin('students', 'posts.students_id', '=', 'students.id')
                 ->leftjoin('sclasses', 'students.sclasses_id', '=', 'sclasses.id')
@@ -155,13 +111,63 @@ class ClassmateController extends Controller
                 ->leftjoin('comments', 'comments.posts_id', '=', 'posts.id')
                 ->leftjoin('terms', 'terms.enter_school_year', '=', 'sclasses.enter_school_year')
                 ->where('terms.is_current', '=', 1)
-                ->groupBy('posts.id', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username', 'comments.id')
+                ->where('sclasses.enter_school_year', '=', $sclass->enter_school_year)
+                ->groupBy('posts.id', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username', 'comments.content')
+                ->orderby("posts.id", "DESC")->paginate(24);
+        return $posts;
+    }
+
+    public function getMyMarkedPostsData() {
+        $id = \Auth::guard("student")->id();
+        $posts = Post::select('posts.id as pid', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username', 'comments.content', DB::raw("SUM(`marks`.`state_code`) as mark_num"))
+                // ->where('posts.students_id', '<>', $id)
+                ->leftjoin('students', 'posts.students_id', '=', 'students.id')
+                ->leftjoin('sclasses', 'students.sclasses_id', '=', 'sclasses.id')
+                ->leftjoin('post_rates', 'posts.id', '=', 'post_rates.posts_id')
+                ->leftjoin('marks', 'marks.posts_id', '=', 'posts.id')
+                ->leftjoin('comments', 'comments.posts_id', '=', 'posts.id')
+                ->leftjoin('terms', 'terms.enter_school_year', '=', 'sclasses.enter_school_year')
+                ->where('terms.is_current', '=', 1)
+                ->where('marks.students_id', '=', $id)
+                ->groupBy('posts.id', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username', 'comments.content')
+                ->orderby("posts.id", "DESC")->paginate(24);
+        return $posts;
+    }
+
+    public function getMostMarkedPostsData() {
+        $id = \Auth::guard("student")->id();
+        $posts = Post::select('posts.id as pid', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username', 'comments.content', DB::raw("SUM(`marks`.`state_code`) as mark_num"))
+                // ->where('posts.students_id', '<>', $id)
+                ->leftjoin('students', 'posts.students_id', '=', 'students.id')
+                ->leftjoin('sclasses', 'students.sclasses_id', '=', 'sclasses.id')
+                ->leftjoin('post_rates', 'posts.id', '=', 'post_rates.posts_id')
+                ->leftjoin('marks', 'marks.posts_id', '=', 'posts.id')
+                ->leftjoin('comments', 'comments.posts_id', '=', 'posts.id')
+                ->leftjoin('terms', 'terms.enter_school_year', '=', 'sclasses.enter_school_year')
+                ->where('terms.is_current', '=', 1)
+                ->groupBy('posts.id', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username', 'comments.content')
+                ->orderby("mark_num", "DESC")->paginate(24);
+        return $posts;
+    }
+
+    public function getHasCommentPostsData() {
+        $id = \Auth::guard("student")->id();
+        $posts = Post::select('posts.id as pid', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username', 'comments.content', 'comments.id as cid', DB::raw("SUM(`marks`.`state_code`) as mark_num"))
+                // ->where('posts.students_id', '<>', $id)
+                ->leftjoin('students', 'posts.students_id', '=', 'students.id')
+                ->leftjoin('sclasses', 'students.sclasses_id', '=', 'sclasses.id')
+                ->leftjoin('post_rates', 'posts.id', '=', 'post_rates.posts_id')
+                ->leftjoin('marks', 'marks.posts_id', '=', 'posts.id')
+                ->leftjoin('comments', 'comments.posts_id', '=', 'posts.id')
+                ->leftjoin('terms', 'terms.enter_school_year', '=', 'sclasses.enter_school_year')
+                ->where('terms.is_current', '=', 1)
+                ->groupBy('posts.id', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username', 'comments.id', 'comments.content')
                 ->orderby("cid", "DESC")->paginate(24);
         return $posts;
     }
 
     public function getSearchNamePostsData($searchName) {
-        $posts = Post::select('posts.id as pid', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username', 'comments.id as cid', DB::raw("SUM(`marks`.`state_code`) as mark_num"))
+        $posts = Post::select('posts.id as pid', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username', 'comments.id as cid', 'comments.content', DB::raw("SUM(`marks`.`state_code`) as mark_num"))
                 ->leftjoin('students', 'posts.students_id', '=', 'students.id')
                 ->leftjoin('sclasses', 'students.sclasses_id', '=', 'sclasses.id')
                 ->leftjoin('post_rates', 'posts.id', '=', 'post_rates.posts_id')
@@ -170,7 +176,7 @@ class ClassmateController extends Controller
                 ->leftjoin('terms', 'terms.enter_school_year', '=', 'sclasses.enter_school_year')
                 ->where('terms.is_current', '=', 1)
                 ->where('students.username', 'like', '%'.$searchName.'%')
-                ->groupBy('posts.id', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username', 'comments.id')
+                ->groupBy('posts.id', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username', 'comments.id', 'comments.content')
                 ->orderby("cid", "DESC")->paginate(24);
         return $posts;
     }

@@ -46,9 +46,13 @@
                 $gap = " ";
                 $markstr = "";
             }
+            $alertCss = "alert alert-info";
+            if ($post->content) {
+                $alertCss = "alert alert-danger";
+            }
         @endphp
         <div class="col-md-2 col-sm-3 col-xs-4" style="padding-left: 5px; padding-right: 5px;">
-            <div class="alert alert-info" style="height: 147px; padding-left: 10px; padding-right: 10px">
+            <div class="{{ $alertCss }}" style="height: 147px; padding-left: 10px; padding-right: 10px">
                 <!--<div class="text-center"><img height="140px" value="{{ $post['pid'] }}" src="/imager?src={{$post_storage_name}}"></div>-->
 
                 <div><img class="img-responsive thumb-img" value="{{ $post['pid'] }}" src="{{ getThumbnail($post->storage_name, 140, 100, 'fit', $post->file_ext) }}" alt=""></div>
