@@ -227,9 +227,10 @@ class HomeController extends Controller
     public function getStudentInfo()
     {
         $userId = auth()->guard('student')->id();
-        $student = Student::select('students.*', 'terms.grade_key', 'sclasses.class_title', 'schools.title', 'schools.district')
+        $student = Student::select('students.*', 'terms.grade_key', 'sclasses.class_title', 'schools.title', 'districts.title as district_title')
                 ->leftJoin('sclasses', 'sclasses.id', '=', "students.sclasses_id")
                 ->leftJoin('schools', 'schools.id', '=', "sclasses.schools_id")
+                ->leftJoin('districts', 'districts.id', '=', "schools.districts_id")
                 ->leftJoin('terms', 'terms.enter_school_year', '=', "sclasses.enter_school_year")
                 ->where(['students.id' => $userId, 'terms.is_current' => 1])
                 ->first();

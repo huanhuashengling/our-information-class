@@ -9,7 +9,7 @@
                 <div class="panel-body">
                     <dl class="dl-horizontal">
                         <dt>所在学校：</dt>
-                        <dd>{{ $student->district }}{{ $student->title }}</dd>
+                        <dd>{{ $student->district_title }}{{ $student->title }}</dd>
                         <dt>校内班级：</dt>
                         <dd>{{ $student->grade_key }}{{ $student->class_title }}班</dd>
                         <dt>班内分组：</dt>
