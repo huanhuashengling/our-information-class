@@ -22,7 +22,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return view('district/home');
+        return view('district/school/index');
     }
 
     public function getPostCountPerClassWithSameGradeData1()

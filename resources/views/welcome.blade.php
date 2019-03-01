@@ -74,7 +74,8 @@
                 <div class="links">
                     <a href="/teacher/login">教师登陆</a>
                     <a href="/student/login">学生登陆</a>
-                    <a href="/school/login">管理员登陆</a>
+                    <a href="/school/login">校管理员登陆</a>
+                    <a href="/district/login">区管理员登陆</a>
                 </div>
             </div>
         </div>
