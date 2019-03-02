@@ -22,6 +22,7 @@ class LessonLogController extends Controller
 
     public function getLessonLogList()
     {
+        $schoolsId = \Auth::guard("school")->id();
         $lessonLogs = LessonLog::select('lesson_logs.id', 'lessons.title', 'lessons.subtitle', 'teachers.username', 'lesson_logs.updated_at', 'sclasses.enter_school_year', 'sclasses.class_title', DB::raw("COUNT(`posts`.`id`) as post_num"))
             ->leftJoin('lessons', function($join){
               $join->on('lessons.id', '=', 'lesson_logs.lessons_id');
@@ -35,7 +36,8 @@ class LessonLogController extends Controller
             ->leftJoin('posts', function($join){
               $join->on('posts.lesson_logs_id', '=', 'lesson_logs.id');
             })
-            ->groupBy('lesson_logs.id', 'lessons.title', 'lessons.subtitle', 'teachers.username', 'lesson_logs.updated_at', 'sclasses.enter_school_year', 'sclasses.class_title')->get();
+            ->groupBy('lesson_logs.id', 'lessons.title', 'lessons.subtitle', 'teachers.username', 'lesson_logs.updated_at', 'sclasses.enter_school_year', 'sclasses.class_title')
+            ->where("sclasses.schools_id", "=", $schoolsId)->get();
 
         return $lessonLogs;
     }

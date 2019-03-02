@@ -12,6 +12,6 @@ class Sclass extends Model
      * @var array
      */
     protected $fillable = [
-        'schools_id', 'enter_school_year', 'class_title', 'class_num'
+        'schools_id', 'enter_school_year', 'class_title', 'class_num', 'is_graduated'
     ];
 }

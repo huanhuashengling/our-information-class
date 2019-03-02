@@ -110,5 +110,5 @@
     <link href="/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
     <script src="/js/fileinput.min.js"></script>
     <script src="/js/locales/zh.js"></script>
-    <script src="/js/school/student-account-import.js"></script>
+    <script src="/js/school/student-account.js"></script>
 @endsection

@@ -13,7 +13,7 @@ class SendMailController extends Controller
     }
 
     public function listAllMails() {
-        $senMailLists = SendMailList::all();
+        $senMailLists = SendMailList::where("schools_id", "=", \Auth::guard("school")->id())->get();
         return $senMailLists;
     }
 
@@ -26,6 +26,7 @@ class SendMailController extends Controller
         $sendMail->password = $request->get('password');
         $sendMail->auth_code = $request->get('authCode');
         $sendMail->is_useable = $request->get('isUseable');
+        $sendMail->schools_id = \Auth::guard("school")->id();
 
         if ($sendMail->save()) {
             return "true";

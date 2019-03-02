@@ -14,17 +14,13 @@
               $currentStr = "  (当前学期)";
             }
           @endphp
-          <option value="{{$term->id}}">{{$term->enter_school_year}}级{{$term->grade_key}}年{{$term->term_segment}}期{{$currentStr}}</option>
+          <option value="{{$term->id}}">{{$term->enter_school_year}}级{{$term->grade_key}}年级{{$term->term_segment}}期{{$currentStr}}</option>
           @endforeach
       </select>
     </div>
     <div class="form-group">
-      <select class="form-control" id="classes-selection">
+      <select class="form-control" id="sclasses-selection">
           <option value="0">选择班级</option>
-          <option value="1">甲班</option>
-          <option value="2">乙班</option>
-          <option value="3">丙班</option>
-          <option value="4">丁班</option>
       </select>
     </div>
     <div class="form-group">

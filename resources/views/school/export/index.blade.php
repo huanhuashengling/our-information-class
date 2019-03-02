@@ -7,27 +7,29 @@
   <div id="toolbar">
     <form class="form-inline">
       <div class="form-group">
-        <select class="form-control" id="classes-selection">
-          <option value="0">选择班级</option>
-          <option value="1">四甲班</option>
-          <option value="2">四乙班</option>
-          <option value="3">四丙班</option>
-          <option value="4">四丁班</option>
-          <option value="5">五甲班</option>
-          <option value="6">五乙班</option>
-          <option value="7">五丙班</option>
-          <option value="8">五丁班</option>
-          <option value="9">六甲班</option>
-          <option value="10">六乙班</option>
-          <option value="11">六丙班</option>
-          <option value="12">六丁班</option>
+      <select class="form-control" id="term-selection">
+          <option value="0">选择学期</option>
+          @foreach ($terms as $term)
+          @php
+            $currentStr = "";
+            if ($term->is_current) {
+              $currentStr = "  (当前学期)";
+            }
+          @endphp
+          <option value="{{$term->id}}">{{$term->enter_school_year}}级{{$term->grade_key}}年级{{$term->term_segment}}期{{$currentStr}}</option>
+          @endforeach
       </select>
-  </div>
-  <div class="form-group">
-    <select class="form-control" id="lesson-log-selection">
-      <option>选择上课记录</option>
-  </select>
-</div>
+    </div>
+    <div class="form-group">
+      <select class="form-control" id="sclasses-selection">
+          <option value="0">选择班级</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <select class="form-control" id="lesson-log-selection">
+        <option>选择上课记录</option>
+      </select>
+    </div>
 <a id="export-btn" class="btn btn-success">创建导出链接</a>
 <a id="clear-btn" class="btn btn-danger">清除zip</a>
 <div id="export-url"></div>

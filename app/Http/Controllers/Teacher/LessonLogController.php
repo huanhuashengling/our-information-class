@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\LessonLog;
 use App\Models\Term;
 use App\Models\Sclass;
+use App\Models\Teacher;
 use \DB;
 use App\Http\Requests\LessonLogRequest;
 use App\Libaries\pinyinfirstchar;
@@ -81,12 +82,20 @@ class LessonLogController extends Controller
         }
     }
 
-
     public function listLessonLog()
     {
         $terms = Term::orderBy("enter_school_year", "desc")->get();
-        $teachers_id = \Auth::guard("teacher")->id();
         return view('teacher/lesson/lesson-log', compact('terms'));
+    }
+
+    public function loadSclassSelection(Request $request)
+    {
+        $term = Term::find($request->get('terms_id'));
+        $teachers_id = \Auth::guard("teacher")->id();
+        $teacher = Teacher::find($teachers_id);
+        $sclasses = Sclass::where(["enter_school_year" => $term->enter_school_year, 'schools_id' => $teacher->schools_id])
+        ->orderBy("enter_school_year", "desc")->get();
+        return $this->buildSclassSelctionHhtml($sclasses);
     }
 
     public function loadLessonLogSelection(Request $request)
@@ -95,8 +104,7 @@ class LessonLogController extends Controller
         $from = date('Y-m-d', strtotime($term->from_date)); 
         $to = date('Y-m-d', strtotime($term->to_date));
 
-        $class_num = $request->get('class_num');
-        $sclass = Sclass::where(["class_num" => $class_num, "enter_school_year" => $term->enter_school_year])->first();
+        $sclass = Sclass::find($request->get('sclassesId'));
 
         $lessonLogs = LessonLog::select('lesson_logs.id', 'lessons.title', 'lessons.subtitle', 'teachers.username', 'lesson_logs.updated_at', DB::raw("COUNT(`posts`.`id`) as post_num"))
             ->leftJoin('lessons', function($join){
@@ -110,9 +118,10 @@ class LessonLogController extends Controller
             })
             ->groupBy('lesson_logs.id', 'lessons.title', 'lessons.subtitle', 'teachers.username', 'lesson_logs.updated_at')
             ->whereBetween('lesson_logs.created_at', array($from, $to))
-            ->where(['sclasses_id' => $sclass->id])->get();
+            ->where(['lesson_logs.sclasses_id' => $sclass->id])->get();
 
         return $this->buildLessonLogSelectionHtml($lessonLogs);
+        // return json_encode($term);
     }
 
     public function getPostDataByTermAndSclass(Request $request)
@@ -180,6 +189,16 @@ class LessonLogController extends Controller
             $marksNum = isset($student->mark_num)?($student->mark_num . "赞"):"";
             $returnHtml .= "<div class='col-md-2 col-sm-4 col-xs-6' style='padding-left: 5px; padding-right: 5px;'><div class='alert " . $hasCommentCss . "' style='padding: 5px;'><div><img class='img-responsive post-btn center-block' value='". $student->posts_id . "' src='" . getThumbnail($student->storage_name, 140, 100, 'fit', $student->file_ext) . "' alt='></div><div><h3 style='margin-top: 10px;'>" . $py->getFirstchar($student->username) . "<small>" . $student->username . "<small></small><span class='text-right'> " . $ratestr . "" . $marksNum . "</span></small></h3></div></div></div>";
         }
+        return $returnHtml;
+    }
+
+    public function buildSclassSelctionHhtml($sclasses)
+    {
+        $returnHtml = "<option>选择班级</option>";
+        foreach ($sclasses as $key => $sclass) {
+            $returnHtml .= "<option value='" . $sclass['id'] . "'>" . $sclass['class_title'] . "班</option>";
+        }
+
         return $returnHtml;
     }
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Redirect;
 use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\Sclass;
 use App\Models\Lesson;
 use App\Models\Post;
@@ -29,6 +30,7 @@ class HomeController extends Controller
         // dd(auth()->guard('teacher')->user());
 
         $userId = auth()->guard('teacher')->id();
+        $teacher = Teacher::find($userId);
         // dd($userId);
         $lessonLog = LessonLog::where(['teachers_id' => $userId, 'status' => 'open'])->first();
 
@@ -39,7 +41,7 @@ class HomeController extends Controller
         }
 
 
-        $sclasses = Sclass::where("is_graduated", "=", 0)->get();
+        $sclasses = Sclass::where(["is_graduated" => 0, "schools_id" => $teacher->schools_id])->get();
         $classData = [];
         array_push($classData, "请选择班级");
         foreach ($sclasses as $key => $sclass) {

@@ -89,7 +89,7 @@ function classTitleCol(value, row, index) {
 
 function resetCol(value, row, index) {
     return [
-        '<a class="btn btn-info btn-sm reset" data-unique-id="', row.users_id, '">重置</a>'
+        '<a class="btn btn-info btn-sm reset" data-unique-id="', row.id, '">重置</a>'
     ].join('');
 }
 
@@ -112,8 +112,8 @@ window.resetActionEvents = {
 	'click .reset': function(e, value, row, index) {
      	$.ajax({
             type: "POST",
-            url: '/school/resetStudentPassword',
-            data: {users_id: row.teachersId},
+            url: '/school/resetTeacherPassword',
+            data: {users_id: row.id},
             success: function( data ) {
             	if("true" == data) {
             		alert("重置密码成功，已修改为默认密码123456！")

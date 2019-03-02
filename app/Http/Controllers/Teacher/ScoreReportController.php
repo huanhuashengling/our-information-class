@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Sclass;
 use App\Models\LessonLog;
 use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\Post;
 use App\Models\PostRate;
 use App\Models\Comment;
@@ -21,9 +22,11 @@ use \DB;
 
 class ScoreReportController extends Controller
 {
-    public function index() {
-
-        $sclasses = Sclass::where("is_graduated", "=", 0)->get();
+    public function index() 
+    {
+        $userId = auth()->guard('teacher')->id();
+        $teacher = Teacher::find($userId);
+        $sclasses = Sclass::where(["is_graduated" => 0, "schools_id" => $teacher->schools_id])->get();
         $classData = [];
         array_push($classData, "请选择班级");
         foreach ($sclasses as $key => $sclass) {

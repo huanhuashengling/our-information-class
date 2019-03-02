@@ -9,7 +9,9 @@ use App\Http\Controllers\Controller;
 use \DB;
 use \DateTime;
 use App\Models\LessonLog;
+use App\Models\Sclass;
 use App\Models\Post;
+use App\Models\Term;
 
 use ZipArchive;
 
@@ -17,7 +19,18 @@ class ExportPostController extends Controller
 {
     public function index($value='')
     {
-        return view('school/export/index');
+        $schoolsId = \Auth::guard("school")->id();
+        $terms = Term::orderBy("enter_school_year", "desc")->get();
+        return view('school/export/index', compact("terms"));
+    }
+
+    public function loadSclassSelection(Request $request)
+    {
+        $term = Term::find($request->get('terms_id'));
+        $schools_id = \Auth::guard("school")->id();
+        $sclasses = Sclass::where(["enter_school_year" => $term->enter_school_year, 'schools_id' => $schools_id])
+        ->orderBy("enter_school_year", "desc")->get();
+        return $this->buildSclassSelctionHhtml($sclasses);
     }
 
     public function loadLessonLogInfo(Request $request) {
@@ -143,5 +156,15 @@ class ExportPostController extends Controller
             }
         }
         return "true";
+    }    
+
+    public function buildSclassSelctionHhtml($sclasses)
+    {
+        $returnHtml = "<option>选择班级</option>";
+        foreach ($sclasses as $key => $sclass) {
+            $returnHtml .= "<option value='" . $sclass['id'] . "'>" . $sclass['class_title'] . "班</option>";
+        }
+
+        return $returnHtml;
     }
 }

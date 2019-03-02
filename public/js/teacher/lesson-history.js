@@ -19,24 +19,35 @@ $(document).ready(function() {
     		$("#lesson-log-selection").html("<option>请选择学期</option>");
     		return;
     	}
+
+        $.ajax({
+            type: "POST",
+            url: '/teacher/loadSclassSelection',
+            data: {terms_id: $("#term-selection").val()},
+            success: function( data ) {
+                // console.log(data);
+                $("#sclasses-selection").html(data);
+            }
+        });
 	});
 
-	$("#classes-selection").change(function(){
+	$("#sclasses-selection").change(function(){
 		if (0 == $("#term-selection").val()) {
     		$("#lesson-log-selection").html("<option>请选择学期</option>");
     		return;
     	}
-		if (0 == $("#classes-selection").val()) {
+		if (0 == $("#sclasses-selection").val()) {
     		$("#lesson-log-selection").html("<option>请选择班号</option>");
     		return;
     	}
-		// alert($("#term-selection").val());
+        // alert($("#term-selection").val());
+		// alert($("#sclasses-selection").val());
 		$.ajax({
             type: "POST",
             url: '/teacher/loadLessonLogSelection',
-            data: {terms_id: $("#term-selection").val(), class_num: $("#classes-selection").val()},
+            data: {terms_id: $("#term-selection").val(), sclassesId: $("#sclasses-selection").val()},
             success: function( data ) {
-            	// console.log(data);
+            	console.log(data);
             	$("#lesson-log-selection").html(data);
             }
         });

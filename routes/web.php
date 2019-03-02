@@ -107,52 +107,59 @@ Route::group(['prefix' => 'school','namespace' => 'School'],function ($router)
 
 Route::group(['middleware' => 'auth.school:school, school/login', 'prefix' => 'school','namespace' => 'School'],function ($router)
 {
+    // dashboard
     $router->get('/dashboard', 'HomeController@index');
     $router->get('/', 'HomeController@index');
-
-    $router->get('students', 'HomeController@studentsAccountManagement');
-
-    $router->post('importStudents', 'HomeController@importStudents');
-    $router->post('updateStudentEmail', 'HomeController@updateStudentEmail');
-    $router->post('getStudentsData', 'HomeController@getStudentsData');
-    $router->post('resetStudentPassword', 'HomeController@resetStudentPassword');
-    $router->post('lockOneStudentAccount', 'HomeController@lockOneStudentAccount');
-    $router->post('unlockOneStudentAccount', 'HomeController@unlockOneStudentAccount');
-    $router->post('createOneStudent', 'HomeController@createOneStudent');
-
-
-    $router->get('reset', 'HomeController@getReset');
-    $router->post('reset', 'HomeController@postReset');
-
-
-    $router->get('export-post', 'ExportPostController@index');
-    $router->post('export-post-files', 'ExportPostController@exportPostFiles');
-    $router->post('load-lesson-log-info', 'ExportPostController@loadLessonLogInfo');
-    $router->post('load-post-list', 'ExportPostController@loadPostList');
-    
-
-    $router->get('lessonLog', 'LessonLogController@index');
-    $router->post('get-lesson-log-list', 'LessonLogController@getLessonLogList');
-    $router->post('delLessonLog', 'LessonLogController@delLessonLog');
-
-
     $router->get('get-post-count-per-class-same-grade-data-1', 'HomeController@getPostCountPerClassWithSameGradeData1');
     $router->get('get-post-count-per-class-same-grade-data-2', 'HomeController@getPostCountPerClassWithSameGradeData2');
     $router->get('get-mark-count-per-class-same-grade-data-1', 'HomeController@getMarkCountPerClassWithSameGradeData1');
     $router->get('get-mark-count-per-class-same-grade-data-2', 'HomeController@getMarkCountPerClassWithSameGradeData2');
 
+    // class
+    $router->get('sclasses', 'SclassController@index');
+    $router->post('getSclassesData', 'SclassController@getSclassesData');
+    $router->post('getTermsData', 'SclassController@getTermsData');
+    $router->post('createOneSclass', 'SclassController@createOneSclass');
 
-    $router->get('create-zip', 'ExportPostController@exportPostFiles');
-    $router->get('clear-all-zip', 'ExportPostController@clearALlZip');
+    //student
+    $router->get('students', 'StudentAccountController@index');
+    $router->post('importStudents', 'StudentAccountController@importStudents');
+    $router->post('updateStudentEmail', 'StudentAccountController@updateStudentEmail');
+    $router->post('getStudentsData', 'StudentAccountController@getStudentsData');
+    $router->post('resetStudentPassword', 'StudentAccountController@resetStudentPassword');
+    $router->post('lockOneStudentAccount', 'StudentAccountController@lockOneStudentAccount');
+    $router->post('unlockOneStudentAccount', 'StudentAccountController@unlockOneStudentAccount');
+    $router->post('createOneStudent', 'StudentAccountController@createOneStudent');
 
+    // teacher
     $router->get('teachers', 'TeacherAccountController@index');
     $router->post('getTeachersAccountData', 'TeacherAccountController@getTeachersAccountData');
     $router->post('createOneTeacherAccount', 'TeacherAccountController@createOneTeacherAccount');
+    $router->post('resetTeacherPassword', 'TeacherAccountController@resetTeacherPassword');
 
+    // export
+    $router->get('export-post', 'ExportPostController@index');
+    $router->post('export-post-files', 'ExportPostController@exportPostFiles');
+    $router->post('load-lesson-log-info', 'ExportPostController@loadLessonLogInfo');
+    $router->post('load-post-list', 'ExportPostController@loadPostList');
+    $router->get('create-zip', 'ExportPostController@exportPostFiles');
+    $router->get('clear-all-zip', 'ExportPostController@clearALlZip');
+    
+    $router->post('loadSclassSelection', 'ExportPostController@loadSclassSelection');
+    // lesson log
+    $router->get('lessonLog', 'LessonLogController@index');
+    $router->post('get-lesson-log-list', 'LessonLogController@getLessonLogList');
+    $router->post('delLessonLog', 'LessonLogController@delLessonLog');
+
+    // email
     $router->get('send-mail', 'SendMailController@index');
     $router->get('get-send-mail-list', 'SendMailController@listAllMails');
     $router->post('addSendMail', 'SendMailController@addSendMail');
     $router->post('updateSendMail', 'SendMailController@updateSendMail');
+
+    // reset password
+    $router->get('reset', 'HomeController@getReset');
+    $router->post('reset', 'HomeController@postReset');
 
 });
 
@@ -177,6 +184,7 @@ Route::group(['middleware' => 'auth.teacher', 'prefix' => 'teacher','namespace' 
     Route::post('getPostDataByTermAndSclass', 'LessonLogController@getPostDataByTermAndSclass');
     Route::post('createLessonLog', 'LessonLogController@store');
     Route::post('updateLessonLog', 'LessonLogController@update');
+    Route::post('loadSclassSelection', 'LessonLogController@loadSclassSelection');
     Route::post('updateRethink', 'LessonLogController@updateRethink');
     
     Route::resource('createComment', 'CommentController@store');

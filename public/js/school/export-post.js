@@ -4,17 +4,33 @@ $(document).ready(function() {
 	    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	  }
 	});
-    $("#classes-selection").change(function(e){
+    $("#term-selection").change(function(){
+        if (0 == $("#term-selection").val()) {
+            $("#lesson-log-selection").html("<option>请选择学期</option>");
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '/school/loadSclassSelection',
+            data: {terms_id: $("#term-selection").val()},
+            success: function( data ) {
+                // console.log(data);
+                $("#sclasses-selection").html(data);
+            }
+        });
+    });
+    $("#sclasses-selection").change(function(e){
         $("#export-url").html("");
-    	// alert($("#classes-selection").val());
-    	if (0 == $("#classes-selection").val()) {
+    	// alert($("#sclasses-selection").val());
+    	if (0 == $("#sclasses-selection").val()) {
     		$("#lesson-log-selection").html("<option>选择上课记录</option>");
     		return;
     	}
     	$.ajax({
             type: "POST",
             url: '/school/load-lesson-log-info',
-            data: {sclassesId: $("#classes-selection").val()},
+            data: {sclassesId: $("#sclasses-selection").val()},
             success: function( data ) {
             	$("#lesson-log-selection").html(data);
             	// console.log(data);

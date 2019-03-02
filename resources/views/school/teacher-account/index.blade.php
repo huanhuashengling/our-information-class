@@ -10,7 +10,7 @@
         <button id="lock-btn" class="btn btn-danger">锁定</button>
         <button id="active-btn" class="btn btn-danger">激活</button>
         <button id="reset-pass-btn" class="btn btn-success">重置密码</button>
-        <button id="add-new-btn" class="btn btn-success">新增教师</button>
+        <button id="add-new-btn" class="btn btn-success" value="{{ $schoolsId }}">新增教师</button>
     </div>
     <table id="teacher-list" class="table table-condensed table-responsive">
         <thead>

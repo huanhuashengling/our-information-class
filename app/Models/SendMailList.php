@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SendMailList extends Model
 {
-    protected $fillable = ['server_provider', 'num_limit_one_day', 'username', 'mail_address', 'password', 'auth_code', 'is_useable'];
+    protected $fillable = ['server_provider', 'num_limit_one_day', 'username', 'mail_address', 'password', 'auth_code', 'is_useable', 'schools_id'];
 }
 /*
 sudo docker run -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=admin' --name 'sql1' -p 1401:1433 -v sql1data:/var/mssql -d mcr.microsoft.com/mssql/server:2017-latest

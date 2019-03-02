@@ -12,13 +12,14 @@ class TeacherAccountController extends Controller
 {
     public function index()
     {
-        $schoolsData = School::get();
-        return view('school/teacher-account/index', compact('schoolsData'));
+        $schoolsId = \Auth::guard("school")->id();
+        return view('school/teacher-account/index', compact('schoolsId'));
     }
 
-    public function getTeachersAccountData(Request $request)
+    public function getTeachersAccountData()
     {
-        $school = School::find($request->get('schools_id'));
+        $schoolsId = \Auth::guard("school")->id();
+        $school = School::find($schoolsId);
         if (isset($school)) {
             $teachers = Teacher::select('schools.*', 'teachers.*')
                         ->leftJoin('schools', function($join){
@@ -43,6 +44,17 @@ class TeacherAccountController extends Controller
             ]);
         } catch (Exception $e) {
             throw new Exception("Error Processing Request", 1);
+        }
+    }
+
+    public function resetTeacherPassword(Request $request) {
+        $teacher = Teacher::find($request->get('users_id'));
+        if ($teacher) {
+            $teacher->password = bcrypt("123456");
+            $teacher->save();
+            return "true";
+        } else {
+            return "false";
         }
     }
 }
