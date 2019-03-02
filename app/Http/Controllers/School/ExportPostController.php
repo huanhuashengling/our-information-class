@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response as FacadeResponse;
 use App\Http\Controllers\Controller;
 use \DB;
+use \Auth;
 use \DateTime;
 use App\Models\LessonLog;
 use App\Models\Sclass;
+use App\Models\School;
 use App\Models\Post;
 use App\Models\Term;
 
@@ -88,7 +90,8 @@ class ExportPostController extends Controller
     public function exportPostFiles(Request $request) {
         $sclassesId = $request->get('sclassesId');
         $lessonlogsId = $request->get('lessonlogsId');
-
+        $school = School::where("id", "=", \Auth::guard("school")->id());
+        $middir = "/posts/" . $school->code ."/";
 
         $lessonLog = LessonLog::select('lesson_logs.id', 'lessons.title', 'lessons.subtitle', 'sclasses.enter_school_year', 'sclasses.class_title')
             ->leftJoin('lessons', function($join){
@@ -117,9 +120,9 @@ class ExportPostController extends Controller
             $zip = new ZipArchive;
             if ($zip->open($store_path, ZipArchive::CREATE) === TRUE) {
                 foreach ($posts as $key => $post) {
-                    if (!file_exists(public_path()."/posts/".$post->storage_name)) { die($post->storage_name.' does not exist'); }
-                    if (!is_readable(public_path()."/posts/".$post->storage_name)) { die($post->storage_name.' not readable'); }
-                    $zip->addFile(public_path()."/posts/".$post->storage_name, $post->storage_name);
+                    if (!file_exists(public_path(). $middir .$post->storage_name)) { die($post->storage_name.' does not exist'); }
+                    if (!is_readable(public_path(). $middir .$post->storage_name)) { die($post->storage_name.' not readable'); }
+                    $zip->addFile(public_path(). $middir .$post->storage_name, $post->storage_name);
                 }
                 $zip->close();
             }

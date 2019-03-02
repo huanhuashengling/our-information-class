@@ -8,8 +8,10 @@ use App\Http\Controllers\Controller;
 use App\Models\LessonLog;
 use App\Models\Term;
 use App\Models\Sclass;
+use App\Models\School;
 use App\Models\Teacher;
 use \DB;
+use \Auth;
 use App\Http\Requests\LessonLogRequest;
 use App\Libaries\pinyinfirstchar;
 
@@ -187,7 +189,7 @@ class LessonLogController extends Controller
                 $hasCommentCss = "alert-danger";
             }
             $marksNum = isset($student->mark_num)?($student->mark_num . "赞"):"";
-            $returnHtml .= "<div class='col-md-2 col-sm-4 col-xs-6' style='padding-left: 5px; padding-right: 5px;'><div class='alert " . $hasCommentCss . "' style='padding: 5px;'><div><img class='img-responsive post-btn center-block' value='". $student->posts_id . "' src='" . getThumbnail($student->storage_name, 140, 100, 'fit', $student->file_ext) . "' alt='></div><div><h3 style='margin-top: 10px;'>" . $py->getFirstchar($student->username) . "<small>" . $student->username . "<small></small><span class='text-right'> " . $ratestr . "" . $marksNum . "</span></small></h3></div></div></div>";
+            $returnHtml .= "<div class='col-md-2 col-sm-4 col-xs-6' style='padding-left: 5px; padding-right: 5px;'><div class='alert " . $hasCommentCss . "' style='padding: 5px;'><div><img class='img-responsive post-btn center-block' value='". $student->posts_id . "' src='" . getThumbnail($student->storage_name, 140, 100, $this->getSchoolCode(), 'fit', $student->file_ext) . "' alt='></div><div><h3 style='margin-top: 10px;'>" . $py->getFirstchar($student->username) . "<small>" . $student->username . "<small></small><span class='text-right'> " . $ratestr . "" . $marksNum . "</span></small></h3></div></div></div>";
         }
         return $returnHtml;
     }
@@ -211,5 +213,12 @@ class LessonLogController extends Controller
         }
 
         return $returnHtml;
+    }
+
+    public function getSchoolCode()
+    {
+      $teacher = Teacher::find(Auth::guard("teacher")->id());
+      $school = School::where('schools.id', '=', $teacher->schools_id)->first();
+      return $school->code;
     }
 }

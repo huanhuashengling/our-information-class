@@ -54,9 +54,16 @@ return [
             'visibility' => 'public',
         ],
         
-        'posts' => [
+        'ysposts' => [
             'driver' => 'local',
-            'root' => public_path('posts'),
+            'root' => public_path('posts/ys'),
+            // 'url' => 'posts/' . 
+            'visibility' => 'public',
+        ],
+
+        'dtposts' => [
+            'driver' => 'local',
+            'root' => public_path('posts/dt'),
             // 'url' => 'posts/' . 
             'visibility' => 'public',
         ],

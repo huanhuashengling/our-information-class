@@ -59,7 +59,7 @@ window.actionEvents = {
 		            url: '/school/delLessonLog',
 		            data: {lessonLogsId: row.id},
 		            success: function( data ) {
-		                console.log(data);
+		                // console.log(data);
 		            	if ("" == data) {
 		            		alert("上课纪录删除成功！");
 		            	} else {

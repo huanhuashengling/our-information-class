@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Student;
 use App\Models\Sclass;
+use App\Models\School;
 use App\Models\Lesson;
 use App\Models\LessonLog;
 use App\Models\Post;
@@ -26,7 +27,8 @@ use EndaEditor;
 class HomeController extends Controller
 {
     public function index()
-    {
+    {   
+        $middir = "/posts/" . $this->getSchoolCode() . "/";
         $id = auth()->guard("student")->id();
         $student = Student::find($id);
         $lessonLog = LessonLog::where(['sclasses_id' => $student['sclasses_id'], 'status' => 'open'])->first();
@@ -58,8 +60,8 @@ class HomeController extends Controller
 
             $post = Post::where(['lesson_logs_id' => $lessonLog['id'], "students_id" => $id])->orderBy('id', 'desc')->first();
             if ($post) {
-              // echo env('APP_URL')."/posts/".$post->storage_name;
-              $post->storage_name = env('APP_URL')."/posts/".$post->storage_name;
+              // echo env('APP_URL'). $middir .$post->storage_name;
+              $post->storage_name = env('APP_URL'). $middir .$post->storage_name;
             }
         }
         // dd($post);
@@ -68,6 +70,7 @@ class HomeController extends Controller
 
     public function upload(Request $request)
     {
+
       $file = $request->file('source');
       // $redirectUrl = ($request->input('url'))?("/" . $request->input('url')):"";
       if(!$file) {
@@ -75,6 +78,9 @@ class HomeController extends Controller
       }
 
       $studentsId = Auth::guard("student")->id();
+      
+
+              // return $this->getSchoolCode();
       $lessonLogsId = $request->get('lesson_logs_id');
       $oldPost = Post::where(['lesson_logs_id' => $lessonLogsId, "students_id" => $studentsId])->orderBy('id', 'desc')->first();
 
@@ -94,7 +100,7 @@ class HomeController extends Controller
         $uniqid = uniqid();
         $filename = $originalName . '-' . $uniqid . '.' . $ext;
 
-        $bool = Storage::disk('posts')->put($filename, file_get_contents($realPath)); 
+        $bool = Storage::disk($this->getSchoolCode() . 'posts')->put($filename, file_get_contents($realPath)); 
         //TDDO update these new or update code
         if($oldPost) {
           $oldFilename = $oldPost->storage_name;
@@ -105,7 +111,7 @@ class HomeController extends Controller
           $oldPost->post_code = $uniqid;
           $oldPost->content = "";
           if ($oldPost->update()) {
-            $bool = Storage::disk('posts')->delete($oldFilename); 
+            $bool = Storage::disk($this->getSchoolCode() . 'posts')->delete($oldFilename); 
 
             // Session::flash('success', '作业提交成功'); 
             return Redirect::to('student')->with('success', '作业提交成功啦！');
@@ -272,6 +278,7 @@ class HomeController extends Controller
 
     public function getOnePost(Request $request)
     {
+        $middir = "/posts/" . $this->getSchoolCode() . "/";
         $imgTypes = ['jpg', 'jpeg', 'bmp', 'gif', 'png'];
         $docTypes = ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'];
         $post = Post::where("posts.id", "=", $request->input('posts_id'))
@@ -282,28 +289,28 @@ class HomeController extends Controller
         if (isset($post)) {
           if (in_array($post->file_ext, $imgTypes)) {
                 return ["filetype"=>"img", 
-                    "storage_name" => getThumbnail($post['storage_name'], 800, 600, 'fit', $post['file_ext']), 
+                    "storage_name" => getThumbnail($post['storage_name'], 800, 600, $this->getSchoolCode(), 'fit', $post['file_ext']), 
                     'username' => $post["username"], 
                     'lessontitle' => $post["title"], 
                     'lessonsubtitle' => $post["subtitle"]];
             } elseif (in_array($post->file_ext, $docTypes)) {
               return ["filetype"=>"doc", 
-                    "storage_name" => env('APP_URL')."/posts/".$post->storage_name, 
+                    "storage_name" => env('APP_URL'). $middir .$post->storage_name, 
                     'username' => $post["username"], 
                     'lessontitle' => $post["title"], 
                     'lessonsubtitle' => $post["subtitle"]];
             } elseif ("sb2" == $post->file_ext) {
               return ["filetype"=>"sb2", 
-                    "storage_name" => env('APP_URL')."/posts/".$post->storage_name, 
+                    "storage_name" => env('APP_URL'). $middir .$post->storage_name, 
                     'username' => $post["username"], 
                     'lessontitle' => $post["title"], 
                     'lessonsubtitle' => $post["subtitle"]];
             }
-          // $post['storage_name'] = env('APP_URL')."/posts/".$post['storage_name'];
-            // return env('APP_URL')."/posts/".$post['storage_name'];
+          // $post['storage_name'] = env('APP_URL'). $middir .$post['storage_name'];
+            // return env('APP_URL'). $middir .$post['storage_name'];
             // {{ getThumbnail($post->storage_name, 140, 100, 'fit') }}
-            // return ["storage_name" => env('APP_URL')."/posts/".$post['storage_name'], 
-            return ["storage_name" => getThumbnail($post['storage_name'], 800, 600, 'fit', $post['file_ext']), 
+            // return ["storage_name" => env('APP_URL'). $middir .$post['storage_name'], 
+            return ["storage_name" => getThumbnail($post['storage_name'], 800, 600, $this->getSchoolCode(), 'fit', $post['file_ext']), 
                     'username' => $post["username"], 
                     'lessontitle' => $post["title"], 
                     'lessonsubtitle' => $post["subtitle"]];
@@ -358,5 +365,14 @@ class HomeController extends Controller
             return "true";
           }
         }
+    }
+
+    public function getSchoolCode()
+    {
+      $student = Student::find(Auth::guard("student")->id());
+
+      $school = School::leftJoin('sclasses', 'sclasses.schools_id', '=', "schools.id")
+              ->where('sclasses.id', '=', $student->sclasses_id)->first();
+      return $school->code;
     }
 }

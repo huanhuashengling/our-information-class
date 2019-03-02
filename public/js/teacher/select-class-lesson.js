@@ -25,7 +25,7 @@ function checkSelection() {
             url: '/teacher/getLessonLog',
             data: {sclassesId: sclassesId, lessonsId: lessonsId},
             success: function( data ) {
-                console.log(data);
+                // console.log(data);
                 if ("false" != data) {
                 	alert("请注意，这节课你已经上过一次，已有"+data+"份作业，点击按钮课程将重新打开");
                 }

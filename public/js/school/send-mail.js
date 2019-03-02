@@ -85,7 +85,7 @@ function actionCol(value, row, index) {
 
 window.actionEvents = {
     'click .edit': function(e, value, row, index) {
-        console.log(row);
+        // console.log(row);
         $("#edit-username").val(row.username);
         $("#edit-mail-address").val(row.mail_address);
         $("#edit-password").val(row.password);

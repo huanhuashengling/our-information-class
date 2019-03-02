@@ -8,6 +8,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\Models\Sclass;
+use App\Models\School;
 use App\Models\LessonLog;
 use App\Models\Student;
 use App\Models\Post;
@@ -48,6 +49,8 @@ class PostReport extends Mailable
     {
         $student = Student::find($this->rowdata["users_id"]);
         $this->sclass = Sclass::find($this->sclassesId);
+        $school = School::find($this->sclass->schools_id);
+        $middir = "/posts/" . $school->code . "/";
         $this->term = Term::find($this->termsId);
         $from = date('Y-m-d', strtotime($this->term->from_date)); 
         $to = date('Y-m-d', strtotime($this->term->to_date));
@@ -65,7 +68,7 @@ class PostReport extends Mailable
         foreach ($this->lessonLogs as $key => $lessonLog) {
             $post = Post::where(["posts.lesson_logs_id" => $lessonLog->id, "posts.students_id" => $this->rowdata["users_id"]])->first();
             if (isset($post)) {
-                $email->attach(public_path() . "/posts/" . $post->storage_name, [
+                $email->attach(public_path() . $middir . $post->storage_name, [
                         'as' => $student->username . "同学_" . $lessonLog->title. "_" . $lessonLog->subtitle . "_" . $post->original_name,
                     ]);
             } else {

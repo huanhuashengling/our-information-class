@@ -47,7 +47,7 @@ $(document).ready(function() {
             url: '/teacher/loadLessonLogSelection',
             data: {terms_id: $("#term-selection").val(), sclassesId: $("#sclasses-selection").val()},
             success: function( data ) {
-            	console.log(data);
+            	// console.log(data);
             	$("#lesson-log-selection").html(data);
             }
         });
@@ -156,7 +156,7 @@ $(document).ready(function() {
                         // showScratch(data.url);
                     }
                     // $('#doc-preview').attr("src", "http://lessons_id/op/embed.aspx?src=" + data);
-                    $('#post-download-link').attr("href", data);
+                    $('#post-download-link').attr("href", data["url"]);
 
                 }
 	            }

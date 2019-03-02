@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="panel-body">
-                    @include('teacher.partials.studentlist', array('students' => $students))
+                    @include('teacher.partials.studentlist', array('students' => $students, 'schoolCode' => $schoolCode))
             </div>
             <div class="panel-footer">
                 <h4>未交名单:

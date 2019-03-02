@@ -33,7 +33,7 @@
             } else {
                 //$post_storage_name = public_path()."/posts/".$post->storage_name;
                 //$post_storage_name = env('APP_URL')."/posts/".$post->storage_name;
-                $post_storage_name = "posts/".$post->storage_name;
+                $post_storage_name = "posts/" . $schoolCode . "/" .$post->storage_name;
                 //echo public_path()."/posts/".$post->storage_name;
             }
             $post->studentClass = $post->grade_key . $post->class_title;
@@ -55,7 +55,7 @@
             <div class="{{ $alertCss }}" style="height: 147px; padding-left: 10px; padding-right: 10px">
                 <!--<div class="text-center"><img height="140px" value="{{ $post['pid'] }}" src="/imager?src={{$post_storage_name}}"></div>-->
 
-                <div><img class="img-responsive thumb-img" value="{{ $post['pid'] }}" src="{{ getThumbnail($post->storage_name, 140, 100, 'fit', $post->file_ext) }}" alt=""></div>
+                <div><img class="img-responsive thumb-img" value="{{ $post['pid'] }}" src="{{ getThumbnail($post->storage_name, 140, 100, $schoolCode, 'fit', $post->file_ext) }}" alt=""></div>
                 <div><h4 style="margin-top: 10px; margin-bottom: 5px;"><small>({{ $post->studentClass }})</small>{{ $post->username }} <small>{{ $ratestr }}{{$gap}}{{ $markstr}}</small></h4>  </div>
                 <input type="hidden" name="postInfo" value="{{ $post->studentClass }}班">
             </div>

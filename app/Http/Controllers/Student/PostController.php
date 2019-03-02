@@ -14,6 +14,8 @@ use App\Models\Lesson;
 use App\Models\LessonLog;
 use App\Models\Term;
 use App\Models\Sclass;
+use App\Models\School;
+use \Auth;
 
 use EndaEditor;
 use \DB;
@@ -35,7 +37,7 @@ class PostController extends Controller
     public function getPostsByTerm(Request $request) {
         $termsId = $request->termsId;
         $term = Term::find($termsId);
-
+        $middir = "/posts/" . $this->getSchoolCode() . "/";
         $imgTypes = ['jpg', 'jpeg', 'bmp', 'gif', 'png'];
         $docTypes = ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'];
 
@@ -57,17 +59,17 @@ class PostController extends Controller
             $lesson = Lesson::where(['id' => $lessonLog['lessons_id']])->first();
             $lesson->help_md_doc = EndaEditor::MarkDecode($lesson->help_md_doc);
             $post = Post::where(['lesson_logs_id' => $lessonLog['id'], "students_id" => $id])->orderBy('id', 'desc')->first();
-            // $post->storage_name = env('APP_URL')."/posts/".$post->storage_name;
+            // $post->storage_name = env('APP_URL').  $middir .$post->storage_name;
             $rate = "";
             $hasComment = "false";
             $markNum = 0;
             $markNames = [];
             if (isset($post)) {
-                $post->storage_name = env('APP_URL')."/posts/".$post->storage_name;
+                $post->storage_name = env('APP_URL'). $middir .$post->storage_name;
 
                 if (in_array($post->file_ext, $imgTypes)) {
                     $post["filetype"] = "img";
-                    $post["previewPath"] = getThumbnail($post['storage_name'], 800, 600, 'fit', $post['file_ext']);
+                    $post["previewPath"] = getThumbnail($post['storage_name'], 800, 600, $this->getSchoolCode(), 'fit', $post['file_ext']);
                 } elseif (in_array($post->file_ext, $docTypes)) {
                     $post["filetype"] = "doc";
                     $post["previewPath"] = $post->storage_name;
@@ -173,4 +175,14 @@ class PostController extends Controller
         $resultHtml .= "</div></div>";
         return $resultHtml;
     }
+
+    public function getSchoolCode()
+    {
+      $student = Student::find(Auth::guard("student")->id());
+
+      $school = School::leftJoin('sclasses', 'sclasses.schools_id', '=', "schools.id")
+              ->where('sclasses.id', '=', $student->sclasses_id)->first();
+      return $school->code;
+    }
+
 }

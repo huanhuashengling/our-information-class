@@ -8,6 +8,7 @@ use Redirect;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\Sclass;
+use App\Models\School;
 use App\Models\Lesson;
 use App\Models\Post;
 use App\Models\PostRate;
@@ -61,6 +62,8 @@ class HomeController extends Controller
 
     public function takeClass()
     {
+        $schoolCode = $this->getSchoolCode();
+        // dd($schoolCode);
         $userId = auth()->guard('teacher')->id();
         $lessonLog = LessonLog::select('lesson_logs.id', 'lesson_logs.rethink', 'lesson_logs.sclasses_id', 'lessons.title', 'lessons.subtitle', 'sclasses.enter_school_year', 'sclasses.class_title', 'terms.grade_key', 'terms.term_segment')
         ->leftJoin("lessons", 'lessons.id', '=', 'lesson_logs.lessons_id')
@@ -95,7 +98,7 @@ class HomeController extends Controller
         // dd($unPostStudentName);
         $allCount = count($allStudentsList);
         $py = new pinyinfirstchar();
-        return view('teacher/takeclass', compact('students', 'lessonLog', 'py', 'allCount', 'unPostStudentName'));
+        return view('teacher/takeclass', compact('students', 'lessonLog', 'py', 'allCount', 'unPostStudentName', 'schoolCode'));
     }
 
     public function updateRate(Request $request)
@@ -158,16 +161,17 @@ class HomeController extends Controller
 
     public function getPost(Request $request)
     {
+        $middir = "/posts/" . $this->getSchoolCode() . "/";
         $post = Post::where(['id' => $request->input('posts_id')])->orderBy('id', 'desc')->first();
         $imgTypes = ['jpg', 'jpeg', 'bmp', 'gif', 'png'];
         $docTypes = ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'];
         if (isset($post)) {
             if (in_array($post->file_ext, $imgTypes)) {
-                return ["filetype"=>"img", "url" => getThumbnail($post['storage_name'], 800, 600, 'fit', $post['file_ext'])];
+                return ["filetype"=>"img", "url" => getThumbnail($post['storage_name'], 800, 600, $this->getSchoolCode(), 'fit', $post['file_ext'])];
             } elseif (in_array($post->file_ext, $docTypes)) {
-                return ["filetype"=>"doc", "url" => env('APP_URL')."/posts/".$post->storage_name];
+                return ["filetype"=>"doc", "url" => env('APP_URL'). $middir .$post->storage_name];
             } elseif ("sb2" == $post->file_ext) {
-                return ["filetype"=>"sb2", "url" => env('APP_URL')."/posts/".$post->storage_name];
+                return ["filetype"=>"sb2", "url" => env('APP_URL'). $middir .$post->storage_name];
             }
             // $file = Storage::disk('uploads')->get($post->storage_name)->getPath();
                 // $post->storage_name = env('APP_URL')."/posts/".$post->storage_name;
@@ -266,5 +270,12 @@ class HomeController extends Controller
         $user->save();
         Auth::guard('teacher')->logout();
         return redirect('/teacher/login');
+    }
+
+    public function getSchoolCode()
+    {
+      $teacher = Teacher::find(Auth::guard("teacher")->id());
+      $school = School::where('schools.id', '=', $teacher->schools_id)->first();
+      return $school->code;
     }
 }
