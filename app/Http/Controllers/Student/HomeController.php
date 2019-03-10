@@ -256,14 +256,12 @@ class HomeController extends Controller
           $post_rate = PostRate::where(['post_rates.posts_id' => $post->id])->first();
           if (!$post_rate) {
             $rateWeipingNum++;
+          } else if ("优+" == $post_rate->rate) {
+            $rateYouJiaNum++;
           } else if ("优" == $post_rate->rate) {
             $rateYouNum++;
-          } else if ("良" == $post_rate->rate) {
-            $rateLiangNum++;
-          } else if ("合格" == $post_rate->rate) {
-            $rateHegeNum++;
-          } else if ("不合格" == $post_rate->rate) {
-            $rateBuhegeNum++;
+          }else if ("待完" == $post_rate->rate) {
+            $rateDaiWanNum++;
           }
           $comment = Comment::where(['comments.posts_id' => $post->id])->first();
           if ($comment) {
@@ -273,7 +271,7 @@ class HomeController extends Controller
           $markNum += $mark;
         }
         $markOthersNum = Mark::where(['marks.students_id' => $userId])->count();
-        return view('student/login/info', compact('student', 'postNum', 'rateYouNum', 'rateLiangNum', 'rateHegeNum', 'rateBuhegeNum', 'commentNum', 'markNum', 'markOthersNum', 'rateWeipingNum', 'unPostNum', 'allLessonLogNum'));
+        return view('student/login/info', compact('student', 'postNum', 'rateYouJiaNum', 'rateYouNum', 'rateDaiWanNum', 'commentNum', 'markNum', 'markOthersNum', 'rateWeipingNum', 'unPostNum', 'allLessonLogNum'));
     }
 
     public function getOnePost(Request $request)

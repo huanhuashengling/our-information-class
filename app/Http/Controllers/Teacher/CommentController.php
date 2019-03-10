@@ -30,7 +30,7 @@ class CommentController extends Controller
     {
         $this->validate($request, [
             'posts_id' => 'required',
-            'content' => 'required|max:255',
+            'content' => 'max:255',
         ]);
 
         $comment = new Comment;
@@ -49,7 +49,7 @@ class CommentController extends Controller
     {
         $this->validate($request, [
             'posts_id' => 'required',
-            'content' => 'required|max:255',
+            'content' => 'max:255',
         ]);
 
         $comment = Comment::find($request->get('comments_id'));

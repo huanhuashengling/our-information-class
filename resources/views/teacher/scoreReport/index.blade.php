@@ -30,20 +30,17 @@
                 <th data-field="postedNum" data-sortable="true">
                     已交
                 </th>
-                <th data-field="unPostedNum" data-sortable="true">
-                    未交
+                <th data-field="rateYouJiaNum" data-sortable="true">
+                    优+
                 </th>
                 <th data-field="rateYouNum" data-sortable="true">
                     优
                 </th>
-                <th data-field="rateLiangNum" data-sortable="true">
-                    良
+                <th data-field="rateDaiWanNum" data-sortable="true">
+                    待完善
                 </th>
-                <th data-field="rateHeNum" data-sortable="true">
-                    合格
-                </th>
-                <th data-field="rateChaNum" data-sortable="true">
-                    差
+                <th data-field="unPostedNum" data-sortable="true">
+                    未交
                 </th>
                 <th data-field="markNum" data-sortable="true">
                     点赞

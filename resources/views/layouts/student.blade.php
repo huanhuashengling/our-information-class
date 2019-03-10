@@ -17,8 +17,7 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/respond.min.js"></script>
 
-    <script src="/js/aframe.min.js"></script>
-    <script src="/js/aframe-animation-component.min.js"></script>
+    
     <!-- <script src="https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js"></script> -->
     <!-- <script src="https://unpkg.com/aframe-outline@%5E1.1.0/build/aframe-outline.min.js"></script> -->
     <!-- <script src="https://unpkg.com/aframe-template-component@3.x.x/dist/aframe-template-component.min.js"></script> -->

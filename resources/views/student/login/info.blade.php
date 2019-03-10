@@ -31,14 +31,12 @@
                         <dd>{{ $postNum }}</dd>
                         <dt>未交作业数量：</dt>
                         <dd>{{ $unPostNum }}</dd>
+                        <dt>评优+作业数量：</dt>
+                        <dd>{{ $rateYouJiaNum }}</dd>
                         <dt>评优作业数量：</dt>
                         <dd>{{ $rateYouNum }}</dd>
-                        <dt>评良作业数量：</dt>
-                        <dd>{{ $rateLiangNum }}</dd>
-                        <dt>评合格作业数量：</dt>
-                        <dd>{{ $rateHegeNum }}</dd>
-                        <dt>评不合格作业数量：</dt>
-                        <dd>{{ $rateBuhegeNum }}</dd>
+                        <dt>评待完成作业数量：</dt>
+                        <dd>{{ $rateDaiWanNum }}</dd>
                         <dt>未评作业数量：</dt>
                         <dd>{{ $rateWeipingNum }}</dd>
                         <dt>有评语作业数量：</dt>

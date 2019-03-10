@@ -98,6 +98,7 @@ $(document).ready(function() {
           }.bind(this), 10);
         }
         $('#post-comment').val("");
+        $("#switch-box").addClass('hidden'); 
         // console.log($(this).attr("value"));
         // var postsId = (e.target.value).split(',')[0]; 
         var postsId = $(this).attr("value");
@@ -107,9 +108,8 @@ $(document).ready(function() {
             url: '/student/getPostRate',
             data: {posts_id: postsId},
             success: function( data ) {
-                if ("false" == data) {
-
-                } else {
+                if ("false" != data && "待完" != data) {
+                    $("#switch-box").removeClass('hidden'); 
                 }
             }
         });

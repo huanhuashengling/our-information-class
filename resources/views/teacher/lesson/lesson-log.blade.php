@@ -66,10 +66,9 @@
 
     <div class="modal-footer">
         <div class='btn-group' name='level-btn-group' data-toggle='buttons'>
-            <label class='btn btn-default'><input type='radio' value='优'>优秀</label>
-            <label class='btn btn-default'><input type='radio' value='良'>良好</label>
-            <label class='btn btn-default'><input type='radio' value='合格'>合格</label>
-            <label class='btn btn-default'><input type='radio' value='差'>不合格</label>
+            <label class='btn btn-default'><input type='radio' value='优+'>优+</label>
+            <label class='btn btn-default'><input type='radio' value='优'>优</label>
+            <label class='btn btn-default'><input type='radio' value='待完'>待完</label>
         </div>
 
         <div class="">

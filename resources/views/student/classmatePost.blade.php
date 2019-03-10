@@ -39,16 +39,25 @@
             $post->studentClass = $post->grade_key . $post->class_title;
             $gap = " ";
             $ratestr = isset($post->rate)?$post->rate:"";
+            $alertCss = "alert alert-default";
+            if (isset($post->rate)) {
+                if ("优" == $post->rate) {
+                    $alertCss = "alert alert-success";
+                } elseif ("优+" == $post->rate) {
+                    $alertCss = "alert alert-danger";
+                } else {
+                    $alertCss = "alert alert-warning";
+                }
+            }
 
             if ($post->mark_num) {
                 $markstr = $post->mark_num . "赞";
             } else {
-                $gap = " ";
                 $markstr = "";
             }
-            $alertCss = "alert alert-info";
-            if ($post->content) {
-                $alertCss = "alert alert-danger";
+            $commentstr = "";
+            if ($post->content && "" != $post->content) {
+                $commentstr = "/评";
             }
         @endphp
         <div class="col-md-2 col-sm-3 col-xs-4" style="padding-left: 5px; padding-right: 5px;">
@@ -56,7 +65,7 @@
                 <!--<div class="text-center"><img height="140px" value="{{ $post['pid'] }}" src="/imager?src={{$post_storage_name}}"></div>-->
 
                 <div><img class="img-responsive thumb-img" value="{{ $post['pid'] }}" src="{{ getThumbnail($post->storage_name, 140, 100, $schoolCode, 'fit', $post->file_ext) }}" alt=""></div>
-                <div><h4 style="margin-top: 10px; margin-bottom: 5px;"><small>({{ $post->studentClass }})</small>{{ $post->username }} <small>{{ $ratestr }}{{$gap}}{{ $markstr}}</small></h4>  </div>
+                <div><h4 style="margin-top: 10px; margin-bottom: 5px;"><small>({{ $post->studentClass }})</small>{{ $post->username }} <small>{{ $ratestr }} {{ $markstr}} {{ $commentstr}}</small></h4>  </div>
                 <input type="hidden" name="postInfo" value="{{ $post->studentClass }}班">
             </div>
         </div>
@@ -89,7 +98,7 @@
       </div>
 
     <div class="modal-footer">
-        <div class="switch">
+        <div class="switch" id="switch-box">
             <input type="checkbox" id="like-check-box" name="likeCheckBox"/>
         </div>
     </div>

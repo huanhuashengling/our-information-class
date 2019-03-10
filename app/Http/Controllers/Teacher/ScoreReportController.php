@@ -106,22 +106,19 @@ class ScoreReportController extends Controller
                                 ->where("posts.students_id", '=', $student->id)
                                 ->whereBetween('lesson_logs.created_at', array($from, $to))
                                 ->get();
+            $tData['rateYouJiaNum'] = 0;
             $tData['rateYouNum'] = 0;
-            $tData['rateLiangNum'] = 0;
-            $tData['rateHeNum'] = 0;
-            $tData['rateChaNum'] = 0;
+            $tData['rateDaiWanNum'] = 0;
             foreach ($rates as $key => $rate) {
-                if ("优" == $rate->rate) {
+                if ("优+" == $rate->rate) {
+                    $tData['rateYouJiaNum'] ++;
+                } elseif ("优" == $rate->rate) {
                     $tData['rateYouNum'] ++;
-                } elseif ("良" == $rate->rate) {
-                    $tData['rateLiangNum'] ++;
-                } elseif ("合格" == $rate->rate) {
-                    $tData['rateHeNum'] ++;
-                } elseif ("差" == $rate->rate) {
-                    $tData['rateChaNum'] ++;
+                } elseif ("待完" == $rate->rate) {
+                    $tData['rateDaiWanNum'] ++;
                 }
             }
-            $tData['scoreCount'] = $tData['rateYouNum'] * 8 + $tData['effectMarkNum'] * 0.5 + $tData['commentNum'];
+            $tData['scoreCount'] = $tData['rateYouNum'] * 8 + $tData['effectMarkNum'] * 0.5 + $tData['rateYouJiaNum'] * 9;
             $dataset[] = $tData;
 
         }
