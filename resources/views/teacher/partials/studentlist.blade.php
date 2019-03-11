@@ -4,6 +4,8 @@
             $ratestr = $student->rate . "/";
             if ("优+" == $student->rate) {
                 $postCss = "alert-danger";
+            } else if ("优" == $student->rate) {
+                $postCss = "alert-success";
             } else {
                 $postCss = "alert-info";
             }
