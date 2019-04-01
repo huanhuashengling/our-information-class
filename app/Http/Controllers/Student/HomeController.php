@@ -243,10 +243,9 @@ class HomeController extends Controller
         $posts = Post::where(['posts.students_id' => $userId])->get();
         $postNum = count($posts);
         $rateYouNum = 0;
-        $rateLiangNum = 0;
-        $rateHegeNum = 0;
-        $rateBuhegeNum = 0;
+        $rateYouJiaNum = 0;
         $rateWeipingNum = 0;
+        $rateDaiWanNum = 0;
         $commentNum = 0;
         $markNum = 0;
         
