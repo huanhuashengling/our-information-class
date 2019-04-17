@@ -60,8 +60,9 @@ class HomeController extends Controller
         return view('teacher/home', compact('classData', 'lessonsData'));
     }
 
-    public function takeClass()
+    public function takeClass(Request $request)
     {
+        
         $schoolCode = $this->getSchoolCode();
         // dd($schoolCode);
         $userId = auth()->guard('teacher')->id();
@@ -71,16 +72,32 @@ class HomeController extends Controller
         ->leftJoin("terms", 'terms.enter_school_year', '=', 'sclasses.enter_school_year')
         ->where(['lesson_logs.teachers_id' => $userId, 'lesson_logs.status' => 'open', 'terms.is_current' => 1])->first();
         // dd($lessonLog);die();
+        if ("group" == $request->get("order")) {
+            $students = DB::table('students')->select('students.id', 'students.username', 'posts.file_ext', 'posts.storage_name', 'comments.content', 'post_rates.rate', 'groups.order_num', 'posts.id as posts_id', DB::raw("COUNT(`marks`.`id`) as mark_num"))
+            ->leftJoin('posts', 'posts.students_id', '=', 'students.id')
+            ->leftJoin('post_rates', 'post_rates.posts_id', '=', 'posts.id')
+            ->leftJoin('groups', 'groups.id', '=', 'students.groups_id')
+            ->leftJoin('comments', 'comments.posts_id', '=', 'posts.id')
+            ->leftJoin('marks', 'marks.posts_id', '=', 'posts.id')
+            ->where(["students.sclasses_id" => $lessonLog['sclasses_id'], 'posts.lesson_logs_id' => $lessonLog['id']])
+            ->where('students.is_lock', "!=", "1")
+            ->groupBy('students.id', 'students.username', 'posts.storage_name', 'comments.content', 'post_rates.rate', 'posts.id')
+            ->orderBy('groups.order_num', "ASC")->get();
+            
+        } else {
+            $students = DB::table('students')->select('students.id', 'students.username', 'posts.file_ext', 'posts.storage_name', 'comments.content', 'post_rates.rate', 'posts.id as posts_id', DB::raw("COUNT(`marks`.`id`) as mark_num"))
+            ->leftJoin('posts', 'posts.students_id', '=', 'students.id')
+            ->leftJoin('post_rates', 'post_rates.posts_id', '=', 'posts.id')
+            ->leftJoin('comments', 'comments.posts_id', '=', 'posts.id')
+            ->leftJoin('marks', 'marks.posts_id', '=', 'posts.id')
+            ->where(["students.sclasses_id" => $lessonLog['sclasses_id'], 'posts.lesson_logs_id' => $lessonLog['id']])
+            ->where('students.is_lock', "!=", "1")
+            ->groupBy('students.id', 'students.username', 'posts.storage_name', 'comments.content', 'post_rates.rate', 'posts.id')
+            ->orderBy(DB::raw('convert(students.username using gbk)'), "ASC")->get();
+        }
 
-        $students = DB::table('students')->select('students.id', 'students.username', 'posts.file_ext', 'posts.storage_name', 'comments.content', 'post_rates.rate', 'posts.id as posts_id', DB::raw("COUNT(`marks`.`id`) as mark_num"))
-        ->leftJoin('posts', 'posts.students_id', '=', 'students.id')
-        ->leftJoin('post_rates', 'post_rates.posts_id', '=', 'posts.id')
-        ->leftJoin('comments', 'comments.posts_id', '=', 'posts.id')
-        ->leftJoin('marks', 'marks.posts_id', '=', 'posts.id')
-        ->where(["students.sclasses_id" => $lessonLog['sclasses_id'], 'posts.lesson_logs_id' => $lessonLog['id']])
-        ->where('students.is_lock', "!=", "1")
-        ->groupBy('students.id', 'students.username', 'posts.storage_name', 'comments.content', 'post_rates.rate', 'posts.id')
-        ->orderBy(DB::raw('convert(students.username using gbk)'), "ASC")->get();
+        
+        
         // dd($lessonLog);
         $unPostStudentName = [];
         

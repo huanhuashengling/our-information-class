@@ -27,6 +27,9 @@
                 <th data-field="username" data-sortable="true">
                     学生姓名
                 </th>
+                <th data-field="order_num" data-sortable="true">
+                    组号
+                </th>
                 <th data-field="postedNum" data-sortable="true">
                     已交
                 </th>

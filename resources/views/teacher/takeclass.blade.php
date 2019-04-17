@@ -35,8 +35,9 @@
                     
                     <!-- <div class="col-md-2 col-sm-2">{!! Form::button('姓名排序',['class'=>'btn btn-info', 'id' => 'sort-by-name']) !!}</div>
                     <div class="col-md-1 col-sm-2">{!! Form::button('点赞排序',['class'=>'btn btn-info', 'id' => 'close-lesson-log']) !!}</div> -->
-                    <div class="col-md-2 col-sm-2 col-xs-6">{!! Form::button('结束上课',['class'=>'btn btn-danger', 'id' => 'close-lesson-log']) !!}</div>
-                    <div class="col-md-2 col-sm-2 col-xs-6"><a href="/teacher/takeclass" class="btn btn-warning">刷新作业</a></div>
+                    <div class="col-md-1 col-sm-2 col-xs-6">{!! Form::button('结束上课',['class'=>'btn btn-danger', 'id' => 'close-lesson-log']) !!}</div>
+                    <div class="col-md-1 col-sm-2 col-xs-6"><a href="/teacher/takeclass" class="btn btn-warning">刷新作业</a></div>
+                    <div class="col-md-1 col-sm-2 col-xs-6"><a href="/teacher/takeclass?order=group" class="btn btn-warning">按组刷新</a></div>
                     <div class="col-md-3 col-sm-3 col-xs-6"><h4>(全部{{$allCount}}) (已交{{$postedCount}}) (未交{{$unpostCount}})</h4></div>
                 </div>
             </div>

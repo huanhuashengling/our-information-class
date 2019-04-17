@@ -12,6 +12,7 @@ use App\Models\Teacher;
 use App\Models\Post;
 use App\Models\PostRate;
 use App\Models\Comment;
+use App\Models\Group;
 use App\Models\Mark;
 use App\Models\Term;
 use App\Models\SendMailList;
@@ -72,6 +73,12 @@ class ScoreReportController extends Controller
             $tData['users_id'] = $student->id;
             $tData['email'] = $student->email;
             $tData['username'] = $student->username;
+            $tData['order_num'] = "-";
+            if ($student->groups_id) {
+                $tGroup = Group::where("id", "=", $student->groups_id)->first();
+                $tData['order_num'] = $tGroup->order_num;
+            }
+
             $tData['postedNum'] = Post::leftJoin("lesson_logs", 'lesson_logs.id', '=', 'posts.lesson_logs_id')
                                         ->where("posts.students_id", '=', $student->id)
                                         ->whereBetween('lesson_logs.created_at', array($from, $to))

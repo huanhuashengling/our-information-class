@@ -51,6 +51,7 @@
                     <li><a href="{{ url('/school/dashboard') }}">数据报表</a></li>
                     <li><a href="{{ url('/school/sclasses') }}">学期班级</a></li>
                     <li><a href="{{ url('/school/students') }}">学生账户</a></li>
+                    <li><a href="{{ url('/school/groups') }}">学生分组</a></li>
                     <li><a href="{{ url('/school/teachers') }}">教师账户</a></li>
                     <li><a href="{{ url('/school/export-post') }}">导出作业</a></li>
                     <li><a href="{{ url('/school/lessonLog') }}">课程记录</a></li>

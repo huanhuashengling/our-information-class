@@ -131,6 +131,18 @@ Route::group(['middleware' => 'auth.school:school, school/login', 'prefix' => 's
     $router->post('unlockOneStudentAccount', 'StudentAccountController@unlockOneStudentAccount');
     $router->post('createOneStudent', 'StudentAccountController@createOneStudent');
 
+
+    //group
+    $router->get('groups', 'GroupController@index');
+    $router->post('getGroupsInSclass', 'GroupController@getGroupsInSclass');
+    $router->post('createGroupInSclass', 'GroupController@createGroupInSclass');
+    $router->post('getStudentsInGroup', 'GroupController@getStudentsInGroup');
+    $router->post('getStudentsInSclassButNotInGroupsBtns', 'GroupController@getStudentsInSclassButNotInGroupsBtns');
+    $router->post('addOneStudentIntoGroup', 'GroupController@addOneStudentIntoGroup');
+    $router->post('removeOneStudentOutGroup', 'GroupController@removeOneStudentOutGroup');
+    $router->post('removeOneGroup', 'GroupController@removeOneGroup');
+    
+
     // teacher
     $router->get('teachers', 'TeacherAccountController@index');
     $router->post('getTeachersAccountData', 'TeacherAccountController@getTeachersAccountData');
