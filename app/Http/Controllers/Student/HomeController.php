@@ -13,6 +13,7 @@ use App\Models\Lesson;
 use App\Models\LessonLog;
 use App\Models\Post;
 use App\Models\PostRate;
+use App\Models\Group;
 use App\Models\Comment;
 use App\Models\Mark;
 
@@ -48,6 +49,18 @@ class HomeController extends Controller
             }
           // }
         }
+        $groupStudentsName = [];
+        $groupName = "";
+        $tStudents = Student::where("groups_id", "=", $student->groups_id)->get();
+        if (0 < count($tStudents)) {
+          $tGroup = Group::find($student->groups_id);
+          $groupName = $tGroup->name;
+          foreach ($tStudents as $key => $tStudent) {
+            if ($tStudent->username != $student->username) {
+              $groupStudentsName[] = $tStudent->username;
+            }
+          }
+        }
         // dd($unPostedLessonLogs);
         $unPostedLessonLogsNum = count($unPostedLessonLogs);
         $lesson = "";
@@ -65,7 +78,7 @@ class HomeController extends Controller
             }
         }
         // dd($post);
-        return view('student/home', compact('sclass', 'lesson', 'lessonLog', 'post', 'unPostedLessonLogsNum'));
+        return view('student/home', compact('sclass', 'lesson', 'lessonLog', 'post', 'unPostedLessonLogsNum', 'groupStudentsName', 'groupName'));
     }
 
     public function upload(Request $request)

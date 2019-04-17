@@ -4,11 +4,21 @@
 
 <div class="container">
   @if (0 < $unPostedLessonLogsNum)
-    <div class="alert alert-danger">
-      <h3><small>你之前还有</small><strong>{{$unPostedLessonLogsNum}}</strong><small>节课没有提交作业，请记得</small><a href="/student/posts">点击这里</a><small>补交作业！</small></h3>
+      <div class="alert alert-danger">
+        <h4><small>你之前还有</small><strong>{{$unPostedLessonLogsNum}}</strong><small>节课没有提交作业，请记得</small><a href="/student/posts">点击这里</a><small>补交作业！</small></h4>
+      </div>
+  @endif
 
+  @if (0 < count($groupStudentsName))
+    <div class="alert alert-success">
+      <h5>你所在的 <strong>{{$groupName}}</strong> 还有
+      <?php foreach ($groupStudentsName as $key => $name): ?>
+        {{$name}},
+      <?php endforeach ?>
+      请互相交流合作，互相帮助，完成课堂任务！</h5>
     </div>
   @endif
+
   @if (is_null($lessonLog))
     <div class="jumbotron">
       <h1>别着急，还未开始上课!</h1>
