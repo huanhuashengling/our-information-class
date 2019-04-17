@@ -51,16 +51,19 @@ class HomeController extends Controller
         }
         $groupStudentsName = [];
         $groupName = "";
-        $tStudents = Student::where("groups_id", "=", $student->groups_id)->get();
-        if (0 < count($tStudents)) {
+        if ($student->groups_id) {
           $tGroup = Group::find($student->groups_id);
           $groupName = $tGroup->name;
-          foreach ($tStudents as $key => $tStudent) {
-            if ($tStudent->username != $student->username) {
-              $groupStudentsName[] = $tStudent->username;
+
+          $tStudents = Student::where("groups_id", "=", $student->groups_id)->get();
+            
+            foreach ($tStudents as $key => $tStudent) {
+              if ($tStudent->username != $student->username) {
+                $groupStudentsName[] = $tStudent->username;
+              }
             }
-          }
         }
+        
         // dd($unPostedLessonLogs);
         $unPostedLessonLogsNum = count($unPostedLessonLogs);
         $lesson = "";
