@@ -302,7 +302,7 @@ class HomeController extends Controller
         if (isset($post)) {
           if (in_array($post->file_ext, $imgTypes)) {
                 return ["filetype"=>"img", 
-                    "storage_name" => getThumbnail($post['storage_name'], 800, 600, $this->getSchoolCode(), 'fit', $post['file_ext']), 
+                    "storage_name" => getThumbnail($post['storage_name'], 801, 601, $this->getSchoolCode(), 'background', $post['file_ext']), 
                     'username' => $post["username"], 
                     'lessontitle' => $post["title"], 
                     'lessonsubtitle' => $post["subtitle"]];
