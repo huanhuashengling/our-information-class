@@ -128,8 +128,7 @@
     <!-- <script src="/js/set-image.js"></script> -->
 @endsection
 @section('scripts')
-<script src="/js/aframe.min.js"></script>
-<script src="/js/aframe-animation-component.min.js"></script>
+
 <script>
 $(document).ready(function() {
     var pnum = Math.floor(Math.random()*6) + 1;
