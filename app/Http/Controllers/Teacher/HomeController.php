@@ -184,7 +184,7 @@ class HomeController extends Controller
         $docTypes = ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'];
         if (isset($post)) {
             if (in_array($post->file_ext, $imgTypes)) {
-                return ["filetype"=>"img", "url" => getThumbnail($post['storage_name'], 800, 600, $this->getSchoolCode(), 'fit', $post['file_ext'])];
+                return ["filetype"=>"img", "url" => getThumbnail($post['storage_name'], 801, 601, $this->getSchoolCode(), 'background', $post['file_ext'])];
             } elseif (in_array($post->file_ext, $docTypes)) {
                 return ["filetype"=>"doc", "url" => env('APP_URL'). $middir .$post->storage_name];
             } elseif ("sb2" == $post->file_ext) {
