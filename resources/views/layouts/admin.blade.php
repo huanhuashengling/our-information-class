@@ -48,14 +48,14 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/school/dashboard') }}">数据报表</a></li>
-                    <li><a href="{{ url('/school/sclasses') }}">学期班级</a></li>
-                    <li><a href="{{ url('/school/students') }}">学生账户</a></li>
-                    <li><a href="{{ url('/school/groups') }}">学生分组</a></li>
-                    <li><a href="{{ url('/school/teachers') }}">教师账户</a></li>
-                    <li><a href="{{ url('/school/export-post') }}">导出作业</a></li>
-                    <li><a href="{{ url('/school/lessonLog') }}">课程记录</a></li>
-                    <li><a href="{{ url('/school/send-mail') }}">邮件发送</a></li>
+                    <li class="{{ Request::segment(2) === 'dashboard' ? 'active' : null }}"><a href="{{ url('/school/dashboard') }}">数据报表</a></li>
+                    <li class="{{ Request::segment(2) === 'sclasses' ? 'active' : null }}"><a href="{{ url('/school/sclasses') }}">学期班级</a></li>
+                    <li class="{{ Request::segment(2) === 'students' ? 'active' : null }}"><a href="{{ url('/school/students') }}">学生账户</a></li>
+                    <li class="{{ Request::segment(2) === 'groups' ? 'active' : null }}"><a href="{{ url('/school/groups') }}">学生分组</a></li>
+                    <li class="{{ Request::segment(2) === 'teachers' ? 'active' : null }}"><a href="{{ url('/school/teachers') }}">教师账户</a></li>
+                    <li class="{{ Request::segment(2) === 'export-post' ? 'active' : null }}"><a href="{{ url('/school/export-post') }}">导出作业</a></li>
+                    <li class="{{ Request::segment(2) === 'lessonLog' ? 'active' : null }}"><a href="{{ url('/school/lessonLog') }}">课程记录</a></li>
+                    <li class="{{ Request::segment(2) === 'send-mail' ? 'active' : null }}"><a href="{{ url('/school/send-mail') }}">邮件发送</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->

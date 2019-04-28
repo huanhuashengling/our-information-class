@@ -239,7 +239,7 @@ Route::group(['prefix' => 'student','namespace' => 'Student'],function ($router)
 
 Route::group(['middleware' => 'auth.student', 'prefix' => 'student','namespace' => 'Student'],function ($router)
 {
-    $router->get('/', 'HomeController@index');
+    $router->get('/home', 'HomeController@index');
     $router->get('/posts', 'PostController@index');
     $router->post('getPostsByTerm', 'PostController@getPostsByTerm');
     

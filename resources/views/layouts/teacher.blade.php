@@ -56,10 +56,10 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/teacher/') }}">选课上课</a></li>
-                    <li><a href="{{ url('/teacher/lesson') }}">课程管理</a></li>
-                    <li><a href="{{ url('/teacher/lessonLog') }}">上课记录</a></li>
-                    <li><a href="{{ url('/teacher/scoreReport') }}">成绩报告</a></li>
+                    <li class="{{ Request::segment(2) === '' ? 'active' : null }}"><a href="{{ url('/teacher/') }}">选课上课</a></li>
+                    <li class="{{ Request::segment(2) === 'lesson' ? 'active' : null }}"><a href="{{ url('/teacher/lesson') }}">课程管理</a></li>
+                    <li class="{{ Request::segment(2) === 'lessonLog' ? 'active' : null }}"><a href="{{ url('/teacher/lessonLog') }}">上课记录</a></li>
+                    <li class="{{ Request::segment(2) === 'scoreReport' ? 'active' : null }}"><a href="{{ url('/teacher/scoreReport') }}">成绩报告</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->

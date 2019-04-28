@@ -90,11 +90,11 @@
                           </form>
                     @else
                         <!-- Left Side Of Navbar -->
-                        <ul class="nav navbar-nav">
+                        <ul class="nav navbar-nav" id="student-nav">
                             <!--<li><a href="{{ url('/student') }}">我的小组</a></li>-->
-                            <li><a href="{{ url('/student') }}">信息课</a></li>
-                            <li><a href="{{ url('/student/posts') }}">作业记录</a></li>
-                            <li><a href="{{ url('/student/classmate') }}">作业墙</a></li>
+                            <li class="{{ Request::segment(2) === 'home' ? 'active' : null }}"><a href="{{ url('/student/home') }}">信息课</a></li>
+                            <li class="{{ Request::segment(2) === 'posts' ? 'active' : null }}"><a href="{{ url('/student/posts') }}">作业记录</a></li>
+                            <li class="{{ Request::segment(2) === 'classmate' ? 'active' : null }}"><a href="{{ url('/student/classmate') }}">作业墙</a></li>
                         </ul>
 
                         <!-- Right Side Of Navbar -->
