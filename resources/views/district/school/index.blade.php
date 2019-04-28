@@ -87,5 +87,5 @@
     <link href="/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
     <script src="/js/fileinput.min.js"></script>
     <script src="/js/locales/zh.js"></script>
-    <script src="/js/district/school.js"></script>
+    <script src="/js/district/school.js?v={{rand()}}"></script>
 @endsection

@@ -49,5 +49,5 @@
 @section('scripts')
     <script src="/js/school/Chart.js"></script>
     <script src="/js/school/utils.js"></script>
-    <script src="/js/school/dashboard.js"></script>
+    <script src="/js/school/dashboard.js?v={{rand()}}"></script>
 @endsection

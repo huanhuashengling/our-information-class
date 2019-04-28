@@ -72,5 +72,5 @@
 
     <script src="/js/FileSaver.js"></script>
     <script src="/js/bootstrap-table-export.js"></script>
-    <script src="/js/tableexport.js"></script>
+    <script src="/js/tableexport.js?v={{rand()}}"></script>
 @endsection

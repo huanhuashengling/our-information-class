@@ -74,5 +74,5 @@
     <link href="/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
     <script src="/js/fileinput.min.js"></script>
     <script src="/js/locales/zh.js"></script>
-    <script src="/js/school/teacher-account.js"></script>
+    <script src="/js/school/teacher-account.js?v={{rand()}}"></script>
 @endsection

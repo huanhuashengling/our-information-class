@@ -112,5 +112,5 @@
     <!-- <script type="text/javascript" src="/scratch/swfobject.js"></script> -->
     <link href="/css/bootstrap-switch.css" rel="stylesheet">
     <script src="/js/bootstrap-switch.min.js"></script>
-    <script src="/js/student/classmate-post.js"></script>
+    <script src="/js/student/classmate-post.js?v={{rand()}}"></script>
 @endsection

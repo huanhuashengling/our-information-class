@@ -170,5 +170,5 @@
 @endsection
 
 @section('scripts')
-    <script src="/js/school/send-mail.js"></script>
+    <script src="/js/school/send-mail.js?v={{rand()}}"></script>
 @endsection

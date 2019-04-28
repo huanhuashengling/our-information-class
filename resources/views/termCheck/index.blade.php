@@ -77,5 +77,5 @@
 @endsection
 
 @section('scripts')
-    <script src="/js/term-check.js"></script>
+    <script src="/js/term-check.js?v={{rand()}}"></script>
 @endsection

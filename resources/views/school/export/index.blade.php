@@ -73,5 +73,5 @@
 @endsection
 
 @section('scripts')
-    <script src="/js/school/export-post.js"></script>
+    <script src="/js/school/export-post.js?v={{rand()}}"></script>
 @endsection

@@ -14,8 +14,8 @@ $(document).ready(function() {
 	});
 
     $("[name='likeCheckBox']").bootstrapSwitch({
-        onText: '喜欢',
-        offText: '不喜欢',
+        onText: '点赞',
+        offText: '点赞',
         onColor: 'danger',
         offColor: 'default',
     });

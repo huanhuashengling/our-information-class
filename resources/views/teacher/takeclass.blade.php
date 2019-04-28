@@ -136,5 +136,5 @@
     swfobject.embedSWF('/scratch/Scratch.swf', 'flashContent', '100%', '600px', '10.2.0','/scratch/expressInstall.swf', flashvars, params, attributes);
 
     </script> -->
-    <script src="/js/teacher/take-class.js"></script>
+    <script src="/js/teacher/take-class.js?v={{rand()}}"></script>
 @endsection

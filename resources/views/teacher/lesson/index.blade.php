@@ -62,5 +62,5 @@
 @endsection
 
 @section('scripts')
-    <script src="/js/teacher/lesson.js"></script>
+    <script src="/js/teacher/lesson.js?v={{rand()}}"></script>
 @endsection

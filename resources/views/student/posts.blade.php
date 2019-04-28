@@ -62,5 +62,5 @@
     <link href="/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
     <script src="/js/fileinput.min.js"></script>
     <script src="/js/locales/zh.js"></script>
-    <script src="/js/student/posts.js"></script>
+    <script src="/js/student/posts.js?v={{rand()}}"></script>
 @endsection
