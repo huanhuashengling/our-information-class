@@ -19,7 +19,7 @@ class School extends Model implements AuthenticatableContract, CanResetPasswordC
      * @var array
      */
     protected $fillable = [
-        'username', 'password', 'title', 'districts_id', 'description', 'display_name', 'code'
+        'username', 'password', 'title', 'districts_id', 'description', 'display_name', 'code', 'remember_token'
     ];
 
     /**

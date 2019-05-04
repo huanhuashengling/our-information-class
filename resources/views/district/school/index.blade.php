@@ -59,7 +59,7 @@
             <div class="modal-body">
               <div class="form-group">
                 <label>登录名</label>
-                <input type="text" class="form-control" name="username" id="school-name" required="">
+                <input type="text" class="form-control" name="username" id="username" required="">
               </div>
               <div class="form-group">
                 <label>显示名称</label>
@@ -67,7 +67,7 @@
               </div>
               <div class="form-group">
                 <label>学校名称</label>
-                <input type="text" class="form-control" name="schoolName" id="school-name" required="">
+                <input type="text" class="form-control" name="title" id="title" required="">
               </div>
               <div class="form-group">
                 <label>学校代码(唯一标识)</label>

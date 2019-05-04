@@ -41,6 +41,7 @@ Route::group(['middleware' => 'auth.district:district, district/login', 'prefix'
 
     $router->get('schools', 'SchoolController@index');
     $router->post('getSchoolsAccountData', 'SchoolController@getSchoolsData');
+    $router->post('createOneSchool', 'SchoolController@createOneSchool');
 
 
 
@@ -80,7 +81,6 @@ Route::group(['middleware' => 'auth.district:district, district/login', 'prefix'
     $router->get('clear-all-zip', 'ExportPostController@clearALlZip');
 
     $router->get('teachers', 'TeacherAccountController@index');
-    $router->post('createOneTeacherAccount', 'TeacherAccountController@createOneTeacherAccount');
 
     $router->get('send-mail', 'SendMailController@index');
     $router->get('get-send-mail-list', 'SendMailController@listAllMails');

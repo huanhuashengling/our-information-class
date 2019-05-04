@@ -33,14 +33,18 @@ class SchoolController extends Controller
         }
     }
 
-    public function createOneTeacherAccount(Request $request)
+    public function createOneSchool(Request $request)
     {
+        $districtsId = \Auth::guard("district")->id();
         try {
-            $teacher = Teacher::create([
+            $school = School::create([
                 'username' => $request->get('username'),
-                'email' => $request->get('email'),
-                'password' => bcrypt($request->get('password')),
-                'schools_id' => $request->get('schools_id'),
+                'title' => $request->get('title'),
+                'display_name' => $request->get('display_name'),
+                'code' => $request->get('school_code'),
+                'description' => "",
+                'password' => bcrypt("123456"),
+                'districts_id' => $districtsId,
                 'remember_token' => str_random(10),
             ]);
         } catch (Exception $e) {

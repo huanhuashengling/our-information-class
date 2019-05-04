@@ -80,6 +80,7 @@
 <input type="hidden" id="posts-id" value="">
 <input type="hidden" id="mark-num" value="">
 <input type="hidden" id="is-init" value="true">
+<input type="hidden" id="image-360-src" value="">
 
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -93,11 +94,24 @@
         <div id='flashContent'>
             <!-- Get <a href="http://www.adobe.com/go/getflash">Adobe Flash Player</a>, otherwise this Scratch movie will not play. -->
         </div>
+        <div id="vr-area">
+            <a-scene embedded id="360-sence">
+              <a-sky id="image-360"></a-sky>
+            </a-scene>
+        </div>
         <!-- <a href="" id="classmate-post-download-link">右键点击下载</a> -->
         <label id="post-comment"></label>
       </div>
 
     <div class="modal-footer">
+        @if ("true" == $show3D)
+        <div style="float: left;">
+            <button class="btn btn-success" id="vr-btn">VR展示</button>
+        </div>
+        <div style="float: left;">
+            <button class="btn btn-info" id="2d-btn">2D展示</button>
+        </div>
+        @endif
         <div class="switch" id="switch-box">
             <input type="checkbox" id="like-check-box" name="likeCheckBox"/>
         </div>
@@ -113,4 +127,7 @@
     <link href="/css/bootstrap-switch.css" rel="stylesheet">
     <script src="/js/bootstrap-switch.min.js"></script>
     <script src="/js/student/classmate-post.js?v={{rand()}}"></script>
+    <style type="text/css">
+      a-scene { width: 870px; height: 620px; }
+   </style>
 @endsection

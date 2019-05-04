@@ -67,6 +67,12 @@ return [
             // 'url' => 'posts/' . 
             'visibility' => 'public',
         ],
+        'dtsxposts' => [
+            'driver' => 'local',
+            'root' => public_path('posts/dtsx'),
+            // 'url' => 'posts/' . 
+            'visibility' => 'public',
+        ],
 
         's3' => [
             'driver' => 's3',

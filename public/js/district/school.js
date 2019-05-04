@@ -55,14 +55,14 @@ $(document).ready(function() {
             return;
         }
         data = {
-            'username' : $("#school-name").val(),
-            'email' : $("#email").val(),
-            'password' : "123456",
-            'schools_id' : $("#add-new-btn").val(),
+            'username' : $("#username").val(),
+            'display_name' : $("#display-name").val(),
+            'school_code' : $("#school-code").val(),
+            'title' : $("#title").val(),
         }
         $.ajax({
             type: "post",
-            url: '/district/createOneSchoolAccount',
+            url: '/district/createOneSchool',
             data: data,
             success: function( data ) {
                 $("#add-new-school-modal").modal("hide");

@@ -12,6 +12,21 @@ $(document).ready(function() {
 	    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	  }
 	});
+    
+    $("#vr-btn").on("click", function (e) {
+        $('#classmate-post-show').addClass("hidden");
+        $("#vr-area").removeClass("hidden");
+        $('#image-360').attr("src", $('#image-360-src').val());
+        var scene = document.querySelector('a-scene');
+        scene.enterVR();
+    });
+
+    $("#2d-btn").on("click", function (e) {
+        $('#classmate-post-show').removeClass("hidden");
+        $("#vr-area").addClass("hidden");
+        var scene = document.querySelector('a-scene');
+        scene.exitVR();
+    });
 
     $("[name='likeCheckBox']").bootstrapSwitch({
         onText: '点赞',
@@ -97,8 +112,9 @@ $(document).ready(function() {
             $(".rate-btn").removeClass('active').find('input').prop('checked', false);
           }.bind(this), 10);
         }
+        $("#vr-area").addClass("hidden");
         $('#post-comment').val("");
-        $("#switch-box").addClass('hidden'); 
+        // $("#switch-box").addClass('hidden'); 
         // console.log($(this).attr("value"));
         // var postsId = (e.target.value).split(',')[0]; 
         var postsId = $(this).attr("value");
@@ -109,7 +125,7 @@ $(document).ready(function() {
             data: {posts_id: postsId},
             success: function( data ) {
                 if ("false" != data && "待完" != data) {
-                    $("#switch-box").removeClass('hidden'); 
+                    // $("#switch-box").removeClass('hidden'); 
                 }
             }
         });
@@ -162,6 +178,7 @@ $(document).ready(function() {
                         $('#classmate-post-show').removeClass("hidden");
                         $('#flashContent').addClass("hidden");
                         $('#classmate-post-show').attr("src", data.storage_name);
+                        $('#image-360-src').val(data.file_path);
                     } else if ("sb2" == data.filetype) {
                         $('#doc-preview').addClass("hidden");
                         $('#classmate-post-show').addClass("hidden");

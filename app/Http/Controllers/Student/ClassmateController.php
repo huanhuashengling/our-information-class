@@ -16,9 +16,13 @@ class ClassmateController extends Controller
 {
     public function classmatePost(Request $request)
     {
+        $show3D = "false";
         $getDataType = ($request->input('type'))?$request->input('type'):"all";
         $posts = [];
         $schoolCode = $this->getSchool()->code;
+        if ("dtsx" == $schoolCode) {
+            $show3D = "true";
+        }
         switch ($getDataType) {
             case 'my':
                 $posts = $this->getMyPostsData();
@@ -47,7 +51,7 @@ class ClassmateController extends Controller
                 }
                 break;
         }
-        return view('student/classmatePost', compact('posts', 'schoolCode'));
+        return view('student/classmatePost', compact('posts', 'schoolCode', 'show3D'));
     }
 
     public function getMyPostsData() {

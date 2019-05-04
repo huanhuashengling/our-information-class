@@ -305,7 +305,8 @@ class HomeController extends Controller
                     "storage_name" => getThumbnail($post['storage_name'], 801, 601, $this->getSchoolCode(), 'background', $post['file_ext']), 
                     'username' => $post["username"], 
                     'lessontitle' => $post["title"], 
-                    'lessonsubtitle' => $post["subtitle"]];
+                    'lessonsubtitle' => $post["subtitle"],
+                    'file_path' => env('APP_URL'). $middir .$post->storage_name];
             } elseif (in_array($post->file_ext, $docTypes)) {
               return ["filetype"=>"doc", 
                     "storage_name" => env('APP_URL'). $middir .$post->storage_name, 
