@@ -16,7 +16,7 @@ class ClassmateController extends Controller
 {
     public function classmatePost(Request $request)
     {
-        $show3D = "false";
+        $show3D = "true";
         $getDataType = ($request->input('type'))?$request->input('type'):"all";
         $posts = [];
         $schoolCode = $this->getSchool()->code;
