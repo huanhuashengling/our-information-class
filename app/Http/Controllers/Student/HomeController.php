@@ -35,7 +35,7 @@ class HomeController extends Controller
         $lessonLog = LessonLog::where(['sclasses_id' => $student['sclasses_id'], 'status' => 'open'])->first();
 
         $allLessonLogs = LessonLog::select('lesson_logs.id as lesson_logs_id', 'lessons.title', 'lessons.subtitle', 'lesson_logs.updated_at')
-        ->leftJoin('lessons', 'lessons.id', '=', "lesson_logs.lessons_id")
+        ->join('lessons', 'lessons.id', '=', "lesson_logs.lessons_id")
         ->where(['lesson_logs.sclasses_id' => $student['sclasses_id'], 'status' => 'close'])->get();
         $unPostedLessonLogs = array();
         // dd($allLessonLogs);

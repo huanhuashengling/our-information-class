@@ -67,9 +67,9 @@ class HomeController extends Controller
         // dd($schoolCode);
         $userId = auth()->guard('teacher')->id();
         $lessonLog = LessonLog::select('lesson_logs.id', 'lesson_logs.rethink', 'lesson_logs.sclasses_id', 'lessons.title', 'lessons.subtitle', 'sclasses.enter_school_year', 'sclasses.class_title', 'terms.grade_key', 'terms.term_segment')
-        ->leftJoin("lessons", 'lessons.id', '=', 'lesson_logs.lessons_id')
-        ->leftJoin("sclasses", 'sclasses.id', '=', 'lesson_logs.sclasses_id')
-        ->leftJoin("terms", 'terms.enter_school_year', '=', 'sclasses.enter_school_year')
+        ->join("lessons", 'lessons.id', '=', 'lesson_logs.lessons_id')
+        ->join("sclasses", 'sclasses.id', '=', 'lesson_logs.sclasses_id')
+        ->join("terms", 'terms.enter_school_year', '=', 'sclasses.enter_school_year')
         ->where(['lesson_logs.teachers_id' => $userId, 'lesson_logs.status' => 'open', 'terms.is_current' => 1])->first();
         // dd($lessonLog);die();
         if ("group" == $request->get("order")) {
