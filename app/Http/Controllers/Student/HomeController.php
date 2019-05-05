@@ -250,10 +250,10 @@ class HomeController extends Controller
     {
         $userId = auth()->guard('student')->id();
         $student = Student::select('students.*', 'terms.grade_key', 'sclasses.class_title', 'schools.title', 'districts.title as district_title')
-                ->leftJoin('sclasses', 'sclasses.id', '=', "students.sclasses_id")
-                ->leftJoin('schools', 'schools.id', '=', "sclasses.schools_id")
-                ->leftJoin('districts', 'districts.id', '=', "schools.districts_id")
-                ->leftJoin('terms', 'terms.enter_school_year', '=', "sclasses.enter_school_year")
+                ->join('sclasses', 'sclasses.id', '=', "students.sclasses_id")
+                ->join('schools', 'schools.id', '=', "sclasses.schools_id")
+                ->join('districts', 'districts.id', '=', "schools.districts_id")
+                ->join('terms', 'terms.enter_school_year', '=', "sclasses.enter_school_year")
                 ->where(['students.id' => $userId, 'terms.is_current' => 1])
                 ->first();
         $posts = Post::where(['posts.students_id' => $userId])->get();
@@ -295,9 +295,9 @@ class HomeController extends Controller
         $imgTypes = ['jpg', 'jpeg', 'bmp', 'gif', 'png'];
         $docTypes = ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'];
         $post = Post::where("posts.id", "=", $request->input('posts_id'))
-                ->leftjoin('students', 'students.id', '=', "posts.students_id")
-                ->leftjoin('lesson_logs', 'lesson_logs.id', '=', "posts.lesson_logs_id")
-                ->leftjoin('lessons', 'lessons.id', '=', "lesson_logs.lessons_id")->first();
+                ->join('students', 'students.id', '=', "posts.students_id")
+                ->join('lesson_logs', 'lesson_logs.id', '=', "posts.lesson_logs_id")
+                ->join('lessons', 'lessons.id', '=', "lesson_logs.lessons_id")->first();
                 // return var_dump($post);
         if (isset($post)) {
           if (in_array($post->file_ext, $imgTypes)) {

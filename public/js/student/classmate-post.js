@@ -92,9 +92,9 @@ $(document).ready(function() {
         top.location='/student/classmate?type=most-marked'; 
     });
 
-    $('#has-comment-posts-btn').on('click', function (e) {
-        top.location='/student/classmate?type=has-comment'; 
-    });
+    // $('#has-comment-posts-btn').on('click', function (e) {
+    //     top.location='/student/classmate?type=has-comment'; 
+    // });
 
     $('#name-search-btn').on('click', function (e) {
         if("" == $("#search-name").val()) {
@@ -113,7 +113,7 @@ $(document).ready(function() {
           }.bind(this), 10);
         }
         $("#vr-area").addClass("hidden");
-        $('#post-comment').val("");
+        // $('#post-comment').val("");
         // $("#switch-box").addClass('hidden'); 
         // console.log($(this).attr("value"));
         // var postsId = (e.target.value).split(',')[0]; 
@@ -200,24 +200,24 @@ $(document).ready(function() {
             }
         });
 
-        $.ajax({
-            type: "POST",
-            url: '/student/getCommentByPostsId',
-            data: {posts_id: postsId},
-            success: function( data ) {
-                // console.log(data);
-                if ("false" == data) {
-                    $("#edit-post-comment-btn").addClass("hidden");
-                    $("#add-post-comment-btn").removeClass("hidden");
-                } else {
-                    var comment = JSON.parse(data);
-                    $("#edit-post-comment-btn").val(comment['id']);
-                    $('#post-comment').text("老师评语：" + comment['content']);
-                    $("#edit-post-comment-btn").removeClass("hidden");
-                    $("#add-post-comment-btn").addClass("hidden");
-                }
-            }
-        });
+        // $.ajax({
+        //     type: "POST",
+        //     url: '/student/getCommentByPostsId',
+        //     data: {posts_id: postsId},
+        //     success: function( data ) {
+        //         // console.log(data);
+        //         if ("false" == data) {
+        //             $("#edit-post-comment-btn").addClass("hidden");
+        //             $("#add-post-comment-btn").removeClass("hidden");
+        //         } else {
+        //             var comment = JSON.parse(data);
+        //             $("#edit-post-comment-btn").val(comment['id']);
+        //             $('#post-comment').text("老师评语：" + comment['content']);
+        //             $("#edit-post-comment-btn").removeClass("hidden");
+        //             $("#add-post-comment-btn").addClass("hidden");
+        //         }
+        //     }
+        // });
 
         $('#posts-id').val(postsId);
         // $('#post-show').attr("src", filePath);
