@@ -10,7 +10,7 @@
         
         <button class="btn btn-info btn-sm form-control" id="my-marked-posts-btn">我点赞</button>
         <button class="btn btn-info btn-sm form-control" id="most-marked-posts-btn">最多赞</button>
-        <button class="btn btn-info btn-sm form-control" id="has-comment-posts-btn">有评语</button>
+        <!-- <button class="btn btn-info btn-sm form-control" id="has-comment-posts-btn">有评语</button> -->
         <!--<button class="btn btn-info btn-sm form-control">最多分</button> -->
         <!-- <button class="btn btn-info btn-sm form-control">画图</button>
         <button class="btn btn-info btn-sm form-control">打字</button>
