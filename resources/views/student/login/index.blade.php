@@ -11,10 +11,10 @@
 <!-- <a-image src="/images/panorama/刘熙梓-5af11255304f3.jpg"></a-image>  -->
 <!-- </a-scene> -->
 <div class="text-center col-md-4">
-    <img class="img-responsive" id="r1" src="/images/panorama/real1.png">
+    <img class="img-responsive img-thumbnail" id="r1" src="/images/panorama/real1.png">
 </div>
 <div class="text-center col-md-8">
-    <img class="img-responsive" id="p1" src="/images/panorama/pic1.png">
+    <img class="img-responsive img-thumbnail" id="p1" src="/images/panorama/pic1.png">
 </div>
 
 <a-scene>
