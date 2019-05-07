@@ -13,6 +13,10 @@ $(document).ready(function() {
 	  }
 	});
     
+    $("#reload-btn").on("click", function(e) {
+        top.location = "/student/classmate";
+    });
+
     $("#vr-btn").on("click", function (e) {
         $('#classmate-post-show').addClass("hidden");
         $("#vr-area").removeClass("hidden");

@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container" style="padding-left: 0px; padding-right: 0px">
-
+    <button class="btn btn-success" id="reload-btn">点我加载最新作业</button>
     <div class="col-md-12" id="posts-list">
     @foreach(@$posts as $key=>$post)
         @php
@@ -91,7 +91,7 @@
     <div class="modal-footer">
         @if ("true" == @$show3D)
         <div style="float: left;">
-            <button class="btn btn-success" id="vr-btn">VR展示</button>
+            <button class="btn btn-success" id="vr-btn">VR展示(Esc退出全屏)</button>
         </div>
         <div style="float: left;">
             <button class="btn btn-info" id="2d-btn">2D展示</button>
