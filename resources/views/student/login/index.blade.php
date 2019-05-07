@@ -38,20 +38,20 @@
 
     <a-box src="/images/panorama/item1.png" rotation="45 45 45" position="1.5 0.25 1.5" id="target1" value="1">
         <!-- <a-animation attribute="position" begin="click" to="1 0.25 1" direction="alternate" dur="100"></a-animation> -->
-        <!-- <a-animation attribute="rotation" begin="click" to="360 360 360" dur="2000"></a-animation> -->
+        <a-animation attribute="rotation" begin="click" to="360 360 360" dur="2000"></a-animation>
         <!-- <a-animation attribute="position" begin="mouseleave" to="2 0.25 2" dur="100"></a-animation> -->
     </a-box>
     <a-box src="/images/panorama/item2.png" rotation="45 45 45" position="1.5 0.25 -1.5" id="target2" value="2">
         <!-- <a-animation attribute="position" to="2 0.25 -2" direction="alternate" dur="2000" repeat="indefinite"></a-animation> -->
-        <!-- <a-animation attribute="rotation" begin="click" to="360 360 360" direction="alternate" dur="2000"></a-animation> -->
+        <a-animation attribute="rotation" begin="click" to="360 360 360" direction="alternate" dur="2000"></a-animation>
     </a-box>
     <a-box src="/images/panorama/item3.png" rotation="45 45 45" position="-1.5 0.25 -1.5" id="target3" value="3">
         <!-- <a-animation attribute="position" to="-2 0.25 -2" direction="alternate" dur="2000" repeat="indefinite"></a-animation> -->
-        <!-- <a-animation attribute="rotation" begin="click" to="360 360 360" direction="alternate" dur="2000"></a-animation> -->
+        <a-animation attribute="rotation" begin="click" to="360 360 360" direction="alternate" dur="2000"></a-animation>
     </a-box>
     <a-box src="/images/panorama/item4.png" rotation="45 45 45" position="-1.5 0.25 1.5" id="target4" value="4">
         <!-- <a-animation attribute="position" to="-2 0.25 2" direction="alternate" dur="2000" repeat="indefinite"></a-animation> -->
-        <!-- <a-animation attribute="rotation" begin="click" to="360 360 360" direction="alternate" dur="2000"></a-animation> -->
+        <a-animation attribute="rotation" begin="click" to="360 360 360" direction="alternate" dur="2000"></a-animation>
     </a-box>
 
     <!-- <a-text value="Happy New Year!" color="#ff0000" position="-1.16 2.5 -5" scale="1.5 1.5 1.5"></a-text> -->
