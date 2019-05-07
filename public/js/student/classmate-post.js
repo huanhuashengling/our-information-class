@@ -13,19 +13,15 @@ $(document).ready(function() {
 	  }
 	});
     
-    $("#vr-btn").on("click", function (e) {
+    $("#big-btn").on("click", function (e) {
         $('#classmate-post-show').addClass("hidden");
         $("#vr-area").removeClass("hidden");
         $('#image-360').attr("src", $('#image-360-src').val());
-        var scene = document.querySelector('a-scene');
-        scene.enterVR();
     });
 
-    $("#2d-btn").on("click", function (e) {
+    $("#original-btn").on("click", function (e) {
         $('#classmate-post-show').removeClass("hidden");
         $("#vr-area").addClass("hidden");
-        var scene = document.querySelector('a-scene');
-        scene.exitVR();
     });
 
     $("[name='likeCheckBox']").bootstrapSwitch({

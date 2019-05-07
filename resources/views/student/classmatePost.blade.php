@@ -91,10 +91,10 @@
     <div class="modal-footer">
         @if ("true" == @$show3D)
         <div style="float: left;">
-            <button class="btn btn-success" id="vr-btn">VR展示</button>
+            <button class="btn btn-success" id="big-btn">放大</button>
         </div>
         <div style="float: left;">
-            <button class="btn btn-info" id="2d-btn">2D展示</button>
+            <button class="btn btn-info" id="original-btn">原图</button>
         </div>
         @endif
         <div class="switch" id="switch-box">

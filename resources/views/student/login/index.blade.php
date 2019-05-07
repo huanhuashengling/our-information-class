@@ -10,25 +10,27 @@
               <!-- rotation="0 15 0"></a-text> -->
 <!-- <a-image src="/images/panorama/刘熙梓-5af11255304f3.jpg"></a-image>  -->
 <!-- </a-scene> -->
-
+<div class="text-center">
+    <img width="1200" width="600" id="p1" src="/images/panorama/pic1.png">
+</div>
 <a-scene>
-    <a-assets>
+    <!-- <a-assets> -->
     <!-- <audio id="click-sound" src="/images/panorama/304_Hero.mp3"></audio> -->
 
     <!-- Images. -->
-    <img id="p1" src="/images/panorama/pic1.png">
+    <!-- <img id="p1" src="/images/panorama/pic1.png"> -->
     <!-- <img id="city-thumb" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-city.jpg"> -->
-    <img id="p2" src="/images/panorama/pic2.png">
+    <!-- <img id="p2" src="/images/panorama/pic2.png"> -->
     <!-- <img id="cubes-thumb" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg"> -->
-    <img id="p3" src="/images/panorama/pic3.png">
+    <!-- <img id="p3" src="/images/panorama/pic3.png"> -->
     <!-- <img id="sechelt-thumb" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-sechelt.jpg"> -->
-    <img id="p4" src="/images/panorama/pic4.png">
+    <!-- <img id="p4" src="/images/panorama/pic4.png"> -->
     <!-- <img id="p5" src="/images/panorama/lt5.png"> -->
     <!-- <img id="p5" src="/images/panorama/menting.jpg"> -->
     <!-- <img id="p6" src="/images/panorama/kexue.jpg"> -->
-  </a-assets>
+  <!-- </a-assets> -->
 
-    <a-sky id="image-360"></a-sky>
+    <!-- <a-sky id="image-360"></a-sky> -->
 
     <a-box src="/images/panorama/item1.png" rotation="45 45 45" position="1.5 0.25 1.5" id="target1" value="1">
         <!-- <a-animation attribute="position" begin="click" to="1 0.25 1" direction="alternate" dur="100"></a-animation> -->
@@ -132,8 +134,8 @@
 
 <script>
 $(document).ready(function() {
-        $("#image-360").attr("src", "#p1");
-    $("#image-360").attr("rotation", "0 215 -0.8")
+        $("#p1").attr("src", "/images/panorama/pic1.png");
+    // $("#image-360").attr("rotation", "0 215 -0.8")
 
     // var pnum = Math.floor(Math.random()*5) + 1;
     // var pr = ["0 215 -0.8", "0 -9 -0.5", "0 190 0", "0 135 0", "0 -140 -2", "0 -180 0"];
@@ -144,26 +146,33 @@ $(document).ready(function() {
     // $("#image-360").attr("src", "#p1")
     var targetEl1 = document.querySelector('#target1');
     targetEl1.addEventListener('click', function() {
+        $("#p1").attr("src", "/images/panorama/pic1.png");
         // alert($(this).attr("value"));
-        $("#image-360").attr("src", "#p"+$(this).attr("value"))
+        // $("#image-360").attr("src", "#p"+$(this).attr("value"))
       // targetEl.setAttribute('material', {color: 'red'});
     });
     var targetEl2 = document.querySelector('#target2');
     targetEl2.addEventListener('click', function() {
+        $("#p1").attr("src", "/images/panorama/pic2.png");
+
         // alert($(this).attr("value"));
-        $("#image-360").attr("src", "#p"+$(this).attr("value"))
+        // $("#image-360").attr("src", "#p"+$(this).attr("value"))
       // targetEl.setAttribute('material', {color: 'red'});
     });
     var targetEl3 = document.querySelector('#target3');
     targetEl3.addEventListener('click', function() {
+        $("#p1").attr("src", "/images/panorama/pic3.png");
+
         // alert($(this).attr("value"));
-        $("#image-360").attr("src", "#p"+$(this).attr("value"))
+        // $("#image-360").attr("src", "#p"+$(this).attr("value"))
       // targetEl.setAttribute('material', {color: 'red'});
     });
     var targetEl4 = document.querySelector('#target4');
     targetEl4.addEventListener('click', function() {
+        $("#p1").attr("src", "/images/panorama/pic4.png");
+
         // alert($(this).attr("value"));
-        $("#image-360").attr("src", "#p"+$(this).attr("value"))
+        // $("#image-360").attr("src", "#p"+$(this).attr("value"))
       // targetEl.setAttribute('material', {color: 'red'});
     });
     // $("#image-360").attr("src", "#p"+pnum)
