@@ -10,9 +10,13 @@
               <!-- rotation="0 15 0"></a-text> -->
 <!-- <a-image src="/images/panorama/刘熙梓-5af11255304f3.jpg"></a-image>  -->
 <!-- </a-scene> -->
-<div class="text-center">
-    <img width="1200" width="600" id="p1" src="/images/panorama/pic1.png">
+<div class="text-center col-md-4">
+    <img class="img-responsive" id="r1" src="/images/panorama/real1.png">
 </div>
+<div class="text-center col-md-8">
+    <img class="img-responsive" id="p1" src="/images/panorama/pic1.png">
+</div>
+
 <a-scene>
     <!-- <a-assets> -->
     <!-- <audio id="click-sound" src="/images/panorama/304_Hero.mp3"></audio> -->
@@ -34,20 +38,20 @@
 
     <a-box src="/images/panorama/item1.png" rotation="45 45 45" position="1.5 0.25 1.5" id="target1" value="1">
         <!-- <a-animation attribute="position" begin="click" to="1 0.25 1" direction="alternate" dur="100"></a-animation> -->
-        <a-animation attribute="rotation" begin="click" to="360 360 360" dur="2000"></a-animation>
+        <!-- <a-animation attribute="rotation" begin="click" to="360 360 360" dur="2000"></a-animation> -->
         <!-- <a-animation attribute="position" begin="mouseleave" to="2 0.25 2" dur="100"></a-animation> -->
     </a-box>
     <a-box src="/images/panorama/item2.png" rotation="45 45 45" position="1.5 0.25 -1.5" id="target2" value="2">
         <!-- <a-animation attribute="position" to="2 0.25 -2" direction="alternate" dur="2000" repeat="indefinite"></a-animation> -->
-        <a-animation attribute="rotation" begin="click" to="360 360 360" direction="alternate" dur="2000"></a-animation>
+        <!-- <a-animation attribute="rotation" begin="click" to="360 360 360" direction="alternate" dur="2000"></a-animation> -->
     </a-box>
     <a-box src="/images/panorama/item3.png" rotation="45 45 45" position="-1.5 0.25 -1.5" id="target3" value="3">
         <!-- <a-animation attribute="position" to="-2 0.25 -2" direction="alternate" dur="2000" repeat="indefinite"></a-animation> -->
-        <a-animation attribute="rotation" begin="click" to="360 360 360" direction="alternate" dur="2000"></a-animation>
+        <!-- <a-animation attribute="rotation" begin="click" to="360 360 360" direction="alternate" dur="2000"></a-animation> -->
     </a-box>
     <a-box src="/images/panorama/item4.png" rotation="45 45 45" position="-1.5 0.25 1.5" id="target4" value="4">
         <!-- <a-animation attribute="position" to="-2 0.25 2" direction="alternate" dur="2000" repeat="indefinite"></a-animation> -->
-        <a-animation attribute="rotation" begin="click" to="360 360 360" direction="alternate" dur="2000"></a-animation>
+        <!-- <a-animation attribute="rotation" begin="click" to="360 360 360" direction="alternate" dur="2000"></a-animation> -->
     </a-box>
 
     <!-- <a-text value="Happy New Year!" color="#ff0000" position="-1.16 2.5 -5" scale="1.5 1.5 1.5"></a-text> -->
@@ -147,33 +151,23 @@ $(document).ready(function() {
     var targetEl1 = document.querySelector('#target1');
     targetEl1.addEventListener('click', function() {
         $("#p1").attr("src", "/images/panorama/pic1.png");
-        // alert($(this).attr("value"));
-        // $("#image-360").attr("src", "#p"+$(this).attr("value"))
-      // targetEl.setAttribute('material', {color: 'red'});
+        $("#r1").attr("src", "/images/panorama/real1.png");
     });
     var targetEl2 = document.querySelector('#target2');
     targetEl2.addEventListener('click', function() {
         $("#p1").attr("src", "/images/panorama/pic2.png");
+        $("#r1").attr("src", "/images/panorama/real2.png");
 
-        // alert($(this).attr("value"));
-        // $("#image-360").attr("src", "#p"+$(this).attr("value"))
-      // targetEl.setAttribute('material', {color: 'red'});
     });
     var targetEl3 = document.querySelector('#target3');
     targetEl3.addEventListener('click', function() {
         $("#p1").attr("src", "/images/panorama/pic3.png");
-
-        // alert($(this).attr("value"));
-        // $("#image-360").attr("src", "#p"+$(this).attr("value"))
-      // targetEl.setAttribute('material', {color: 'red'});
+        $("#r1").attr("src", "/images/panorama/real3.png");
     });
     var targetEl4 = document.querySelector('#target4');
     targetEl4.addEventListener('click', function() {
         $("#p1").attr("src", "/images/panorama/pic4.png");
-
-        // alert($(this).attr("value"));
-        // $("#image-360").attr("src", "#p"+$(this).attr("value"))
-      // targetEl.setAttribute('material', {color: 'red'});
+        $("#r1").attr("src", "/images/panorama/real4.png");
     });
     // $("#image-360").attr("src", "#p"+pnum)
     // $("#image-360").attr("rotation", pr[0])
