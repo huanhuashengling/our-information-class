@@ -12,7 +12,13 @@ $(document).ready(function() {
 	    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	  }
 	});
-    
+
+    $('[data-magnify=gallery]').magnify({"modalWidth": 800, "modalHeight": 600, "title": false, "footToolbar": ['zoomIn', 
+'zoomOut', 
+'fullscreen',
+'actualSize',
+'rotateRight']});
+
     $("#reload-btn").on("click", function(e) {
         top.location = "/student/classmate";
     });
@@ -123,6 +129,7 @@ $(document).ready(function() {
         // var postsId = (e.target.value).split(',')[0]; 
         var postsId = $(this).attr("value");
         $('#classmate-post-show').attr("src", "");
+
         $.ajax({
             type: "POST",
             url: '/student/getPostRate',
@@ -182,7 +189,9 @@ $(document).ready(function() {
                         $('#classmate-post-show').removeClass("hidden");
                         $('#flashContent').addClass("hidden");
                         $('#classmate-post-show').attr("src", data.storage_name);
-                        $('#image-360-src').val(data.file_path);
+                        $('#classmate-post-show').attr("data-src", data.file_path);
+                        // $("#magnify-href").href(data.storage_name);
+                        // $('#image-360-src').val(data.file_path);
                     } else if ("sb2" == data.filetype) {
                         $('#doc-preview').addClass("hidden");
                         $('#classmate-post-show').addClass("hidden");

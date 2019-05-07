@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container" style="padding-left: 0px; padding-right: 0px">
-    <button class="btn btn-success" id="reload-btn">点我加载最新作业</button>
+    <!-- <button class="btn btn-success" id="reload-btn">点我加载最新作业</button> -->
     <div class="col-md-12" id="posts-list">
     @foreach(@$posts as $key=>$post)
         @php
@@ -76,7 +76,11 @@
       </div>
       <div class="modal-body">
         <div id='doc-preview'></div>
-        <img src="" id='classmate-post-show' class="img-responsive img-thumbnail center-block">
+        <!-- <img src="" id='classmate-post-show' class="img-responsive img-thumbnail center-block"> -->
+        <!-- <a data-magnify="gallery" href="" id="magnify-href">
+          <img src="" id='classmate-post-show' class="img-responsive img-thumbnail center-block">
+        </a> -->
+        <img data-magnify="gallery" data-src="big-1.jpg" src="small-1.jpg" id='classmate-post-show'>
         <div id='flashContent'>
             <!-- Get <a href="http://www.adobe.com/go/getflash">Adobe Flash Player</a>, otherwise this Scratch movie will not play. -->
         </div>
@@ -91,10 +95,7 @@
     <div class="modal-footer">
         @if ("true" == @$show3D)
         <div style="float: left;">
-            <button class="btn btn-success" id="vr-btn">VR展示(Esc退出全屏)</button>
-        </div>
-        <div style="float: left;">
-            <button class="btn btn-info" id="2d-btn">2D展示</button>
+            <h4>点击图片可放大</h4>
         </div>
         @endif
         <div class="switch" id="switch-box">
@@ -109,10 +110,13 @@
 
 @section('scripts')
     <!-- <script type="text/javascript" src="/scratch/swfobject.js"></script> -->
+    <link href="/css/jquery.magnify.min.css" rel="stylesheet">
+    <link href="/css/magnify-bezelless-theme.css" rel="stylesheet">
+
+<script src="/js/jquery.magnify.min.js"></script>
     <link href="/css/bootstrap-switch.css" rel="stylesheet">
     <script src="/js/bootstrap-switch.min.js"></script>
     <script src="/js/student/classmate-post.js?v={{rand()}}"></script>
     <style type="text/css">
-      a-scene { width: 870px; height: 620px; }
    </style>
 @endsection
