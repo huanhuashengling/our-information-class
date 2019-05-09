@@ -17,7 +17,7 @@
              <img src="/images/panorama/包包.jpg" style="height: 250px"  class="img-responsive img-thumbnail hidden" id="item3">
         </div>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-12" style="padding-top: 10px">
 
         <div class="text-center col-md-4">
              <img src="/images/panorama/陶罐.jpg" style="height: 250px"  class="img-responsive img-thumbnail hidden" id="item4">
@@ -29,7 +29,7 @@
              <img src="/images/panorama/鼠标垫.jpg" style="height: 250px"  class="img-responsive img-thumbnail hidden" id="item6">
         </div> 
     </div>
-        <div class="col-md-12">
+        <div class="col-md-12" style="padding-top: 10px">
 
         <div class="text-center col-md-4">
              <img src="/images/panorama/衣服.jpg" style="height: 250px"  class="img-responsive img-thumbnail hidden" id="item7">
