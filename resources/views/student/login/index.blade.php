@@ -26,7 +26,7 @@
              <img src="/images/panorama/碗.jpg" style="height: 250px"  class="img-responsive img-thumbnail hidden" id="item5">
         </div> 
         <div class="text-center col-md-4">
-             <img src="/images/panorama/鼠标垫.jpg" style="height: 250px"  class="img-responsive img-thumbnail hidden" id="item6">
+             <img src="/images/panorama/抱枕.jpg" style="height: 250px"  class="img-responsive img-thumbnail hidden" id="item6">
         </div> 
     </div>
         <div class="col-md-12" style="padding-top: 10px">
@@ -49,7 +49,7 @@
         <button class="btn btn-success item-btn" value="5">碗</button>
         <button class="btn btn-success item-btn" value="8">民族服饰</button>
         <button class="btn btn-success item-btn" value="3">名牌包包</button>
-        <button class="btn btn-success item-btn" value="6">鼠标垫</button>
+        <button class="btn btn-success item-btn" value="6">抱枕</button>
         <button class="btn btn-success item-btn" value="9">像素花纹</button>
     </div>
 </div>
