@@ -94,6 +94,12 @@
 
     <div class="modal-footer">
         @if ("true" == @$show3D)
+        <!-- <div style="float: left;">
+            <button class="btn btn-success" id="vr-btn">VR展示(Esc退出全屏)</button>
+        </div>
+        <div style="float: left;">
+            <button class="btn btn-info" id="2d-btn">2D展示</button>
+        </div> -->
         <div style="float: left;">
             <h4>点击图片可放大</h4>
         </div>
@@ -118,5 +124,13 @@
     <script src="/js/bootstrap-switch.min.js"></script>
     <script src="/js/student/classmate-post.js?v={{rand()}}"></script>
     <style type="text/css">
+    img
+        {
+            image-rendering: optimizeSpeed;
+            image-rendering: -moz-crisp-edges; /* Firefox */
+            image-rendering: -o-crisp-edges; /* Opera */
+            image-rendering: -webkit-optimize-contrast; /* Webkit (non-standard naming) */
+            image-rendering: pixelated;
+            -ms-interpolation-mode: nearest-neighbor; /* IE (non-standard property) */
    </style>
 @endsection

@@ -13,7 +13,7 @@ $(document).ready(function() {
 	  }
 	});
 
-    $('[data-magnify=gallery]').magnify({"modalWidth": 800, "modalHeight": 600, "title": false, "footToolbar": ['zoomIn', 
+    $('[data-magnify=gallery]').magnify({"modalWidth": 800, "ratioThreshold":0.25, "minRatio": 0.5, "maxRatio": 32, "modalHeight": 600, "title": false, "footToolbar": ['zoomIn', 
 'zoomOut', 
 'fullscreen',
 'actualSize',
