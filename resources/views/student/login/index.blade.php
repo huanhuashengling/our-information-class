@@ -6,10 +6,10 @@
     <a-assets>
 
     <!-- Images. -->
-    <img id="p1" src="/images/panorama/information-room.jpg">
+    <img id="p1" src="/images/panorama/dalitang.jpg">
     <img id="p2" src="/images/panorama/meishujiaoshi.jpg">
-    <img id="p3" src="/images/panorama/dalitang.png">
-    <img id="p4" src="/images/panorama/yinyuejiaoshi.png">
+    <img id="p3" src="/images/panorama/yinyuejiaoshi.jpg">
+    <img id="p4" src="/images/panorama/information-room1.jpg">
     <img id="p5" src="/images/panorama/menting.jpg">
     <img id="p6" src="/images/panorama/kexue.jpg">
   </a-assets>
@@ -118,14 +118,14 @@
 
 <script>
 $(document).ready(function() {
-    var pnum = Math.floor(Math.random()*5) + 1;
+    var pnum = Math.floor(Math.random()*6) + 1;
     var pr = ["0 215 -0.8", "0 -9 -0.5", "0 190 0", "0 135 0", "0 -140 -2", "0 -180 0"];
     // var pr2 = "0 -9 -0.5";
     // var pr3 = "0 190 0";
     // var pr4 = "0 135 0";
     // var pr5 = "0 -140 -2";
     // $("#image-360").attr("src", "#p1")
-
+    console.log(pnum);
     $("#image-360").attr("src", "#p"+pnum)
     // $("#image-360").attr("rotation", pr[0])
     $("#image-360").attr("rotation", pr[pnum-1])
