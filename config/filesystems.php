@@ -61,6 +61,20 @@ return [
             'visibility' => 'public',
         ],
 
+        'ysworks' => [
+            'driver' => 'local',
+            'root' => public_path('works/ys'),
+            // 'url' => 'posts/' . 
+            'visibility' => 'public',
+        ],
+
+        'yscover' => [
+            'driver' => 'local',
+            'root' => public_path('works/ys/cover'),
+            // 'url' => 'posts/' . 
+            'visibility' => 'public',
+        ],
+
         'dtposts' => [
             'driver' => 'local',
             'root' => public_path('posts/dt'),

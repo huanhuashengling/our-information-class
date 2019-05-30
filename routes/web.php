@@ -23,7 +23,8 @@ Route::post('/term-check-get-post-rate/', 'TermCheckController@getPostRate');
 Route::post('/term-check-get-post/', 'TermCheckController@getPost');
 Route::post('/term-check-get-comment/', 'TermCheckController@getCommentByPostsId');
 
-
+Route::get('/space', 'SpaceController@index');
+Route::get('/work', 'SpaceController@work');
 
 
 Route::group(['prefix' => 'district','namespace' => 'District'],function ($router)
@@ -253,6 +254,11 @@ Route::group(['middleware' => 'auth.student', 'prefix' => 'student','namespace' 
     $router->post('getIsMarkedByMyself', 'HomeController@getIsMarkedByMyself');
     $router->post('updateMarkState', 'HomeController@updateMarkState');
 
+    Route::resource('work', 'WorkController');
+    $router->post('upload-cover', 'WorkController@uploadCover');
+    $router->post('upload-work', 'WorkController@uploadWork');
+
+    $router->get('/get-work-list', 'WorkController@workList');
     
     
     $router->get('classmate', 'ClassmateController@classmatePost');
