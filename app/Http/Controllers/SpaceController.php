@@ -14,6 +14,10 @@ class SpaceController extends Controller
 {
     public function index(Request $request)
     {
+        if (!$request->get("sId")) {
+            $student = "";
+            return view('space/index', compact("student"));
+        }
         // echo($request->get("studentsId"));
         $student = Student::select("students.*", "terms.grade_key", "sclasses.class_title")
         ->join('sclasses', 'sclasses.id', '=', "students.sclasses_id")
@@ -32,6 +36,10 @@ class SpaceController extends Controller
 
     public function work(Request $request)
     {
+        if (!$request->get("sId") || !$request->get("wId")) {
+            $student = "";
+            return view('space/work', compact("student"));
+        }
         // echo Auth::guard("student")->id();
         $docTypes = ["ppt", "pptx", "doc", "docx", "xls", "xlsx"];
         $sbTypes = ["sb2"];

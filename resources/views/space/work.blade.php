@@ -2,6 +2,9 @@
 
 @section('content')
 <div class="container">
+  @if ("" == $student)
+    <h1>不合法的请求地址！</h1>
+  @else
     <div class="panel panel-default">
       <div class="panel-heading text-center" id="aa">
         <h4><small>燕山小学 {{$student->grade_key}}{{$student->class_title}}班 </small>{{$student->username}} 《{{$work->title}}》
@@ -27,6 +30,7 @@
 
       </div>
     </div>
+    @endif
     </div>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -34,13 +38,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">《{{$work->title}}》介绍</h4>
+        <h4 class="modal-title" id="myModalLabel">《{{@$work->title}}》介绍</h4>
       </div>
       <div class="modal-body">
         <h4>作品创意</h4>
-        <p>{{$work->work_idea}}</p>
+        <p>{{@$work->work_idea}}</p>
         <h4>作品说明</h4>
-        {{$work->description}}
+        {{@$work->description}}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">了解了</button>

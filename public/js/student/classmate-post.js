@@ -207,7 +207,7 @@ $(document).ready(function() {
                                     "</object>";
                         $('#flashContent').html(tHtml);
                     }
-                    // $('#classmate-post-show').attr("src", data.storage_name);
+                    $('#space-link').html("<a class='btn btn-success' href='/space?sId=" + data.students_id + "'>访问" + data.username + "同学的空间</a>");
                     $("#classmate-post-modal-label").html(data.username+" 同学在 "+data.lessontitle+"<small>"+data.lessonsubtitle+"</small> 课上提交的作品");
                 }
             }

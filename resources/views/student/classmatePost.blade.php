@@ -100,10 +100,11 @@
         <div style="float: left;">
             <button class="btn btn-info" id="2d-btn">2D展示</button>
         </div> -->
-        <div style="float: left;">
-            <h4>点击图片可放大</h4>
-        </div>
+        
         @endif
+        <div style="float: left;" id="space-link">
+            <a class="btn btn-success" href="/space?sId=">访问他的个人空间</a>
+        </div>
         <div class="switch" id="switch-box">
             <input type="checkbox" id="like-check-box" name="likeCheckBox"/>
         </div>

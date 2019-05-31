@@ -294,7 +294,8 @@ class HomeController extends Controller
         $middir = "/posts/" . $this->getSchoolCode() . "/";
         $imgTypes = ['jpg', 'jpeg', 'bmp', 'gif', 'png'];
         $docTypes = ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'];
-        $post = Post::where("posts.id", "=", $request->input('posts_id'))
+        $post = Post::select("posts.*", "lessons.title", "lessons.subtitle", "students.username", "students.id as students_id")
+                ->where("posts.id", "=", $request->input('posts_id'))
                 ->join('students', 'students.id', '=', "posts.students_id")
                 ->join('lesson_logs', 'lesson_logs.id', '=', "posts.lesson_logs_id")
                 ->join('lessons', 'lessons.id', '=', "lesson_logs.lessons_id")->first();
@@ -304,6 +305,7 @@ class HomeController extends Controller
                 return ["filetype"=>"img", 
                     "storage_name" => getThumbnail($post['storage_name'], 801, 601, $this->getSchoolCode(), 'background', $post['file_ext']), 
                     'username' => $post["username"], 
+                    'students_id' => $post["students_id"], 
                     'lessontitle' => $post["title"], 
                     'lessonsubtitle' => $post["subtitle"],
                     'file_path' => env('APP_URL'). $middir .$post->storage_name];
@@ -311,12 +313,14 @@ class HomeController extends Controller
               return ["filetype"=>"doc", 
                     "storage_name" => env('APP_URL'). $middir .$post->storage_name, 
                     'username' => $post["username"], 
+                    'students_id' => $post["students_id"], 
                     'lessontitle' => $post["title"], 
                     'lessonsubtitle' => $post["subtitle"]];
             } elseif ("sb2" == $post->file_ext) {
               return ["filetype"=>"sb2", 
                     "storage_name" => env('APP_URL'). $middir .$post->storage_name, 
                     'username' => $post["username"], 
+                    'students_id' => $post["students_id"], 
                     'lessontitle' => $post["title"], 
                     'lessonsubtitle' => $post["subtitle"]];
             }

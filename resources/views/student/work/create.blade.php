@@ -24,13 +24,13 @@
 
                     <form action="{{ url('student/work') }}" method="POST">
                         {!! csrf_field() !!}
-                        <input type="text" name="title" class="form-control" required="required" placeholder="作品名称" value="作品">
+                        <input type="text" name="title" class="form-control" required="required" placeholder="作品名称" value="">
                         <br>
                         <!-- <label>作品创意（为什么要创建一个这样的作品）</label> -->
-                        <textarea name="work_idea" class="form-control" required="required" placeholder="作品创意（为什么要创建一个这样的作品）" rows="5">作品</textarea>
+                        <textarea name="work_idea" class="form-control" required="required" placeholder="作品创意（为什么要创建一个这样的作品）" rows="5"></textarea>
                         <br>
                         <!-- <label>请输入作品描述（包含操作说明或游戏玩法）</label> -->
-                        <textarea name="description" class="form-control" required="required" placeholder="作品描述（包含操作说明或游戏玩法）" rows="5">作品</textarea>
+                        <textarea name="description" class="form-control" required="required" placeholder="作品描述（包含操作说明或游戏玩法）" rows="5"></textarea>
                         <br>
                         <button class="btn btn-success btn-lg pull-right">添加</button> 
                          <a class="btn btn-info btn-lg pull-right" href="javascript:window.history.back()">返回</a>
