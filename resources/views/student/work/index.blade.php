@@ -6,6 +6,7 @@
         <button class="btn btn-success" id="add-work-btn" {{$clickAble}}>添加新的作品</button>
         <a class="btn btn-info" href="/space?sId={{$id}}" target="_blank">预览个人主页</a>
         <input type="hidden" name="" id="works-id">
+        <input type="hidden" name="" id="prefix" value="{{$prefix}}">
     </div>
     <table id="work-list" class="table table-condensed table-responsive" style="word-break:break-all; word-wrap:break-all;">
         <thead>

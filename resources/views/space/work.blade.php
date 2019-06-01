@@ -56,4 +56,9 @@
 
 @section('scripts')
     <script src="/js/work.js?v={{rand()}}"></script>
+    <script type="text/javascript">
+      $('img').bind("contextmenu", function(e){ return false; });
+      $('img').bind("selectstart", function(e){ return false; });
+      $('img').bind("dragstart", function(e){ return false; });
+    </script>
 @endsection

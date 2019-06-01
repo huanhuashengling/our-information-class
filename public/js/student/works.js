@@ -116,9 +116,14 @@ function workCol(value, row, index) {
 }
 
 function actionCol(value, row, index) {
+    var isHidden = "hidden";
+    if (row.work_name) {
+        isHidden = "";
+    }
     return [
         ' <a class="btn btn-primary btn-sm edit">编辑作品信息</a>',
         ' <a class="btn btn-success btn-sm upload-cover">上传封面</a>',
+        ' <a class="btn btn-info btn-sm ' + isHidden + '"  href="' +$("#prefix").val()+ row.work_name+ '" id="download-btn">下载作品</a>',
         ' <a class="btn btn-info btn-sm upload-work" id="work-btn">上传作品</a>',
     ].join('');
 }

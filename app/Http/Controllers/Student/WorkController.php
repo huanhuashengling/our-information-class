@@ -21,13 +21,14 @@ class WorkController extends Controller
 {
     public function index()
     {
+        $prefix = env('APP_URL') . "/works/" . $this->getSchoolCode() . "/";
         $id = \Auth::guard("student")->id();
         $student = Student::find($id);
         $workNum = Work::where(["students_id" => $id])->count();
         $clickAble = ($student->work_max_num <= $workNum)?"disabled":"";
         // $sclass = Sclass::find($student->sclasses_id);
         // $terms = Term::where(['enter_school_year' => $sclass->enter_school_year])->get();
-        return view('student/work/index', compact("id", "clickAble"));
+        return view('student/work/index', compact("id", "clickAble", "prefix"));
     }
 
     public function workList()
