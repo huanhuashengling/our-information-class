@@ -4,24 +4,32 @@
 
 <div class="container" style="padding-left: 0px; padding-right: 0px">
     <!-- <button class="btn btn-success" id="reload-btn">点我加载最新作业</button> -->
+     <div class="col-md-12 col-xs-12" style="margin-bottom: 10px">
+        <button class="btn btn-info" id="current-lesson-log-btn">本节课的</button>
+        <button class="btn btn-info" id="my-posts-btn">我的</button>
+        <!-- <button class="btn btn-info" id="same-sclass-posts-btn">同班级</button> -->
+        <!-- <button class="btn btn-info" id="same-grade-posts-btn">同年级</button> -->
+        <!-- <button class="btn btn-info" id="same-grade-posts-btn">随机</button> -->
+        <!-- <button class="btn btn-info" id="all-posts-btn">全部</button> -->
+        <div class="col-md-4" style="float: right"><div class="col-md-6"><input type="text" name="" id="search-name" class="form-control" placeholder="姓名"></div>
+        <button class="btn btn-info" id="name-search-btn">搜索</button>
+    </div>
+
+    </div>
     <div class="col-md-12" id="posts-list">
     @foreach(@$posts as $key=>$post)
         @php
         if("doc" == $post->file_ext || "docx" == $post->file_ext) {
                 $post_storage_name = "images/doc.png";
-                $show3D = "false";
             } else if("xls" == $post->file_ext || "xlsx" == $post->file_ext) {
                 $post_storage_name = "images/xls.png";
-                $show3D = "false";
             } else if("ppt" == $post->file_ext || "pptx" == $post->file_ext) {
                 $post_storage_name = "images/ppt.png";
-                $show3D = "false";
             } else {
                 //$post_storage_name = public_path()."/posts/".$post->storage_name;
                 //$post_storage_name = env('APP_URL')."/posts/".$post->storage_name;
                 $post_storage_name = "posts/" . $schoolCode . "/" .$post->storage_name;
                 //echo public_path()."/posts/".$post->storage_name;
-                $show3D = "true";
             }
             $post->studentClass = $post->grade_key . $post->class_title;
             $gap = " ";
@@ -53,11 +61,9 @@
             </div>
         </div>
     @endforeach
-    @php
-    if (count($posts) > 0) {
-        echo $posts->links();
-    }
-    @endphp
+    @if (count($posts) > 0) 
+        {{ $posts->appends(request()->input())->render() }}
+    @endif
     </div>
 </div>
 
@@ -93,17 +99,8 @@
       </div>
 
     <div class="modal-footer">
-        @if ("true" == @$show3D)
-        <!-- <div style="float: left;">
-            <button class="btn btn-success" id="vr-btn">VR展示(Esc退出全屏)</button>
-        </div>
-        <div style="float: left;">
-            <button class="btn btn-info" id="2d-btn">2D展示</button>
-        </div> -->
-        
-        @endif
         <div style="float: left;" id="space-link">
-            <a class="btn btn-success" href="/space?sId=">访问他的个人空间</a>
+            <a class="btn btn-success" href="/space?sId=" target="_blank">访问他的个人空间</a>
         </div>
         <div class="switch" id="switch-box">
             <input type="checkbox" id="like-check-box" name="likeCheckBox"/>

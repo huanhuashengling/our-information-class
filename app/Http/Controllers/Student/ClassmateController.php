@@ -17,44 +17,44 @@ class ClassmateController extends Controller
 {
     public function classmatePost(Request $request)
     {
-                $posts = $this->getSameSclassPostsData();
         $schoolCode = $this->getSchool()->code;
 
-
-        // $show3D = "true";
-       /* $getDataType = ($request->input('type'))?$request->input('type'):"all";
+        $getDataType = $request->input('type');
         $posts = [];
-        if ("dtsx" == $schoolCode) {
-            $show3D = "true";
+        if (!$request->input('type')) {
+            return view('student/classmatePost', compact('posts', 'schoolCode'));
         }
         switch ($getDataType) {
             case 'my':
                 $posts = $this->getMyPostsData();
                 break;
-            case 'all':
-                $posts = $this->getAllPostsData();
-                break;
-            case 'same-sclass':
+            case 'current-lesson-log':
                 $posts = $this->getSameSclassPostsData();
                 break;
-            case 'same-grade':
-                $posts = $this->getSameGradePostsData();
-                break;
-            case 'my-marked':
-                $posts = $this->getMyMarkedPostsData();
-                break;
-            case 'most-marked':
-                $posts = $this->getMostMarkedPostsData();
-                break;
-            case 'has-comment':
-                $posts = $this->getHasCommentPostsData();
-                break;
+            // case 'all':
+            //     $posts = $this->getAllPostsData();
+            //     break;
+            // case 'same-sclass':
+            //     $posts = $this->getSameSclassPostsData();
+            //     break;
+            // case 'same-grade':
+            //     $posts = $this->getSameGradePostsData();
+            //     break;
+            // case 'my-marked':
+            //     $posts = $this->getMyMarkedPostsData();
+            //     break;
+            // case 'most-marked':
+            //     $posts = $this->getMostMarkedPostsData();
+            //     break;
+            // case 'has-comment':
+            //     $posts = $this->getHasCommentPostsData();
+            //     break;
             default:
-                if ("search-name" == explode("=",$getDataType)[0]) {
+                if ("search-name" == explode("=", $getDataType)[0]) {
                     $posts = $this->getSearchNamePostsData(explode("=",$getDataType)[1]);
                 }
                 break;
-        }*/
+        }
         return view('student/classmatePost', compact('posts', 'schoolCode'));
     }
 
@@ -196,7 +196,7 @@ class ClassmateController extends Controller
                 ->where('sclasses.schools_id', '=', $schoolsId)
                 ->where('students.username', 'like', '%'.$searchName.'%')
                 ->groupBy('posts.id', 'sclasses.class_title', 'terms.grade_key', 'post_rates.rate', 'posts.file_ext', 'posts.storage_name', 'students.username')
-                ->orderby("cid", "DESC")->paginate(24);
+                ->orderby("posts.id", "DESC")->paginate(24);
         return $posts;
     }
 

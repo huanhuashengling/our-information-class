@@ -86,6 +86,10 @@ $(document).ready(function() {
         top.location='/student/classmate?type=all'; 
     });
 
+    $('#current-lesson-log-btn').on('click', function (e) {
+        top.location='/student/classmate?type=current-lesson-log'; 
+    });
+
     $('#same-sclass-posts-btn').on('click', function (e) {
         top.location='/student/classmate?type=same-sclass'; 
     });
@@ -207,7 +211,7 @@ $(document).ready(function() {
                                     "</object>";
                         $('#flashContent').html(tHtml);
                     }
-                    $('#space-link').html("<a class='btn btn-success' href='/space?sId=" + data.students_id + "'>访问" + data.username + "同学的空间</a>");
+                    $('#space-link').html("<a class='btn btn-success' href='/space?sId=" + data.students_id + "' target='_blank'>访问" + data.username + "同学的空间</a>");
                     $("#classmate-post-modal-label").html(data.username+" 同学在 "+data.lessontitle+"<small>"+data.lessonsubtitle+"</small> 课上提交的作品");
                 }
             }
