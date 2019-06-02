@@ -57,8 +57,11 @@
                 <th data-field="scoreCount" data-sortable="true">
                     分数合计
                 </th>
-                <th data-field="users_id" data-formatter="emailCol" data-events="emailActionEvents">
-                  邮件报告
+                <th data-field="reportText" data-visible="false">
+                  学期分数报告
+              </th>
+              <th data-field="users_id" data-formatter="emailCol" data-events="emailActionEvents" data-visible="false">
+                  发送
               </th>
             </tr>
         </thead>
@@ -68,9 +71,9 @@
 @endsection
 
 @section('scripts')
-    <script src="/js/teacher/score-report.js"></script>
+    <script src="/js/teacher/score-report.js?v={{rand()}}"></script>
 
     <script src="/js/FileSaver.js"></script>
     <script src="/js/bootstrap-table-export.js"></script>
-    <script src="/js/tableexport.js?v={{rand()}}"></script>
+    <script src="/js/tableexport.js"></script>
 @endsection
