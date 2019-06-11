@@ -185,6 +185,7 @@ class StudentAccountController extends Controller
                 'level' => 0,
                 'score' => 0,
                 'work_max_num' => 1,
+                'work_comment_enable' => 1,
                 'groups_id' => $data['groups_id'],
                 'sclasses_id' => $data['sclasses_id'],
                 'is_lock' => 0,

@@ -12,7 +12,9 @@
           <input type="hidden" name="" id="guest-students-id" value="{{$studentsId}}">
           <input type="hidden" name="" id="works-id" value="{{$work->id}}">
         <h4><small>燕山小学 {{$student->grade_key}}{{$student->class_title}}班 </small>{{$student->username}} 《{{$work->title}}》
-            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal">作品介绍</button>
+          <small>共被访问{{$workViewLogNum}}次</small>
+            <button type="button" style="float: right;" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal">作品介绍</button>
+
         </h4>
       </div>
       <div class="panel-body text-center" style="padding: 0px;">

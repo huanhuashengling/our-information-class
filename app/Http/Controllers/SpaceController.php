@@ -42,6 +42,7 @@ class SpaceController extends Controller
             $student = "";
             return view('space/work', compact("student"));
         }
+        $workViewLogNum = WorkViewLog::where("works_id", "=", $request->get("wId"))->count();
         $studentsId = \Auth::guard("student")->id();
         $showComment = "false";
         $listHeight = "700px";
@@ -88,7 +89,7 @@ class SpaceController extends Controller
         // echo $studentsId;
         // echo $showComment;
         // $description = str_replace("\r\n", "<p>", $work->description);
-        return view('space/work', compact('student', "work", "workPrefix", "fileType", "description", "showComment", 'studentsId', 'listHeight'));
+        return view('space/work', compact('student', "work", "workPrefix", "fileType", "description", "showComment", 'studentsId', 'listHeight', 'workViewLogNum'));
     }
 
     public function addWorkComment(Request $request)
@@ -122,11 +123,8 @@ class SpaceController extends Controller
 
     public function listWorkComment(Request $request)
     {
-        $resultHtml = "";
-
-        
         $workComments = WorkComment::where("works_id", "=", $request->get("works_id"))->orderBy("created_at", "DESC")->get();
-        // dd($workComments);
+        $resultHtml = (0 == count($workComments))?"<p>暂无留言...</p>":("<p>共有留言" . count($workComments) . "条</p>");
         foreach ($workComments as $key => $workComment) {
 
             $student = Student::select("students.username", "sclasses.class_title", "terms.grade_key")
@@ -140,7 +138,7 @@ class SpaceController extends Controller
             $resultHtml .= "<div class='text-left'>" . $student->grade_key . $student->class_title . "班" . $student->username . "：<span style='float: right;'>" . date("m-d H:i",strtotime($workComment->created_at)) . "</span></div>";
             $resultHtml .= "<div class='well well-sm well-info'>" . $workComment->content. "</div>";
         }
-        return ("" == $resultHtml)?"<p>暂无留言...</p>":$resultHtml;
+        return $resultHtml;
     }
 
     public function getSchoolCode()
