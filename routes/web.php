@@ -25,6 +25,8 @@ Route::post('/term-check-get-comment/', 'TermCheckController@getCommentByPostsId
 
 Route::get('/space', 'SpaceController@index');
 Route::get('/work', 'SpaceController@work');
+Route::post('/add-work-comment', 'SpaceController@addWorkComment');
+Route::post('/list-work-comment', 'SpaceController@listWorkComment');
 
 
 Route::group(['prefix' => 'district','namespace' => 'District'],function ($router)
@@ -43,10 +45,6 @@ Route::group(['middleware' => 'auth.district:district, district/login', 'prefix'
     $router->get('schools', 'SchoolController@index');
     $router->post('getSchoolsAccountData', 'SchoolController@getSchoolsData');
     $router->post('createOneSchool', 'SchoolController@createOneSchool');
-
-
-
-
 
     $router->post('importStudents', 'HomeController@importStudents');
     $router->post('updateStudentEmail', 'HomeController@updateStudentEmail');
@@ -132,6 +130,9 @@ Route::group(['middleware' => 'auth.school:school, school/login', 'prefix' => 's
     $router->post('unlockOneStudentAccount', 'StudentAccountController@unlockOneStudentAccount');
     $router->post('createOneStudent', 'StudentAccountController@createOneStudent');
 
+    $router->post('lockOneStudentWorkComment', 'StudentAccountController@lockOneStudentWorkComment');
+    $router->post('unlockOneStudentWorkComment', 'StudentAccountController@unlockOneStudentWorkComment');
+    $router->post('addMaxWorkNum', 'StudentAccountController@addMaxWorkNum');
 
     //group
     $router->get('groups', 'GroupController@index');

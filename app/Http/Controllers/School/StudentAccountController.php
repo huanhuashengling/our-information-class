@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\Sclass;
+use App\Models\WorkComment;
 use App\Models\Lesson;
 use App\Models\Post;
 use App\Models\Mark;
@@ -121,6 +122,41 @@ class StudentAccountController extends Controller
         $student = Student::find($request->get('users_id'));
         if ($student) {
             $student->is_lock = 0;
+            $student->save();
+            return "true";
+        } else {
+            return "false";
+        }
+    }
+
+    public function lockOneStudentWorkComment(Request $request) {
+        $workComment = WorkComment::where("guest_students_id", "=", $request->get('users_id'))->delete();
+
+        $student = Student::find($request->get('users_id'));
+        if ($student) {
+            $student->work_comment_enable = 2;
+            $student->save();
+            return "true";
+        } else {
+            return "false";
+        }
+    }
+
+    public function unlockOneStudentWorkComment(Request $request) {
+        $student = Student::find($request->get('users_id'));
+        if ($student) {
+            $student->work_comment_enable = 1;
+            $student->save();
+            return "true";
+        } else {
+            return "false";
+        }
+    }
+
+    public function addMaxWorkNum(Request $request) {
+        $student = Student::find($request->get('users_id'));
+        if ($student) {
+            $student->work_max_num = $student->work_max_num + 1;
             $student->save();
             return "true";
         } else {

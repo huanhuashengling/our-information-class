@@ -93,6 +93,12 @@ function genderCol(value, row, index) {
     ].join('');
 }
 
+function workCommentEnableCol(value, row, index) {
+    return [
+        '<span>'+(("2" == value)?"禁止":"开放")+'</span>'
+    ].join('');
+}
+
 function classTitleCol(value, row, index) {
     return [
         "<span>" + row["enter_school_year"] + "级" + row["class_title"] + '班</span>'
@@ -113,10 +119,19 @@ function studentAccountActionCol(value, row, index) {
         lockStr = "解锁";
         lockClass = "unlock";
     }
+
+    var lockWorkCommentStr = "禁言";
+    var lockWorkCommentClass = "lockWorkComment";
+    if (2 == row.work_comment_enable)
+    {
+        lockWorkCommentStr = "解言";
+        lockWorkCommentClass = "unlockWorkComment";
+    }
     return [
         '<a class="btn btn-warning btn-sm '+ lockClass+'">'+lockStr+'</a> ',
+        '<a class="btn btn-warning btn-sm '+ lockWorkCommentClass+'"">'+lockWorkCommentStr+'</a> ',
         ' <a class="btn btn-danger btn-sm edit">编辑</a> ',
-        ' <a class="btn btn-danger btn-sm del">删除</a>'
+        ' <a class="btn btn-success btn-sm work-num-add">作品数加1</a>'
     ].join('');
 }
 
@@ -168,10 +183,51 @@ window.studentAccountActionEvents = {
             }
         });
     },
+    'click .lockWorkComment': function(e, value, row, index) {
+        // console.log(row);
+        $.ajax({
+            type: "POST",
+            url: '/school/lockOneStudentWorkComment',
+            data: {users_id: row.studentsId},
+            success: function( data ) {
+                if("true" == data) {
+                    alert(row.username+"已被禁言！")
+                } else if ("false" == data) {
+                    alert("禁言失败！")
+                }
+            }
+        });
+    },
+    'click .unlockWorkComment': function(e, value, row, index) {
+        // console.log(row);
+        $.ajax({
+            type: "POST",
+            url: '/school/unlockOneStudentWorkComment',
+            data: {users_id: row.studentsId},
+            success: function( data ) {
+                if("true" == data) {
+                    alert(row.username+"解言成功！")
+                } else if ("false" == data) {
+                    alert("解言失败！")
+                }
+            }
+        });
+    },
     'click .edit': function(e, value, row, index) {
         console.log("click edit students id "+row.studentsId);
     },
-    'click .del': function(e, value, row, index) {
-        console.log("click delete students id "+row.studentsId);
+    'click .work-num-add': function(e, value, row, index) {
+        $.ajax({
+            type: "POST",
+            url: '/school/addMaxWorkNum',
+            data: {users_id: row.studentsId},
+            success: function( data ) {
+                if("true" == data) {
+                    alert(row.username+"作品数上限增加成功！")
+                } else if ("false" == data) {
+                    alert("作品数上限增加失败！")
+                }
+            }
+        });
     },
 }

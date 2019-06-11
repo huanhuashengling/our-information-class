@@ -57,15 +57,15 @@
               <th data-field="gender" data-formatter="genderCol">
                   性别
               </th>
-              <th data-field="score">
-                  分数
+              <th data-field="work_max_num">
+                  作品数上限
               </th>
-              <th data-field="level">
-                  等级
+              <th data-field="work_comment_enable" data-formatter="workCommentEnableCol">
+                  发言状态
               </th>
-              <th data-field="email">
+              <!-- <th data-field="email">
                   邮箱
-              </th>
+              </th> -->
               <th data-field="users_id" data-formatter="resetCol" data-events="resetActionEvents">
                   重置密码
               </th>
