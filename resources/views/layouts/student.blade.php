@@ -102,6 +102,7 @@
                             <li class="{{ Request::segment(2) === 'posts' ? 'active' : null }}"><a href="{{ url('/student/posts') }}">作业记录</a></li>
                             <li class="{{ Request::segment(2) === 'classmate' ? 'active' : null }}"><a href="{{ url('/student/classmate') }}">作业墙</a></li>
                             <li class="{{ Request::segment(2) === 'work' ? 'active' : null }}"><a href="{{ url('/student/work') }}">个人主页</a></li>
+                            <li class="{{ Request::segment(2) === 'open-classroom' ? 'active' : null }}"><a href="{{ url('/student/open-classroom') }}">开放课堂</a></li>
                         </ul>
 
                         <!-- Right Side Of Navbar -->

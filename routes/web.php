@@ -261,7 +261,13 @@ Route::group(['middleware' => 'auth.student', 'prefix' => 'student','namespace' 
 
     $router->get('/get-work-list', 'WorkController@workList');
     
-    
+    $router->get('open-classroom', 'OpenClassroomController@index');
+    $router->get('open-classroom/course', 'OpenClassroomController@course');
+    $router->get('open-classroom/unit', 'OpenClassroomController@unit');
+    $router->get('open-classroom/lesson', 'OpenClassroomController@lesson');
+
+
+
     $router->get('classmate', 'ClassmateController@classmatePost');
     
     $router->post('getPostsDataByType', 'ClassmateController@getPostsDataByType');
