@@ -90,7 +90,7 @@ class ExportPostController extends Controller
     public function exportPostFiles(Request $request) {
         $sclassesId = $request->get('sclassesId');
         $lessonlogsId = $request->get('lessonlogsId');
-        $school = School::where("id", "=", \Auth::guard("school")->id());
+        $school = School::where("id", "=", \Auth::guard("school")->id())->first();
         $middir = "/posts/" . $school->code ."/";
 
         $lessonLog = LessonLog::select('lesson_logs.id', 'lessons.title', 'lessons.subtitle', 'sclasses.enter_school_year', 'sclasses.class_title')
