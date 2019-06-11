@@ -43,7 +43,7 @@ $(document).ready(function() {
         $.ajax({
             type: "GET",
             url: '/school/create-zip',
-            data: {sclassesId: $("#classes-selection").val(), lessonlogsId: $("#lesson-log-selection").val()},
+            data: {sclassesId: $("#sclasses-selection").val(), lessonlogsId: $("#lesson-log-selection").val()},
             success: function( data ) {
                 // $("#lesson-log-selection").html(data);
                 // console.log(data);

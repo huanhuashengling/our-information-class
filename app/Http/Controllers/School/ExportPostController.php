@@ -32,7 +32,7 @@ class ExportPostController extends Controller
         $schools_id = \Auth::guard("school")->id();
         $sclasses = Sclass::where(["enter_school_year" => $term->enter_school_year, 'schools_id' => $schools_id])
         ->orderBy("enter_school_year", "desc")->get();
-        return $this->buildSclassSelctionHhtml($sclasses);
+        return $this->buildSclassSelctionHtml($sclasses);
     }
 
     public function loadLessonLogInfo(Request $request) {
@@ -94,10 +94,10 @@ class ExportPostController extends Controller
         $middir = "/posts/" . $school->code ."/";
 
         $lessonLog = LessonLog::select('lesson_logs.id', 'lessons.title', 'lessons.subtitle', 'sclasses.enter_school_year', 'sclasses.class_title')
-            ->leftJoin('lessons', function($join){
+            ->join('lessons', function($join){
               $join->on('lessons.id', '=', 'lesson_logs.lessons_id');
             })
-            ->leftJoin('sclasses', function($join){
+            ->join('sclasses', function($join){
               $join->on('sclasses.id', '=', 'lesson_logs.sclasses_id');
             })
             ->where(['lesson_logs.sclasses_id' => $sclassesId, 'lesson_logs.id' => $lessonlogsId])->first();
@@ -112,7 +112,7 @@ class ExportPostController extends Controller
             })
             ->where(['posts.lesson_logs_id' => $lessonlogsId])->get();
 
-
+// echo($sclassesId . $lessonlogsId);
         if ($request->has('download') || true) {
             $zipFileName = $lessonLog->enter_school_year . "_" . $lessonLog->class_title . "_" . $lessonLog->title . '_' . count($posts) . '_' . date('YmdHis') . ".zip";
             $store_path = public_path() . '/downloads/' .$zipFileName;
@@ -161,7 +161,7 @@ class ExportPostController extends Controller
         return "true";
     }    
 
-    public function buildSclassSelctionHhtml($sclasses)
+    public function buildSclassSelctionHtml($sclasses)
     {
         $returnHtml = "<option>选择班级</option>";
         foreach ($sclasses as $key => $sclass) {
