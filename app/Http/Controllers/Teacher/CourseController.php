@@ -13,13 +13,14 @@ class CourseController extends Controller
 {
     public function index()
     {
-        // dd(Course::find(1)->teacher());
-        return view('teacher/course/index')->withCourses(Course::all());
+        return view('teacher/course/index');
     }
 
     public function getCourseList()
     {
-        $courses = Course::get();
+        $courses = Course::select("courses.*", "teachers.username")
+        ->join("teachers", "teachers.id", "=", "courses.teachers_id")
+        ->get();
         return $courses;
     }
 
@@ -66,6 +67,30 @@ class CourseController extends Controller
             return redirect('teacher/course');
         } else {
             return redirect()->back()->withInput()->withErrors('修改失败！');
+        }
+    }
+
+    public function openCourse(Request $request)
+    {
+        $course = Course::find($request->get('courses_id'));
+        $course->is_open = 1;
+
+        if ($course->save()) {
+            return "true";
+        } else {
+            return "false";
+        }
+    }
+
+    public function closeCourse(Request $request)
+    {
+        $course = Course::find($request->get('courses_id'));
+        $course->is_open = 2;
+
+        if ($course->save()) {
+            return "true";
+        } else {
+            return "false";
         }
     }
 

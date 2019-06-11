@@ -222,13 +222,19 @@ Route::group(['middleware' => 'auth.teacher', 'prefix' => 'teacher','namespace' 
     $router->get('get-lesson-list', 'LessonController@getLessonList');
     $router->post('deleteLesson', 'LessonController@deleteLesson');
     $router->post('getLesson', 'LessonController@getLesson');
+    Route::post('closeLesson', 'LessonController@closeLesson');
+    Route::post('openLesson', 'LessonController@openLesson');
 
     Route::resource('course', 'CourseController');
     Route::get('get-course-list', 'CourseController@getCourseList');
+    Route::post('closeCourse', 'CourseController@closeCourse');
+    Route::post('openCourse', 'CourseController@openCourse');
 
     Route::resource('unit', 'UnitController');
     Route::get('get-unit-list', 'UnitController@getUnitList');
     Route::post('get-unit-list-by-courses-id', 'UnitController@getUnitListByCoursesId');
+    Route::post('closeUnit', 'UnitController@closeUnit');
+    Route::post('openUnit', 'UnitController@openUnit');
 
 });
 

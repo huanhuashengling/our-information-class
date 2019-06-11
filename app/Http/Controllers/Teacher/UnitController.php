@@ -14,14 +14,15 @@ class UnitController extends Controller
 {
     public function index()
     {
-        // dd(Unit::with("courses")->get());
         return view('teacher/unit/index');
     }
 
     public function getUnitList()
     {
-        $units = Unit::with("courses")->get();
-        // dd($units);
+        $units = Unit::select("units.*", "teachers.username", "courses.title as course_title")
+        ->join("teachers", "teachers.id", "=", "units.teachers_id")
+        ->join("courses", "courses.id", "=", "units.courses_id")
+        ->get();
         return $units;
     }
 
@@ -76,6 +77,30 @@ class UnitController extends Controller
             return redirect('teacher/unit');
         } else {
             return redirect()->back()->withInput()->withErrors('修改失败！');
+        }
+    }
+
+    public function openUnit(Request $request)
+    {
+        $unit = Unit::find($request->get('units_id'));
+        $unit->is_open = 1;
+
+        if ($unit->save()) {
+            return "true";
+        } else {
+            return "false";
+        }
+    }
+
+    public function closeUnit(Request $request)
+    {
+        $unit = Unit::find($request->get('units_id'));
+        $unit->is_open = 2;
+
+        if ($unit->save()) {
+            return "true";
+        } else {
+            return "false";
         }
     }
 

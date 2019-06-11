@@ -23,8 +23,11 @@
                 <th data-field="title" data-sortable="true">
                     标题
                 </th>
-                <th data-field="subtitle" data-sortable="true">
+                <th data-field="subtitle" data-sortable="true" data-formatter="subtitleCol">
                     副标题
+                </th>
+                <th data-field="is_open" data-sortable="true" data-formatter="isOpenCol">
+                    是否开放
                 </th>
                 <th data-field="username" data-sortable="true">
                     创建者

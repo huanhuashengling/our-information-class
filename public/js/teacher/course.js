@@ -40,14 +40,30 @@ $(document).ready(function() {
     });
 });
 
-function classTitleCol(value, row, index) {
+function descCol(value, row, index) {
+    var str = (25 < value.length)?(value.substring(0,25)+"..."):value;
     return [
-        "<span>" + row["enter_school_year"] + "级" + row["class_title"] + '班</span>'
+        "<span>" + str + '</span>'
+    ].join('');
+}
+
+function isOpenCol(value, row, index) {
+    var str = (1 == value)?"开放":"未开放";
+    return [
+        "<span>" + str + "</span>"
     ].join('');
 }
 
 function actionCol(value, row, index) {
+    var lockStr = "关闭";
+    var lockClass = "closeCourse";
+    if (2 == row.is_open)
+    {
+        lockStr = "开放";
+        lockClass = "openCourse";
+    }
     return [
+        ' <a class="btn btn-info btn-sm ' + lockClass + '">' + lockStr + '</a>',
         ' <a class="btn btn-warning btn-sm edit">编辑</a>',
         ' <a class="btn btn-danger btn-sm del">删除</a>'
     ].join('');
@@ -56,6 +72,38 @@ function actionCol(value, row, index) {
 window.actionEvents = {
 	'click .edit': function(e, value, row, index) {
 		window.location.href = "/teacher/course/"+row.id+"/edit";
+    },
+    'click .closeCourse': function(e, value, row, index) {
+        // console.log(row);
+        $.ajax({
+            type: "POST",
+            url: '/teacher/closeCourse',
+            data: {courses_id: row.id},
+            success: function( data ) {
+                if("true" == data) {
+                    alert(row.title+" 课程已被关闭！")
+                } else if ("false" == data) {
+                    alert("关闭课程失败！")
+                }
+            }
+        });
+        $('#course-list').bootstrapTable("refresh");
+    },
+    'click .openCourse': function(e, value, row, index) {
+        // console.log(row);
+        $.ajax({
+            type: "POST",
+            url: '/teacher/openCourse',
+            data: {courses_id: row.id},
+            success: function( data ) {
+                if("true" == data) {
+                    alert(row.title+" 课程已被开放！")
+                } else if ("false" == data) {
+                    alert("开放课程失败！")
+                }
+            }
+        });
+        $('#course-list').bootstrapTable("refresh");
     },
     'click .del': function(e, value, row, index) {
     	alert("目前不能删除！！");

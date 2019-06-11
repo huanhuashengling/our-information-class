@@ -14,14 +14,20 @@
                 <th data-field="">
                     序号
                 </th>
-                <th data-field="title" data-sortable="true" data-formatter="courseTitleCol">
+                <th data-field="course_title" data-sortable="true">
                     所属课程
                 </th>
                 <th data-field="title" data-sortable="true">
                     标题
                 </th>
-                <th data-field="description" data-sortable="true">
+                <th data-field="description" data-sortable="true" data-formatter="descCol">
                     描述
+                </th>
+                <th data-field="is_open" data-sortable="true" data-formatter="isOpenCol">
+                    是否开放
+                </th>
+                <th data-field="username" data-sortable="true">
+                    创建人
                 </th>
                 <th data-field="updated_at" data-sortable="true">
                     创建时间

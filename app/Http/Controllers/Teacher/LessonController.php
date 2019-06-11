@@ -121,14 +121,38 @@ class LessonController extends Controller
 
     public function getLessonList()
     {
-        $lessons = Lesson::select('lessons.id', 'lessons.title', 'lessons.subtitle', 'lessons.updated_at', 'teachers.username', 'units.title as unit_title', 'courses.title as course_title', DB::raw("COUNT(`lesson_logs`.`id`) as lesson_log_num"))
-            ->leftJoin("teachers", "teachers.id", "=", "lessons.teachers_id")
+        $lessons = Lesson::select('lessons.id', 'lessons.title', 'lessons.is_open', 'lessons.subtitle', 'lessons.updated_at', 'teachers.username', 'units.title as unit_title', 'courses.title as course_title', DB::raw("COUNT(`lesson_logs`.`id`) as lesson_log_num"))
+            ->join("teachers", "teachers.id", "=", "lessons.teachers_id")
             ->leftJoin("lesson_logs", "lesson_logs.lessons_id", "=", "lessons.id")
-            ->leftJoin("units", "units.id", "=", "lessons.units_id")
-            ->leftJoin("courses", "courses.id", "=", "units.courses_id")
+            ->join("units", "units.id", "=", "lessons.units_id")
+            ->join("courses", "courses.id", "=", "units.courses_id")
             ->groupBy('lessons.id', 'lessons.title', 'lessons.subtitle', 'lessons.updated_at', 'teachers.username', 'unit_title', 'course_title')
             ->orderBy('lessons.updated_at', 'DESC')
             ->get();
         return $lessons;
+    }
+
+    public function openLesson(Request $request)
+    {
+        $lesson = Lesson::find($request->get('lessons_id'));
+        $lesson->is_open = 1;
+
+        if ($lesson->save()) {
+            return "true";
+        } else {
+            return "false";
+        }
+    }
+
+    public function closeLesson(Request $request)
+    {
+        $lesson = Lesson::find($request->get('lessons_id'));
+        $lesson->is_open = 2;
+
+        if ($lesson->save()) {
+            return "true";
+        } else {
+            return "false";
+        }
     }
 }

@@ -40,14 +40,30 @@ $(document).ready(function() {
     });
 });
 
-function courseTitleCol(value, row, index) {
+function descCol(value, row, index) {
+    var str = (25 < value.length)?(value.substring(0,25)+"..."):value;
     return [
-        "<span>" + row["courses"]["title"] + "</span>"
+        "<span>" + str + '</span>'
+    ].join('');
+}
+
+function isOpenCol(value, row, index) {
+    var str = (1 == value)?"开放":"未开放";
+    return [
+        "<span>" + str + "</span>"
     ].join('');
 }
 
 function actionCol(value, row, index) {
+    var lockStr = "关闭";
+    var lockClass = "closeUnit";
+    if (2 == row.is_open)
+    {
+        lockStr = "开放";
+        lockClass = "openUnit";
+    }
     return [
+        ' <a class="btn btn-info btn-sm ' + lockClass + '">' + lockStr + '</a>',
         ' <a class="btn btn-warning btn-sm edit">编辑</a>',
         ' <a class="btn btn-danger btn-sm del">删除</a>'
     ].join('');
@@ -56,6 +72,38 @@ function actionCol(value, row, index) {
 window.actionEvents = {
     'click .edit': function(e, value, row, index) {
         window.location.href = "/teacher/unit/"+row.id+"/edit";
+    },
+    'click .closeUnit': function(e, value, row, index) {
+        // console.log(row);
+        $.ajax({
+            type: "POST",
+            url: '/teacher/closeUnit',
+            data: {units_id: row.id},
+            success: function( data ) {
+                if("true" == data) {
+                    alert(row.title+" 单元已被关闭！")
+                } else if ("false" == data) {
+                    alert("关闭单元失败！")
+                }
+            }
+        });
+        $('#unit-list').bootstrapTable("refresh");
+    },
+    'click .openUnit': function(e, value, row, index) {
+        // console.log(row);
+        $.ajax({
+            type: "POST",
+            url: '/teacher/openUnit',
+            data: {units_id: row.id},
+            success: function( data ) {
+                if("true" == data) {
+                    alert(row.title+" 单元已被开放！")
+                } else if ("false" == data) {
+                    alert("开放单元失败！")
+                }
+            }
+        });
+        $('#unit-list').bootstrapTable("refresh");
     },
     'click .del': function(e, value, row, index) {
         alert("目前不能删除！！");

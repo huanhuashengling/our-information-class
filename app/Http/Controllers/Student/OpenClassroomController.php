@@ -18,7 +18,7 @@ class OpenClassroomController extends Controller
     {
         $id = \Auth::guard("student")->id();
 
-        $courses = Course::all();
+        $courses = Course::where("is_open", "=", 1)->get();
         $planetUrl = url("images/planet.png");
         return view('student/open-classroom/index', compact('courses', 'planetUrl'));
     }
@@ -28,7 +28,8 @@ class OpenClassroomController extends Controller
         $coursesId = $request->get("cId");
         $id = \Auth::guard("student")->id();
 
-        $units = Unit::where("courses_id", "=", $coursesId)->get();
+        $units = Unit::where("courses_id", "=", $coursesId)
+        ->where("is_open", "=", 1)->get();
         $planetUrl = url("images/planet.png");
         return view('student/open-classroom/course', compact('units', 'planetUrl'));
     }
@@ -38,7 +39,8 @@ class OpenClassroomController extends Controller
         $unitsId = $request->get("uId");
         $id = \Auth::guard("student")->id();
 
-        $lessons = Lesson::where("units_id", "=", $unitsId)->get();
+        $lessons = Lesson::where("units_id", "=", $unitsId)
+        ->where("is_open", "=", 1)->get();
         $planetUrl = url("images/planet.png");
         return view('student/open-classroom/unit', compact('lessons', 'planetUrl'));
     }
