@@ -9,6 +9,8 @@ $(document).ready(function() {
 			$("#posted-path").val(),
 			// "http://kartik-v.github.io/bootstrap-fileinput-samples/samples/SampleDOCFile_100kb.doc",
 	    ],
+	    minFileCount: 1,
+	    maxFileCount: 1,
 	    // initialPreviewConfig: [
 	    // 	{type: "gdocs", size: 1002400, caption: $("#file_name").val()},
 	    // ],

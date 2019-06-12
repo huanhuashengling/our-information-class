@@ -48,6 +48,7 @@ $(document).ready(function() {
         maxImageHeight: 100,
         resizePreference: 'height',
         maxFileCount: 1,
+        minFileCount: 1,
         resizeImage: true,
         resizeIfSizeMoreThan: 100,
         dropZoneTitle: "选择上传作品封面,（注意：新提交会将旧的替换！）",
@@ -69,6 +70,8 @@ $(document).ready(function() {
         // initialPreview: [
         //  $("#posted-path").val(),
      //    ],
+        minFileCount: 1,
+        maxFileCount: 1,
         dropZoneTitle: "选择上传作品, （注意：新提交会将旧的替换！）",
         // showPreview: "false",
         msgPlaceholder: "选择上传作品 ...",
