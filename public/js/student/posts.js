@@ -137,15 +137,11 @@ function refreshPostList() {
                         initialPreview: [
                             $("#posted-path-"+postsId).val(),
                         ],
-                        minFileCount: 1,
-                        maxFileCount: 1,
                         initialPreviewAsData: true, // 特别重要
                     });
                 } else {
                     $(this).fileinput({
                         language: "zh", 
-                        minFileCount: 1,
-                        maxFileCount: 1,
                         allowedFileExtensions: ["jpg", "png", "gif", "bmp", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "html", "sb2"], 
                         initialPreviewAsData: true, // 特别重要
                     });
