@@ -126,7 +126,7 @@ class ScoreReportController extends Controller
                 }
             }
             $tData['scoreCount'] = $tData['rateYouNum'] * 8 + $tData['effectMarkNum'] * 0.5 + $tData['rateYouJiaNum'] * 9;
-            $tData['reportText'] = $tData['username'] . "同学本学期到目前为止信息课堂作业共获得" . $tData['rateYouJiaNum'] . "个'优＋'x9分 + " . $tData['rateYouNum']. "个'优'x8分 ＋ " . $tData['effectMarkNum'] . "个'有效赞'x0.5分 = 总分" . $tData['scoreCount'] . "分; 未交作业".$tData['unPostedNum'] . "个，" . $tData['rateDaiWanNum'] . "个不符合作业要求； 更详细email至：shengling_2005@163.com";
+            $tData['reportText'] = $tData['username'] . "同学本学期到目前为止信息课堂作业共获得：（" . $tData['rateYouJiaNum'] . "个'优＋'x9分） + （" . $tData['rateYouNum']. "个'优'x8分） ＋ （" . $tData['effectMarkNum'] . "个'有效赞'x0.5分） = 总分" . $tData['scoreCount'] . "分; 未交作业".$tData['unPostedNum'] . "个，" . $tData['rateDaiWanNum'] . "个不符合作业要求； 更详细email至：shengling_2005@163.com";
             $dataset[] = $tData;
 
         }
