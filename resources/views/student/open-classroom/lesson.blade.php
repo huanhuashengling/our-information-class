@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    {!! Breadcrumbs::render('lesson', $lesson) !!}
     {!! $lesson['help_md_doc'] !!}
 </div>
 @endsection

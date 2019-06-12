@@ -180,6 +180,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
 
     ],
 
@@ -233,6 +234,8 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'EndaEditor' => YuanChao\Editor\Facade\EndaEditorFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
+        
     ],
 
 ];

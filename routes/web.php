@@ -28,7 +28,6 @@ Route::get('/work', 'SpaceController@work');
 Route::post('/add-work-comment', 'SpaceController@addWorkComment');
 Route::post('/list-work-comment', 'SpaceController@listWorkComment');
 
-
 Route::group(['prefix' => 'district','namespace' => 'District'],function ($router)
 {
     $router->get('login', 'LoginController@showLoginForm')->name('district.login');
@@ -268,9 +267,9 @@ Route::group(['middleware' => 'auth.student', 'prefix' => 'student','namespace' 
     $router->get('/get-work-list', 'WorkController@workList');
     
     $router->get('open-classroom', 'OpenClassroomController@index');
-    $router->get('open-classroom/course', 'OpenClassroomController@course');
-    $router->get('open-classroom/unit', 'OpenClassroomController@unit');
-    $router->get('open-classroom/lesson', 'OpenClassroomController@lesson');
+    $router->get('open-classroom/course/{id}', 'OpenClassroomController@course');
+    $router->get('open-classroom/unit/{id}', 'OpenClassroomController@unit');
+    $router->get('open-classroom/lesson/{id}', 'OpenClassroomController@lesson');
 
 
 
