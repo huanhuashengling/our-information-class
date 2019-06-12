@@ -3,7 +3,11 @@
 @section('content')
 <div class="container">
     {!! Breadcrumbs::render('lesson', $lesson) !!}
-    {!! $lesson['help_md_doc'] !!}
+    <div class="panel panel-default">
+      <div class="panel-body">
+        {!! $lesson['help_md_doc'] !!}
+      </div>
+    </div>
 </div>
 @endsection
 
