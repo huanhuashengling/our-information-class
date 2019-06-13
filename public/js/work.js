@@ -31,6 +31,8 @@ $(document).ready(function() {
                 	alert("建议提交成功！");
                     $("#comment-content").val("");
                 	reloadWorkCommentList($("#works-id").val());
+                } else if("unable" == data) {
+                    alert("你已经被禁言，不能再发表任何建议了！");
                 } else {
                 	alert("建议提交失败！");
                 }

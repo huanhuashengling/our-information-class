@@ -94,10 +94,10 @@ class SpaceController extends Controller
 
     public function addWorkComment(Request $request)
     {
-        $content = $request->get("content");
-        $students_id = $request->get("students_id");
-        $works_id = $request->get("works_id");
-        $guest_students_id = $request->get("guest_students_id");
+        $student = Student::find($request->get("guest_students_id"));
+        if ("2" == $student->work_comment_enable) {
+            return "unable";
+        }
 
         $workComment = new WorkComment();
         $workComment->content = $request->get("content");
@@ -123,8 +123,13 @@ class SpaceController extends Controller
 
     public function listWorkComment(Request $request)
     {
-        $workComments = WorkComment::where("works_id", "=", $request->get("works_id"))->orderBy("created_at", "DESC")->get();
+        $workComments = WorkComment::join("students", 'students.id', '=', "work_comments.guest_students_id")
+        ->where("students.work_comment_enable", "=", 1)
+        ->where("work_comments.works_id", "=", $request->get("works_id"))
+        ->orderBy("work_comments.created_at", "DESC")->get();
+
         $resultHtml = (0 == count($workComments))?"<p>暂无留言...</p>":("<p>共有留言" . count($workComments) . "条</p>");
+
         foreach ($workComments as $key => $workComment) {
 
             $student = Student::select("students.username", "sclasses.class_title", "terms.grade_key")
