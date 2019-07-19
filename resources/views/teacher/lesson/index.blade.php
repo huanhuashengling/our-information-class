@@ -2,8 +2,10 @@
 
 @section('content')
 <div class="container">
+    {!! Breadcrumbs::render('tunit', $unit) !!}
     <div id="toolbar">
         <button class="btn btn-success" id="add-lesson-btn">新增课</button>
+        <input type="hidden" name="" id="units-id" value="{{$uId}}">
     </div>
     <table id="lesson-list" class="table table-condensed table-responsive">
         <thead>
@@ -14,12 +16,12 @@
                 <th data-field="">
                     序号
                 </th>
-                <th data-field="course_title" data-sortable="true">
+                <!-- <th data-field="course_title" data-sortable="true">
                     所属课程
                 </th>
                 <th data-field="unit_title" data-sortable="true">
                     所属单元
-                </th>
+                </th> -->
                 <th data-field="title" data-sortable="true">
                     标题
                 </th>

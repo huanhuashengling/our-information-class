@@ -48,6 +48,11 @@ class CourseController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        
+    }
+
     public function edit(Request $request, $id)
     {
         return view('teacher/course/edit')->withCourse(Course::find($id));

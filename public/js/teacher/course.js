@@ -48,7 +48,7 @@ function descCol(value, row, index) {
 }
 
 function isOpenCol(value, row, index) {
-    var str = (1 == value)?"开放":"未开放";
+    var str = (1 == value)?"是":"-";
     return [
         "<span>" + str + "</span>"
     ].join('');
@@ -65,7 +65,8 @@ function actionCol(value, row, index) {
     return [
         ' <a class="btn btn-info btn-sm ' + lockClass + '">' + lockStr + '</a>',
         ' <a class="btn btn-warning btn-sm edit">编辑</a>',
-        ' <a class="btn btn-danger btn-sm del">删除</a>'
+        ' <a class="btn btn-danger btn-sm del">删除</a>',
+        ' <a class="btn btn-success btn-sm unit">单元列表</a>',
     ].join('');
 }
 
@@ -104,6 +105,10 @@ window.actionEvents = {
             }
         });
         $('#course-list').bootstrapTable("refresh");
+    },
+    'click .unit': function(e, value, row, index) {
+        console.log(row);
+        window.location.href = "/teacher/unit?cId="+row.id;
     },
     'click .del': function(e, value, row, index) {
     	alert("目前不能删除！！");

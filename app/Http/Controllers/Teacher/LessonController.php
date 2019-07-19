@@ -14,9 +14,14 @@ use EndaEditor;
 
 class LessonController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('teacher/lesson/index');
+        $uId = $request->get('uId');
+        // $uId = Route::current()->getParameter('id');
+        $unit = Unit::find($uId);
+        $unit->course = Course::find($unit->courses_id);
+        // dd($unit);
+        return view('teacher/lesson/index', compact("uId", "unit"));
     }
 
     public function create()
@@ -119,14 +124,17 @@ class LessonController extends Controller
         return $lesson;
     }
 
-    public function getLessonList()
+    public function getLessonList(Request $request)
     {
+        $unitsId = $request->get('unitsId');
+
         $lessons = Lesson::select('lessons.id', 'lessons.title', 'lessons.is_open', 'lessons.subtitle', 'lessons.updated_at', 'teachers.username', 'units.title as unit_title', 'courses.title as course_title', DB::raw("COUNT(`lesson_logs`.`id`) as lesson_log_num"))
             ->join("teachers", "teachers.id", "=", "lessons.teachers_id")
             ->leftJoin("lesson_logs", "lesson_logs.lessons_id", "=", "lessons.id")
             ->join("units", "units.id", "=", "lessons.units_id")
             ->join("courses", "courses.id", "=", "units.courses_id")
             ->groupBy('lessons.id', 'lessons.title', 'lessons.subtitle', 'lessons.updated_at', 'teachers.username', 'unit_title', 'course_title')
+            ->where("lessons.units_id", "=", $unitsId)
             ->orderBy('lessons.updated_at', 'DESC')
             ->get();
         return $lessons;

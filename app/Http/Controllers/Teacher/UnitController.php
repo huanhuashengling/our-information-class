@@ -12,16 +12,31 @@ use \Auth;
 
 class UnitController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('teacher/unit/index');
+        $cId = $request->get('cId');
+        // $cId = Route::current()->getParameter('id');
+        $course = Course::find($cId);
+        return view('teacher/unit/index', compact("cId", 'course'));
     }
 
-    public function getUnitList()
+    public function show(Request $request)
     {
+        $cId = $request->get('cId');
+        // $cId = Route::current()->getParameter('id');
+        $course = Course::find($cId);
+        return view('teacher/unit/index', compact("cId", 'course'));
+    }
+
+    public function getUnitList(Request $request)
+    {
+        $coursesId = $request->get('coursesId');
+        // $coursesId = Route::current()->getParameter('id');
+
         $units = Unit::select("units.*", "teachers.username", "courses.title as course_title")
         ->join("teachers", "teachers.id", "=", "units.teachers_id")
         ->join("courses", "courses.id", "=", "units.courses_id")
+        ->where("units.courses_id", "=", $coursesId)
         ->get();
         return $units;
     }

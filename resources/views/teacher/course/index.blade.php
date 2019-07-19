@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    {!! Breadcrumbs::render('course-manage') !!}
     <div id="toolbar">
         <button class="btn btn-success" id="add-course-btn">新增课程</button>
     </div>
@@ -24,7 +25,7 @@
                     创建人
                 </th>
                 <th data-field="is_open" data-sortable="true" data-formatter="isOpenCol">
-                    是否开放
+                    开放
                 </th>
                 <th data-field="updated_at" data-sortable="true">
                     创建时间

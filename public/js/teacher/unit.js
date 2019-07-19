@@ -14,12 +14,12 @@ $(document).ready(function() {
         pageSize:15,
         pageNumber: 1,
         toolbar:"#toolbar",
-        // queryParams: function(params) {
-        //  var temp = { 
-           //      unitsId : $("#unit-selection").val(),
-           //  };
-           //  return temp;
-        // },
+        queryParams: function(params) {
+         var temp = { 
+                coursesId : $("#courses-id").val(),
+            };
+            return temp;
+        },
         // clickToSelect: true,
         columns: [{  
                     checkbox: true  
@@ -48,7 +48,7 @@ function descCol(value, row, index) {
 }
 
 function isOpenCol(value, row, index) {
-    var str = (1 == value)?"开放":"未开放";
+    var str = (1 == value)?"是":"-";
     return [
         "<span>" + str + "</span>"
     ].join('');
@@ -65,7 +65,8 @@ function actionCol(value, row, index) {
     return [
         ' <a class="btn btn-info btn-sm ' + lockClass + '">' + lockStr + '</a>',
         ' <a class="btn btn-warning btn-sm edit">编辑</a>',
-        ' <a class="btn btn-danger btn-sm del">删除</a>'
+        ' <a class="btn btn-danger btn-sm del">删除</a>',
+        ' <a class="btn btn-success btn-sm lesson">课列表</a>'
     ].join('');
 }
 
@@ -104,6 +105,10 @@ window.actionEvents = {
             }
         });
         $('#unit-list').bootstrapTable("refresh");
+    },
+    'click .lesson': function(e, value, row, index) {
+        // console.log(row);
+        window.location.href = "/teacher/lesson?uId="+row.id;
     },
     'click .del': function(e, value, row, index) {
         alert("目前不能删除！！");

@@ -14,12 +14,12 @@ $(document).ready(function() {
         pageSize:15,
         pageNumber: 1,
         toolbar:"#toolbar",
-    	// queryParams: function(params) {
-    	// 	var temp = { 
-		   //      lessonsId : $("#lesson-selection").val(),
-		   //  };
-		   //  return temp;
-    	// },
+    	queryParams: function(params) {
+    		var temp = { 
+		        unitsId : $("#units-id").val(),
+		    };
+		    return temp;
+    	},
     	// clickToSelect: true,
     	columns: [{  
                     checkbox: true  
@@ -48,7 +48,7 @@ function subtitleCol(value, row, index) {
 }
 
 function isOpenCol(value, row, index) {
-    var str = (1 == value)?"开放":"未开放";
+    var str = (1 == value)?"是":"-";
     return [
         "<span>" + str + "</span>"
     ].join('');
