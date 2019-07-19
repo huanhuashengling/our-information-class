@@ -37,6 +37,7 @@ class ExportPostController extends Controller
 
     public function loadLessonLogInfo(Request $request) {
         $sclassesId = $request->get('sclassesId');
+        $term = Term::find($request->get('termsId'));
         $lessonLogs = LessonLog::select('lesson_logs.id', 'lessons.title', 'lessons.subtitle', 'teachers.username', 'lesson_logs.updated_at', DB::raw("COUNT(`posts`.`id`) as post_num"))
             ->leftJoin('lessons', function($join){
               $join->on('lessons.id', '=', 'lesson_logs.lessons_id');
@@ -48,6 +49,7 @@ class ExportPostController extends Controller
               $join->on('posts.lesson_logs_id', '=', 'lesson_logs.id');
             })
             ->groupBy('lesson_logs.id', 'lessons.title', 'lessons.subtitle', 'teachers.username', 'lesson_logs.updated_at')
+            ->whereBetween('lesson_logs.created_at', array($term->from_date, $term->to_date))
             ->where(['sclasses_id' => $sclassesId])->get();
 
         return $this->buildLessonLogSelectionHtml($lessonLogs);

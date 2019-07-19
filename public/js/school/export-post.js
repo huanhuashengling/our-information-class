@@ -30,7 +30,7 @@ $(document).ready(function() {
     	$.ajax({
             type: "POST",
             url: '/school/load-lesson-log-info',
-            data: {sclassesId: $("#sclasses-selection").val()},
+            data: {sclassesId: $("#sclasses-selection").val(), termsId: $("#term-selection").val()},
             success: function( data ) {
             	$("#lesson-log-selection").html(data);
             	// console.log(data);
