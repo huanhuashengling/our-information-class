@@ -19,15 +19,20 @@
                     @endif
                     <div class="col-md-12">
                         {!! Form::open(['url'=>'teacher/createLessonLog']) !!}
+                            @if ($chooseLessonDesc == "")
+                                <a class="btn btn-primary form-control" href="/teacher/course">去选课</a>
+                            @else
+                                <a class="btn btn-primary form-control" href="/teacher/course">重新选课</a>
+
+                                <input type="hidden" name="" id="lessons-id" value="{{$chooseLessonsId}}">
+                                <p>{{$chooseLessonDesc}}</p>
+                            @endif
+                            <p />
                             <div class="form-group">
                                 {!! Form::select('sclasses_id', $classData, null, ['class'=>'form-control']) !!}
                             </div>
-                            <div class="form-group">
-                            {!! Form::select('lessons_id', $lessonsData, null, ['class'=>'form-control']) !!}
-                                
-                            </div>
                             <div class="form-group col-md-3 col-md-offset-4">
-                                {!! Form::submit('开始上课',['class'=>'btn btn-primary  form-control']) !!}
+                                {!! Form::submit('开始上课',['class'=>'btn btn-primary form-control']) !!}
                             </div> 
                         {!! Form::close()!!}
                     </div>

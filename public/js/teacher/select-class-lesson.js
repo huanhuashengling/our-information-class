@@ -9,15 +9,15 @@ $(document).ready(function() {
 		checkSelection();
 	});
 
-	$("[name='lessons_id']").on("change", function(e) {
-		checkSelection();
-	});
+	// $("[name='lessons_id']").on("change", function(e) {
+	// 	checkSelection();
+	// });
 
 });
 
 function checkSelection() {
 	var sclassesId = $("[name='sclasses_id']").val();
-	var lessonsId = $("[name='lessons_id']").val();
+	var lessonsId = $("#lessons-id").val();
 	if(0 !=  sclassesId && 0 != lessonsId) {
 		// alert(sclassesId + " --- " +lessonsId);
 		$.ajax({

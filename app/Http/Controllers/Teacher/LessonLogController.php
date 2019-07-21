@@ -23,11 +23,12 @@ class LessonLogController extends Controller
         //TODO DO not readd the same lessonlog with the sanme teacher classe and lesson
         $teachersId = \Auth::guard("teacher")->id();
         $sclassesId = $request->get('sclasses_id');
-        $lessonsId = $request->get('lessons_id');
+        // $lessonsId = $request->get('lessons_id');
+        $lessonsId = $request->session()->get('chooseLessonsId');
         if (0 == $sclassesId) {
             return redirect()->back()->withInput()->withErrors('请选择班级！');
         }
-        if (0 == $lessonsId) {
+        if (!isset($lessonsId)) {
             return redirect()->back()->withInput()->withErrors('请选择课程！');
         }
         $oldlLessonLog = LessonLog::where(['teachers_id' => $teachersId, "sclasses_id" => $sclassesId, "lessons_id" => $lessonsId])->first();
@@ -35,6 +36,7 @@ class LessonLogController extends Controller
 
 
         if($oldlLessonLog) {
+            $request->session()->forget('chooseLessonsId');
             $oldlLessonLog->status = 'open';
             $oldlLessonLog->update();
             return redirect('teacher/takeclass');
@@ -50,6 +52,7 @@ class LessonLogController extends Controller
         $lessonLog->status = 'open';
         // dd($lessonLog);die();
         if ($lessonLog->save()) {
+            $request->session()->forget('chooseLessonsId');
             return redirect('teacher/takeclass');
         } else {
             return redirect()->back()->withInput()->withErrors('保存失败！');

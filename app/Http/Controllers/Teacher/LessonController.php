@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Teacher;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\LessonLog;
 use App\Models\Lesson;
 use App\Models\Course;
 use App\Models\Unit;
 use \Auth;
 use \DB;
 use EndaEditor;
+use Redirect;
 
 class LessonController extends Controller
 {
@@ -150,6 +152,24 @@ class LessonController extends Controller
         } else {
             return "false";
         }
+    }
+
+    public function chooseLesson(Request $request)
+    {
+        $userId = auth()->guard('teacher')->id();
+        $lessonsId = $request->get('lessons_id');
+        $lessonLog = LessonLog::where("lessons_id", "=", $lessonsId)
+                     ->where("teachers_id", "=", $userId)
+                     ->where("status", "=", "open")->first();
+        if(isset($lessonLog)) {
+            return "inclass";
+        }
+        $request->session()->put('chooseLessonsId', $lessonsId);
+        // return $request->session()->get('chooseLessonsId');
+        // redirect('/teacher/');
+        return "true";
+        // redirect()->action('Teacher\HomeController@index');
+        // Redirect::to('/teacher');
     }
 
     public function closeLesson(Request $request)

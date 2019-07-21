@@ -10,6 +10,8 @@ use App\Models\Teacher;
 use App\Models\Sclass;
 use App\Models\School;
 use App\Models\Lesson;
+use App\Models\Course;
+use App\Models\Unit;
 use App\Models\Post;
 use App\Models\PostRate;
 use App\Models\Comment;
@@ -26,7 +28,7 @@ use App\Libaries\pinyinfirstchar;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         // dd(auth()->guard('teacher')->user());
 
@@ -41,6 +43,7 @@ class HomeController extends Controller
             return redirect('teacher/takeclass');
         }
 
+        $chooseLessonsId = $request->session()->get('chooseLessonsId');
 
         $sclasses = Sclass::where(["is_graduated" => 0, "schools_id" => $teacher->schools_id])->get();
         $classData = [];
@@ -49,15 +52,22 @@ class HomeController extends Controller
             $term = Term::where(['enter_school_year' => $sclass['enter_school_year'], 'is_current' => 1])->first();
             $classData[$sclass['id']] = $term['grade_key'] . $sclass['class_title'] . "班";
         }
-        $lessons = Lesson::orderBy("lessons.created_at", "DESC")->get();
-        $lessonsData = [];
-        array_push($lessonsData, "请选择课程");
-        $order = 1;
-        foreach ($lessons as $key => $lesson) {
-            $lessonsData[$lesson['id']] = $order . ". " . $lesson['title'] . "(". $lesson['subtitle'] .")";
-            $order++;
+        $chooseLessonDesc = "";
+        if (isset($chooseLessonsId)) {
+            $lesson = Lesson::find($chooseLessonsId);
+            $unit = Unit::find($lesson->units_id);
+            $course = Course::find($unit->courses_id);
+            $chooseLessonDesc = "您已选择" . $course->title . "课程 " . $unit->title . "单元 " . $lesson->title."课";
         }
-        return view('teacher/home', compact('classData', 'lessonsData'));
+        // $courses = Course::orderBy("courses.created_at", "DESC")->get();
+        // $coursesData = [];
+        // array_push($coursesData, "请选择课程");
+        // $order = 1;
+        // foreach ($courses as $key => $course) {
+        //     $coursesData[$course['id']] = $order . ". " . $course['title'];
+        //     $order++;
+        // }
+        return view('teacher/home', compact('classData', 'chooseLessonDesc', 'chooseLessonsId'));
     }
 
     public function takeClass(Request $request)

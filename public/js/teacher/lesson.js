@@ -66,7 +66,8 @@ function actionCol(value, row, index) {
         ' <a class="btn btn-info btn-sm ' + lockClass + '">' + lockStr + '</a>',
         ' <a class="btn btn-info btn-sm detail">查看</a>',
         ' <a class="btn btn-warning btn-sm edit">编辑</a>',
-        ' <a class="btn btn-danger btn-sm del">删除</a>'
+        ' <a class="btn btn-danger btn-sm del">删除</a>',
+        ' <a class="btn btn-success btn-sm choose">选择此课</a>'
     ].join('');
 }
 
@@ -118,6 +119,27 @@ window.actionEvents = {
             }
         });
         $('#lesson-list').bootstrapTable("refresh");
+    },
+    'click .choose': function(e, value, row, index) {
+        // console.log(row);
+        
+        $.ajax({
+            type: "POST",
+            url: '/teacher/chooseLesson',
+            data: {lessons_id: row.id},
+            success: function( data ) {
+                // console.log(data);
+                if("inclass" == data) {
+                    alert("您正在上课！")
+                } else if ("true" == data) {
+                    // alert("选课成功！")
+                    window.location.href = "/teacher/";
+                } else if ("false" == data) {
+                    alert("开放课失败！")
+                }
+            }
+        });
+        // $('#lesson-list').bootstrapTable("refresh");
     },
     'click .del': function(e, value, row, index) {
     	if(row.lesson_log_num > 0) {

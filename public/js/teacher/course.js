@@ -107,7 +107,7 @@ window.actionEvents = {
         $('#course-list').bootstrapTable("refresh");
     },
     'click .unit': function(e, value, row, index) {
-        console.log(row);
+        // console.log(row);
         window.location.href = "/teacher/unit?cId="+row.id;
     },
     'click .del': function(e, value, row, index) {

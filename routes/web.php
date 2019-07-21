@@ -223,6 +223,7 @@ Route::group(['middleware' => 'auth.teacher', 'prefix' => 'teacher','namespace' 
     $router->post('getLesson', 'LessonController@getLesson');
     Route::post('closeLesson', 'LessonController@closeLesson');
     Route::post('openLesson', 'LessonController@openLesson');
+    Route::post('chooseLesson', 'LessonController@chooseLesson');
 
     Route::resource('course', 'CourseController');
     Route::get('get-course-list', 'CourseController@getCourseList');

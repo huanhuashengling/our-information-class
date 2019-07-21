@@ -29,7 +29,7 @@
                     副标题
                 </th>
                 <th data-field="is_open" data-sortable="true" data-formatter="isOpenCol">
-                    是否开放
+                    开放
                 </th>
                 <th data-field="username" data-sortable="true">
                     创建者
