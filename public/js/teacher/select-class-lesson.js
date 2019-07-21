@@ -13,10 +13,37 @@ $(document).ready(function() {
 	// 	checkSelection();
 	// });
 
+	$(".class-btn").on("click", function(e) {
+		e.preventDefault();
+		if (!$("#lessons-id").val()) {
+			alert("请先选择课程");
+			return;
+		}
+		$(".class-btn").removeClass("btn-primary");
+		$(this).addClass("btn-primary");
+		$("#sclasses-id").val($(this).val());
+		checkSelection();
+	});
+
+	$("#submit-btn").on("click", function(e) {
+		e.preventDefault();
+		var sclassesId = $("#sclasses-id").val();
+		var lessonsId = $("#lessons-id").val();
+		alert(sclassesId + "  "  + lessonsId);
+		$.ajax({
+            type: "POST",
+            url: '/teacher/createLessonLog',
+            data: {sclassesId: sclassesId, lessonsId: lessonsId},
+            success: function( data ) {
+                if ("false" != data) {
+                }
+            }
+        });
+	});
 });
 
 function checkSelection() {
-	var sclassesId = $("[name='sclasses_id']").val();
+	var sclassesId = $("#sclasses-id").val();
 	var lessonsId = $("#lessons-id").val();
 	if(0 !=  sclassesId && 0 != lessonsId) {
 		// alert(sclassesId + " --- " +lessonsId);

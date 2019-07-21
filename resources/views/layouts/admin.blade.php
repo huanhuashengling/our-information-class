@@ -55,7 +55,8 @@
                     <li class="{{ Request::segment(2) === 'teachers' ? 'active' : null }}"><a href="{{ url('/school/teachers') }}">教师账户</a></li>
                     <li class="{{ Request::segment(2) === 'export-post' ? 'active' : null }}"><a href="{{ url('/school/export-post') }}">导出作业</a></li>
                     <li class="{{ Request::segment(2) === 'lessonLog' ? 'active' : null }}"><a href="{{ url('/school/lessonLog') }}">课程记录</a></li>
-                    <li class="{{ Request::segment(2) === 'send-mail' ? 'active' : null }}"><a href="{{ url('/school/send-mail') }}">邮件发送</a></li>
+                    <li class="{{ Request::segment(2) === 'export-mail' ? 'active' : null }}"><a href="{{ url('/school/send-mail') }}">作业导出</a></li>
+                    <!-- <li class="{{ Request::segment(2) === 'send-mail' ? 'active' : null }}"><a href="{{ url('/school/send-mail') }}">邮件发送</a></li> -->
                 </ul>
 
                 <!-- Right Side Of Navbar -->

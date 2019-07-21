@@ -57,7 +57,7 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li class="{{ Request::segment(2) === '' ? 'active' : null }}"><a href="{{ url('/teacher/') }}">选课上课</a></li>
-                    <li class="{{ Request::segment(2) === 'lesson' ? 'active' : null }}"><a href="{{ url('/teacher/course') }}">课程管理</a></li>
+                    <li class="{{ (Request::segment(2) === 'course' || Request::segment(2) === 'unit' || Request::segment(2) === 'lesson') ? 'active' : null }}"><a href="{{ url('/teacher/course') }}">课程管理</a></li>
                     <li class="{{ Request::segment(2) === 'lessonLog' ? 'active' : null }}"><a href="{{ url('/teacher/lessonLog') }}">上课记录</a></li>
                     <li class="{{ Request::segment(2) === 'scoreReport' ? 'active' : null }}"><a href="{{ url('/teacher/scoreReport') }}">成绩报告</a></li>
                 </ul>

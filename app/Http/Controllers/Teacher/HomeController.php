@@ -47,7 +47,6 @@ class HomeController extends Controller
 
         $sclasses = Sclass::where(["is_graduated" => 0, "schools_id" => $teacher->schools_id])->get();
         $classData = [];
-        array_push($classData, "请选择班级");
         foreach ($sclasses as $key => $sclass) {
             $term = Term::where(['enter_school_year' => $sclass['enter_school_year'], 'is_current' => 1])->first();
             $classData[$sclass['id']] = $term['grade_key'] . $sclass['class_title'] . "班";
@@ -57,7 +56,7 @@ class HomeController extends Controller
             $lesson = Lesson::find($chooseLessonsId);
             $unit = Unit::find($lesson->units_id);
             $course = Course::find($unit->courses_id);
-            $chooseLessonDesc = "您已选择" . $course->title . "课程 " . $unit->title . "单元 " . $lesson->title."课";
+            $chooseLessonDesc = "您已选择: " . $course->title . " > " . $unit->title . " > " . $lesson->title;
         }
         // $courses = Course::orderBy("courses.created_at", "DESC")->get();
         // $coursesData = [];

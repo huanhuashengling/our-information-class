@@ -22,9 +22,9 @@ class LessonLogController extends Controller
     {
         //TODO DO not readd the same lessonlog with the sanme teacher classe and lesson
         $teachersId = \Auth::guard("teacher")->id();
-        $sclassesId = $request->get('sclasses_id');
-        // $lessonsId = $request->get('lessons_id');
+        $sclassesId = $request->get('sclassesId');
         $lessonsId = $request->session()->get('chooseLessonsId');
+
         if (0 == $sclassesId) {
             return redirect()->back()->withInput()->withErrors('请选择班级！');
         }
