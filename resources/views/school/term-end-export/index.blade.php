@@ -36,6 +36,7 @@
 <div id="toolbar">
 </div>
 <table id="posts-list" class="table table-condensed table-responsive">
+
     <thead>
       <tr>
         <th data-field="" checkbox="true">
