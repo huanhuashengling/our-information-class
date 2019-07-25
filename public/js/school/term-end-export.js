@@ -30,26 +30,49 @@ $(document).ready(function() {
     	$.ajax({
             type: "POST",
             url: '/school/load-lesson-log-info',
-            data: {sclassesId: $("#sclasses-selection").val(), termsId: $("#term-selection").val(), type: "selection"},
+            data: {sclassesId: $("#sclasses-selection").val(), termsId: $("#term-selection").val(), type: "ullist"},
             success: function( data ) {
-            	$("#lesson-log-selection").html(data);
+            	$("#lesson-title-list").html(data);
             	// console.log(data);
             }
         });
     });
 
-    $("#export-btn").click(function(e){
-        $("#export-url").html("");
-        $.ajax({
-            type: "GET",
-            url: '/school/create-zip',
-            data: {sclassesId: $("#sclasses-selection").val(), lessonlogsId: $("#lesson-log-selection").val()},
-            success: function( data ) {
-                // $("#lesson-log-selection").html(data);
-                // console.log(data);
-                $("#export-url").html("<br /> <a href='" + data + "'>" + data.split("/")[4] + "</a>");
-            }
-        });
+    $("#build-btn").click(function(e){
+    	e.preventDefault();
+        $('#posts-list').bootstrapTable("refresh");
+    	$('#posts-list').bootstrapTable({
+	        method: 'post', 
+	        url: "/school/load-term-end-post-list",
+	        pagination:"true",
+	        pageList: [55, 60], 
+	        pageSize: 55,
+	        pageNumber: 1,
+	        toolbar:"#toolbar",
+	        showExport: true,          //是否显示导出
+	        showColumns: "true",           
+	        exportDataType: "basic", 
+        	queryParams: function(params) {
+        		var temp = { 
+			        lessonTitleList : $("#select-lesson-title-list").val(),
+			        sclassesId: $("#sclasses-selection").val(),
+			    };
+			    return temp;
+        	},
+        	clickToSelect: true,
+        	columns: [{  
+                        checkbox: true  
+                    },{  
+                        title: '学号',
+                        formatter: function (value, row, index) {  
+                            return index+1;  
+                        }  
+                    }],
+	        responseHandler: function (res) {
+	        	// console.log(res);
+	            return res;
+	        },
+	    });
     });
 
     $("#clear-btn").click(function(e){
@@ -66,39 +89,21 @@ $(document).ready(function() {
         });
     });
 
-    $("#lesson-log-selection").change(function(e){
-        $("#export-url").html("");
-    	// alert("asasas");
-    	$('#posts-list').bootstrapTable("refresh");
-    	$('#posts-list').bootstrapTable({
-	        method: 'post', 
-	        url: "/school/load-post-list",
-	        pagination:"true",
-	        pageList: [55, 60], 
-	        pageSize: 55,
-	        pageNumber: 1,
-	        toolbar:"#toolbar",
-        	queryParams: function(params) {
-        		var temp = { 
-			        lessonlogsId : $("#lesson-log-selection").val(),
-			    };
-			    return temp;
-        	},
-        	clickToSelect: true,
-        	columns: [{  
-                        checkbox: true  
-                    },{  
-                        title: '序号',
-                        formatter: function (value, row, index) {  
-                            return index+1;  
-                        }  
-                    }],
-	        responseHandler: function (res) {
-	        	// console.log(res);
-	            return res;
-	        },
-	    });
-    });
+    $(document)
+	   	.on('click', '.lesson-title-btn', function (e) {
+	   		e.preventDefault();
+	   		$(this).addClass("btn-primary");
+	    	var titleList = "";
+	    	var titlenum = 0;
+	    	$( ".lesson-title-btn" ).each(function( index ) {
+	    		if ($(this).hasClass("btn-primary")) {
+	    			titleList += $(this).val() + "|";
+	    			titlenum += 1;
+	    		}
+	    	});
+	    	$("#select-lesson-title-list").val(titleList + titlenum);
+	   	});
+
 });
 
 function genderCol(value, row, index) {

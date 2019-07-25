@@ -3,27 +3,27 @@
 namespace App\Http\Controllers\School;
 
 use Illuminate\Http\Request;
-// use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Response as FacadeResponse;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Response as FacadeResponse;
 use \DB;
 use \Auth;
 use \DateTime;
 use App\Models\LessonLog;
 use App\Models\Sclass;
 use App\Models\School;
+use App\Models\Student;
 use App\Models\Post;
 use App\Models\Term;
 
 use ZipArchive;
 
-class ExportPostController extends Controller
+class TermEndExportController extends Controller
 {
     public function index($value='')
     {
         $schoolsId = \Auth::guard("school")->id();
         $terms = Term::orderBy("enter_school_year", "desc")->get();
-        return view('school/export/index', compact("terms"));
+        return view('school/term-end-export/index', compact("terms"));
     }
 
     public function loadSclassSelection(Request $request)
@@ -35,75 +35,35 @@ class ExportPostController extends Controller
         return $this->buildSclassSelctionHtml($sclasses);
     }
 
-    public function loadLessonLogInfo(Request $request) {
+    public function loadTermEndPostList(Request $request) {
+        $lessonTitleList = $request->get('lessonTitleList');
+        $lessonTitleArr = explode("|", $lessonTitleList);
+        $titleNum = array_pop($lessonTitleArr);
         $sclassesId = $request->get('sclassesId');
-        $term = Term::find($request->get('termsId'));
-        $type = $request->get('type');
-        $lessonLogs = LessonLog::select('lesson_logs.id', 'lessons.title', 'lessons.subtitle', 'teachers.username', 'lesson_logs.updated_at', DB::raw("COUNT(`posts`.`id`) as post_num"))
-            ->leftJoin('lessons', function($join){
-              $join->on('lessons.id', '=', 'lesson_logs.lessons_id');
-            })
-            ->leftJoin('teachers', function($join){
-              $join->on('teachers.id', '=', 'lesson_logs.teachers_id');
-            })
-            ->leftJoin('posts', function($join){
-              $join->on('posts.lesson_logs_id', '=', 'lesson_logs.id');
-            })
-            ->groupBy('lesson_logs.id', 'lessons.title', 'lessons.subtitle', 'teachers.username', 'lesson_logs.updated_at')
-            ->whereBetween('lesson_logs.created_at', array($term->from_date, $term->to_date))
-            ->where(['sclasses_id' => $sclassesId])->get();
-
-        if ("ullist" == $type) {
-            return $this->buildLessonLogUlHtml($lessonLogs);
-        } else {
-            return $this->buildLessonLogSelectionHtml($lessonLogs);
+        $students = Student::select("username")
+                ->where("sclasses_id", "=", $sclassesId)
+                ->where("is_lock", "=", 0)
+                ->get();
+        $studentNum = count($students);
+        $studentData = [];
+        foreach ($students as $key => $student) {
+            foreach ($lessonTitleArr as $key => $lessonTitle) {
+                $student["title" . ($key + 1)] = $lessonTitle;
+            }
+            $student["titleNum"] = $titleNum;
+            $studentData[] = $student;
         }
+        $tStudent = new Student();
+        $tStudent["username"] = "合计";
+        $tStudent["title1"] = $studentNum;
+        $tStudent["title2"] = $studentNum;
+        $tStudent["title3"] = $studentNum;
+        $tStudent["title4"] = $studentNum;
+        $tStudent["titleNum"] = $studentNum*4;
+        $studentData[] = $tStudent;
+        return $studentData;
     }
 
-    public function loadPostList(Request $request) {
-        $lessonlogsId = $request->get('lessonlogsId');
-        $posts = Post::select('posts.id', 'students.username', 'students.gender', 'posts.original_name', 'post_rates.rate', 'sclasses.enter_school_year', 'sclasses.class_title', 'comments.content', DB::raw("COUNT(`marks`.`id`) as mark_num"))
-            ->leftJoin('students', function($join){
-               $join->on('students.id', '=', 'posts.students_id');
-            })
-            ->leftJoin('post_rates', function($join){
-               $join->on('post_rates.posts_id', '=', 'posts.id');
-            })
-            ->leftJoin('comments', function($join){
-               $join->on('comments.posts_id', '=', 'posts.id');
-            })
-            ->leftJoin('sclasses', function($join){
-               $join->on('sclasses.id', '=', 'students.sclasses_id');
-            })
-            ->leftJoin('marks', function($join){
-               $join->on('marks.posts_id', '=', 'posts.id');
-            })
-            ->groupBy('posts.id', 'students.username', 'students.gender', 'posts.original_name', 'post_rates.rate', 'sclasses.enter_school_year', 'sclasses.class_title', 'comments.content')
-            ->where(['posts.lesson_logs_id' => $lessonlogsId])->get();
-        return json_encode($posts);
-    }
-
-    public function buildLessonLogSelectionHtml($lessonlogs) {
-        $returnHtml = "<option>选择上课记录</option>";
-        foreach ($lessonlogs as $key => $lessonLog) {
-            $d= date("Y-m-d", strtotime($lessonLog['updated_at']));
-            // $date = new DateTime($lessonLog['updated_at'])->format("Y-m-d");
-            $returnHtml .= "<option value='" . $lessonLog['id'] . "'>" . ($key+1) . ". " . $lessonLog['title'] ."(". $lessonLog['subtitle'] .")－". $lessonLog['username'] . "－".$lessonLog['post_num'] . "份－" . $d . "</option>";
-        }
-
-        return $returnHtml;
-    }
-
-    public function buildLessonLogUlHtml($lessonlogs) {
-        $returnHtml = "";
-        foreach ($lessonlogs as $key => $lessonLog) {
-            $d= date("Y-m-d", strtotime($lessonLog['updated_at']));
-            // $date = new DateTime($lessonLog['updated_at'])->format("Y-m-d");
-            $returnHtml .= "<button class='btn btn-default lesson-title-btn' value='" . $lessonLog['title'] . "'>" . ($key+1) . ". " . $lessonLog['title'] . "</button>";
-        }
-
-        return $returnHtml;
-    }
 
     public function exportPostFiles(Request $request) {
         $sclassesId = $request->get('sclassesId');

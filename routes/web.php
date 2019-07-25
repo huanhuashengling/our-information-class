@@ -164,11 +164,21 @@ Route::group(['middleware' => 'auth.school:school, school/login', 'prefix' => 's
     $router->post('get-lesson-log-list', 'LessonLogController@getLessonLogList');
     $router->post('delLessonLog', 'LessonLogController@delLessonLog');
 
-    // email
+    // email temp close this function
     $router->get('send-mail', 'SendMailController@index');
     $router->get('get-send-mail-list', 'SendMailController@listAllMails');
     $router->post('addSendMail', 'SendMailController@addSendMail');
     $router->post('updateSendMail', 'SendMailController@updateSendMail');
+
+
+
+    // term-end-export
+    $router->get('term-end-export', 'TermEndExportController@index');
+    // $router->post('export-post-files', 'TermEndExportController@exportPostFiles');
+    // $router->post('load-lesson-log-info', 'TermEndExportController@loadLessonLogInfo');
+    $router->post('load-term-end-post-list', 'TermEndExportController@loadTermEndPostList');
+    // $router->get('create-zip', 'TermEndExportController@exportPostFiles');
+    // $router->get('clear-all-zip', 'TermEndExportController@clearALlZip');
 
     // reset password
     $router->get('reset', 'HomeController@getReset');
