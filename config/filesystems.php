@@ -68,9 +68,30 @@ return [
             'visibility' => 'public',
         ],
 
-        'yscover' => [
+        'dhcover' => [
             'driver' => 'local',
-            'root' => public_path('works/ys/cover'),
+            'root' => public_path('works/dh/cover'),
+            // 'url' => 'posts/' . 
+            'visibility' => 'public',
+        ],
+
+        'dhposts' => [
+            'driver' => 'local',
+            'root' => public_path('posts/dh'),
+            // 'url' => 'posts/' . 
+            'visibility' => 'public',
+        ],
+
+        'dhworks' => [
+            'driver' => 'local',
+            'root' => public_path('works/dh'),
+            // 'url' => 'posts/' . 
+            'visibility' => 'public',
+        ],
+
+        'dhcover' => [
+            'driver' => 'local',
+            'root' => public_path('works/dh/cover'),
             // 'url' => 'posts/' . 
             'visibility' => 'public',
         ],
