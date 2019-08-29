@@ -46,9 +46,9 @@ class LessonLogController extends Controller
         $lessonLog = new LessonLog();
 
         $lessonLog->teachers_id = \Auth::guard("teacher")->id();
-        $lessonLog->sclasses_id = $request->get('sclasses_id');
-        $lessonLog->lessons_id = $request->get('lessons_id');
-        $lessonLog->rethink = $request->get('rethink');
+        $lessonLog->sclasses_id = $sclassesId;
+        $lessonLog->lessons_id = $lessonsId;
+        $lessonLog->rethink = "";
         $lessonLog->status = 'open';
         // dd($lessonLog);die();
         if ($lessonLog->save()) {
