@@ -49,7 +49,7 @@ class LessonController extends Controller
         $lesson->teachers_id = Auth::guard('teacher')->id();;
 
         if ($lesson->save()) {
-            return redirect('teacher/lesson');
+            return redirect('teacher/lesson?uId=' . $request->get('units_id'));
         } else {
             return redirect()->back()->withInput()->withErrors('新建失败！');
         }
@@ -80,7 +80,7 @@ class LessonController extends Controller
         $lesson->help_md_doc = $request->get('content');
 
         if ($lesson->save()) {
-            return redirect('teacher/lesson');
+            return redirect('teacher/lesson?uId=' . $request->get('units_id'));
         } else {
             return redirect()->back()->withInput()->withErrors('修改失败！');
         }

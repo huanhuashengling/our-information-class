@@ -61,7 +61,7 @@ class UnitController extends Controller
         $unit->teachers_id = Auth::guard('teacher')->id();
 
         if ($unit->save()) {
-            return redirect('teacher/unit');
+            return redirect('teacher/unit?cId=' . $request->get('courses_id'));
         } else {
             return redirect()->back()->withInput()->withErrors('新建失败！');
         }
@@ -89,7 +89,7 @@ class UnitController extends Controller
         $unit->teachers_id = Auth::guard('teacher')->id();
 
         if ($unit->save()) {
-            return redirect('teacher/unit');
+            return redirect('teacher/unit?cId=' . $request->get('courses_id'));
         } else {
             return redirect()->back()->withInput()->withErrors('修改失败！');
         }
