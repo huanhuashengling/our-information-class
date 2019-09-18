@@ -171,6 +171,7 @@ class StudentAccountController extends Controller
         $data["gender"] = $request->get('gender');
         $data["password"] = $request->get('password');
         $data["groups_id"] = $request->get('groups_id');
+        $data["order_in_group"] = $request->get('order_in_group');
         $data["sclasses_id"] = $request->get('sclasses_id');
         return $this->createStudentAccount($data);
     }
@@ -187,6 +188,7 @@ class StudentAccountController extends Controller
                 'work_max_num' => 1,
                 'work_comment_enable' => 1,
                 'groups_id' => $data['groups_id'],
+                'order_in_group' => $data['order_in_group'],
                 'sclasses_id' => $data['sclasses_id'],
                 'is_lock' => 0,
                 'remember_token' => str_random(10),

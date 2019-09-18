@@ -36,7 +36,7 @@ $(document).ready(function() {
                         }  
                     }],
 	        responseHandler: function (res) {
-	        	console.log(res);
+	        	// console.log(res);
 	            return res;
 	        },
 	    });
@@ -86,6 +86,7 @@ $(document).ready(function() {
     $(document)
 	   	.on('click', '.student-btn', function (e) {
 	   		e.preventDefault();
+            var orderInGroup = $('#student-list').bootstrapTable("getOptions").totalRows + 1;
 	   		if ($(this).hasClass("btn-success")) {
 	   			$(this).removeClass("btn-success");
 	   			$(this).addClass("btn-primary");
@@ -96,7 +97,7 @@ $(document).ready(function() {
 		   		$.ajax({
 		            type: "POST",
 		            url: '/school/addOneStudentIntoGroup',
-		            data: {'groups_id' : $("#add-student-btn").val(), 'students_id' : $(this).val()},
+		            data: {'groups_id' : $("#add-student-btn").val(), 'students_id' : $(this).val(), 'order_in_group' : orderInGroup},
 		            success: function( data ) {
 		            	$('#student-list').bootstrapTable('refresh');
 		            }

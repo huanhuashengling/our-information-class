@@ -55,7 +55,7 @@ class HomeController extends Controller
           $tGroup = Group::find($student->groups_id);
           $groupName = $tGroup->name;
 
-          $tStudents = Student::where("groups_id", "=", $student->groups_id)->get();
+          $tStudents = Student::where("groups_id", "=", $student->groups_id)->orderBy("order_in_group", "ASC")->get();
             
             foreach ($tStudents as $key => $tStudent) {
               if ($tStudent->username != $student->username) {

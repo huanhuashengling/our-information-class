@@ -11,12 +11,10 @@
     {!! Form::close() !!}
   </div>
 </div>
+<!-- url school/updateStudentEmail   id update-student-email -->
 <div class="panel panel-success col-md-6">
-  <div class="panel-heading">导入学生邮箱</div>
   <div class="panel-body">
-    {!! Form::open(array('url'=>'school/updateStudentEmail','method'=>'POST','files'=>'true')) !!}
-    {!! Form::file('xls', ['id' => 'update-student-email', 'type'=>"file", 'class'=>"file-loading"]) !!}
-    {!! Form::close() !!}
+    <img src="/images/oicstudentimport.png" width="400px">
   </div>
 </div>
 <div class="panel panel-success col-md-12">

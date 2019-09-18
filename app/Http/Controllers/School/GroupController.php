@@ -74,7 +74,7 @@ class GroupController extends Controller
     public function getStudentsInGroup(Request $request)
     {
         $groupsId = $request->get("groupsId");
-        $students = Student::where("groups_id", "=", $groupsId)->get();
+        $students = Student::where("groups_id", "=", $groupsId)->orderBy("order_in_group", "ASC")->get();
         return $students;
     }
 
@@ -104,9 +104,11 @@ class GroupController extends Controller
     {
         $groupsId = $request->get("groups_id");
         $studentsId = $request->get("students_id");
+        $orderInGroup = $request->get("order_in_group");
 
         $student = Student::find($studentsId);
         $student->groups_id = $groupsId;
+        $student->order_in_group = $orderInGroup;
         $student->update();
     }
 
@@ -131,6 +133,7 @@ class GroupController extends Controller
     {
         $student = Student::find($id);
         $student->groups_id = null;
+        $student->order_in_group = null;
         $student->update();
     }
 }

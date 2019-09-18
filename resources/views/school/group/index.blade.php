@@ -67,8 +67,8 @@
                   <th data-field="gender" data-formatter="genderCol">
                       性别
                   </th>
-                  <th data-field="description">
-                      组内职务
+                  <th data-field="order_in_group">
+                      组内顺序
                   </th>
                   <th data-field="studentsId" data-formatter="studentActionCol" data-events="studentActionEvents">
                       操作
