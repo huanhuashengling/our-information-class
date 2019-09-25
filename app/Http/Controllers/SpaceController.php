@@ -21,8 +21,9 @@ class SpaceController extends Controller
             return view('space/index', compact("student"));
         }
         // echo($request->get("studentsId"));
-        $student = Student::select("students.*", "terms.grade_key", "sclasses.class_title")
+        $student = Student::select("students.*", "terms.grade_key", "sclasses.class_title", "schools.title as school_title")
         ->join('sclasses', 'sclasses.id', '=', "students.sclasses_id")
+        ->join('schools', 'sclasses.schools_id', '=', "schools.id")
         ->join('terms', 'sclasses.enter_school_year', '=', "terms.enter_school_year")
         ->where("students.id", "=", $request->get("sId"))
         ->where("terms.is_current", "=", 1)
