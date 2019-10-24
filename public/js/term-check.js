@@ -13,12 +13,32 @@ $(document).ready(function() {
 	    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	  }
 	});
+    
+    $("#school-selection").change(function(){
+        if (0 == $("#school-selection").val()) {
+            $("#lesson-log-selection").html("<option>请选择学校</option>");
+            return;
+        }
+    });
 
 	$("#term-selection").change(function(){
+        if (0 == $("#school-selection").val()) {
+            $("#lesson-log-selection").html("<option>请选择学校</option>");
+            return;
+        }
 		if (0 == $("#term-selection").val()) {
     		$("#lesson-log-selection").html("<option>请选择学期</option>");
     		return;
     	}
+        $.ajax({
+            type: "GET",
+            url: '/load-class-selection',
+            data: {schools_id: $("#school-selection").val(), terms_id: $("#term-selection").val()},
+            success: function( data ) {
+                // console.log(data);
+                $("#classes-selection").html(data);
+            }
+        });
 	});
 
 	$("#classes-selection").change(function(){
@@ -30,11 +50,10 @@ $(document).ready(function() {
     		$("#lesson-log-selection").html("<option>请选择班号</option>");
     		return;
     	}
-		// alert($("#term-selection").val());
 		$.ajax({
             type: "POST",
             url: '/term-check-load-lesson-log',
-            data: {terms_id: $("#term-selection").val(), class_num: $("#classes-selection").val()},
+            data: {schools_id: $("#school-selection").val(), terms_id: $("#term-selection").val(), sclasses_id: $("#classes-selection").val()},
             success: function( data ) {
             	// console.log(data);
             	$("#lesson-log-selection").html(data);

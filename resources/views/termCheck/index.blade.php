@@ -3,7 +3,14 @@
 @section('content')
 <div class="container">
   <form class="form-inline">
-
+    <div class="form-group">
+      <select class="form-control" id="school-selection">
+          <option value="0">选择学校</option>
+          @foreach ($schools as $school)
+          <option value="{{$school->id}}">{{$school->title}}({{$school->post_num}})</option>
+          @endforeach
+      </select>
+    </div>
     <div class="form-group">
       <select class="form-control" id="term-selection">
           <option value="0">选择学期</option>
@@ -21,10 +28,6 @@
     <div class="form-group">
       <select class="form-control" id="classes-selection">
           <option value="0">选择班级</option>
-          <option value="1">甲班</option>
-          <option value="2">乙班</option>
-          <option value="3">丙班</option>
-          <option value="4">丁班</option>
       </select>
     </div>
     <div class="form-group">

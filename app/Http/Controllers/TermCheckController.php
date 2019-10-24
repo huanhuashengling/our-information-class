@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Term;
 use App\Models\Sclass;
+use App\Models\School;
 use App\Models\LessonLog;
 use \DB;
 use App\Models\PostRate;
@@ -19,8 +20,29 @@ class TermCheckController extends Controller
 {
     public function index()
     {
+        $schools = School::select("schools.id", "schools.title", "schools.code", DB::raw("COUNT(`posts`.`id`) as post_num"))
+                    ->join('sclasses', 'sclasses.schools_id', '=', 'schools.id')
+                    ->join('students', 'students.sclasses_id', '=', 'sclasses.id')
+                    ->leftJoin('posts', 'posts.students_id', '=', 'students.id')
+                    ->groupBy("schools.id", "schools.title", "schools.code")
+                    ->where("districts_id", "=", 1)->get();
         $terms = Term::orderBy("enter_school_year", "desc")->get();
-        return view('termCheck/index', compact('terms'));
+        return view('termCheck/index', compact('schools', 'terms'));
+    }
+
+    public function loadSclassSelection(Request $request)
+    {
+        $term = Term::find($request->get('terms_id'));
+        $schools_id = $request->get('schools_id');
+        $sclasses = Sclass::where(["enter_school_year" => $term->enter_school_year, 'schools_id' => $schools_id])
+        ->orderBy("enter_school_year", "desc")->get();
+
+        $returnHtml = "<option>选择班级</option>";
+        foreach ($sclasses as $key => $sclass) {
+            $returnHtml .= "<option value='" . $sclass['id'] . "'>" . $sclass['class_title'] . "班</option>";
+        }
+
+        return $returnHtml;
     }
 
     public function loadLessonLogSelection(Request $request)
@@ -29,8 +51,8 @@ class TermCheckController extends Controller
         $from = date('Y-m-d', strtotime($term->from_date)); 
         $to = date('Y-m-d', strtotime($term->to_date));
 
-        $class_num = $request->get('class_num');
-        $sclass = Sclass::where(["class_num" => $class_num, "enter_school_year" => $term->enter_school_year])->first();
+        $sclasses_id = $request->get('sclasses_id');
+        $sclass = Sclass::where(["id" => $sclasses_id])->first();
 
         $lessonLogs = LessonLog::select('lesson_logs.id', 'lessons.title', 'lessons.subtitle', 'teachers.username', 'lesson_logs.updated_at', DB::raw("COUNT(`posts`.`id`) as post_num"))
             ->leftJoin('lessons', function($join){
@@ -135,7 +157,7 @@ class TermCheckController extends Controller
         foreach ($lessonlogs as $key => $lessonLog) {
             $d= date("Y-m-d", strtotime($lessonLog['updated_at']));
             // $date = new DateTime($lessonLog['updated_at'])->format("Y-m-d");
-            $returnHtml .= "<option value='" . $lessonLog['id'] . "'>" . ($key+1) . ". " . $lessonLog['title'] ."(". $lessonLog['subtitle'] .")－". $lessonLog['username'] . "－".$lessonLog['post_num'] . "份－" . $d . "</option>";
+            $returnHtml .= "<option value='" . $lessonLog['id'] . "'>" . ($key+1) . ". " . $lessonLog['title'] ."－". $lessonLog['username'] . "－".$lessonLog['post_num'] . "份－" . $d . "</option>";
         }
 
         return $returnHtml;

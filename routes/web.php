@@ -22,6 +22,8 @@ Route::post('/term-check-get-post-data/', 'TermCheckController@getPostDataByTerm
 Route::post('/term-check-get-post-rate/', 'TermCheckController@getPostRate');
 Route::post('/term-check-get-post/', 'TermCheckController@getPost');
 Route::post('/term-check-get-comment/', 'TermCheckController@getCommentByPostsId');
+Route::get('/load-class-selection', 'TermCheckController@loadSclassSelection');
+
 
 Route::get('/space', 'SpaceController@index');
 Route::get('/work', 'SpaceController@work');
