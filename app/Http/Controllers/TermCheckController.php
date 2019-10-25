@@ -86,6 +86,7 @@ class TermCheckController extends Controller
     public function getPostDataByTermAndSclass(Request $request)
     {
         $lessonLogsId = $request->get('lessonlogsId');
+        $school = School::find($request->get('schools_id'));
         $lessonLog = LessonLog::find($request->get('lessonlogsId'));
         // dd($lessonLog);die();
 
@@ -121,7 +122,7 @@ class TermCheckController extends Controller
         $postedCount = $allCount-$unpostCount;
         $panelHeadStr = "(全部".$allCount.")"." "."(已交".$postedCount.")"." "."(未交".$unpostCount.")";
         
-        $returnHtml = "<div class='panel panel-default'><div class='panel-heading'><h4>".$panelHeadStr."</h4></div><div class='panel-body'>" . $this->buildStudentPostsList($students) . " </div><div class='panel-footer'><h4>".$unPostStudentNameStr."</h4></div></div>";
+        $returnHtml = "<div class='panel panel-default'><div class='panel-heading'><h4>".$panelHeadStr."</h4></div><div class='panel-body'>" . $this->buildStudentPostsList($students, $school->code) . " </div><div class='panel-footer'><h4>".$unPostStudentNameStr."</h4></div></div>";
             
         $returnHtml .= "<input type='hidden' id='lesson-log-id' value='" . $lessonLog['id'] . "'>";
         $returnHtml .= "<div class='panel panel-default'><div class='panel-heading'><div class='panel-title'>本节课教学反思</div></div><div class='panel-body'><p>" . $lessonLog['rethink'] . "</p></div></div>";
@@ -130,9 +131,8 @@ class TermCheckController extends Controller
         return $returnHtml;
     }
 
-    public function buildStudentPostsList($students)
+    public function buildStudentPostsList($students, $schoolCode)
     {
-        $schoolCode = "ys";
         $returnHtml = "";
         $py = new pinyinfirstchar();
         foreach ($students as $student) {

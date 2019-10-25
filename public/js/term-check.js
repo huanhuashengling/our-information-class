@@ -66,7 +66,7 @@ $(document).ready(function() {
 		$.ajax({
             type: "POST",
             url: '/term-check-get-post-data/',
-            data: {lessonlogsId: $("#lesson-log-selection").val()},
+            data: {lessonlogsId: $("#lesson-log-selection").val(), schools_id: $("#school-selection").val(),},
             success: function( data ) {
             	// console.log(data);
             	$("#posts_area").html(data);
